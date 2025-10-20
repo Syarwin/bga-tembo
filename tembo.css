@@ -36,298 +36,197 @@
   margin: 0 0.08em;
   font-size: 1em; }
 
-.icon-flower-grey,
-.icon-flower-blue,
-.icon-flower-joker,
-.icon-flower-red,
-.icon-flower-white,
-.icon-flower-yellow {
+.icon-lion {
   height: 2em; }
 
-.icon-tree-1,
-.icon-tree-2,
-.icon-tree-3,
-.icon-tree-4,
-.icon-tree-5,
-.icon-tree-6,
-.icon-tree-7,
-.icon-tree-8 {
-  height: 2em; }
+.icon-tree-green {
+  background-image: url("img/icons.png");
+  background-size: 362.000000% auto;
+  background-position: 0.000000% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/132; }
 
-.icon-animal-cassowary,
-.icon-animal-hornbill,
-.icon-animal-orangutan,
-.icon-animal-rhinoceros,
-.icon-animal-tiger {
-  height: 2em; }
+.icon-tree-brown {
+  background-image: url("img/icons.png");
+  background-size: 362.000000% auto;
+  background-position: 39.694656% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/129; }
 
-.flowerBtn {
-  padding: 1px 3px;
-  font-size: 19px; }
-  .flowerBtn.placed {
-    background: #8ef98e;
-    pointer-events: none; }
+.icon-tree-blue {
+  background-image: url("img/icons.png");
+  background-size: 362.000000% auto;
+  background-position: 79.389313% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/113; }
 
-.icon-zone-2 {
-  height: 0.6em; }
+.icon-tree-red {
+  background-image: url("img/icons.png");
+  background-size: 362.000000% auto;
+  background-position: 0.000000% 56.666667%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/113; }
 
-.icon-zone-3I {
-  height: 0.6em; }
+.icon-lioness {
+  background-image: url("img/icons.png");
+  background-size: 362.000000% auto;
+  background-position: 39.694656% 55.510204%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/108; }
 
-.icon-zone-3L {
-  height: 1.1em; }
+.icon-lion {
+  background-image: url("img/icons.png");
+  background-size: 362.000000% auto;
+  background-position: 79.389313% 55.284553%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/107; }
 
-.icon-zone-4L {
-  height: 1.1em; }
+.icon-energy {
+  background-image: url("img/icons.png");
+  background-size: 362.000000% auto;
+  background-position: 0.000000% 100.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/100; }
 
-.icon-zone-4O {
-  height: 1.1em; }
+.icon-rotate {
+  background-image: url("img/icons.png");
+  background-size: 362.000000% auto;
+  background-position: 39.694656% 99.606299%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/99; }
 
-.icon-zone-4S {
-  height: 1.1em; }
+.icon-matriarch {
+  background-image: url("img/icons.png");
+  background-size: 724.000000% auto;
+  background-position: 100.000000% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 50/58; }
 
-.icon-zone-4T {
-  height: 1.1em; }
+.meeple-lion {
+  background-image: url("img/meeples.png");
+  background-size: 366.901408% auto;
+  background-position: 0.000000% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 284/293; }
 
-.icon-zone-5L {
-  height: 1.7em; }
+.meeple-lioness {
+  background-image: url("img/meeples.png");
+  background-size: 368.197880% auto;
+  background-position: 37.944664% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 283/293; }
 
-.icon-zone-5S {
-  height: 1.7em; }
+.meeple-matriarch {
+  background-image: url("img/meeples.png");
+  background-size: 415.139442% auto;
+  background-position: 72.692794% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 251/291; }
 
-.icon-player {
-  height: 2em; }
+.meeple-elephant-4 {
+  background-image: url("img/meeples.png");
+  background-size: 491.509434% auto;
+  background-position: 100.000000% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 212/213; }
 
-.icon-tree {
-  height: 2em; }
+.meeple-elephant-1 {
+  background-image: url("img/meeples.png");
+  background-size: 510.784314% auto;
+  background-position: 0.000000% 44.527736%;
+  background-repeat: no-repeat;
+  aspect-ratio: 204/161; }
 
-.icon-paw {
-  height: 2em; }
+.meeple-elephant-2 {
+  background-image: url("img/meeples.png");
+  background-size: 513.300493% auto;
+  background-position: 24.791418% 44.394619%;
+  background-repeat: no-repeat;
+  aspect-ratio: 203/159; }
 
-.icon-ok {
-  height: 2em; }
+.meeple-landmark-6 {
+  background-image: url("img/meeples.png");
+  background-size: 537.113402% auto;
+  background-position: 48.938679% 43.805310%;
+  background-repeat: no-repeat;
+  aspect-ratio: 194/150; }
 
-.icon-nok {
-  height: 2em; }
+.meeple-elephant-3 {
+  background-image: url("img/meeples.png");
+  background-size: 537.113402% auto;
+  background-position: 72.287736% 43.484627%;
+  background-repeat: no-repeat;
+  aspect-ratio: 194/145; }
 
-.tembo-icon {
-  background: url("img/icons.png");
-  background-repeat: no-repeat; }
-  .tembo-icon.icon-animal-cassowary {
-    background: url("img/icons.png") no-repeat;
-    background-position: 22.756756756756758% 40.31476997578692%;
-    background-size: 1034.3434343434344%;
-    aspect-ratio: 198 / 198; }
-  .tembo-icon.icon-animal-hornbill {
-    background: url("img/icons.png") no-repeat;
-    background-position: 34.54054054054054% 40.31476997578692%;
-    background-size: 1034.3434343434344%;
-    aspect-ratio: 198 / 198; }
-  .tembo-icon.icon-animal-orangutan {
-    background: url("img/icons.png") no-repeat;
-    background-position: 46.32432432432432% 40.31476997578692%;
-    background-size: 1034.3434343434344%;
-    aspect-ratio: 198 / 198; }
-  .tembo-icon.icon-animal-rhinoceros {
-    background: url("img/icons.png") no-repeat;
-    background-position: 58.108108108108105% 40.31476997578692%;
-    background-size: 1034.3434343434344%;
-    aspect-ratio: 198 / 198; }
-  .tembo-icon.icon-animal-tiger {
-    background: url("img/icons.png") no-repeat;
-    background-position: 69.89189189189189% 40.31476997578692%;
-    background-size: 1034.3434343434344%;
-    aspect-ratio: 198 / 198; }
-  .tembo-icon.icon-flower-blue {
-    background: url("img/icons.png") no-repeat;
-    background-position: 81.67567567567568% 40.31476997578692%;
-    background-size: 1034.3434343434344%;
-    aspect-ratio: 198 / 198; }
-  .tembo-icon.icon-flower-empty {
-    background: url("img/icons.png") no-repeat;
-    background-position: 93.45945945945945% 40.31476997578692%;
-    background-size: 1034.3434343434344%;
-    aspect-ratio: 198 / 198; }
-  .tembo-icon.icon-flower-grey {
-    background: url("img/icons.png") no-repeat;
-    background-position: 1.0810810810810811% 67.91767554479419%;
-    background-size: 1034.3434343434344%;
-    aspect-ratio: 198 / 198; }
-  .tembo-icon.icon-flower-multi, .tembo-icon.icon-flower-joker {
-    background: url("img/icons.png") no-repeat;
-    background-position: 46.5553235908142% 62.61160714285714%;
-    background-size: 1551.5151515151515%;
-    aspect-ratio: 132 / 128; }
-  .tembo-icon.icon-flower-red {
-    background: url("img/icons.png") no-repeat;
-    background-position: 12.864864864864863% 67.91767554479419%;
-    background-size: 1034.3434343434344%;
-    aspect-ratio: 198 / 198; }
-  .tembo-icon.icon-flower-white {
-    background: url("img/icons.png") no-repeat;
-    background-position: 24.64864864864865% 67.91767554479419%;
-    background-size: 1034.3434343434344%;
-    aspect-ratio: 198 / 198; }
-  .tembo-icon.icon-flower-yellow {
-    background: url("img/icons.png") no-repeat;
-    background-position: 36.432432432432435% 67.91767554479419%;
-    background-size: 1034.3434343434344%;
-    aspect-ratio: 198 / 198; }
-  .tembo-icon.icon-nok {
-    background: url("img/icons.png") no-repeat;
-    background-position: 98.34170854271356% 10.559006211180124%;
-    background-size: 3531.0344827586205%;
-    aspect-ratio: 58 / 58; }
-  .tembo-icon.icon-ok {
-    background: url("img/icons.png") no-repeat;
-    background-position: 86.78391959798995% 58.07453416149069%;
-    background-size: 3531.0344827586205%;
-    aspect-ratio: 58 / 58; }
-  .tembo-icon.icon-pangolin {
-    background: url("img/icons.png") no-repeat;
-    background-position: 23.946037099494095% 2.6490066225165565%;
-    background-size: 761.3382899628252%;
-    aspect-ratio: 269 / 269; }
-  .tembo-icon.icon-paw {
-    background: url("img/icons.png") no-repeat;
-    background-position: 94% 2.4539877300613497%;
-    background-size: 1034.3434343434344%;
-    aspect-ratio: 198 / 209; }
-  .tembo-icon.icon-player {
-    background: url("img/icons.png") no-repeat;
-    background-position: 98.78849066128218% 2.079002079002079%;
-    background-size: 3056.7164179104475%;
-    aspect-ratio: 67 / 62; }
-  .tembo-icon.icon-tree {
-    background: url("img/icons.png") no-repeat;
-    background-position: 82.2450080949811% 2.484472049689441%;
-    background-size: 1050.2564102564102%;
-    aspect-ratio: 195 / 219; }
-  .tembo-icon.icon-tree-1 {
-    background: url("img/icons.png") no-repeat;
-    background-position: 12.004287245444802% 2.73224043715847%;
-    background-size: 1125.2747252747254%;
-    aspect-ratio: 182 / 292; }
-  .tembo-icon.icon-tree-2 {
-    background: url("img/icons.png") no-repeat;
-    background-position: 1.0729613733905579% 2.7359781121751023%;
-    background-size: 1113.0434782608695%;
-    aspect-ratio: 184 / 293; }
-  .tembo-icon.icon-tree-3 {
-    background: url("img/icons.png") no-repeat;
-    background-position: 38.42020419129501% 2.635046113306983%;
-    background-size: 1095.187165775401%;
-    aspect-ratio: 187 / 265; }
-  .tembo-icon.icon-tree-4 {
-    background: url("img/icons.png") no-repeat;
-    background-position: 49.384038564542045% 2.631578947368421%;
-    background-size: 1131.4917127071822%;
-    aspect-ratio: 181 / 264; }
-  .tembo-icon.icon-tree-5 {
-    background: url("img/icons.png") no-repeat;
-    background-position: 60.14997321906802% 2.5412960609911055%;
-    background-size: 1131.4917127071822%;
-    aspect-ratio: 181 / 237; }
-  .tembo-icon.icon-tree-6 {
-    background: url("img/icons.png") no-repeat;
-    background-position: 70.8779443254818% 2.5380710659898478%;
-    background-size: 1137.7777777777778%;
-    aspect-ratio: 180 / 236; }
-  .tembo-icon.icon-tree-7 {
-    background: url("img/icons.png") no-repeat;
-    background-position: 11.83083511777302% 40.758873929008566%;
-    background-size: 1137.7777777777778%;
-    aspect-ratio: 180 / 207; }
-  .tembo-icon.icon-tree-8 {
-    background: url("img/icons.png") no-repeat;
-    background-position: 1.0712372790573113% 40.80882352941176%;
-    background-size: 1131.4917127071822%;
-    aspect-ratio: 181 / 208; }
-  .tembo-icon.icon-zone-2 {
-    background: url("img/icons.png") no-repeat;
-    background-position: 91.67089893346876% 57.012195121951216%;
-    background-size: 2592.4050632911394%;
-    aspect-ratio: 79 / 40; }
-  .tembo-icon.icon-zone-3I {
-    background: url("img/icons.png") no-repeat;
-    background-position: 98.6017607457276% 57.012195121951216%;
-    background-size: 1750.4273504273506%;
-    aspect-ratio: 117 / 40; }
-  .tembo-icon.icon-zone-3L {
-    background: url("img/icons.png") no-repeat;
-    background-position: 98.88268156424581% 35.20084566596194%;
-    background-size: 2592.4050632911394%;
-    aspect-ratio: 79 / 78; }
-  .tembo-icon.icon-zone-4L {
-    background: url("img/icons.png") no-repeat;
-    background-position: 68.1512169860176% 59.30232558139535%;
-    background-size: 1750.4273504273506%;
-    aspect-ratio: 117 / 78; }
-  .tembo-icon.icon-zone-4O {
-    background: url("img/icons.png") no-repeat;
-    background-position: 98.88268156424581% 45.56025369978858%;
-    background-size: 2592.4050632911394%;
-    aspect-ratio: 79 / 78; }
-  .tembo-icon.icon-zone-4S {
-    background: url("img/icons.png") no-repeat;
-    background-position: 75.24598653547385% 59.30232558139535%;
-    background-size: 1750.4273504273506%;
-    aspect-ratio: 117 / 78; }
-  .tembo-icon.icon-zone-4T {
-    background: url("img/icons.png") no-repeat;
-    background-position: 82.34075608493009% 59.30232558139535%;
-    background-size: 1750.4273504273506%;
-    aspect-ratio: 117 / 78; }
-  .tembo-icon.icon-zone-5L {
-    background: url("img/icons.png") no-repeat;
-    background-position: 54.037267080745345% 61.852260198456456%;
-    background-size: 1765.5172413793102%;
-    aspect-ratio: 116 / 117; }
-  .tembo-icon.icon-zone-5S {
-    background: url("img/icons.png") no-repeat;
-    background-position: 61.07660455486542% 61.852260198456456%;
-    background-size: 1765.5172413793102%;
-    aspect-ratio: 116 / 117; }
+.meeple-tree-brown {
+  background-image: url("img/meeples.png");
+  background-size: 694.666667% auto;
+  background-position: 0.000000% 72.870662%;
+  background-repeat: no-repeat;
+  aspect-ratio: 150/194; }
 
-.tembo-meeple.tmp {
-  opacity: 0.7; }
-.tembo-meeple.icon-flower-grey, .tembo-meeple.icon-flower-blue, .tembo-meeple.icon-flower-joker, .tembo-meeple.icon-flower-red, .tembo-meeple.icon-flower-white, .tembo-meeple.icon-flower-yellow {
-  height: 6.2em; }
-.tembo-meeple.icon-tree-1, .tembo-meeple.icon-tree-2, .tembo-meeple.icon-tree-3, .tembo-meeple.icon-tree-4, .tembo-meeple.icon-tree-5, .tembo-meeple.icon-tree-6, .tembo-meeple.icon-tree-7, .tembo-meeple.icon-tree-8 {
-  margin-top: 0.8em;
-  height: 5.5em; }
-.tembo-meeple.icon-tree-8 {
-  margin-top: 1em;
-  height: 5em; }
-.tembo-meeple.icon-animal-cassowary, .tembo-meeple.icon-animal-hornbill, .tembo-meeple.icon-animal-orangutan, .tembo-meeple.icon-animal-rhinoceros, .tembo-meeple.icon-animal-tiger {
-  margin-top: 1em;
-  height: 5.5em;
-  z-index: 200; }
+.meeple-tree-green {
+  background-image: url("img/meeples.png");
+  background-size: 694.666667% auto;
+  background-position: 17.264574% 72.641509%;
+  background-repeat: no-repeat;
+  aspect-ratio: 150/192; }
 
-#meeple-pangolin {
-  background: url("img/icons.png") no-repeat;
-  background-position: 23.946037099494095% 2.6490066225165565%;
-  background-size: 761.3382899628252%;
-  aspect-ratio: 269 / 269;
-  width: 119px;
-  height: 119px;
-  border-radius: 50%;
-  box-shadow: 2px 2px 5px 1px black;
-  margin: 5px; }
-  #meeple-pangolin.selectable {
-    box-shadow: 1px 1px 5px 1px red;
-    cursor: pointer; }
-    #meeple-pangolin.selectable:hover {
-      scale: 1.1; }
-  #meeple-pangolin.selected {
-    box-shadow: 1px 1px 7px 5px lime; }
+.meeple-landmark-3 {
+  background-image: url("img/meeples.png");
+  background-size: 551.322751% auto;
+  background-position: 36.107855% 68.141593%;
+  background-repeat: no-repeat;
+  aspect-ratio: 189/150; }
 
-.tembo-pangolin-holder #meeple-pangolin {
-  width: 30px;
-  height: 30px; }
+.meeple-landmark-5 {
+  background-image: url("img/meeples.png");
+  background-size: 557.219251% auto;
+  background-position: 58.596491% 68.141593%;
+  background-repeat: no-repeat;
+  aspect-ratio: 187/150; }
 
-#flower-cards-holder #meeple-pangolin {
-  margin: 40px 5px; }
+.meeple-elephant-5 {
+  background-image: url("img/meeples.png");
+  background-size: 575.690608% auto;
+  background-position: 94.192799% 42.008487%;
+  background-repeat: no-repeat;
+  aspect-ratio: 181/121; }
+
+.meeple-tree-blue {
+  background-image: url("img/meeples.png");
+  background-size: 694.666667% auto;
+  background-position: 0.000000% 100.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 150/168; }
+
+.meeple-tree-red {
+  background-image: url("img/meeples.png");
+  background-size: 694.666667% auto;
+  background-position: 17.264574% 100.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 150/168; }
+
+.meeple-landmark-1 {
+  background-image: url("img/meeples.png");
+  background-size: 631.515152% auto;
+  background-position: 78.905359% 68.141593%;
+  background-repeat: no-repeat;
+  aspect-ratio: 165/150; }
+
+.meeple-landmark-2 {
+  background-image: url("img/meeples.png");
+  background-size: 659.493671% auto;
+  background-position: 97.398190% 68.141593%;
+  background-repeat: no-repeat;
+  aspect-ratio: 158/150; }
+
+.meeple-landmark-4 {
+  background-image: url("img/meeples.png");
+  background-size: 663.694268% auto;
+  background-position: 34.802260% 97.345133%;
+  background-repeat: no-repeat;
+  aspect-ratio: 157/150; }
 
 /********************
 * HORIZONTAL LAYOUT *
@@ -672,10 +571,6 @@ body {
               .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-size-scoring > span[data-status="-1"]::before {
                 content: "-"; }
           .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-animal-scoring {
-            background: url("img/icons.png") no-repeat;
-            background-position: 94% 2.4539877300613497%;
-            background-size: 1034.3434343434344%;
-            aspect-ratio: 198 / 209;
             text-align: center;
             width: 40px; }
             .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-animal-scoring[data-status="1"] {

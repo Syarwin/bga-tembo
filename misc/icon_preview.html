@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Sprite Preview</title>
+<style>
+
+    body {
+      font-family: sans-serif;
+      background: #f8f8f8;
+      color: #333;
+      padding: 1rem;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1rem;
+    }
+    .tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 0.5rem;
+    }
+    .icon {
+      width: 100%;
+      max-width: 100px;
+      background-repeat: no-repeat;
+    }
+    .name {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      text-align: center;
+      word-break: break-all;
+    }
+    
+.sprite-tree-green {
+  background-image: url('../img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 0.000000% 0.000000%;
+  aspect-ratio: 100/132;
+  background-repeat: no-repeat;
+}
+.sprite-tree-brown {
+  background-image: url('../img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 39.694656% 0.000000%;
+  aspect-ratio: 100/129;
+  background-repeat: no-repeat;
+}
+.sprite-tree-blue {
+  background-image: url('../img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 79.389313% 0.000000%;
+  aspect-ratio: 100/113;
+  background-repeat: no-repeat;
+}
+.sprite-tree-red {
+  background-image: url('../img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 0.000000% 56.666667%;
+  aspect-ratio: 100/113;
+  background-repeat: no-repeat;
+}
+.sprite-lioness {
+  background-image: url('../img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 39.694656% 55.510204%;
+  aspect-ratio: 100/108;
+  background-repeat: no-repeat;
+}
+.sprite-lion {
+  background-image: url('../img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 79.389313% 55.284553%;
+  aspect-ratio: 100/107;
+  background-repeat: no-repeat;
+}
+.sprite-energy {
+  background-image: url('../img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 0.000000% 100.000000%;
+  aspect-ratio: 100/100;
+  background-repeat: no-repeat;
+}
+.sprite-rotate {
+  background-image: url('../img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 39.694656% 99.606299%;
+  aspect-ratio: 100/99;
+  background-repeat: no-repeat;
+}
+.sprite-matriarch {
+  background-image: url('../img/icons.png');
+  background-size: 724.000000% auto;
+  background-position: 100.000000% 0.000000%;
+  aspect-ratio: 50/58;
+  background-repeat: no-repeat;
+}
+</style>
+</head>
+<body>
+<h1>Sprite Preview</h1>
+<div class='grid'>
+<div class='tile'><div class='icon sprite-tree-green'></div><div class='name'>tree-green</div></div>
+<div class='tile'><div class='icon sprite-tree-brown'></div><div class='name'>tree-brown</div></div>
+<div class='tile'><div class='icon sprite-tree-blue'></div><div class='name'>tree-blue</div></div>
+<div class='tile'><div class='icon sprite-tree-red'></div><div class='name'>tree-red</div></div>
+<div class='tile'><div class='icon sprite-lioness'></div><div class='name'>lioness</div></div>
+<div class='tile'><div class='icon sprite-lion'></div><div class='name'>lion</div></div>
+<div class='tile'><div class='icon sprite-energy'></div><div class='name'>energy</div></div>
+<div class='tile'><div class='icon sprite-rotate'></div><div class='name'>rotate</div></div>
+<div class='tile'><div class='icon sprite-matriarch'></div><div class='name'>matriarch</div></div>
+</div>
+</body></html>

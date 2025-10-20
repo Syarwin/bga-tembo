@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Sprite Preview</title>
+<style>
+
+    body {
+      font-family: sans-serif;
+      background: #f8f8f8;
+      color: #333;
+      padding: 1rem;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1rem;
+    }
+    .tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 0.5rem;
+    }
+    .icon {
+      width: 100%;
+      max-width: 100px;
+      background-repeat: no-repeat;
+    }
+    .name {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      text-align: center;
+      word-break: break-all;
+    }
+    
+.sprite-lion {
+  background-image: url('../img/meeples.png');
+  background-size: 366.901408% auto;
+  background-position: 0.000000% 0.000000%;
+  aspect-ratio: 284/293;
+  background-repeat: no-repeat;
+}
+.sprite-lioness {
+  background-image: url('../img/meeples.png');
+  background-size: 368.197880% auto;
+  background-position: 37.944664% 0.000000%;
+  aspect-ratio: 283/293;
+  background-repeat: no-repeat;
+}
+.sprite-matriarch {
+  background-image: url('../img/meeples.png');
+  background-size: 415.139442% auto;
+  background-position: 72.692794% 0.000000%;
+  aspect-ratio: 251/291;
+  background-repeat: no-repeat;
+}
+.sprite-elephant-4 {
+  background-image: url('../img/meeples.png');
+  background-size: 491.509434% auto;
+  background-position: 100.000000% 0.000000%;
+  aspect-ratio: 212/213;
+  background-repeat: no-repeat;
+}
+.sprite-elephant-1 {
+  background-image: url('../img/meeples.png');
+  background-size: 510.784314% auto;
+  background-position: 0.000000% 44.527736%;
+  aspect-ratio: 204/161;
+  background-repeat: no-repeat;
+}
+.sprite-elephant-2 {
+  background-image: url('../img/meeples.png');
+  background-size: 513.300493% auto;
+  background-position: 24.791418% 44.394619%;
+  aspect-ratio: 203/159;
+  background-repeat: no-repeat;
+}
+.sprite-landmark-6 {
+  background-image: url('../img/meeples.png');
+  background-size: 537.113402% auto;
+  background-position: 48.938679% 43.805310%;
+  aspect-ratio: 194/150;
+  background-repeat: no-repeat;
+}
+.sprite-elephant-3 {
+  background-image: url('../img/meeples.png');
+  background-size: 537.113402% auto;
+  background-position: 72.287736% 43.484627%;
+  aspect-ratio: 194/145;
+  background-repeat: no-repeat;
+}
+.sprite-tree-brown {
+  background-image: url('../img/meeples.png');
+  background-size: 694.666667% auto;
+  background-position: 0.000000% 72.870662%;
+  aspect-ratio: 150/194;
+  background-repeat: no-repeat;
+}
+.sprite-tree-green {
+  background-image: url('../img/meeples.png');
+  background-size: 694.666667% auto;
+  background-position: 17.264574% 72.641509%;
+  aspect-ratio: 150/192;
+  background-repeat: no-repeat;
+}
+.sprite-landmark-3 {
+  background-image: url('../img/meeples.png');
+  background-size: 551.322751% auto;
+  background-position: 36.107855% 68.141593%;
+  aspect-ratio: 189/150;
+  background-repeat: no-repeat;
+}
+.sprite-landmark-5 {
+  background-image: url('../img/meeples.png');
+  background-size: 557.219251% auto;
+  background-position: 58.596491% 68.141593%;
+  aspect-ratio: 187/150;
+  background-repeat: no-repeat;
+}
+.sprite-elephant-5 {
+  background-image: url('../img/meeples.png');
+  background-size: 575.690608% auto;
+  background-position: 94.192799% 42.008487%;
+  aspect-ratio: 181/121;
+  background-repeat: no-repeat;
+}
+.sprite-tree-blue {
+  background-image: url('../img/meeples.png');
+  background-size: 694.666667% auto;
+  background-position: 0.000000% 100.000000%;
+  aspect-ratio: 150/168;
+  background-repeat: no-repeat;
+}
+.sprite-tree-red {
+  background-image: url('../img/meeples.png');
+  background-size: 694.666667% auto;
+  background-position: 17.264574% 100.000000%;
+  aspect-ratio: 150/168;
+  background-repeat: no-repeat;
+}
+.sprite-landmark-1 {
+  background-image: url('../img/meeples.png');
+  background-size: 631.515152% auto;
+  background-position: 78.905359% 68.141593%;
+  aspect-ratio: 165/150;
+  background-repeat: no-repeat;
+}
+.sprite-landmark-2 {
+  background-image: url('../img/meeples.png');
+  background-size: 659.493671% auto;
+  background-position: 97.398190% 68.141593%;
+  aspect-ratio: 158/150;
+  background-repeat: no-repeat;
+}
+.sprite-landmark-4 {
+  background-image: url('../img/meeples.png');
+  background-size: 663.694268% auto;
+  background-position: 34.802260% 97.345133%;
+  aspect-ratio: 157/150;
+  background-repeat: no-repeat;
+}
+</style>
+</head>
+<body>
+<h1>Sprite Preview</h1>
+<div class='grid'>
+<div class='tile'><div class='icon sprite-lion'></div><div class='name'>lion</div></div>
+<div class='tile'><div class='icon sprite-lioness'></div><div class='name'>lioness</div></div>
+<div class='tile'><div class='icon sprite-matriarch'></div><div class='name'>matriarch</div></div>
+<div class='tile'><div class='icon sprite-elephant-4'></div><div class='name'>elephant-4</div></div>
+<div class='tile'><div class='icon sprite-elephant-1'></div><div class='name'>elephant-1</div></div>
+<div class='tile'><div class='icon sprite-elephant-2'></div><div class='name'>elephant-2</div></div>
+<div class='tile'><div class='icon sprite-landmark-6'></div><div class='name'>landmark-6</div></div>
+<div class='tile'><div class='icon sprite-elephant-3'></div><div class='name'>elephant-3</div></div>
+<div class='tile'><div class='icon sprite-tree-brown'></div><div class='name'>tree-brown</div></div>
+<div class='tile'><div class='icon sprite-tree-green'></div><div class='name'>tree-green</div></div>
+<div class='tile'><div class='icon sprite-landmark-3'></div><div class='name'>landmark-3</div></div>
+<div class='tile'><div class='icon sprite-landmark-5'></div><div class='name'>landmark-5</div></div>
+<div class='tile'><div class='icon sprite-elephant-5'></div><div class='name'>elephant-5</div></div>
+<div class='tile'><div class='icon sprite-tree-blue'></div><div class='name'>tree-blue</div></div>
+<div class='tile'><div class='icon sprite-tree-red'></div><div class='name'>tree-red</div></div>
+<div class='tile'><div class='icon sprite-landmark-1'></div><div class='name'>landmark-1</div></div>
+<div class='tile'><div class='icon sprite-landmark-2'></div><div class='name'>landmark-2</div></div>
+<div class='tile'><div class='icon sprite-landmark-4'></div><div class='name'>landmark-4</div></div>
+</div>
+</body></html>

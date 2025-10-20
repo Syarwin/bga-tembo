@@ -1,0 +1,218 @@
+// Auto-generated sprite mixins
+$meeple-sprite-width: 1042px;
+$meeple-sprite-height: 828px;
+
+@mixin meeple-lion {
+  background-image: url('img/meeples.png');
+  background-size: 366.901408% auto;
+  background-position: 0.000000% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 284/293;
+}
+
+@mixin meeple-lioness {
+  background-image: url('img/meeples.png');
+  background-size: 368.197880% auto;
+  background-position: 37.944664% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 283/293;
+}
+
+@mixin meeple-matriarch {
+  background-image: url('img/meeples.png');
+  background-size: 415.139442% auto;
+  background-position: 72.692794% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 251/291;
+}
+
+@mixin meeple-elephant-4 {
+  background-image: url('img/meeples.png');
+  background-size: 491.509434% auto;
+  background-position: 100.000000% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 212/213;
+}
+
+@mixin meeple-elephant-1 {
+  background-image: url('img/meeples.png');
+  background-size: 510.784314% auto;
+  background-position: 0.000000% 44.527736%;
+  background-repeat: no-repeat;
+  aspect-ratio: 204/161;
+}
+
+@mixin meeple-elephant-2 {
+  background-image: url('img/meeples.png');
+  background-size: 513.300493% auto;
+  background-position: 24.791418% 44.394619%;
+  background-repeat: no-repeat;
+  aspect-ratio: 203/159;
+}
+
+@mixin meeple-landmark-6 {
+  background-image: url('img/meeples.png');
+  background-size: 537.113402% auto;
+  background-position: 48.938679% 43.805310%;
+  background-repeat: no-repeat;
+  aspect-ratio: 194/150;
+}
+
+@mixin meeple-elephant-3 {
+  background-image: url('img/meeples.png');
+  background-size: 537.113402% auto;
+  background-position: 72.287736% 43.484627%;
+  background-repeat: no-repeat;
+  aspect-ratio: 194/145;
+}
+
+@mixin meeple-tree-brown {
+  background-image: url('img/meeples.png');
+  background-size: 694.666667% auto;
+  background-position: 0.000000% 72.870662%;
+  background-repeat: no-repeat;
+  aspect-ratio: 150/194;
+}
+
+@mixin meeple-tree-green {
+  background-image: url('img/meeples.png');
+  background-size: 694.666667% auto;
+  background-position: 17.264574% 72.641509%;
+  background-repeat: no-repeat;
+  aspect-ratio: 150/192;
+}
+
+@mixin meeple-landmark-3 {
+  background-image: url('img/meeples.png');
+  background-size: 551.322751% auto;
+  background-position: 36.107855% 68.141593%;
+  background-repeat: no-repeat;
+  aspect-ratio: 189/150;
+}
+
+@mixin meeple-landmark-5 {
+  background-image: url('img/meeples.png');
+  background-size: 557.219251% auto;
+  background-position: 58.596491% 68.141593%;
+  background-repeat: no-repeat;
+  aspect-ratio: 187/150;
+}
+
+@mixin meeple-elephant-5 {
+  background-image: url('img/meeples.png');
+  background-size: 575.690608% auto;
+  background-position: 94.192799% 42.008487%;
+  background-repeat: no-repeat;
+  aspect-ratio: 181/121;
+}
+
+@mixin meeple-tree-blue {
+  background-image: url('img/meeples.png');
+  background-size: 694.666667% auto;
+  background-position: 0.000000% 100.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 150/168;
+}
+
+@mixin meeple-tree-red {
+  background-image: url('img/meeples.png');
+  background-size: 694.666667% auto;
+  background-position: 17.264574% 100.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 150/168;
+}
+
+@mixin meeple-landmark-1 {
+  background-image: url('img/meeples.png');
+  background-size: 631.515152% auto;
+  background-position: 78.905359% 68.141593%;
+  background-repeat: no-repeat;
+  aspect-ratio: 165/150;
+}
+
+@mixin meeple-landmark-2 {
+  background-image: url('img/meeples.png');
+  background-size: 659.493671% auto;
+  background-position: 97.398190% 68.141593%;
+  background-repeat: no-repeat;
+  aspect-ratio: 158/150;
+}
+
+@mixin meeple-landmark-4 {
+  background-image: url('img/meeples.png');
+  background-size: 663.694268% auto;
+  background-position: 34.802260% 97.345133%;
+  background-repeat: no-repeat;
+  aspect-ratio: 157/150;
+}
+.meeple-lion {
+  @include meeple-lion;
+}
+
+.meeple-lioness {
+  @include meeple-lioness;
+}
+
+.meeple-matriarch {
+  @include meeple-matriarch;
+}
+
+.meeple-elephant-4 {
+  @include meeple-elephant-4;
+}
+
+.meeple-elephant-1 {
+  @include meeple-elephant-1;
+}
+
+.meeple-elephant-2 {
+  @include meeple-elephant-2;
+}
+
+.meeple-landmark-6 {
+  @include meeple-landmark-6;
+}
+
+.meeple-elephant-3 {
+  @include meeple-elephant-3;
+}
+
+.meeple-tree-brown {
+  @include meeple-tree-brown;
+}
+
+.meeple-tree-green {
+  @include meeple-tree-green;
+}
+
+.meeple-landmark-3 {
+  @include meeple-landmark-3;
+}
+
+.meeple-landmark-5 {
+  @include meeple-landmark-5;
+}
+
+.meeple-elephant-5 {
+  @include meeple-elephant-5;
+}
+
+.meeple-tree-blue {
+  @include meeple-tree-blue;
+}
+
+.meeple-tree-red {
+  @include meeple-tree-red;
+}
+
+.meeple-landmark-1 {
+  @include meeple-landmark-1;
+}
+
+.meeple-landmark-2 {
+  @include meeple-landmark-2;
+}
+
+.meeple-landmark-4 {
+  @include meeple-landmark-4;
+}

@@ -27,13 +27,6 @@ define([
   g_gamethemeurl + 'modules/js/tpls.js',
   g_gamethemeurl + 'modules/js/States/Turn.js',
 ], function (dojo, declare) {
-  const ANIMAL_CASSOWARY = 'animal-cassowary';
-  const ANIMAL_HORNBILL = 'animal-hornbill';
-  const ANIMAL_ORANGUTAN = 'animal-orangutan';
-  const ANIMAL_RHINOCEROS = 'animal-rhinoceros';
-  const ANIMAL_TIGER = 'animal-tiger';
-  const ANIMALS = [ANIMAL_CASSOWARY, ANIMAL_HORNBILL, ANIMAL_ORANGUTAN, ANIMAL_RHINOCEROS, ANIMAL_TIGER];
-
   return declare(
     'bgagame.tembo',
     [customgame.game, tembo.playerboard, tembo.common, tembo.lexemes, tembo.turn, tembo.htmltemplates],
@@ -45,17 +38,6 @@ define([
       setup(gamedatas) {
         debug('SETUP', gamedatas);
         this.setupCentralArea();
-
-        this.setupInfoPanel();
-        this.setupPlayers();
-        this.setupMeeples();
-        this.setupFlowerCards();
-        this.updateZonesStatuses();
-
-        // Ecosystems
-        if (gamedatas.ecosystemsTexts) {
-          this.setupEcosystemCards();
-        }
 
         this.inherited(arguments);
       },
@@ -232,20 +214,6 @@ define([
       //////////////////////////////////////////////////////
 
       setupInfoPanel() {
-        dojo.place(this.tplInfoPanel(ANIMALS), 'flower-cards-container', 'first');
-
-        // Mutators observers
-        ANIMALS.forEach((type) => {
-          const reserve = $(`animal-reserve-${type}`);
-          let observer = new MutationObserver(() => {
-            let n = reserve.childNodes.length;
-            let counter = $(`animal-reserve-${type}-counter`);
-            counter.innerHTML = n;
-            counter.parentNode.dataset.n = n;
-          });
-          observer.observe(reserve, { childList: true });
-        });
-
         let chk = $('help-mode-chk');
         dojo.connect(chk, 'onchange', () => this.toggleHelpMode(chk.checked));
         this.addTooltip('help-mode-switch', '', _('Toggle help/safe mode.'));

@@ -1,0 +1,110 @@
+// Auto-generated sprite mixins
+$icon-sprite-width: 362px;
+$icon-sprite-height: 353px;
+
+@mixin icon-tree-green {
+  background-image: url('img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 0.000000% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/132;
+}
+
+@mixin icon-tree-brown {
+  background-image: url('img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 39.694656% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/129;
+}
+
+@mixin icon-tree-blue {
+  background-image: url('img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 79.389313% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/113;
+}
+
+@mixin icon-tree-red {
+  background-image: url('img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 0.000000% 56.666667%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/113;
+}
+
+@mixin icon-lioness {
+  background-image: url('img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 39.694656% 55.510204%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/108;
+}
+
+@mixin icon-lion {
+  background-image: url('img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 79.389313% 55.284553%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/107;
+}
+
+@mixin icon-energy {
+  background-image: url('img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 0.000000% 100.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/100;
+}
+
+@mixin icon-rotate {
+  background-image: url('img/icons.png');
+  background-size: 362.000000% auto;
+  background-position: 39.694656% 99.606299%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/99;
+}
+
+@mixin icon-matriarch {
+  background-image: url('img/icons.png');
+  background-size: 724.000000% auto;
+  background-position: 100.000000% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 50/58;
+}
+.icon-tree-green {
+  @include icon-tree-green;
+}
+
+.icon-tree-brown {
+  @include icon-tree-brown;
+}
+
+.icon-tree-blue {
+  @include icon-tree-blue;
+}
+
+.icon-tree-red {
+  @include icon-tree-red;
+}
+
+.icon-lioness {
+  @include icon-lioness;
+}
+
+.icon-lion {
+  @include icon-lion;
+}
+
+.icon-energy {
+  @include icon-energy;
+}
+
+.icon-rotate {
+  @include icon-rotate;
+}
+
+.icon-matriarch {
+  @include icon-matriarch;
+}
