@@ -1,0 +1,1111 @@
+@charset "UTF-8";
+/**
+ *------
+ * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
+ * Tembo implementation : © Timothée (Tisaac) Pecatte <tim.pecatte@gmail.com>, Pavel Kulagin (KuWizard) <kuzwiz@mail.ru>
+ *
+ * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
+ * See http://en.boardgamearena.com/#!doc/Studio for more information.
+ * -----
+ *
+ * tembo.css
+ *
+ * Tembo stylesheet
+ *
+ */
+@font-face {
+  font-family: "DK Sensory Overload";
+  src: url("img/fonts/DKSensoryOverload.woff2") format("woff2"), url("img/fonts/DKSensoryOverload.woff") format("woff"), url("img/fonts/DKSensoryOverload.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; }
+@font-face {
+  font-family: "Hawlers Two";
+  src: url("img/fonts/HawlersTwo-Rough.woff2") format("woff2"), url("img/fonts/HawlersTwo-Rough.woff") format("woff"), url("img/fonts/HawlersTwo-Rough.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; }
+:root {
+  --temboBoardScale: 0.6;
+  --temboFlowerCardScale: 0.5;
+  --temboEcosystemCardScale: 0.5; }
+
+.icon-container {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0.08em;
+  font-size: 1em; }
+
+.icon-flower-grey,
+.icon-flower-blue,
+.icon-flower-joker,
+.icon-flower-red,
+.icon-flower-white,
+.icon-flower-yellow {
+  height: 2em; }
+
+.icon-tree-1,
+.icon-tree-2,
+.icon-tree-3,
+.icon-tree-4,
+.icon-tree-5,
+.icon-tree-6,
+.icon-tree-7,
+.icon-tree-8 {
+  height: 2em; }
+
+.icon-animal-cassowary,
+.icon-animal-hornbill,
+.icon-animal-orangutan,
+.icon-animal-rhinoceros,
+.icon-animal-tiger {
+  height: 2em; }
+
+.flowerBtn {
+  padding: 1px 3px;
+  font-size: 19px; }
+  .flowerBtn.placed {
+    background: #8ef98e;
+    pointer-events: none; }
+
+.icon-zone-2 {
+  height: 0.6em; }
+
+.icon-zone-3I {
+  height: 0.6em; }
+
+.icon-zone-3L {
+  height: 1.1em; }
+
+.icon-zone-4L {
+  height: 1.1em; }
+
+.icon-zone-4O {
+  height: 1.1em; }
+
+.icon-zone-4S {
+  height: 1.1em; }
+
+.icon-zone-4T {
+  height: 1.1em; }
+
+.icon-zone-5L {
+  height: 1.7em; }
+
+.icon-zone-5S {
+  height: 1.7em; }
+
+.icon-player {
+  height: 2em; }
+
+.icon-tree {
+  height: 2em; }
+
+.icon-paw {
+  height: 2em; }
+
+.icon-ok {
+  height: 2em; }
+
+.icon-nok {
+  height: 2em; }
+
+.tembo-icon {
+  background: url("img/icons.png");
+  background-repeat: no-repeat; }
+  .tembo-icon.icon-animal-cassowary {
+    background: url("img/icons.png") no-repeat;
+    background-position: 22.756756756756758% 40.31476997578692%;
+    background-size: 1034.3434343434344%;
+    aspect-ratio: 198 / 198; }
+  .tembo-icon.icon-animal-hornbill {
+    background: url("img/icons.png") no-repeat;
+    background-position: 34.54054054054054% 40.31476997578692%;
+    background-size: 1034.3434343434344%;
+    aspect-ratio: 198 / 198; }
+  .tembo-icon.icon-animal-orangutan {
+    background: url("img/icons.png") no-repeat;
+    background-position: 46.32432432432432% 40.31476997578692%;
+    background-size: 1034.3434343434344%;
+    aspect-ratio: 198 / 198; }
+  .tembo-icon.icon-animal-rhinoceros {
+    background: url("img/icons.png") no-repeat;
+    background-position: 58.108108108108105% 40.31476997578692%;
+    background-size: 1034.3434343434344%;
+    aspect-ratio: 198 / 198; }
+  .tembo-icon.icon-animal-tiger {
+    background: url("img/icons.png") no-repeat;
+    background-position: 69.89189189189189% 40.31476997578692%;
+    background-size: 1034.3434343434344%;
+    aspect-ratio: 198 / 198; }
+  .tembo-icon.icon-flower-blue {
+    background: url("img/icons.png") no-repeat;
+    background-position: 81.67567567567568% 40.31476997578692%;
+    background-size: 1034.3434343434344%;
+    aspect-ratio: 198 / 198; }
+  .tembo-icon.icon-flower-empty {
+    background: url("img/icons.png") no-repeat;
+    background-position: 93.45945945945945% 40.31476997578692%;
+    background-size: 1034.3434343434344%;
+    aspect-ratio: 198 / 198; }
+  .tembo-icon.icon-flower-grey {
+    background: url("img/icons.png") no-repeat;
+    background-position: 1.0810810810810811% 67.91767554479419%;
+    background-size: 1034.3434343434344%;
+    aspect-ratio: 198 / 198; }
+  .tembo-icon.icon-flower-multi, .tembo-icon.icon-flower-joker {
+    background: url("img/icons.png") no-repeat;
+    background-position: 46.5553235908142% 62.61160714285714%;
+    background-size: 1551.5151515151515%;
+    aspect-ratio: 132 / 128; }
+  .tembo-icon.icon-flower-red {
+    background: url("img/icons.png") no-repeat;
+    background-position: 12.864864864864863% 67.91767554479419%;
+    background-size: 1034.3434343434344%;
+    aspect-ratio: 198 / 198; }
+  .tembo-icon.icon-flower-white {
+    background: url("img/icons.png") no-repeat;
+    background-position: 24.64864864864865% 67.91767554479419%;
+    background-size: 1034.3434343434344%;
+    aspect-ratio: 198 / 198; }
+  .tembo-icon.icon-flower-yellow {
+    background: url("img/icons.png") no-repeat;
+    background-position: 36.432432432432435% 67.91767554479419%;
+    background-size: 1034.3434343434344%;
+    aspect-ratio: 198 / 198; }
+  .tembo-icon.icon-nok {
+    background: url("img/icons.png") no-repeat;
+    background-position: 98.34170854271356% 10.559006211180124%;
+    background-size: 3531.0344827586205%;
+    aspect-ratio: 58 / 58; }
+  .tembo-icon.icon-ok {
+    background: url("img/icons.png") no-repeat;
+    background-position: 86.78391959798995% 58.07453416149069%;
+    background-size: 3531.0344827586205%;
+    aspect-ratio: 58 / 58; }
+  .tembo-icon.icon-pangolin {
+    background: url("img/icons.png") no-repeat;
+    background-position: 23.946037099494095% 2.6490066225165565%;
+    background-size: 761.3382899628252%;
+    aspect-ratio: 269 / 269; }
+  .tembo-icon.icon-paw {
+    background: url("img/icons.png") no-repeat;
+    background-position: 94% 2.4539877300613497%;
+    background-size: 1034.3434343434344%;
+    aspect-ratio: 198 / 209; }
+  .tembo-icon.icon-player {
+    background: url("img/icons.png") no-repeat;
+    background-position: 98.78849066128218% 2.079002079002079%;
+    background-size: 3056.7164179104475%;
+    aspect-ratio: 67 / 62; }
+  .tembo-icon.icon-tree {
+    background: url("img/icons.png") no-repeat;
+    background-position: 82.2450080949811% 2.484472049689441%;
+    background-size: 1050.2564102564102%;
+    aspect-ratio: 195 / 219; }
+  .tembo-icon.icon-tree-1 {
+    background: url("img/icons.png") no-repeat;
+    background-position: 12.004287245444802% 2.73224043715847%;
+    background-size: 1125.2747252747254%;
+    aspect-ratio: 182 / 292; }
+  .tembo-icon.icon-tree-2 {
+    background: url("img/icons.png") no-repeat;
+    background-position: 1.0729613733905579% 2.7359781121751023%;
+    background-size: 1113.0434782608695%;
+    aspect-ratio: 184 / 293; }
+  .tembo-icon.icon-tree-3 {
+    background: url("img/icons.png") no-repeat;
+    background-position: 38.42020419129501% 2.635046113306983%;
+    background-size: 1095.187165775401%;
+    aspect-ratio: 187 / 265; }
+  .tembo-icon.icon-tree-4 {
+    background: url("img/icons.png") no-repeat;
+    background-position: 49.384038564542045% 2.631578947368421%;
+    background-size: 1131.4917127071822%;
+    aspect-ratio: 181 / 264; }
+  .tembo-icon.icon-tree-5 {
+    background: url("img/icons.png") no-repeat;
+    background-position: 60.14997321906802% 2.5412960609911055%;
+    background-size: 1131.4917127071822%;
+    aspect-ratio: 181 / 237; }
+  .tembo-icon.icon-tree-6 {
+    background: url("img/icons.png") no-repeat;
+    background-position: 70.8779443254818% 2.5380710659898478%;
+    background-size: 1137.7777777777778%;
+    aspect-ratio: 180 / 236; }
+  .tembo-icon.icon-tree-7 {
+    background: url("img/icons.png") no-repeat;
+    background-position: 11.83083511777302% 40.758873929008566%;
+    background-size: 1137.7777777777778%;
+    aspect-ratio: 180 / 207; }
+  .tembo-icon.icon-tree-8 {
+    background: url("img/icons.png") no-repeat;
+    background-position: 1.0712372790573113% 40.80882352941176%;
+    background-size: 1131.4917127071822%;
+    aspect-ratio: 181 / 208; }
+  .tembo-icon.icon-zone-2 {
+    background: url("img/icons.png") no-repeat;
+    background-position: 91.67089893346876% 57.012195121951216%;
+    background-size: 2592.4050632911394%;
+    aspect-ratio: 79 / 40; }
+  .tembo-icon.icon-zone-3I {
+    background: url("img/icons.png") no-repeat;
+    background-position: 98.6017607457276% 57.012195121951216%;
+    background-size: 1750.4273504273506%;
+    aspect-ratio: 117 / 40; }
+  .tembo-icon.icon-zone-3L {
+    background: url("img/icons.png") no-repeat;
+    background-position: 98.88268156424581% 35.20084566596194%;
+    background-size: 2592.4050632911394%;
+    aspect-ratio: 79 / 78; }
+  .tembo-icon.icon-zone-4L {
+    background: url("img/icons.png") no-repeat;
+    background-position: 68.1512169860176% 59.30232558139535%;
+    background-size: 1750.4273504273506%;
+    aspect-ratio: 117 / 78; }
+  .tembo-icon.icon-zone-4O {
+    background: url("img/icons.png") no-repeat;
+    background-position: 98.88268156424581% 45.56025369978858%;
+    background-size: 2592.4050632911394%;
+    aspect-ratio: 79 / 78; }
+  .tembo-icon.icon-zone-4S {
+    background: url("img/icons.png") no-repeat;
+    background-position: 75.24598653547385% 59.30232558139535%;
+    background-size: 1750.4273504273506%;
+    aspect-ratio: 117 / 78; }
+  .tembo-icon.icon-zone-4T {
+    background: url("img/icons.png") no-repeat;
+    background-position: 82.34075608493009% 59.30232558139535%;
+    background-size: 1750.4273504273506%;
+    aspect-ratio: 117 / 78; }
+  .tembo-icon.icon-zone-5L {
+    background: url("img/icons.png") no-repeat;
+    background-position: 54.037267080745345% 61.852260198456456%;
+    background-size: 1765.5172413793102%;
+    aspect-ratio: 116 / 117; }
+  .tembo-icon.icon-zone-5S {
+    background: url("img/icons.png") no-repeat;
+    background-position: 61.07660455486542% 61.852260198456456%;
+    background-size: 1765.5172413793102%;
+    aspect-ratio: 116 / 117; }
+
+.tembo-meeple.tmp {
+  opacity: 0.7; }
+.tembo-meeple.icon-flower-grey, .tembo-meeple.icon-flower-blue, .tembo-meeple.icon-flower-joker, .tembo-meeple.icon-flower-red, .tembo-meeple.icon-flower-white, .tembo-meeple.icon-flower-yellow {
+  height: 6.2em; }
+.tembo-meeple.icon-tree-1, .tembo-meeple.icon-tree-2, .tembo-meeple.icon-tree-3, .tembo-meeple.icon-tree-4, .tembo-meeple.icon-tree-5, .tembo-meeple.icon-tree-6, .tembo-meeple.icon-tree-7, .tembo-meeple.icon-tree-8 {
+  margin-top: 0.8em;
+  height: 5.5em; }
+.tembo-meeple.icon-tree-8 {
+  margin-top: 1em;
+  height: 5em; }
+.tembo-meeple.icon-animal-cassowary, .tembo-meeple.icon-animal-hornbill, .tembo-meeple.icon-animal-orangutan, .tembo-meeple.icon-animal-rhinoceros, .tembo-meeple.icon-animal-tiger {
+  margin-top: 1em;
+  height: 5.5em;
+  z-index: 200; }
+
+#meeple-pangolin {
+  background: url("img/icons.png") no-repeat;
+  background-position: 23.946037099494095% 2.6490066225165565%;
+  background-size: 761.3382899628252%;
+  aspect-ratio: 269 / 269;
+  width: 119px;
+  height: 119px;
+  border-radius: 50%;
+  box-shadow: 2px 2px 5px 1px black;
+  margin: 5px; }
+  #meeple-pangolin.selectable {
+    box-shadow: 1px 1px 5px 1px red;
+    cursor: pointer; }
+    #meeple-pangolin.selectable:hover {
+      scale: 1.1; }
+  #meeple-pangolin.selected {
+    box-shadow: 1px 1px 7px 5px lime; }
+
+.tembo-pangolin-holder #meeple-pangolin {
+  width: 30px;
+  height: 30px; }
+
+#flower-cards-holder #meeple-pangolin {
+  margin: 40px 5px; }
+
+/********************
+* HORIZONTAL LAYOUT *
+********************/
+body {
+  overflow-x: hidden;
+  max-width: 100vw; }
+
+#overall-content {
+  overflow: initial !important;
+  max-width: 100vw; }
+
+#tembo-main-container {
+  display: flex;
+  flex-flow: row;
+  align-items: stretch; }
+  #tembo-main-container #flower-cards-container {
+    position: relative;
+    margin-right: 10px;
+    width: 270px;
+    flex-shrink: 0;
+    background: #f0f0f0cc;
+    border-radius: 5px;
+    border: 1px solid #737373; }
+    #tembo-main-container #flower-cards-container #flower-cards-container-sticky {
+      position: sticky;
+      top: 60px; }
+      #tembo-main-container #flower-cards-container #flower-cards-container-sticky #flower-cards-container-resizable {
+        transform-origin: top left; }
+        #tembo-main-container #flower-cards-container #flower-cards-container-sticky #flower-cards-container-resizable #flower-cards-holder {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-evenly; }
+  #tembo-main-container #player-boards-container {
+    flex-grow: 1; }
+    #tembo-main-container #player-boards-container #player-boards-container-resizable #player-board-holder {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; }
+  #tembo-main-container #ecosystem-cards-container {
+    display: none; }
+    [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container {
+      display: block;
+      margin-left: 10px;
+      position: relative;
+      width: 270px;
+      flex-shrink: 0;
+      background: #f0f0f0cc;
+      border-radius: 5px;
+      border: 1px solid #737373; }
+      [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container #ecosystem-cards-container-sticky {
+        position: sticky;
+        top: 60px; }
+        [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container #ecosystem-cards-container-sticky #ecosystem-cards-container-resizable {
+          transform-origin: top left; }
+          [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container #ecosystem-cards-container-sticky #ecosystem-cards-container-resizable #ecosystem-cards-holder {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly; }
+
+/******************
+* VERTICAL LAYOUT *
+******************/
+@media (max-width: 1160px) {
+  #overall-content {
+    overflow: hidden !important; }
+
+  #tembo-main-container {
+    flex-flow: column; }
+    #tembo-main-container #flower-cards-container {
+      flex-basis: 100%;
+      width: auto;
+      margin-right: 0px; }
+      #tembo-main-container #flower-cards-container #flower-cards-container-sticky {
+        position: initial; }
+        #tembo-main-container #flower-cards-container #flower-cards-container-sticky #flower-cards-container-resizable {
+          transform-origin: top left;
+          display: flex;
+          flex-flow: row; }
+          #tembo-main-container #flower-cards-container #flower-cards-container-sticky #flower-cards-container-resizable #flower-cards-holder {
+            justify-content: center;
+            width: 100%; } }
+@media (max-width: 1438px) {
+  [data-ecosystems="1"] #overall-content {
+    overflow: hidden !important; }
+  [data-ecosystems="1"] #tembo-main-container {
+    flex-flow: column;
+    order: 1; }
+    [data-ecosystems="1"] #tembo-main-container #flower-cards-container {
+      flex-basis: 100%;
+      width: auto;
+      margin-right: 0px; }
+      [data-ecosystems="1"] #tembo-main-container #flower-cards-container #flower-cards-container-sticky {
+        position: initial; }
+        [data-ecosystems="1"] #tembo-main-container #flower-cards-container #flower-cards-container-sticky #flower-cards-container-resizable {
+          transform-origin: top left;
+          display: flex;
+          flex-flow: row; }
+          [data-ecosystems="1"] #tembo-main-container #flower-cards-container #flower-cards-container-sticky #flower-cards-container-resizable #flower-cards-holder {
+            justify-content: center;
+            width: 100%; }
+    [data-ecosystems="1"] #tembo-main-container #player-boards-container {
+      order: 3; }
+    [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container {
+      margin-left: 0px;
+      flex-basis: 100%;
+      width: auto;
+      order: 2; }
+      [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container #ecosystem-cards-container-sticky {
+        position: initial; }
+        [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container #ecosystem-cards-container-sticky #ecosystem-cards-container-resizable {
+          transform-origin: top left;
+          display: flex;
+          flex-flow: row; }
+          [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container #ecosystem-cards-container-sticky #ecosystem-cards-container-resizable #ecosystem-cards-holder {
+            justify-content: center;
+            width: 100%; } }
+.tembo-player-board-resizable {
+  width: calc(var(--temboBoardScale) * 1024px);
+  height: calc(var(--temboBoardScale) * 1064px);
+  margin: 5px; }
+  .tembo-player-board-resizable .tembo-player-board {
+    scale: var(--temboBoardScale);
+    transform-origin: top left;
+    width: 1020px;
+    height: 1060px;
+    border: 2px solid black;
+    position: relative;
+    background: #ebd5bd;
+    box-shadow: 1px 1px 3px black;
+    border-radius: 12px;
+    overflow: hidden; }
+    .tembo-player-board-resizable .tembo-player-board .tembo-board-player-name {
+      height: 39px;
+      font-weight: bold;
+      border-bottom: 1px solid black;
+      font-family: "Hawlers Two";
+      font-size: 30px;
+      line-height: 48px;
+      text-align: center; }
+    .tembo-player-board-resizable .tembo-player-board .tembo-board-grid {
+      width: 1020px;
+      height: 1020px;
+      display: grid;
+      grid-template-columns: repeat(6, 170px);
+      grid-template-rows: repeat(6, 170px); }
+      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell {
+        background: transparent;
+        border: 2px solid transparent;
+        box-sizing: border-box;
+        width: 170px;
+        height: 170px;
+        position: relative;
+        z-index: 2;
+        font-size: 23px; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell .tembo-meeple {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          translate: -50% -50%; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell.selectable {
+          background: rgba(229, 255, 0, 0.5);
+          cursor: pointer; }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell.selectable:hover {
+            background: rgba(229, 255, 0, 0.7); }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell.selected {
+          background: rgba(229, 255, 0, 0.7); }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial {
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: wrap;
+          cursor: default; }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial .dial-selector {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background: white;
+            border-radius: 50%;
+            height: 60px;
+            width: 60px;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: -31px;
+            font-size: 28px;
+            cursor: pointer; }
+            .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial .dial-selector:hover {
+              background: #e5ff00; }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="2"] .dial-selector:nth-of-type(1) {
+            transform: rotate(0deg) translate(50px) rotate(0deg); }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="2"] .dial-selector:nth-of-type(2) {
+            transform: rotate(180deg) translate(50px) rotate(-180deg); }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="3"] .dial-selector:nth-of-type(1) {
+            transform: rotate(0deg) translate(50px) rotate(0deg); }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="3"] .dial-selector:nth-of-type(2) {
+            transform: rotate(120deg) translate(50px) rotate(-120deg); }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="3"] .dial-selector:nth-of-type(3) {
+            transform: rotate(240deg) translate(50px) rotate(-240deg); }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="4"] .dial-selector:nth-of-type(1) {
+            transform: rotate(0deg) translate(50px) rotate(0deg); }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="4"] .dial-selector:nth-of-type(2) {
+            transform: rotate(90deg) translate(50px) rotate(-90deg); }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="4"] .dial-selector:nth-of-type(3) {
+            transform: rotate(180deg) translate(50px) rotate(-180deg); }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="4"] .dial-selector:nth-of-type(4) {
+            transform: rotate(270deg) translate(50px) rotate(-270deg); }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="5"] .dial-selector:nth-of-type(1) {
+            transform: rotate(0deg) translate(50px) rotate(0deg); }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="5"] .dial-selector:nth-of-type(2) {
+            transform: rotate(72deg) translate(50px) rotate(-72deg); }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="5"] .dial-selector:nth-of-type(3) {
+            transform: rotate(144deg) translate(50px) rotate(-144deg); }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="5"] .dial-selector:nth-of-type(4) {
+            transform: rotate(216deg) translate(50px) rotate(-216deg); }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="5"] .dial-selector:nth-of-type(5) {
+            transform: rotate(288deg) translate(50px) rotate(-288deg); }
+      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant {
+        grid-row-end: span 3;
+        grid-column-end: span 3;
+        background-size: 100% 100%;
+        transform-origin: center center;
+        position: relative; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant::before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 8px;
+          left: 8px;
+          width: 10px;
+          height: 10px;
+          border: 1px solid white;
+          border-radius: 2px; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-quadrant="0"] {
+          grid-row-start: 1;
+          grid-column-start: 1; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-quadrant="1"] {
+          grid-row-start: 1;
+          grid-column-start: 4; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-quadrant="2"] {
+          grid-row-start: 4;
+          grid-column-start: 4; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-quadrant="3"] {
+          grid-row-start: 4;
+          grid-column-start: 1; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-orientation="0"] {
+          rotate: 0deg; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-orientation="1"] {
+          rotate: 90deg; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-orientation="2"] {
+          rotate: 180deg; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-orientation="3"] {
+          rotate: 270deg; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="0"] {
+          background-image: url("img/board-0.jpg"); }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="1"] {
+          background-image: url("img/board-1.jpg"); }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="2"] {
+          background-image: url("img/board-2.jpg"); }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="3"] {
+          background-image: url("img/board-3.jpg"); }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="4"] {
+          background-image: url("img/board-4.jpg"); }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="5"] {
+          background-image: url("img/board-5.jpg"); }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="6"] {
+          background-image: url("img/board-6.jpg"); }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="7"] {
+          background-image: url("img/board-7.jpg"); }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="0"]::before {
+          background-color: #f680c6;
+          border-radius: 50%; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="1"]::before {
+          background-color: #ed1c24;
+          border-radius: 50%; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="2"]::before {
+          background-color: #1b4a96;
+          border-radius: 50%; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="3"]::before {
+          background-color: white;
+          border-color: black;
+          border-radius: 50%; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="4"]::before {
+          background-color: #f680c6; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="5"]::before {
+          background-color: #ed1c24; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="6"]::before {
+          background-color: #1b4a96; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="7"]::before {
+          background-color: white;
+          border-color: black; }
+      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="4"][data-orientation="1"] ~ .zone-info-19, .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="4"][data-orientation="3"] ~ .zone-info-19 {
+        translate: -25% 0%; }
+      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="4"][data-orientation="1"] ~ .zone-info-14, .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="4"][data-orientation="3"] ~ .zone-info-14 {
+        translate: -100% 0%; }
+      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="5"][data-orientation="2"] ~ .zone-info-16 {
+        translate: 100% 0%; }
+      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="5"][data-orientation="3"] ~ .zone-info-16 {
+        translate: -100% 0%; }
+      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="6"][data-orientation="3"] ~ .zone-info-18 {
+        translate: -25% 0%; }
+      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="6"][data-orientation="2"] ~ .zone-info-18 {
+        translate: 100% 0%; }
+      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="6"][data-orientation="0"] ~ .zone-info-19 {
+        translate: 50% 0%; }
+      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; }
+        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos {
+          width: 120px;
+          display: flex;
+          justify-content: center;
+          position: relative;
+          margin-top: -6px; }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-size-scoring,
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-animal-scoring {
+            height: 40px;
+            font-size: 28px;
+            line-height: 48px;
+            font-family: "DK Sensory Overload";
+            color: white;
+            text-shadow: black 3px 0px 0px, black 2.83487px 0.981584px 0px, black 2.35766px 1.85511px 0px, black 1.62091px 2.52441px 0px, black 0.705713px 2.91581px 0px, black -0.287171px 2.98622px 0px, black -1.24844px 2.72789px 0px, black -2.07227px 2.16926px 0px, black -2.66798px 1.37182px 0px, black -2.96998px 0.42336px 0px, black -2.94502px -0.571704px 0px, black -2.59586px -1.50383px 0px, black -1.96093px -2.27041px 0px, black -1.11013px -2.78704px 0px, black -0.137119px -2.99686px 0px, black 0.850987px -2.87677px 0px, black 1.74541px -2.43999px 0px, black 2.44769px -1.73459px 0px, black 2.88051px -0.838247px 0px; }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-size-scoring > span {
+            position: relative;
+            z-index: 2;
+            margin-right: -0.3em; }
+            .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-size-scoring > span[data-status="1"] {
+              color: #4aff4a;
+              margin-right: -0.4em; }
+              .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-size-scoring > span[data-status="1"]::before {
+                content: "+"; }
+            .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-size-scoring > span[data-status="-1"] {
+              color: #ff4b4b;
+              margin-right: -0.4em; }
+              .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-size-scoring > span[data-status="-1"]::before {
+                content: "-"; }
+          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-animal-scoring {
+            background: url("img/icons.png") no-repeat;
+            background-position: 94% 2.4539877300613497%;
+            background-size: 1034.3434343434344%;
+            aspect-ratio: 198 / 209;
+            text-align: center;
+            width: 40px; }
+            .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-animal-scoring[data-status="1"] {
+              color: #4aff4a; }
+
+:root {
+  --temboBoardScale: 0.6;
+  --temboFlowerCardScale: 0.5;
+  --temboEcosystemCardScale: 0.5; }
+
+.tembo-flower-card {
+  width: calc(var(--temboFlowerCardScale) * 238px);
+  height: calc(var(--temboFlowerCardScale) * 374px);
+  margin: 5px;
+  position: relative; }
+  .tembo-flower-card .tembo-flower-card-wrapper {
+    scale: var(--temboFlowerCardScale);
+    transform-origin: top left;
+    width: 230px;
+    height: 366px;
+    background-image: url("img/flowers-cards.jpg");
+    background-size: 700% 400%;
+    border-radius: 15px;
+    box-shadow: 2px 2px 5px 1px black;
+    border: 4px solid white; }
+  .tembo-flower-card[data-type=""] .tembo-flower-card-wrapper {
+    background-position-x: 0%;
+    background-position-y: 0%; }
+  .tembo-flower-card[data-type="bb"] .tembo-flower-card-wrapper {
+    background-position-x: 16.6666666667%;
+    background-position-y: 0%; }
+  .tembo-flower-card[data-type="yy"] .tembo-flower-card-wrapper {
+    background-position-x: 33.3333333333%;
+    background-position-y: 0%; }
+  .tembo-flower-card[data-type="rr"] .tembo-flower-card-wrapper {
+    background-position-x: 50%;
+    background-position-y: 0%; }
+  .tembo-flower-card[data-type="ww"] .tembo-flower-card-wrapper {
+    background-position-x: 66.6666666667%;
+    background-position-y: 0%; }
+  .tembo-flower-card[data-type="gg"] .tembo-flower-card-wrapper {
+    background-position-x: 83.3333333333%;
+    background-position-y: 0%; }
+  .tembo-flower-card[data-type="by"] .tembo-flower-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 0%; }
+  .tembo-flower-card[data-type="rw"] .tembo-flower-card-wrapper {
+    background-position-x: 0%;
+    background-position-y: 33.3333333333%; }
+  .tembo-flower-card[data-type="bw"] .tembo-flower-card-wrapper {
+    background-position-x: 16.6666666667%;
+    background-position-y: 33.3333333333%; }
+  .tembo-flower-card[data-type="bg"] .tembo-flower-card-wrapper {
+    background-position-x: 33.3333333333%;
+    background-position-y: 33.3333333333%; }
+  .tembo-flower-card[data-type="gr"] .tembo-flower-card-wrapper {
+    background-position-x: 50%;
+    background-position-y: 33.3333333333%; }
+  .tembo-flower-card[data-type="br"] .tembo-flower-card-wrapper {
+    background-position-x: 66.6666666667%;
+    background-position-y: 33.3333333333%; }
+  .tembo-flower-card[data-type="yg"] .tembo-flower-card-wrapper {
+    background-position-x: 83.3333333333%;
+    background-position-y: 33.3333333333%; }
+  .tembo-flower-card[data-type="gw"] .tembo-flower-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 33.3333333333%; }
+  .tembo-flower-card[data-type="yr"] .tembo-flower-card-wrapper {
+    background-position-x: 0%;
+    background-position-y: 66.6666666667%; }
+  .tembo-flower-card[data-type="yw"] .tembo-flower-card-wrapper {
+    background-position-x: 16.6666666667%;
+    background-position-y: 66.6666666667%; }
+  .tembo-flower-card[data-type="gbr"] .tembo-flower-card-wrapper {
+    background-position-x: 33.3333333333%;
+    background-position-y: 66.6666666667%; }
+  .tembo-flower-card[data-type="ybr"] .tembo-flower-card-wrapper {
+    background-position-x: 50%;
+    background-position-y: 66.6666666667%; }
+  .tembo-flower-card[data-type="wbr"] .tembo-flower-card-wrapper {
+    background-position-x: 66.6666666667%;
+    background-position-y: 66.6666666667%; }
+  .tembo-flower-card[data-type="ybg"] .tembo-flower-card-wrapper {
+    background-position-x: 83.3333333333%;
+    background-position-y: 66.6666666667%; }
+  .tembo-flower-card[data-type="ybw"] .tembo-flower-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 66.6666666667%; }
+  .tembo-flower-card[data-type="gbw"] .tembo-flower-card-wrapper {
+    background-position-x: 0%;
+    background-position-y: 100%; }
+  .tembo-flower-card[data-type="yrg"] .tembo-flower-card-wrapper {
+    background-position-x: 16.6666666667%;
+    background-position-y: 100%; }
+  .tembo-flower-card[data-type="wrg"] .tembo-flower-card-wrapper {
+    background-position-x: 33.3333333333%;
+    background-position-y: 100%; }
+  .tembo-flower-card[data-type="wry"] .tembo-flower-card-wrapper {
+    background-position-x: 50%;
+    background-position-y: 100%; }
+  .tembo-flower-card[data-type="wgy"] .tembo-flower-card-wrapper {
+    background-position-x: 66.6666666667%;
+    background-position-y: 100%; }
+  .tembo-flower-card[data-type="j"] .tembo-flower-card-wrapper {
+    background-position-x: 83.3333333333%;
+    background-position-y: 100%; }
+  .tembo-flower-card.selectable {
+    cursor: pointer; }
+    .tembo-flower-card.selectable .tembo-flower-card-wrapper {
+      box-shadow: 1px 1px 5px 2px red; }
+    .tembo-flower-card.selectable:hover {
+      transform: scale(1.04); }
+  .tembo-flower-card.selected .tembo-flower-card-wrapper {
+    border-color: #fffb00;
+    box-shadow: 0px 0px 5px 3px yellow; }
+
+:root {
+  --temboBoardScale: 0.6;
+  --temboFlowerCardScale: 0.5;
+  --temboEcosystemCardScale: 0.5; }
+
+.tembo-ecosystem-card {
+  width: calc(var(--temboEcosystemCardScale) * 238px);
+  height: calc(var(--temboEcosystemCardScale) * 374px);
+  margin: 5px;
+  position: relative; }
+  .tembo-ecosystem-card .tembo-ecosystem-card-wrapper {
+    scale: var(--temboEcosystemCardScale);
+    transform-origin: top left;
+    width: 230px;
+    height: 366px;
+    background-image: url("img/ecosystems-cards.jpg");
+    background-size: 700% 400%;
+    border-radius: 15px;
+    box-shadow: 2px 2px 5px 1px black;
+    border: 4px solid white; }
+  .tembo-ecosystem-card[data-id="0"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 0%;
+    background-position-y: 0%; }
+  .tembo-ecosystem-card[data-id="1"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 16.6666666667%;
+    background-position-y: 0%; }
+  .tembo-ecosystem-card[data-id="2"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 33.3333333333%;
+    background-position-y: 0%; }
+  .tembo-ecosystem-card[data-id="3"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 50%;
+    background-position-y: 0%; }
+  .tembo-ecosystem-card[data-id="4"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 66.6666666667%;
+    background-position-y: 0%; }
+  .tembo-ecosystem-card[data-id="5"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 83.3333333333%;
+    background-position-y: 0%; }
+  .tembo-ecosystem-card[data-id="6"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 0%; }
+  .tembo-ecosystem-card[data-id="7"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 0%;
+    background-position-y: 33.3333333333%; }
+  .tembo-ecosystem-card[data-id="8"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 16.6666666667%;
+    background-position-y: 33.3333333333%; }
+  .tembo-ecosystem-card[data-id="9"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 33.3333333333%;
+    background-position-y: 33.3333333333%; }
+  .tembo-ecosystem-card[data-id="10"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 50%;
+    background-position-y: 33.3333333333%; }
+  .tembo-ecosystem-card[data-id="11"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 66.6666666667%;
+    background-position-y: 33.3333333333%; }
+  .tembo-ecosystem-card[data-id="12"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 83.3333333333%;
+    background-position-y: 33.3333333333%; }
+  .tembo-ecosystem-card[data-id="13"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 33.3333333333%; }
+  .tembo-ecosystem-card[data-id="14"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 0%;
+    background-position-y: 66.6666666667%; }
+  .tembo-ecosystem-card[data-id="15"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 16.6666666667%;
+    background-position-y: 66.6666666667%; }
+  .tembo-ecosystem-card[data-id="16"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 33.3333333333%;
+    background-position-y: 66.6666666667%; }
+  .tembo-ecosystem-card[data-id="17"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 50%;
+    background-position-y: 66.6666666667%; }
+  .tembo-ecosystem-card[data-id="18"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 66.6666666667%;
+    background-position-y: 66.6666666667%; }
+  .tembo-ecosystem-card[data-id="19"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 83.3333333333%;
+    background-position-y: 66.6666666667%; }
+  .tembo-ecosystem-card[data-id="20"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 66.6666666667%; }
+  .tembo-ecosystem-card[data-id="21"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 0%;
+    background-position-y: 100%; }
+  .tembo-ecosystem-card[data-id="22"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 16.6666666667%;
+    background-position-y: 100%; }
+  .tembo-ecosystem-card[data-id="23"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 33.3333333333%;
+    background-position-y: 100%; }
+  .tembo-ecosystem-card[data-id="24"] .tembo-ecosystem-card-wrapper {
+    background-position-x: 50%;
+    background-position-y: 100%; }
+
+.card-tooltip {
+  display: flex;
+  flex-wrap: wrap;
+  --temboFlowerCardScale: 0.7;
+  --temboEcosystemCardScale: 0.7; }
+  .card-tooltip .tooltip-text {
+    margin-left: 10px; }
+    .card-tooltip .tooltip-text h2 {
+      text-decoration: underline; }
+    .card-tooltip .tooltip-text p {
+      max-width: 200px; }
+
+.player-board {
+  order: 2; }
+
+#info-panel {
+  order: 1;
+  border-radius: 7px;
+  box-shadow: 1px 1px 1px #404040;
+  border: 1px solid #424242; }
+  #info-panel .info-panel-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1px 0px;
+    border-bottom: 1px solid #80502e; }
+    #info-panel .info-panel-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0px; }
+  #info-panel #turn-counter-wrapper {
+    margin: 0px 3px;
+    text-align: center;
+    font-size: 27px;
+    font-family: "Hawlers Two";
+    display: block;
+    position: relative;
+    line-height: 31px;
+    padding: 6px 0px 0px; }
+  #info-panel #player_config {
+    padding-bottom: 8px;
+    margin-bottom: 4px; }
+    #info-panel #player_config #show-scores svg {
+      width: 30px;
+      cursor: pointer; }
+    #info-panel #player_config #help-mode-switch {
+      zoom: 0.8; }
+      #info-panel #player_config #help-mode-switch .checkbox {
+        display: none; }
+      #info-panel #player_config #help-mode-switch .label {
+        background-color: #2c3037;
+        border-radius: 50px;
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        height: 26px;
+        width: 50px;
+        margin-right: 4px; }
+      #info-panel #player_config #help-mode-switch .label .ball {
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        height: 22px;
+        width: 22px;
+        transform: translateX(0px);
+        transition: transform 0.2s linear, color 0.7s linear; }
+      #info-panel #player_config #help-mode-switch .checkbox:checked + .label .ball {
+        transform: translateX(24px); }
+      #info-panel #player_config #help-mode-switch svg {
+        width: 27px; }
+    #info-panel #player_config #show-settings {
+      height: 40px;
+      width: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      display: none;
+      cursor: pointer; }
+      #info-panel #player_config #show-settings:hover {
+        color: grey; }
+      #info-panel #player_config #show-settings svg {
+        width: auto;
+        height: 40px; }
+      #info-panel #player_config #show-settings .fa-primary {
+        transform-origin: 216px 255px;
+        transition: transform 1s; }
+      #info-panel #player_config #show-settings:hover .fa-primary {
+        transform: rotate(180deg); }
+  #info-panel #animals-reserves .animal-reserve-holder {
+    display: flex;
+    font-size: 12px;
+    justify-content: center;
+    align-items: center; }
+    #info-panel #animals-reserves .animal-reserve-holder > span {
+      font-family: "Hawlers Two";
+      font-size: 18px;
+      margin-top: 5px; }
+    #info-panel #animals-reserves .animal-reserve-holder[data-n="0"] {
+      opacity: 0.4; }
+    #info-panel #animals-reserves .animal-reserve-holder .animal-reserve {
+      width: 28px;
+      position: relative; }
+      #info-panel #animals-reserves .animal-reserve-holder .animal-reserve .tembo-meeple {
+        position: absolute;
+        left: 0;
+        top: 0;
+        visibility: hidden; }
+
+#popin_showScores {
+  background-image: url("img/background.jpg");
+  background-size: 600px;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 1px 1px 3px black;
+  max-width: min-content; }
+  #popin_showScores #popin_showScores_close {
+    background-color: #30952d;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -18px;
+    right: -18px;
+    font-size: 90%;
+    color: white !important;
+    border: 1px solid #35302d;
+    z-index: 2; }
+    #popin_showScores #popin_showScores_close:hover {
+      text-decoration: none;
+      color: #ccc !important;
+      transform: scale(1.1); }
+    #popin_showScores #popin_showScores_close i {
+      margin-top: -2px; }
+  #popin_showScores table {
+    margin: 30px;
+    font-size: 18px;
+    --temboEcosystemCardScale: 0.12; }
+    #popin_showScores table td,
+    #popin_showScores table th {
+      padding: 12px 15px;
+      text-align: center;
+      font-weight: bold; }
+    #popin_showScores table td {
+      border: 1px solid #016101;
+      background: rgba(255, 255, 255, 0.5); }
+    #popin_showScores table tr:nth-child(2n + 1) td {
+      background: rgba(128, 194, 112, 0.5); }
+    #popin_showScores table tr#score-row-name td {
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid #016101; }
+    #popin_showScores table tr#score-row-overall td {
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid #016101; }
+    #popin_showScores table tr#score-row-unfinishedAndMixed td span {
+      color: #e10301; }
+      #popin_showScores table tr#score-row-unfinishedAndMixed td span::before {
+        content: "-"; }
+    #popin_showScores table tr.score-row-ecosystem th {
+      padding: 0px;
+      align-content: center;
+      display: flex;
+      justify-content: center; }
+      #popin_showScores table tr.score-row-ecosystem th .tembo-ecosystem-card-wrapper {
+        box-shadow: 1px 1px 12px 6px black;
+        border-radius: 2px; }
+  #popin_showScores #end-game-text-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "DK Sensory Overload";
+    font-size: 24px;
+    gap: 10px;
+    margin-bottom: 10px; }
+    #popin_showScores #end-game-text-block #end-game-text {
+      text-align: center; }
+    #popin_showScores #end-game-text-block #end-game-stars {
+      display: flex; }
+      #popin_showScores #end-game-text-block #end-game-stars .tembo-icon {
+        height: 2.5em; }
+
+#logs .log.notif_newTurn .roundedbox,
+.chatwindowlogs_zone .log.notif_newTurn.roundedbox {
+  background: #337a45;
+  text-align: center;
+  color: #fff;
+  border: 1px solid black;
+  font-weight: bold;
+  padding: 5px 2px 2px;
+  font-size: 24px;
+  font-family: "Hawlers Two";
+  display: block;
+  position: relative; }
+
+.phantom {
+  visibility: hidden; }
+
+#ebd-body.help-mode .tooltipable {
+  cursor: help; }
+
+.help-marker {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  z-index: 900;
+  border: 1px solid black;
+  border-radius: 50%; }
+  .help-marker svg {
+    width: 20px;
+    height: 20px; }
+
+#ebd-body:not(.help-mode) .help-marker {
+  opacity: 0;
+  pointer-events: none; }
+
+/*# sourceMappingURL=tembo.css.map */

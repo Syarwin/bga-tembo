@@ -1,0 +1,326 @@
+.tembo-player-board-resizable {
+  width: calc(var(--temboBoardScale) * 1024px);
+  height: calc(var(--temboBoardScale) * 1064px);
+  margin: 5px;
+
+  .tembo-player-board {
+    scale: var(--temboBoardScale);
+    transform-origin: top left;
+    width: 1020px;
+    height: 1060px;
+    border: 2px solid black;
+    position: relative;
+    background: #ebd5bd;
+    box-shadow: 1px 1px 3px black;
+    border-radius: 12px;
+    overflow: hidden;
+
+    .tembo-board-player-name {
+      height: 39px;
+      font-weight: bold;
+      border-bottom: 1px solid black;
+      font-family: "Hawlers Two";
+      font-size: 30px;
+      line-height: 48px;
+      text-align: center;
+    }
+
+    .tembo-board-grid {
+      width: 1020px;
+      height: 1020px;
+
+      display: grid;
+      grid-template-columns: repeat(6, 170px);
+      grid-template-rows: repeat(6, 170px);
+
+      .board-cell {
+        background: transparent;
+        border: 2px solid transparent;
+        box-sizing: border-box;
+        width: 170px;
+        height: 170px;
+        position: relative;
+        z-index: 2;
+        font-size: 23px;
+
+        .tembo-meeple {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          translate: -50% -50%;
+        }
+
+        &.selectable {
+          background: rgba(229, 255, 0, 0.5);
+          cursor: pointer;
+
+          &:hover {
+            background: rgba(229, 255, 0, 0.7);
+          }
+        }
+
+        &.selected {
+          background: rgba(229, 255, 0, 0.7);
+        }
+
+        #colors-dial {
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: wrap;
+          cursor: default;
+
+          .dial-selector {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background: white;
+            border-radius: 50%;
+            height: 60px;
+            width: 60px;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: -31px;
+            font-size: 28px;
+            cursor: pointer;
+
+            &:hover {
+              background: rgb(229, 255, 0);
+            }
+          }
+
+          $circle-size: 100px;
+          @for $n from 2 through 5 {
+            &[data-n="#{$n}"] {
+              $angle: (360 / $n);
+              $rot: 0;
+
+              @for $i from 1 through $n {
+                .dial-selector:nth-of-type(#{$i}) {
+                  transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
+                }
+
+                $rot: $rot + $angle;
+              }
+            }
+          }
+        }
+      }
+
+      .board-quadrant {
+        grid-row-end: span 3;
+        grid-column-end: span 3;
+        background-size: 100% 100%;
+        transform-origin: center center;
+        position: relative;
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 8px;
+          left: 8px;
+          width: 10px;
+          height: 10px;
+          border: 1px solid white;
+          border-radius: 2px;
+        }
+
+        &[data-quadrant="0"] {
+          grid-row-start: 1;
+          grid-column-start: 1;
+        }
+        &[data-quadrant="1"] {
+          grid-row-start: 1;
+          grid-column-start: 4;
+        }
+        &[data-quadrant="2"] {
+          grid-row-start: 4;
+          grid-column-start: 4;
+        }
+        &[data-quadrant="3"] {
+          grid-row-start: 4;
+          grid-column-start: 1;
+        }
+
+        @for $i from 0 to 4 {
+          &[data-orientation="#{$i}"] {
+            rotate: #{$i * 90}deg;
+          }
+        }
+
+        @for $i from 0 to 8 {
+          &[data-board="#{$i}"] {
+            background-image: url("img/board-#{$i}.jpg");
+          }
+        }
+
+        &[data-board="0"]::before {
+          background-color: #f680c6;
+          border-radius: 50%;
+        }
+        &[data-board="1"]::before {
+          background-color: #ed1c24;
+          border-radius: 50%;
+        }
+        &[data-board="2"]::before {
+          background-color: #1b4a96;
+          border-radius: 50%;
+        }
+        &[data-board="3"]::before {
+          background-color: white;
+          border-color: black;
+          border-radius: 50%;
+        }
+        &[data-board="4"]::before {
+          background-color: #f680c6;
+        }
+        &[data-board="5"]::before {
+          background-color: #ed1c24;
+        }
+        &[data-board="6"]::before {
+          background-color: #1b4a96;
+        }
+        &[data-board="7"]::before {
+          background-color: white;
+          border-color: black;
+        }
+      }
+
+      // SPECIFIC ALIGNEMENT
+      .board-quadrant[data-board="4"] {
+        &[data-orientation="1"],
+        &[data-orientation="3"] {
+          & ~ .zone-info-19 {
+            translate: -25% 0%;
+          }
+        }
+
+        &[data-orientation="1"],
+        &[data-orientation="3"] {
+          & ~ .zone-info-14 {
+            translate: -100% 0%;
+          }
+        }
+      }
+
+      .board-quadrant[data-board="5"] {
+        &[data-orientation="2"] {
+          & ~ .zone-info-16 {
+            translate: 100% 0%;
+          }
+        }
+        &[data-orientation="3"] {
+          & ~ .zone-info-16 {
+            translate: -100% 0%;
+          }
+        }
+      }
+
+      .board-quadrant[data-board="6"] {
+        &[data-orientation="3"] {
+          & ~ .zone-info-18 {
+            translate: -25% 0%;
+          }
+        }
+
+        &[data-orientation="2"] {
+          & ~ .zone-info-18 {
+            translate: 100% 0%;
+          }
+        }
+
+        &[data-orientation="0"] {
+          & ~ .zone-info-19 {
+            translate: 50% 0%;
+          }
+        }
+      }
+
+      ////////////////////////
+
+      .zone-infos-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+
+        .zone-infos {
+          width: 120px;
+          display: flex;
+          justify-content: center;
+          position: relative;
+          margin-top: -6px;
+
+          .zone-size-scoring,
+          .zone-animal-scoring {
+            height: 40px;
+            font-size: 28px;
+            line-height: 48px;
+            font-family: "DK Sensory Overload";
+            color: white;
+            text-shadow:
+              rgb(0, 0, 0) 3px 0px 0px,
+              rgb(0, 0, 0) 2.83487px 0.981584px 0px,
+              rgb(0, 0, 0) 2.35766px 1.85511px 0px,
+              rgb(0, 0, 0) 1.62091px 2.52441px 0px,
+              rgb(0, 0, 0) 0.705713px 2.91581px 0px,
+              rgb(0, 0, 0) -0.287171px 2.98622px 0px,
+              rgb(0, 0, 0) -1.24844px 2.72789px 0px,
+              rgb(0, 0, 0) -2.07227px 2.16926px 0px,
+              rgb(0, 0, 0) -2.66798px 1.37182px 0px,
+              rgb(0, 0, 0) -2.96998px 0.42336px 0px,
+              rgb(0, 0, 0) -2.94502px -0.571704px 0px,
+              rgb(0, 0, 0) -2.59586px -1.50383px 0px,
+              rgb(0, 0, 0) -1.96093px -2.27041px 0px,
+              rgb(0, 0, 0) -1.11013px -2.78704px 0px,
+              rgb(0, 0, 0) -0.137119px -2.99686px 0px,
+              rgb(0, 0, 0) 0.850987px -2.87677px 0px,
+              rgb(0, 0, 0) 1.74541px -2.43999px 0px,
+              rgb(0, 0, 0) 2.44769px -1.73459px 0px,
+              rgb(0, 0, 0) 2.88051px -0.838247px 0px;
+          }
+
+          .zone-size-scoring {
+            & > span {
+              position: relative;
+              z-index: 2;
+              margin-right: -0.3em;
+
+              &[data-status="1"] {
+                color: #4aff4a;
+                margin-right: -0.4em;
+                &::before {
+                  content: "+";
+                }
+              }
+
+              &[data-status="-1"] {
+                color: #ff4b4b;
+                margin-right: -0.4em;
+                &::before {
+                  content: "-";
+                }
+              }
+            }
+          }
+
+          .zone-animal-scoring {
+            @include icon-paw;
+            text-align: center;
+            width: 40px;
+
+            &[data-status="1"] {
+              color: #4aff4a;
+            }
+          }
+        }
+      }
+    }
+  }
+}

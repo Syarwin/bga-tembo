@@ -1,0 +1,145 @@
+.player-board {
+  order: 2;
+}
+
+#info-panel {
+  order: 1;
+  border-radius: 7px;
+  box-shadow: 1px 1px 1px #404040;
+  border: 1px solid #424242;
+
+  .info-panel-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1px 0px;
+    border-bottom: 1px solid #80502e;
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0px;
+    }
+  }
+
+  #turn-counter-wrapper {
+    // border-bottom: 1px solid #6a4b2f;
+    margin: 0px 3px;
+    text-align: center;
+    font-size: 27px;
+    font-family: "Hawlers Two";
+    display: block;
+    position: relative;
+    line-height: 31px;
+    padding: 6px 0px 0px;
+  }
+
+  #player_config {
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+
+    #show-scores {
+      svg {
+        width: 30px;
+        cursor: pointer;
+      }
+    }
+
+    #help-mode-switch {
+      zoom: 0.8;
+
+      .checkbox {
+        display: none;
+      }
+
+      .label {
+        background-color: #2c3037;
+        border-radius: 50px;
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        height: 26px;
+        width: 50px;
+        margin-right: 4px;
+      }
+
+      .label .ball {
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        height: 22px;
+        width: 22px;
+        transform: translateX(0px);
+        transition:
+          transform 0.2s linear,
+          color 0.7s linear;
+      }
+
+      .checkbox:checked + .label .ball {
+        transform: translateX(24px);
+      }
+
+      svg {
+        width: 27px;
+      }
+    }
+
+    #show-settings {
+      height: 40px;
+      width: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      display: none;
+
+      &:hover {
+        color: grey;
+      }
+      cursor: pointer;
+
+      svg {
+        width: auto;
+        height: 40px;
+      }
+
+      .fa-primary {
+        transform-origin: 216px 255px;
+        transition: transform 1s;
+      }
+
+      &:hover .fa-primary {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  #animals-reserves {
+    .animal-reserve-holder {
+      display: flex;
+      font-size: 12px;
+      justify-content: center;
+      align-items: center;
+      & > span {
+        font-family: "Hawlers Two";
+        font-size: 18px;
+        margin-top: 5px;
+      }
+
+      &[data-n="0"] {
+        opacity: 0.4;
+      }
+
+      .animal-reserve {
+        width: 28px;
+        position: relative;
+
+        .tembo-meeple {
+          position: absolute;
+          left: 0;
+          top: 0;
+          visibility: hidden;
+        }
+      }
+    }
+  }
+}

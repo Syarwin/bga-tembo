@@ -1,0 +1,112 @@
+#popin_showScores {
+  background-image: url("img/background.jpg");
+  background-size: 600px;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 1px 1px 3px black;
+  max-width: min-content;
+
+  #popin_showScores_close {
+    background-color: #30952d;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -18px;
+    right: -18px;
+    font-size: 90%;
+    color: white !important;
+    border: 1px solid #35302d;
+    z-index: 2;
+
+    &:hover {
+      text-decoration: none;
+      color: #ccc !important;
+      transform: scale(1.1);
+    }
+
+    i {
+      margin-top: -2px;
+    }
+  }
+
+  table {
+    margin: 30px;
+    font-size: 18px;
+
+    td,
+    th {
+      padding: 12px 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    td {
+      border: 1px solid rgb(1, 97, 1);
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    tr:nth-child(2n + 1) td {
+      background: rgba(128, 194, 112, 0.5);
+    }
+
+    tr#score-row-name td {
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid rgb(1, 97, 1);
+    }
+
+    tr#score-row-overall td {
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid rgb(1, 97, 1);
+    }
+
+    tr#score-row-unfinishedAndMixed td {
+      span {
+        color: #e10301;
+
+        &::before {
+          content: "-";
+        }
+      }
+    }
+
+    --temboEcosystemCardScale: 0.12;
+
+    tr.score-row-ecosystem th {
+      padding: 0px;
+      align-content: center;
+      display: flex;
+      justify-content: center;
+
+      .tembo-ecosystem-card-wrapper {
+        box-shadow: 1px 1px 12px 6px black;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  #end-game-text-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "DK Sensory Overload";
+    font-size: 24px;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    #end-game-text {
+      text-align: center;
+    }
+
+    #end-game-stars {
+      display: flex;
+
+      .tembo-icon {
+        height: 2.5em;
+      }
+    }
+  }
+}

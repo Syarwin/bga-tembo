@@ -1,0 +1,72 @@
+.tembo-meeple {
+  &.tmp {
+    opacity: 0.7;
+  }
+
+  &.icon-flower-grey,
+  &.icon-flower-blue,
+  &.icon-flower-joker,
+  &.icon-flower-red,
+  &.icon-flower-white,
+  &.icon-flower-yellow {
+    height: 6.2em;
+  }
+
+  &.icon-tree-1,
+  &.icon-tree-2,
+  &.icon-tree-3,
+  &.icon-tree-4,
+  &.icon-tree-5,
+  &.icon-tree-6,
+  &.icon-tree-7,
+  &.icon-tree-8 {
+    margin-top: 0.8em;
+    height: 5.5em;
+  }
+  &.icon-tree-8 {
+    margin-top: 1em;
+    height: 5em;
+  }
+
+  &.icon-animal-cassowary,
+  &.icon-animal-hornbill,
+  &.icon-animal-orangutan,
+  &.icon-animal-rhinoceros,
+  &.icon-animal-tiger {
+    margin-top: 1em;
+    height: 5.5em;
+    z-index: 200;
+  }
+}
+
+#meeple-pangolin {
+  @include icon-pangolin;
+  width: 119px;
+  height: 119px;
+  border-radius: 50%;
+  box-shadow: 2px 2px 5px 1px black;
+  margin: 5px;
+
+  &.selectable {
+    box-shadow: 1px 1px 5px 1px red;
+    cursor: pointer;
+    &:hover {
+      scale: 1.1;
+    }
+  }
+
+  &.selected {
+    box-shadow: 1px 1px 7px 5px lime;
+  }
+}
+.tembo-pangolin-holder {
+  #meeple-pangolin {
+    width: 30px;
+    height: 30px;
+  }
+}
+#flower-cards-holder {
+  #meeple-pangolin {
+    margin: 40px 5px;
+  }
+}

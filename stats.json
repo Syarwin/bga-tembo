@@ -1,0 +1,9 @@
+{
+  "table": {
+    "turns": {
+      "id": 10,
+      "name": "Number of turns",
+      "type": "int"
+    }
+  }
+}

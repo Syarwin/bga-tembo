@@ -1,0 +1,96 @@
+{
+  "110": {
+    "name": "Game Variant",
+    "default": 0,
+    "values": {
+      "0": {
+        "name": "First Game",
+        "firstgameonly": true,
+        "tmdisplay": "[First Game]",
+        "description": "Play with the recommended board layout for your first game"
+      },
+      "1": {
+        "name": "Base"
+      },
+      "2": {
+        "name": "Advanced",
+        "tmdisplay": "[Ecosystem]",
+        "description": "Play with 5 Ecosystem cards",
+        "nobeginner": true
+      },
+      "3": {
+        "name": "Scenarios",
+        "description": "Play a pre-built layout"
+      }
+    }
+  },
+  "111": {
+    "name": "Scenario",
+    "displaycondition": [
+      {
+        "type": "otheroption",
+        "id": 110,
+        "value": [3]
+      }
+    ],
+    "default": 0,
+    "values": {
+      "0": {
+        "name": "Scenario A",
+        "tmdisplay": "[Scenario A]"
+      },
+      "1": {
+        "name": "Scenario B",
+        "tmdisplay": "[Scenario B]"
+      },
+      "2": {
+        "name": "Scenario C",
+        "tmdisplay": "[Scenario C]"
+      },
+      "3": {
+        "name": "Scenario D",
+        "tmdisplay": "[Scenario D]"
+      },
+      "4": {
+        "name": "Scenario E",
+        "tmdisplay": "[Scenario E]"
+      },
+      "5": {
+        "name": "Scenario F",
+        "tmdisplay": "[Scenario F]"
+      },
+      "6": {
+        "name": "Scenario G",
+        "tmdisplay": "[Scenario G]"
+      },
+      "7": {
+        "name": "Scenario H",
+        "tmdisplay": "[Scenario H]"
+      },
+      "8": {
+        "name": "Scenario I",
+        "tmdisplay": "[Scenario I]"
+      },
+      "9": {
+        "name": "Scenario J",
+        "tmdisplay": "[Scenario J]"
+      },
+      "10": {
+        "name": "Scenario K",
+        "tmdisplay": "[Scenario K]"
+      },
+      "11": {
+        "name": "Scenario L",
+        "tmdisplay": "[Scenario L]"
+      },
+      "12": {
+        "name": "Scenario M",
+        "tmdisplay": "[Scenario M]"
+      },
+      "13": {
+        "name": "Scenario N",
+        "tmdisplay": "[Scenario N]"
+      }
+    }
+  }
+}
