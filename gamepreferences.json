@@ -1,2 +1,20 @@
 {
+  "103": {
+    "name": "Turn confirmation",
+    "needReload": false,
+    "default": 2,
+    "values": {
+      "2": { "name": "Enabled" },
+      "0": { "name": "Disabled" },
+      "1": { "name": "Enabled with timer" }
+    }
+  },
+  "104": {
+    "name": "Undoable actions confirmation",
+    "needReload": false,
+    "values": {
+      "2": { "name": "Enabled" },
+      "0": { "name": "Disabled" }
+    }
+  }
 }

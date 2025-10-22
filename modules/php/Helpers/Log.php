@@ -4,9 +4,7 @@ namespace Bga\Games\Tembo\Helpers;
 
 use Bga\Games\Tembo\Game;
 use Bga\Games\Tembo\Core\Globals;
-use Bga\Games\Tembo\Core\Stats;
 use Bga\Games\Tembo\Core\Notifications;
-use Bga\Games\Tembo\Core\Engine;
 use Bga\Games\Tembo\Managers\Players;
 
 /**
@@ -20,6 +18,7 @@ use Bga\Games\Tembo\Managers\Players;
  *  `type` varchar(32) NOT NULL,
  *  `affected` JSON,
  */
+
 class Log extends \APP_DbObject
 {
   public static function clearCache()
@@ -48,7 +47,7 @@ class Log extends \APP_DbObject
     }
 
     if (is_null(static::$moveId)) {
-      static::$moveId = self::getUniqueValueFromDB('SELECT global_value FROM global WHERE global_id = 3') ?? 0;
+      static::$moveId = static::getUniqueValueFromDB('SELECT global_value FROM global WHERE global_id = 3') ?? 0;
     }
     $entry['move_id'] = static::$moveId;
     $query = new QueryBuilder('log', null, 'id');
@@ -56,11 +55,22 @@ class Log extends \APP_DbObject
   }
 
   // Create a new checkpoint : anything before that checkpoint cannot be undo (unless in studio)
-  public static function checkpoint($pId = 0)
+  public static function checkpoint(int $pId = 0)
   {
     self::clearUndoableStepNotifications();
     return self::addEntry(['type' => 'checkpoint', 'player_id' => $pId]);
   }
+
+  // Log the start of engine to allow "restart turn"
+  public static function startEngine()
+  {
+    if (!Globals::isSolo()) {
+      self::checkpoint();
+    }
+
+    return self::addEntry(['type' => 'engine']);
+  }
+
 
   // Create a new step to allow undo step-by-step
   public static function step()
@@ -69,7 +79,7 @@ class Log extends \APP_DbObject
   }
 
   // Find the last checkpoint
-  public static function getLastCheckpoint($pId, $includeEngineStarts = false)
+  public static function getLastCheckpoint(int $pId, bool $includeEngineStarts = false): int
   {
     $query = new QueryBuilder('log', null, 'id');
     $query = $query->select(['id']);
@@ -92,7 +102,7 @@ class Log extends \APP_DbObject
   }
 
   // Find all the moments available to undo
-  public static function getUndoableSteps($pId, $onlyIds = true)
+  public static function getUndoableSteps(int $pId, bool $onlyIds = true): array
   {
     $checkpoint = self::getLastCheckpoint($pId);
     $query = new QueryBuilder('log', null, 'id');
@@ -122,7 +132,7 @@ class Log extends \APP_DbObject
   /**
    * Revert to a given step (checking first that it exists)
    */
-  public static function undoToStep($pId, $stepId)
+  public static function undoToStep(int $pId, int $stepId)
   {
     $query = new QueryBuilder('log', null, 'id');
     $step = $query
@@ -139,7 +149,7 @@ class Log extends \APP_DbObject
   /**
    * Revert all the logged changes up to an id
    */
-  public static function revertTo($pId, $id)
+  public static function revertTo(int $pId, int $id)
   {
     $query = new QueryBuilder('log', null, 'id');
     $logs = $query
@@ -151,7 +161,7 @@ class Log extends \APP_DbObject
 
     $moveIds = [];
     foreach ($logs as $log) {
-      if (in_array($log['type'], ['step', 'engine'])) {
+      if (in_array($log['type'], ['step', 'engine', 'checkpoint'])) {
         continue;
       }
 

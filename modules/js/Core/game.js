@@ -5,7 +5,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
      */
     constructor() {
       this._notifications = [];
-      this._activeStates = [];
+      this._inactiveStatesAdd = [];
       this._connections = [];
       this._selectableNodes = [];
 
@@ -22,6 +22,10 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
     getColorRgb(playerId = this.gamedatas.active_player_id) {
       const rgb = this.hexToRgb(this.getPlayerColor(playerId));
       return `border-color: rgb(${rgb}); box-shadow: 0px 0px 5px rgba(${rgb}, 0.4)`;
+    },
+
+    isFastMode() {
+      return this.instantaneousMode;
     },
 
     /*
@@ -72,13 +76,93 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
      */
     onEnteringState(stateName, args) {
       debug('Entering state: ' + stateName, args);
+      if (this.isFastMode() && ![].includes(stateName)) return;
 
-      if (this._activeStates.includes(stateName) && !this.isCurrentPlayerActive()) return;
+      if (args.args && args.args.descSuffix) {
+        this.changePageTitle(args.args.descSuffix);
+      }
 
-      // Private state machine
-      if (args.parallel) {
-        if (args.args._private) this.setupPrivateState(args.args._private.state, args.args._private.args);
-        return;
+      if (args.args && args.args.optionalAction) {
+        let base = args.args.descSuffix ? args.args.descSuffix : '';
+        this.changePageTitle(base + 'skippable');
+      }
+
+      if (!this._inactiveStates.includes(stateName) && !this.isCurrentPlayerActive()) return;
+
+      if (this.isCurrentPlayerActive()) {
+        if (args.args && args.args.optionalAction && !args.args.automaticAction) {
+          this.addSecondaryActionButton(
+            'btnPassAction',
+            args.passbtn ? _(args.passbtn) : _('Pass'),
+            () => {
+              let warning = false;
+              if (args.args.passbtnConfirm || false) {
+                warning = args.passbtnConfirm || true;
+              }
+              this.askConfirmation(warning, () => this.takeAction('actPassOptionalAction'));
+            },
+            'restartAction'
+          );
+        }
+
+        // Undo last steps
+        if (args.args && args.args.previousSteps) {
+          args.args.previousSteps.forEach((stepId) => {
+            let logEntry = $('logs').querySelector(`.log.notif_newUndoableStep[data-step="${stepId}"]`);
+            if (logEntry) this.onClick(logEntry, () => this.undoToStep(stepId));
+
+            logEntry = document.querySelector(`.chatwindowlogs_zone .log.notif_newUndoableStep[data-step="${stepId}"]`);
+            if (logEntry) this.onClick(logEntry, () => this.undoToStep(stepId));
+          });
+        }
+
+        // Restart turn button
+        if (args.args && args.args.previousEngineChoices && args.args.previousEngineChoices >= 1 && !args.args.automaticAction) {
+          if (args.args && args.args.previousSteps) {
+            let lastStep = Math.max(...args.args.previousSteps);
+            if (lastStep > 0)
+              this.addDangerActionButton(
+                'btnUndoLastStep',
+                _('Undo last step'),
+                () => this.undoToStep(lastStep),
+                'restartAction'
+              );
+          }
+
+          // Restart whole turn
+          this.addDangerActionButton(
+            'btnRestartTurn',
+            _('Restart turn'),
+            () => {
+              this.stopActionTimer();
+              this.takeAction('actRestart');
+            },
+            'restartAction'
+          );
+        }
+      }
+
+      if (this.isCurrentPlayerActive() && args.args) {
+        // Anytime buttons
+        if (args.args.anytimeActions) {
+          args.args.anytimeActions.forEach((action, i) => {
+            let msg = action.desc;
+            msg = msg.log ? this.fsr(msg.log, msg.args) : _(msg);
+            msg = this.formatString(msg);
+
+            let container = 'anytimeActions';
+            if (action.flow.action == 'RevealObjective') {
+              container = 'generalactions';
+            }
+
+            this.addPrimaryActionButton(
+              'btnAnytimeAction' + i,
+              msg,
+              () => this.takeAction('actAnytimeAction', { id: i }, false),
+              container
+            );
+          });
+        }
       }
 
       // Call appropriate method
@@ -831,6 +915,179 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
       };
       o.setValue(defaultValue);
       return o;
+    },
+
+    //////////////////////////////
+    //  _   _           _
+    // | | | |_ __   __| | ___
+    // | | | | '_ \ / _` |/ _ \
+    // | |_| | | | | (_| | (_) |
+    //  \___/|_| |_|\__,_|\___/
+    //////////////////////////////
+
+    onAddingNewUndoableStepToLog(notif) {
+      if (!$(`log_${notif.logId}`)) return;
+      let stepId = notif.msg.args.stepId;
+      $(`log_${notif.logId}`).dataset.step = stepId;
+      if ($(`dockedlog_${notif.mobileLogId}`)) $(`dockedlog_${notif.mobileLogId}`).dataset.step = stepId;
+
+      if (
+        this.gamedatas &&
+        this.gamedatas.gamestate &&
+        this.gamedatas.gamestate.args &&
+        this.gamedatas.gamestate.args.previousSteps &&
+        this.gamedatas.gamestate.args.previousSteps.includes(parseInt(stepId))
+      ) {
+        this.onClick($(`log_${notif.logId}`), () => this.undoToStep(stepId));
+
+        if ($(`dockedlog_${notif.mobileLogId}`)) this.onClick($(`dockedlog_${notif.mobileLogId}`), () => this.undoToStep(stepId));
+      }
+    },
+
+    undoToStep(stepId) {
+      this.stopActionTimer();
+      this.checkAction('actRestart');
+      this.takeAction('actUndoToStep', { stepId }, false);
+    },
+
+    notif_clearTurn(n) {
+      debug('Notif: restarting turn', n);
+      this.cancelLogs(n.args.notifIds);
+    },
+
+    notif_refreshUI(n) {
+      debug('Notif: refreshing UI', n);
+
+      ['meeples', 'players'].forEach((value) => {
+        this.gamedatas[value] = n.args.datas[value];
+      });
+      this.setupMeeples();
+      this.refreshPlayers();
+    },
+
+    notif_refreshHand(n) {
+      debug('Notif: refreshing UI', n);
+      this.gamedatas.players[n.args.player_id].hand = n.args.hand;
+      this.updateHandCards();
+      this.updateCardCosts();
+    },
+
+    ////////////////////////////////////////
+    //  _____             _
+    // | ____|_ __   __ _(_)_ __   ___
+    // |  _| | '_ \ / _` | | '_ \ / _ \
+    // | |___| | | | (_| | | | | |  __/
+    // |_____|_| |_|\__, |_|_| |_|\___|
+    //              |___/
+    ////////////////////////////////////////
+
+    addActionChoiceBtn(choice, disabled = false, noPass = true) {
+      if ($('btnChoice' + choice.id)) return;
+      if (choice.id == 99 && noPass) return; // Make sure pass button is displayed last
+
+      let desc = this.translate(choice.description);
+      desc = this.formatString(desc);
+
+      // Add source if any
+      let source = _(choice.source ? choice.source : '');
+      // if (choice.sourceId) {
+      //   let card = { id: choice.sourceId };
+      //   this.loadSaveCard(card);
+      //   source = this.fsr('${card_name}', { i18n: ['card_name'], card_name: _(card.name), card_id: card.id });
+      // }
+
+      if (source != '') {
+        desc += ` (${source})`;
+      }
+
+      this.addSecondaryActionButton(
+        'btnChoice' + choice.id,
+        desc,
+        disabled
+          ? () => {}
+          : () => {
+              this.askConfirmation(choice.irreversibleAction, () => this.takeAction('actChooseAction', { id: choice.id }));
+            }
+      );
+      if (disabled) {
+        $(`btnChoice${choice.id}`).classList.add('disabled');
+      }
+    },
+
+    onEnteringStateResolveChoice(args) {
+      Object.values(args.choices).forEach((choice) => this.addActionChoiceBtn(choice, false));
+      Object.values(args.allChoices).forEach((choice) => this.addActionChoiceBtn(choice, true));
+      Object.values(args.choices).forEach((choice) => this.addActionChoiceBtn(choice, false, false));
+    },
+
+    onEnteringStateImpossibleAction(args) {
+      this.addActionChoiceBtn(
+        {
+          choiceId: 0,
+          description: args.desc,
+        },
+        true
+      );
+    },
+
+    addConfirmTurn(args, action) {
+      this.addPrimaryActionButton('btnConfirmTurn', _('Confirm'), () => {
+        this.stopActionTimer();
+        this.takeAction(action);
+      });
+
+      const OPTION_CONFIRM = 103;
+      let n = args.previousEngineChoices;
+      let timer = Math.min(10 + 2 * n, 20);
+      this.startActionTimer('btnConfirmTurn', timer, this.prefs[OPTION_CONFIRM].value);
+    },
+
+    onEnteringStateConfirmTurn(args) {
+      this.addConfirmTurn(args, 'actConfirmTurn');
+    },
+
+    onEnteringStateConfirmPartialTurn(args) {
+      this.addConfirmTurn(args, 'actConfirmPartialTurn');
+    },
+
+    onEnteringStateConfirmEndOfTurn(args) {
+      // USEFUL FOR END OF TURN OBJECTIVE => NO TIMER
+      this.addPrimaryActionButton('btnConfirmTurn', _('Confirm'), () => {
+        this.takeAtomicAction('actConfirmEndOfTurn', []);
+      });
+    },
+
+    askConfirmation(warning, callback) {
+      if (warning === false || this.prefs[104].value == 0) {
+        callback();
+      } else {
+        //        let msg = warning === true ? _('drawing card(s) from the deck or the discard') : warning;
+        let msg =
+          warning === true
+            ? _(
+                "If you take this action, you won't be able to undo past this step because you will either draw card(s) or someone else is going to make a choice"
+              )
+            : warning;
+        this.confirmationDialog(
+          msg,
+          // this.fsr(
+          //   _("If you take this action, you won't be able to undo past this step because of the following reason: ${msg}"),
+          //   { msg }
+          // ),
+          () => {
+            callback();
+          }
+        );
+      }
+    },
+
+    // Generic call for Atomic Action that encode args as a JSON to be decoded by backend
+    takeAtomicAction(action, args, warning = false, checkAction = true) {
+      if (checkAction && !this.checkAction(action)) return false;
+
+      this.askConfirmation(warning, () =>
+        this.bgaPerformAction('actTakeAtomicAction', { actionName: action, actionArgs: JSON.stringify(args) }, false)
+      );
     },
   });
 });

@@ -3,24 +3,37 @@
 namespace Bga\Games\Tembo;
 
 use Bga\Games\Tembo\Core\Globals;
-use Bga\Games\Tembo\Managers\FlowerCards;
 use Bga\Games\Tembo\Managers\Players;
+use Bga\Games\Tembo\Core\Engine;
+use Bga\Games\Tembo\Helpers\Log;
 
 trait DebugTrait
 {
-  public function testZones()
+
+  function tp() {}
+
+
+  function undoToStep($stepId)
   {
     $player = Players::getCurrent();
-    var_dump($player->board()->getZones());
+    Log::undoToStep($player->getId(), $stepId);
+    $this->engProceed();
   }
 
-  public function tp()
+  function resolveDebug()
   {
-    // $card = FlowerCards::getSingle(43);
-    // $player = Players::getCurrent();
-    // $board = $player->board();
-    // var_dump($board->canPlayCard($card));
-    $isStandard = empty(Globals::getEcosystems());
-    var_dump($isStandard);
+    Engine::resolveAction([]);
+    Engine::proceed();
+  }
+
+
+  function engDisplay()
+  {
+    var_dump(Globals::getEngine());
+  }
+
+  function engProceed()
+  {
+    Engine::proceed();
   }
 }

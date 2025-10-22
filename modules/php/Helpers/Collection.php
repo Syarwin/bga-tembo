@@ -2,8 +2,6 @@
 
 namespace Bga\Games\Tembo\Helpers;
 
-use Bga\Games\Tembo\Helpers\Utils;
-
 class Collection extends \ArrayObject
 {
   public function getIds()
@@ -19,9 +17,18 @@ class Collection extends \ArrayObject
   public function first()
   {
     $arr = $this->toArray();
-    return isset($arr[0]) ?
-      $arr[0] :
-      null;
+    return isset($arr[0]) ? $arr[0] : null;
+  }
+
+  public function last()
+  {
+    $arr = $this->toArray();
+    return empty($arr) ? null : $arr[count($arr) - 1];
+  }
+
+  public function has($key)
+  {
+    return array_key_exists($key, $this->getArrayCopy());
   }
 
   public function rand()
@@ -98,47 +105,22 @@ class Collection extends \ArrayObject
   public function where($field, $value)
   {
     return is_null($value)
-      ?
-      $this
-      :
-      $this->filter(function ($obj) use ($field, $value) {
-        $method = 'get' . Utils::ucfirst($field);
+      ? $this
+      : $this->filter(function ($obj) use ($field, $value) {
+        $method = 'get' . ucfirst($field);
         $objValue = $obj->$method();
         return is_array($value)
-          ?
-          in_array($objValue, $value)
+          ? in_array($objValue, $value)
           : (strpos($value, '%') !== false
-            ?
-            like_match($value, $objValue)
-            :
-            $objValue == $value);
-      });
-  }
-
-  public function whereNot($field, $value)
-  {
-    return is_null($value)
-      ?
-      $this
-      :
-      $this->filter(function ($obj) use ($field, $value) {
-        $method = 'get' . Utils::ucfirst($field);
-        $objValue = $obj->$method();
-        return is_array($value)
-          ?
-          !in_array($objValue, $value)
-          : (strpos($value, '%') !== false
-            ?
-            !like_match($value, $objValue)
-            :
-            $objValue != $value);
+            ? like_match($value, $objValue)
+            : $objValue == $value);
       });
   }
 
   public function whereNull($field)
   {
     return $this->filter(function ($obj) use ($field) {
-      $method = 'get' . Utils::ucfirst($field);
+      $method = 'get' . ucfirst($field);
       $objValue = $obj->$method();
       return is_null($objValue);
     });
@@ -147,16 +129,14 @@ class Collection extends \ArrayObject
   public function orderBy($field, $asc = 'ASC')
   {
     return $this->order(function ($a, $b) use ($field, $asc) {
-      $method = 'get' . Utils::ucfirst($field);
-      return $asc == 'ASC' ?
-        $a->$method() - $b->$method() :
-        $b->$method() - $a->$method();
+      $method = 'get' . ucfirst($field);
+      return $asc == 'ASC' ? $a->$method() - $b->$method() : $b->$method() - $a->$method();
     });
   }
 
   public function update($field, $value)
   {
-    $method = 'set' . Utils::ucfirst($field);
+    $method = 'set' . ucfirst($field);
     foreach ($this->getArrayCopy() as $obj) {
       $obj->$method($value);
     }
@@ -167,5 +147,5 @@ class Collection extends \ArrayObject
 function like_match($pattern, $subject)
 {
   $pattern = str_replace('%', '.*', preg_quote($pattern, '/'));
-  return (bool)preg_match("/^{$pattern}$/i", $subject);
+  return (bool) preg_match("/^{$pattern}$/i", $subject);
 }

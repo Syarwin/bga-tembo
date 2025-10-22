@@ -2,20 +2,18 @@
 
 namespace Bga\Games\Tembo\Helpers;
 
-use Bga\Games\Tembo\Helpers\Log;
-
 class DB_Manager
 {
   protected static string $table = "";
   protected static string $primary = "";
   protected static bool $log = true;
 
-  protected static function cast($row)
+  protected static function cast(array $row): mixed
   {
     return $row;
   }
 
-  public static function DB($table = null)
+  public static function DB(?string $table = null): QueryBuilder
   {
     if (is_null($table)) {
       if (is_null(static::$table)) {

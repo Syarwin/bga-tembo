@@ -4,44 +4,38 @@ namespace Bga\Games\Tembo\Models;
 
 use Bga\Games\Tembo\Helpers\DB_Model;
 
+/*
+ * Meeple
+ */
+
 class Meeple extends DB_Model
 {
   protected string $table = 'meeples';
   protected string $primary = 'meeple_id';
   protected array $attributes = [
-    'id' => 'meeple_id',
+    'id' => ['meeple_id', 'int'],
     'location' => 'meeple_location',
     'state' => 'meeple_state',
-    'type' => ['type', 'str'],
+    'type' => 'type',
     'pId' => ['player_id', 'int'],
-    'x' => ['x', 'int'],
-    'y' => ['y', 'int'],
+    'x' => 'x',
+    'y' => 'y',
   ];
-  protected int $id;
-  protected string $location;
-  protected int $state;
-  protected string $type;
-  protected ?int $pId;
-  protected int $x;
-  protected int $y;
 
-  public function getId()
+  public function getPos()
   {
-    return $this->id;
+    return ['x' => (int) $this->getX(), 'y' => (int) $this->getY()];
   }
 
-  public function getNotifCoords(): string
-  {
-    return chr(ord('A') + $this->getX()) . ($this->getY() + 1);
-  }
+  // public function getPosId()
+  // {
+  //   return Board::getCellId($this->getPos());
+  // }
 
-  public function getType()
+  public function getName()
   {
-    return $this->type;
-  }
+    $names = [];
 
-  public function getCoords()
-  {
-    return ['x' => $this->x, 'y' => $this->y];
+    return $names[$this->getType()] ?? $this->getType();
   }
 }

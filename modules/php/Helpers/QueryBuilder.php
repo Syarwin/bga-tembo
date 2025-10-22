@@ -46,7 +46,7 @@ class QueryBuilder extends \APP_DbObject
   public function insert($fields = [], $overwriteIfExists = false)
   {
     $this->multipleInsert(array_keys($fields), $overwriteIfExists)->values([array_values($fields)]);
-    return self::DbGetLastId(); // This doesn't work because Log inserts new rows in values() method
+    return self::DbGetLastId();
   }
 
   /*
@@ -56,9 +56,7 @@ class QueryBuilder extends \APP_DbObject
   public function multipleInsert($fields = [], $overwriteIfExists = false)
   {
     $keys = implode('`, `', array_values($fields));
-    $this->sql = ($overwriteIfExists ?
-        'REPLACE' :
-        'INSERT') . " INTO `{$this->table}` (`{$keys}`) VALUES";
+    $this->sql = ($overwriteIfExists ? 'REPLACE' : 'INSERT') . " INTO `{$this->table}` (`{$keys}`) VALUES";
     $this->insertPrimaryIndex = array_search($this->primary, $fields);
     return $this;
   }
@@ -68,7 +66,7 @@ class QueryBuilder extends \APP_DbObject
     // Fetch starting index if not provided
     $startingId = null;
     if ($this->insertPrimaryIndex === false) {
-      $startingId = (int)self::getUniqueValueFromDB(
+      $startingId = (int) self::getUniqueValueFromDB(
         "SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '{$this->table}';"
       );
     }
@@ -78,14 +76,10 @@ class QueryBuilder extends \APP_DbObject
     foreach ($rows as $row) {
       $rowValues = [];
       foreach ($row as $val) {
-        $rowValues[] = $val === null ?
-          'NULL' :
-          "'" . mysql_escape_string($val) . "'";
+        $rowValues[] = $val === null ? 'NULL' : "'" . mysql_escape_string($val) . "'";
       }
       $vals[] = '(' . implode(',', $rowValues) . ')';
-      $ids[] = $rom[$this->primary] ?? ($this->insertPrimaryIndex === false ?
-        $startingId++ :
-        $row[$this->insertPrimaryIndex]);
+      $ids[] = $rom[$this->primary] ?? ($this->insertPrimaryIndex === false ? $startingId++ : $row[$this->insertPrimaryIndex]);
     }
 
     $this->sql .= implode(',', $vals);
@@ -110,9 +104,7 @@ class QueryBuilder extends \APP_DbObject
   {
     $this->sql = "DELETE FROM `{$this->table}`";
     $this->operation = 'delete';
-    return isset($id) ?
-      $this->run($id) :
-      $this;
+    return isset($id) ? $this->run($id) : $this;
   }
 
   /*
@@ -123,17 +115,13 @@ class QueryBuilder extends \APP_DbObject
   {
     $values = [];
     foreach ($fields as $column => $field) {
-      $values[] = "`$column` = " . (is_null($field) ?
-          'NULL' :
-          "'$field'");
+      $values[] = "`$column` = " . (is_null($field) ? 'NULL' : "'$field'");
     }
 
     $this->operation = 'update';
     $this->operationDatas = array_keys($fields);
     $this->sql = "UPDATE `{$this->table}` SET " . implode(',', $values);
-    return isset($id) ?
-      $this->run($id) :
-      $this;
+    return isset($id) ? $this->run($id) : $this;
   }
 
   /*
@@ -150,9 +138,7 @@ class QueryBuilder extends \APP_DbObject
     $this->operation = 'update';
     $this->operationDatas = array_keys($fields);
     $this->sql = "UPDATE `{$this->table}` SET " . implode(',', $values);
-    return isset($id) ?
-      $this->run($id) :
-      $this;
+    return isset($id) ? $this->run($id) : $this;
   }
 
   /*
@@ -210,9 +196,7 @@ class QueryBuilder extends \APP_DbObject
       $cols = [$columns];
     } else {
       foreach ($columns as $alias => $col) {
-        $cols[] = is_numeric($alias) ?
-          "`$col`" :
-          "`$col` AS `$alias`";
+        $cols[] = is_numeric($alias) ? "`$col`" : "`$col` AS `$alias`";
       }
     }
 
@@ -223,7 +207,7 @@ class QueryBuilder extends \APP_DbObject
   /*
    * get : run a select query and fetch values
    */
-  public function get($returnValueIfOnlyOneRow = false, $debug = false, $cast = true)
+  public function get($returnValueIfOnlyOneRow = false, $debug = false)
   {
     $select = $this->columns ?? "*, {$this->primary} AS `result_associative_index`";
     $this->sql = "SELECT $select FROM `$this->table`";
@@ -239,23 +223,17 @@ class QueryBuilder extends \APP_DbObject
       unset($row['result_associative_index']);
 
       $val = $row;
-      if ($cast) {
-        if (is_callable($this->cast)) {
-          $val = forward_static_call($this->cast, $row);
-        } elseif (is_string($this->cast)) {
-          $val = $this->cast == 'object' ?
-            ((object)$row) :
-            new $this->cast($row);
-        }
+      if (is_callable($this->cast)) {
+        $val = forward_static_call($this->cast, $row);
+      } elseif (is_string($this->cast)) {
+        $val = $this->cast == 'object' ? ((object) $row) : new $this->cast($row);
       }
 
       $oRes[$id] = $val;
     }
 
     if ($returnValueIfOnlyOneRow && count($oRes) <= 1) {
-      return count($oRes) == 1 ?
-        reset($oRes) :
-        null;
+      return count($oRes) == 1 ? reset($oRes) : null;
     } else {
       return new Collection($oRes);
     }
@@ -275,12 +253,10 @@ class QueryBuilder extends \APP_DbObject
       throw new \BgaVisibleSystemException('QueryBuilder: func is called with unknown function');
     }
 
-    $field = is_null($field) ?
-      '*' :
-      "`$field`";
+    $field = is_null($field) ? '*' : "`$field`";
     $this->sql = "SELECT $func($field) FROM `$this->table`";
     $this->assembleQueryClauses();
-    return (int)self::getUniqueValueFromDB($this->sql);
+    return (int) self::getUniqueValueFromDB($this->sql);
   }
 
   public function count($field = null)
@@ -313,18 +289,12 @@ class QueryBuilder extends \APP_DbObject
 
   private function protect($arg)
   {
-    return is_string($arg) ?
-      "'" . mysql_escape_string($arg) . "'" :
-      $arg;
+    return is_string($arg) ? "'" . mysql_escape_string($arg) . "'" : $arg;
   }
 
   protected function computeWhereClause($arg)
   {
-    $this->where = is_null($this->where) ?
-      ' WHERE ' :
-      $this->where . ($this->isOrWhere ?
-        ' OR ' :
-        ' AND ');
+    $this->where = is_null($this->where) ? ' WHERE ' : $this->where . ($this->isOrWhere ? ' OR ' : ' AND ');
 
     if (!is_array($arg)) {
       $arg = [$arg];
@@ -335,14 +305,12 @@ class QueryBuilder extends \APP_DbObject
     // Only one param => use primary field
     if ($n == 1) {
       $this->where .= " `{$this->primary}` = " . $this->protect($param[0]);
-    } // Three params : WHERE $1 OP2 $3
-    elseif ($n >= 3) {
-      $this->where .= '(`' . trim($param[0]) . '` ' . $param[1] . ' ' . $this->protect($param[2]);
-      if ($n == 4) {
-        $this->where .= ' OR `' . trim($param[0]) . '` IS NULL';
-      }
-      $this->where .= ')';
-    } // Two params : $1 = $2
+    }
+    // Three params : WHERE $1 OP2 $3
+    elseif ($n == 3) {
+      $this->where .= '`' . trim($param[0]) . '` ' . $param[1] . ' ' . $this->protect($param[2]);
+    }
+    // Two params : $1 = $2
     elseif ($n == 2) {
       $this->where .= '`' . trim($param[0]) . '` = ' . $this->protect($param[1]);
     }
@@ -357,59 +325,34 @@ class QueryBuilder extends \APP_DbObject
     $this->isOrWhere = false;
     $num_args = func_num_args();
     $args = func_get_args();
-    $this->computeWhereClause(
-      $num_args == 1 && is_array($args[0]) ?
-        $args[0] :
-        [$args]
-    );
+    $this->computeWhereClause($num_args == 1 && is_array($args[0]) ? $args[0] : [$args]);
     return $this;
   }
 
   public function whereIn()
   {
-    $this->where = is_null($this->where) ?
-      ' WHERE ' :
-      $this->where . ($this->isOrWhere ?
-        ' OR ' :
-        ' AND ');
+    $this->where = is_null($this->where) ? ' WHERE ' : $this->where . ($this->isOrWhere ? ' OR ' : ' AND ');
 
     $num_args = func_num_args();
     $args = func_get_args();
-    $field = $num_args == 1 ?
-      $this->primary :
-      $args[0];
-    $values = $num_args == 1 ?
-      $args[0] :
-      $args[1];
-
+    $field = $num_args == 1 ? $this->primary : $args[0];
+    $values = $num_args == 1 ? $args[0] : $args[1];
     if (is_null($values)) {
       return $this;
     }
 
-    $this->where .= "(`$field` IN ('" . implode("','", $values) . "')";
-    if ($num_args == 3) {
-      $this->where .= " OR `$field` IS NULL";
-    }
-    $this->where .= ')';
+    $this->where .= "`$field` IN ('" . implode("','", $values) . "')";
     return $this;
   }
 
   public function whereNotIn()
   {
-    $this->where = is_null($this->where) ?
-      ' WHERE ' :
-      $this->where . ($this->isOrWhere ?
-        ' OR ' :
-        ' AND ');
+    $this->where = is_null($this->where) ? ' WHERE ' : $this->where . ($this->isOrWhere ? ' OR ' : ' AND ');
 
     $num_args = func_num_args();
     $args = func_get_args();
-    $field = $num_args == 1 ?
-      $this->primary :
-      $args[0];
-    $values = $num_args == 1 ?
-      $args[0] :
-      $args[1];
+    $field = $num_args == 1 ? $this->primary : $args[0];
+    $values = $num_args == 1 ? $args[0] : $args[1];
     if (is_null($values)) {
       return $this;
     }
@@ -420,34 +363,15 @@ class QueryBuilder extends \APP_DbObject
 
   public function whereNull($field)
   {
-    $this->where = is_null($this->where) ?
-      ' WHERE ' :
-      $this->where . ($this->isOrWhere ?
-        ' OR ' :
-        ' AND ');
+    $this->where = is_null($this->where) ? ' WHERE ' : $this->where . ($this->isOrWhere ? ' OR ' : ' AND ');
     $this->where .= "`$field` IS NULL";
     return $this;
   }
 
   public function whereNotNull($field)
   {
-    $this->where = is_null($this->where) ?
-      ' WHERE ' :
-      $this->where . ($this->isOrWhere ?
-        ' OR ' :
-        ' AND ');
+    $this->where = is_null($this->where) ? ' WHERE ' : $this->where . ($this->isOrWhere ? ' OR ' : ' AND ');
     $this->where .= "`$field` IS NOT NULL";
-    return $this;
-  }
-
-  public function whereEqualOrNull($field, $value)
-  {
-    $this->where = is_null($this->where) ?
-      ' WHERE ' :
-      $this->where . ($this->isOrWhere ?
-        ' OR ' :
-        ' AND ');
-    $this->where .= "(`$field` = '$value' OR `$filed` IS NULL)";
     return $this;
   }
 
@@ -456,20 +380,14 @@ class QueryBuilder extends \APP_DbObject
     $this->isOrWhere = true;
     $num_args = func_num_args();
     $args = func_get_args();
-    $this->computeWhereClause(
-      $num_args == 1 ?
-        $args[0] :
-        [$args]
-    );
+    $this->computeWhereClause($num_args == 1 ? $args[0] : [$args]);
     return $this;
   }
 
   // Syntaxic sugar
   public function wherePlayer($pId)
   {
-    return $pId == null ?
-      $this :
-      $this->where('player_id', $pId);
+    return $pId == null ? $this : $this->where('player_id', $pId);
   }
 
   /*
@@ -477,9 +395,7 @@ class QueryBuilder extends \APP_DbObject
    */
   public function limit($limit, $offset = null)
   {
-    $this->limit = " LIMIT {$limit}" . (is_null($offset) ?
-        '' :
-        " OFFSET {$offset}");
+    $this->limit = " LIMIT {$limit}" . (is_null($offset) ? '' : " OFFSET {$offset}");
     return $this;
   }
 

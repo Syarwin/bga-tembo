@@ -2,10 +2,10 @@
 
 namespace Bga\Games\Tembo\Managers;
 
-use Bga\Games\Tembo\Game;
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Helpers\CachedDB_Manager;
 use Bga\Games\Tembo\Models\Player;
+use Bga\Games\Tembo\Game;
 
 /*
  * Players manager : allows to easily access players ...
@@ -17,12 +17,12 @@ class Players extends CachedDB_Manager
   protected static string $table = 'player';
   protected static string $primary = 'player_id';
 
-  protected static function cast($row)
+  protected static function cast(array $row): Player
   {
     return new Player($row);
   }
 
-  public static function setupNewGame($players, $options)
+  public static function setupNewGame(array $players, array $options): void
   {
     // Create players
     $gameInfos = Game::get()->getGameinfos();
@@ -52,14 +52,14 @@ class Players extends CachedDB_Manager
     Game::get()->reloadPlayersBasicInfos();
   }
 
-  public static function getActiveId()
+  public static function getActiveId(): int
   {
-    return (int)Game::get()->getActivePlayerId();
+    return (int) Game::get()->getActivePlayerId();
   }
 
-  public static function getCurrentId($bReturnNullIfNotLogged = false)
+  public static function getCurrentId(bool $bReturnNullIfNotLogged = false): int
   {
-    return (int)Game::get()->getCurrentPId($bReturnNullIfNotLogged);
+    return (int) Game::get()->getCurrentPId($bReturnNullIfNotLogged);
   }
 
   public static function getActive(): Player
@@ -72,12 +72,12 @@ class Players extends CachedDB_Manager
     return self::get(self::getCurrentId());
   }
 
-  public static function get($id = null)
+  public static function get($id = null): Player
   {
     return parent::get($id ?? self::getActiveId());
   }
 
-  public static function getNextId($player)
+  public static function getNextId(Player|int $player): int
   {
     $pId = is_int($player) ?
       $player :
@@ -86,7 +86,7 @@ class Players extends CachedDB_Manager
     return $table[$pId];
   }
 
-  public static function getNext($player)
+  public static function getNext(Player|int $player): Player
   {
     return self::get(self::getNextId($player));
   }
@@ -94,7 +94,7 @@ class Players extends CachedDB_Manager
   /*
    * Return the number of players
    */
-  public static function count()
+  public static function count(): int
   {
     return self::getAll()->count();
   }
@@ -102,7 +102,7 @@ class Players extends CachedDB_Manager
   /*
    * getUiData : get all ui data of all players
    */
-  public static function getUiData($pId = null)
+  public static function getUiData(?int $pId = null): array
   {
     return self::getAll()
       ->map(fn($player) => $player->getUiData($pId))
@@ -112,7 +112,7 @@ class Players extends CachedDB_Manager
   /*
    * Get current turn order according to first player variable
    */
-  public static function getTurnOrder($firstPlayer = null)
+  public static function getTurnOrder(?int $firstPlayer = null): array
   {
     $firstPlayer = $firstPlayer ?? Globals::getFirstPlayer();
     $order = [];

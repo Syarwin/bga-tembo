@@ -22,14 +22,20 @@ CREATE TABLE IF NOT EXISTS `meeples`
   DEFAULT CHARSET = utf8;
 
 
-CREATE TABLE IF NOT EXISTS `flower_cards`
+CREATE TABLE IF NOT EXISTS `cards`
 (
     `card_id`       smallint unsigned NOT NULL AUTO_INCREMENT,
     `card_location` varchar(7)        NOT NULL,
     `card_state`    tinyint           NOT NULL,
-    `flower_a`      varchar(1) DEFAULT NULL,
-    `flower_b`      varchar(1) DEFAULT NULL,
-    `flower_c`      varchar(1) DEFAULT NULL,
+    PRIMARY KEY (`card_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `event_tiles`
+(
+    `card_id`       smallint unsigned NOT NULL AUTO_INCREMENT,
+    `card_location` varchar(7)        NOT NULL,
+    `card_state`    tinyint           NOT NULL,
     PRIMARY KEY (`card_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;

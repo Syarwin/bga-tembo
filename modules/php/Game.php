@@ -2,40 +2,34 @@
 
 /**
  *------
- * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
- * Tembo implementation : © Timothée (Tisaac) Pecatte <tim.pecatte@gmail.com>, Pavel Kulagin (KuWizard) <kuzwiz@mail.ru>
+ * BGA framework: Gregory Isabelli & Emmanuel Colin & BoardGameArena
+ * Tembo implementation : © <Your name here> <Your email address here>
  *
  * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
  * See http://en.boardgamearena.com/#!doc/Studio for more information.
  * -----
  *
- * tembo.game.php
+ * Game.php
  *
  * This is the main file for your game logic.
  *
  * In this PHP file, you are going to defines the rules of the game.
- *
  */
+
+declare(strict_types=1);
 
 namespace Bga\Games\Tembo;
 
 use Bga\Games\Tembo\Core\Globals;
-use Bga\Games\Tembo\Managers\FlowerCards;
 use Bga\Games\Tembo\Managers\Players;
-use Bga\Games\Tembo\States\SanityTrait;
-use Bga\Games\Tembo\States\TurnTrait;
-use Bga\Games\Tembo\Core\Stats;
-use Bga\Games\Tembo\Managers\Meeples;
-use Bga\Games\Tembo\Models\Board;
+use Bga\Games\Tembo\States\EngineTrait;
+use Bga\Games\Tembo\States\SetupTrait;
 
-require_once dirname(__FILE__) . "/../php/Materials/Ecosystems.php";
-require_once APP_GAMEMODULE_PATH . 'module/table/table.game.php';
-
-class Game extends \Table
+class Game extends \Bga\GameFramework\Table
 {
+  use SetupTrait;
   use DebugTrait;
-  use TurnTrait;
-  use SanityTrait;
+  use EngineTrait;
 
   public static $instance = null;
 
@@ -51,77 +45,105 @@ class Game extends \Table
     return self::$instance;
   }
 
-  protected function getGameName()
-  {
-    return 'tembo';
-  }
-
-  /*
-   * setupNewGame:
-   */
-  protected function setupNewGame($players, $options = [])
-  {
-    Stats::setupNewGame();
-    Players::setupNewGame($players, $options);
-    Globals::setupNewGame($players, $options);
-    FlowerCards::setupNewGame();
-    Meeples::setupNewGame();
-    $this->activeNextPlayer();
-  }
-
   /*
    * getAllDatas:
    */
   public function getAllDatas(): array
   {
-    $board = new Board(null);
-    $isSolo = Globals::isSolo();
     $data = [
-      'board' => [
-        'ids' => Globals::getBoards(),
-        'waterSpaces' => $board->getWaterSpaces(),
-        'zones' => $board->getZones(),
-        'cellsZone' => $board->getCellsZone(),
-      ],
-      'meeples' => Meeples::getUiData(),
-      'flowerCards' => FlowerCards::getUiData(),
       'players' => Players::getUiData(),
-
-      'turn' => Globals::getTurn(),
-      'endGameText' => $isSolo ? Globals::getEndGameText() : null,
-      'endGameStars' => $isSolo ? Globals::getEndGameStars() : null,
     ];
-    $ecosystemsIds = Globals::getEcosystems();
-    if ($ecosystemsIds) {
-      $ecosystems = [];
-      foreach ($ecosystemsIds as $ecosystemId) {
-        $ecosystems[$ecosystemId] = ECOSYSTEMS[$ecosystemId];
-      }
-      $data['ecosystemsTexts'] = $ecosystems;
-    }
-    if (!$isSolo) {
-      $data['pangolin'] = Globals::getPangolinLocation();
-    }
+
     return $data;
   }
 
   /*
    * getGameProgression:
    */
-  function getGameProgression()
+  function getGameProgression(): int
   {
-    if (Globals::isSolo()) {
-      return 100 * (Globals::getTurn() - 1) / 18;
-    } else {
-      $pIds = $this->getRemainingPlayersToPlay();
-      $nPlayers = Players::count();
-      return 100 * (2 * $nPlayers * Globals::getTurn() - count($pIds)) / (2 * $nPlayers * 9);
+    return 0;
+  }
+
+  ///////////////////////////////////////////////
+  ///////////////////////////////////////////////
+  ////////////   Custom Turn Order   ////////////
+  ///////////////////////////////////////////////
+  ///////////////////////////////////////////////
+  public function initCustomTurnOrder(string $key, ?array $order, mixed $callback, mixed $endCallback, bool $loop = false, bool $autoNext = true, array $args = []): void
+  {
+    $turnOrders = Globals::getCustomTurnOrders();
+    $turnOrders[$key] = [
+      'order' => $order ?? Players::getTurnOrder(),
+      'index' => -1,
+      'callback' => $callback,
+      'args' => $args, // Useful mostly for auto card listeners
+      'endCallback' => $endCallback,
+      'loop' => $loop,
+    ];
+    Globals::setCustomTurnOrders($turnOrders);
+
+    if ($autoNext) {
+      $this->nextPlayerCustomOrder($key);
     }
   }
 
-  ///////////////////////////
-  //// DEBUG FUNCTIONS //////
-  ///////////////////////////
+  public function initCustomDefaultTurnOrder(string $key, mixed $callback, mixed $endCallback, bool $loop = false, bool $autoNext = true): void
+  {
+    $this->initCustomTurnOrder($key, null, $callback, $endCallback, $loop, $autoNext);
+  }
+
+  public function nextPlayerCustomOrder(string $key): void
+  {
+    $turnOrders = Globals::getCustomTurnOrders();
+    if (!isset($turnOrders[$key])) {
+      throw new \BgaVisibleSystemException('Asking for the next player of a custom turn order not initialized : ' . $key);
+    }
+
+    // Increase index and save
+    $o = $turnOrders[$key];
+    $i = $o['index'] + 1;
+    if ($i == count($o['order']) && $o['loop']) {
+      $i = 0;
+    }
+    $turnOrders[$key]['index'] = $i;
+    Globals::setCustomTurnOrders($turnOrders);
+
+    if ($i < count($o['order'])) {
+      $this->gamestate->jumpToState(ST_GENERIC_NEXT_PLAYER);
+      $this->gamestate->changeActivePlayer($o['order'][$i]);
+      $this->jumpToOrCall($o['callback'], $o['args']);
+    } else {
+      $this->endCustomOrder($key);
+    }
+  }
+
+  public function endCustomOrder(string $key): void
+  {
+    $turnOrders = Globals::getCustomTurnOrders();
+    if (!isset($turnOrders[$key])) {
+      throw new \BgaVisibleSystemException('Asking for ending a custom turn order not initialized : ' . $key);
+    }
+
+    $o = $turnOrders[$key];
+    $turnOrders[$key]['index'] = count($o['order']);
+    Globals::setCustomTurnOrders($turnOrders);
+    $callback = $o['endCallback'];
+    $this->jumpToOrCall($callback);
+  }
+
+  public function jumpToOrCall(int|string|array $mixed, $args = [])
+  {
+    if (is_int($mixed)) {
+      $this->gamestate->jumpToState($mixed);
+    } elseif (method_exists($this, $mixed)) {
+      $method = $mixed;
+      $this->$method($args);
+    } else {
+      throw new \BgaVisibleSystemException('Failing to jumpToOrCall  : ' . $mixed);
+    }
+  }
+
 
   ////////////////////////////////////
   ////////////   Zombie   ////////////
@@ -134,7 +156,7 @@ class Game extends \Table
   public function zombieTurn($state, $active_player): void
   {
     switch ($state['name']) {
-      // TODO
+        // TODO
     }
   }
 
@@ -177,11 +199,5 @@ class Game extends \Table
   public static function translate($text)
   {
     return self::_($text);
-  }
-
-  public static function a()
-  {
-    // Method to debug something. Just type "a()" in the table chat
-    var_dump(Cards::get(2));
   }
 }
