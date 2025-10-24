@@ -43,6 +43,17 @@ const PASS = 99;
 
 const CHOOSE_ACTION = 'ChooseAction';
 
+/*
+ * Board tiles
+ */
+// Names are for readability. A name reflects a landmark purple spaces shape
+// Numbers reflect tiles from the rulebook, p.3, top to bottom, left to right
+const BOARD_TILE_DIAGONAL_CANYON = 0;
+const BOARD_TILE_L_SHAPED_RIVER = 1;
+const BOARD_TILE_DIAGONAL_MEADOW = 2;
+const BOARD_TILE_CORNER_WATERFALL = 3;
+const BOARD_TILE_V_ROCKS = 4;
+const BOARD_TILE_SINGLE_SNOW = 5;
 
 /*
  * Meeples

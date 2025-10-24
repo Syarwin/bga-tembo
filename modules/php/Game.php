@@ -22,6 +22,7 @@ namespace Bga\Games\Tembo;
 
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Managers\Players;
+use Bga\Games\Tembo\Models\Board;
 use Bga\Games\Tembo\States\EngineTrait;
 use Bga\Games\Tembo\States\SetupTrait;
 
@@ -50,8 +51,10 @@ class Game extends \Bga\GameFramework\Table
    */
   public function getAllDatas(): array
   {
+    $board = new Board();
     $data = [
       'players' => Players::getUiData(),
+      'board' => $board->getUiFakeData(),
     ];
 
     return $data;
@@ -70,7 +73,15 @@ class Game extends \Bga\GameFramework\Table
   ////////////   Custom Turn Order   ////////////
   ///////////////////////////////////////////////
   ///////////////////////////////////////////////
-  public function initCustomTurnOrder(string $key, ?array $order, mixed $callback, mixed $endCallback, bool $loop = false, bool $autoNext = true, array $args = []): void
+  public function initCustomTurnOrder(
+    string $key,
+    ?array $order,
+    mixed $callback,
+    mixed $endCallback,
+    bool $loop = false,
+    bool $autoNext = true,
+    array $args = []
+  ): void
   {
     $turnOrders = Globals::getCustomTurnOrders();
     $turnOrders[$key] = [
@@ -88,7 +99,13 @@ class Game extends \Bga\GameFramework\Table
     }
   }
 
-  public function initCustomDefaultTurnOrder(string $key, mixed $callback, mixed $endCallback, bool $loop = false, bool $autoNext = true): void
+  public function initCustomDefaultTurnOrder(
+    string $key,
+    mixed $callback,
+    mixed $endCallback,
+    bool $loop = false,
+    bool $autoNext = true
+  ): void
   {
     $this->initCustomTurnOrder($key, null, $callback, $endCallback, $loop, $autoNext);
   }
@@ -97,7 +114,9 @@ class Game extends \Bga\GameFramework\Table
   {
     $turnOrders = Globals::getCustomTurnOrders();
     if (!isset($turnOrders[$key])) {
-      throw new \BgaVisibleSystemException('Asking for the next player of a custom turn order not initialized : ' . $key);
+      throw new \BgaVisibleSystemException(
+        'Asking for the next player of a custom turn order not initialized : ' . $key
+      );
     }
 
     // Increase index and save
@@ -156,7 +175,7 @@ class Game extends \Bga\GameFramework\Table
   public function zombieTurn($state, $active_player): void
   {
     switch ($state['name']) {
-        // TODO
+      // TODO
     }
   }
 
