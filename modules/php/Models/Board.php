@@ -18,8 +18,8 @@ class Board
   public function getUiFakeData(): array
   {
     return [
-      'start' => ['x' => 12, 'y' => 0],
-      'destination' => ['x' => 0, 'y' => 24],
+      'start' => ['x' => 12, 'y' => 0, 'rotation' => 0],
+      'destination' => ['x' => 0, 'y' => 24, 'rotation' => 0],
       'tiles' => [
         [
           'id' => BOARD_TILE_DIAGONAL_CANYON,
