@@ -58,8 +58,10 @@ $cellSize: 50px;
 
     .board-start,
     .board-destination {
-      grid-row-end: span 3;
-      grid-column-end: span 6;
+      width: 6 * $cellSize;
+      height: 3 * $cellSize;
+      // grid-row-end: span 3;
+      // grid-column-end: span 6;
       background-image: url("img/board-ends.jpg");
       background-size: 100% 200%;
       outline: 1px solid #c49323;
@@ -76,6 +78,11 @@ $cellSize: 50px;
       }
       &[data-rotation="3"] {
         rotate: 270deg;
+      }
+
+      &.flipped {
+        transform-origin: 50% 50%;
+        transform: scaleX(-1);
       }
     }
     .board-start {

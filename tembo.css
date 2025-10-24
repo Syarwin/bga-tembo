@@ -386,8 +386,8 @@ body {
         rotate: 270deg; }
     #tembo-board-resizable #tembo-board .board-start,
     #tembo-board-resizable #tembo-board .board-destination {
-      grid-row-end: span 3;
-      grid-column-end: span 6;
+      width: 300px;
+      height: 150px;
       background-image: url("img/board-ends.jpg");
       background-size: 100% 200%;
       outline: 1px solid #c49323;
@@ -404,6 +404,10 @@ body {
       #tembo-board-resizable #tembo-board .board-start[data-rotation="3"],
       #tembo-board-resizable #tembo-board .board-destination[data-rotation="3"] {
         rotate: 270deg; }
+      #tembo-board-resizable #tembo-board .board-start.flipped,
+      #tembo-board-resizable #tembo-board .board-destination.flipped {
+        transform-origin: 50% 50%;
+        transform: scaleX(-1); }
     #tembo-board-resizable #tembo-board .board-start {
       background-position: 0% 100%; }
     #tembo-board-resizable #tembo-board .board-square {

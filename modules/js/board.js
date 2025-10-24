@@ -31,6 +31,10 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
             className = tile.id;
             w = tile.rotation % 2 == 0 ? 6 : 3;
             h = tile.rotation % 2 == 0 ? 3 : 6;
+
+            if (tile.flipped) {
+              className += ' flipped';
+            }
           }
 
           maxX = Math.max(maxX, tile.x + w);
