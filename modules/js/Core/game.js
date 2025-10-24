@@ -6,6 +6,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
     constructor() {
       this._notifications = [];
       this._inactiveStatesAdd = [];
+      this._inactiveStates = [];
       this._connections = [];
       this._selectableNodes = [];
 
