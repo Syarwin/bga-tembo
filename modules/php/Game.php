@@ -54,7 +54,7 @@ class Game extends \Bga\GameFramework\Table
     $board = new Board();
     $data = [
       'players' => Players::getUiData(),
-      'board' => $board->getUiFakeData(),
+      'board' => $board->getUiData(),
     ];
 
     return $data;

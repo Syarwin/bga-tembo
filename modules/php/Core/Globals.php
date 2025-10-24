@@ -20,10 +20,13 @@ class Globals extends DB_Manager
     'anytimeRecursion' => 'int', // DO NOT MODIFY, USED IN ENGINE MODULE
     'customTurnOrders' => 'obj', // DO NOT MODIFY, USED FOR CUSTOM TURN ORDER FEATURE
 
+    'journey' => 'int',
+    'board' => 'obj',
   ];
 
   protected static string $table = 'global_variables';
   protected static string $primary = 'name';
+
   protected static function cast(array $row): mixed
   {
     $val = json_decode(\stripslashes($row['value']), true);
@@ -35,6 +38,7 @@ class Globals extends DB_Manager
    * Fetch all existings variables from DB
    */
   protected static $data = [];
+
   public static function fetch()
   {
     // Turn of LOG to avoid infinite loop (Globals::isLogging() calling itself for fetching)
@@ -139,8 +143,15 @@ class Globals extends DB_Manager
     return null;
   }
 
+  public static function getJourney(): int
+  {
+    return 1; // return 1 for now, to be changed later
+  }
+
   /*
    * Setup new game
    */
-  public static function setupNewGame(array $players, array $options): void {}
+  public static function setupNewGame(array $players, array $options): void
+  {
+  }
 }

@@ -6,8 +6,6 @@ use Bga\Games\Tembo\Helpers\CachedPieces;
 use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Models\Card;
 
-include_once dirname(__FILE__) . "/../Materials/Cards.php";
-
 class FlowerCards extends CachedPieces
 {
   protected static string $table = 'cards';
@@ -17,7 +15,7 @@ class FlowerCards extends CachedPieces
   protected static bool $autoremovePrefix = false;
   protected static bool $autoIncrement = true;
 
-  private static array $allCards = CARDS;
+//  private static array $allCards = CARDS;
 
   protected static function cast(array $row): Card
   {
