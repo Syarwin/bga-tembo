@@ -30,13 +30,13 @@ abstract class DB_Model extends \APP_DbObject implements \JsonSerializable
       $this->$attribute = $row[$fieldName] ?? null;
       if (is_array($field) && !is_null($this->$attribute)) {
         if ($field[1] == 'int') {
-          $this->$attribute = (int)$this->$attribute;
+          $this->$attribute = (int) $this->$attribute;
         }
         if ($field[1] == 'float') {
-          $this->$attribute = (float)$this->$attribute;
+          $this->$attribute = (float) $this->$attribute;
         }
         if ($field[1] == 'bool') {
-          $this->$attribute = (bool)$this->$attribute;
+          $this->$attribute = (bool) $this->$attribute;
         }
         if ($field[1] == 'obj') {
           $this->$attribute = json_decode($this->$attribute, true);
@@ -95,7 +95,7 @@ abstract class DB_Model extends \APP_DbObject implements \JsonSerializable
         }
       } elseif ($match[1] == 'is') {
         // Boolean getter
-        return (bool)($this->$name != 0);
+        return (bool) ($this->$name != 0);
       } elseif ($match[1] == 'set') {
         // Setters in DB and update cache
         $value = $args[0];
@@ -108,13 +108,13 @@ abstract class DB_Model extends \APP_DbObject implements \JsonSerializable
         $isObj = false;
         if (is_array($field)) {
           if ($field[1] == 'int') {
-            $value = (int)$value;
+            $value = (int) $value;
             if ($value == $this->$name) {
               return; // No modification, abort DB call
             }
           }
           if ($field[1] == 'bool') {
-            $value = (bool)$value;
+            $value = (bool) $value;
             if ($value == $this->$name) {
               return; // No modification, abort DB call
             }

@@ -21,6 +21,7 @@ declare(strict_types=1);
 namespace Bga\Games\Tembo;
 
 use Bga\Games\Tembo\Core\Globals;
+use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Board;
 use Bga\Games\Tembo\States\EngineTrait;
@@ -218,5 +219,10 @@ class Game extends \Bga\GameFramework\Table
   public static function translate($text)
   {
     return self::_($text);
+  }
+
+  public static function a()
+  {
+    var_dump(Cards::get(1));
   }
 }

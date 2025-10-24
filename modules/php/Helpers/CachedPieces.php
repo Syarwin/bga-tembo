@@ -93,7 +93,11 @@ class CachedPieces extends DB_Manager
   /****
    * Append the basic select query with a where clause
    */
-  public static function getSelectWhere(null|int|string $id = null, ?string $location = null, ?int $state = null): Collection
+  public static function getSelectWhere(
+    null|int|string $id = null,
+    ?string $location = null,
+    ?int $state = null
+  ): Collection
   {
     return self::where('id', $id)
       ->where('location', $location)
@@ -199,7 +203,7 @@ class CachedPieces extends DB_Manager
   /**
    * Get specific piece by id
    */
-  public static function get(int $id, bool $raiseExceptionIfNotEnough = true): mixed|Collection
+  public static function get(int $id, bool $raiseExceptionIfNotEnough = true)
   {
     $result = self::getMany($id, $raiseExceptionIfNotEnough);
     return $result->count() == 1 ? $result->first() : $result;
@@ -235,7 +239,7 @@ class CachedPieces extends DB_Manager
     return $result;
   }
 
-  public static function getSingle(int|string $id, bool $raiseExceptionIfNotEnough = true): ?mixed
+  public static function getSingle(int|string $id, bool $raiseExceptionIfNotEnough = true): mixed
   {
     $result = self::getMany([$id], $raiseExceptionIfNotEnough);
     return $result->count() == 1 ? $result->first() : null;
@@ -339,7 +343,12 @@ class CachedPieces extends DB_Manager
    *  !!! state is reset to 0 or specified value !!!
    *  if "fromLocation" and "fromState" are null: move ALL cards to specific location
    */
-  public static function moveAllInLocation(string $fromLocation, string $toLocation, ?int $fromState = null, ?int $toState = 0): Collection
+  public static function moveAllInLocation(
+    string $fromLocation,
+    string $toLocation,
+    ?int $fromState = null,
+    ?int $toState = 0
+  ): Collection
   {
     if (!is_null($fromLocation)) {
       self::checkLocation($fromLocation);
@@ -365,7 +374,13 @@ class CachedPieces extends DB_Manager
    * Pick the first "$nbr" pieces on top of specified deck and place it in target location
    * Return pieces infos or void array if no card in the specified location
    */
-  public static function pickForLocation(int $nbr, string $fromLocation, string $toLocation, int $state = 0, bool $deckReform = true): Collection
+  public static function pickForLocation(
+    int $nbr,
+    string $fromLocation,
+    string $toLocation,
+    int $state = 0,
+    bool $deckReform = true
+  ): Collection
   {
     self::checkLocation($fromLocation);
     self::checkLocation($toLocation);
@@ -392,7 +407,12 @@ class CachedPieces extends DB_Manager
     return $pieces;
   }
 
-  public static function pickOneForLocation(string $fromLocation, string $toLocation, int $state = 0, bool $deckReform = true): ?mixed
+  public static function pickOneForLocation(
+    string $fromLocation,
+    string $toLocation,
+    int $state = 0,
+    bool $deckReform = true
+  ): mixed
   {
     return self::pickForLocation(1, $fromLocation, $toLocation, $state, $deckReform)->first();
   }
@@ -463,7 +483,12 @@ class CachedPieces extends DB_Manager
    *     "state" => <state>             // Optional argument specifies integer state, if not specified and $token_state_global is not specified auto-increment is used
    */
 
-  public static function create(array $pieces, ?string $globalLocation = null, ?int $globalState = null, ?int $globalId = null): Collection
+  public static function create(
+    array $pieces,
+    ?string $globalLocation = null,
+    ?int $globalState = null,
+    ?int $globalId = null
+  ): Collection
   {
     $pos = is_null($globalLocation) ? 0 : self::getExtremePosition(true, $globalLocation) + 1;
 

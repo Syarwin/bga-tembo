@@ -6,11 +6,11 @@ use Bga\Games\Tembo\Helpers\CachedPieces;
 use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Models\Card;
 
-class FlowerCards extends CachedPieces
+class Cards extends CachedPieces
 {
   protected static string $table = 'cards';
   protected static string $prefix = 'card_';
-  protected static array $customFields = [];
+  protected static array $customFields = ['rotation', 'internal_id'];
   protected static null|Collection $datas = null;
   protected static bool $autoremovePrefix = false;
   protected static bool $autoIncrement = true;

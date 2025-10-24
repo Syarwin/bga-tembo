@@ -76,10 +76,23 @@ const CARD_REF_SINGLE_SNOW = 5;
 /*
  * Board tiles bonuses
  */
-const BONUS_ALL_GAIN_2 = 0;
-const BONUS_ANOTHER_GAINS_4 = 1;
-const BONUS_YOU_5_ANOTHER_MINUS_2 = 2;
-const BONUS_GAIN_3_PLACE_1_IGNORE_ROUGH = 3;
+const BONUS_ALL_GAIN_2 = 10;
+const BONUS_ANOTHER_GAINS_4 = 11;
+const BONUS_YOU_5_ANOTHER_MINUS_2 = 12;
+const BONUS_GAIN_3_PLACE_1_IGNORE_ROUGH = 13;
+
+/*
+ * Cards
+ */
+const CARD_TYPE_SAVANNA = 'savanna';
+const CARD_TYPE_LION = 'lion';
+const CARD_TYPE_MATRIARCH = 'matriarch';
+
+const CARD_DECK_STARTING = 0;
+const CARD_DECK_FIRST = 1;
+const CARD_DECK_SECOND = 2;
+const CARD_DECK_THIRD = 3;
+const CARD_DECK_SUPPORT = 4;
 
 /*
  * Meeples

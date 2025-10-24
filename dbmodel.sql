@@ -25,8 +25,10 @@ CREATE TABLE IF NOT EXISTS `meeples`
 CREATE TABLE IF NOT EXISTS `cards`
 (
     `card_id`       smallint unsigned NOT NULL AUTO_INCREMENT,
-    `card_location` varchar(7)        NOT NULL,
+    `card_location` varchar(15)       NOT NULL,
     `card_state`    tinyint           NOT NULL,
+    `internal_id`   smallint unsigned NOT NULL,
+    `rotation`      tinyint DEFAULT NULL,
     PRIMARY KEY (`card_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
