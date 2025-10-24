@@ -210,8 +210,6 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
       debug('Leaving state: ' + stateName);
       this.clearPossible();
       dojo.query('.tmp').forEach((o) => this.destroy(o));
-      if ($('colors-dial')) $('colors-dial').remove();
-      this.updateZonesStatus(this.player_id);
 
       // Call appropriate method
       var methodName = 'onLeavingState' + stateName.charAt(0).toUpperCase() + stateName.slice(1);

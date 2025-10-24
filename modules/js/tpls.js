@@ -61,9 +61,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           </div>
         </div>
       
-        <div id="player-boards-container">
-          <div id="player-boards-container-resizable">
-            <div class="icon-lion"></div>
+        <div id="board-container">
+          <div id="tembo-board-resizable">
+            <div id="tembo-board"></div>
           </div>
         </div>
       

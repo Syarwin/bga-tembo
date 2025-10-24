@@ -1,0 +1,127 @@
+$cellSize: 50px;
+
+#tembo-board-resizable {
+  margin: 5px;
+
+  #tembo-board {
+    scale: var(--temboBoardScale);
+    transform-origin: top left;
+    display: grid;
+    border: 2px solid black;
+    position: relative;
+    background: #f9cf69;
+    box-shadow: 1px 1px 3px black;
+    border-radius: 12px;
+    overflow: hidden;
+
+    .board-tile {
+      grid-row-end: span 6;
+      grid-column-end: span 6;
+      background-image: url("img/boards.jpg");
+      background-size: 300% 200%;
+      outline: 1px solid #c49323;
+
+      &[data-id="0"] {
+        background-position: 0% 0%;
+      }
+      &[data-id="1"] {
+        background-position: 50% 0%;
+      }
+      &[data-id="2"] {
+        background-position: 100% 0%;
+      }
+      &[data-id="3"] {
+        background-position: 0% 100%;
+      }
+      &[data-id="4"] {
+        background-position: 50% 100%;
+      }
+      &[data-id="5"] {
+        background-position: 100% 100%;
+      }
+
+      transform-origin: center center;
+      transition: rotate 0.7s;
+      &[data-rotation="0"] {
+        rotate: 0deg;
+      }
+      &[data-rotation="1"] {
+        rotate: 90deg;
+      }
+      &[data-rotation="2"] {
+        rotate: 180deg;
+      }
+      &[data-rotation="3"] {
+        rotate: 270deg;
+      }
+    }
+
+    .board-start,
+    .board-destination {
+      grid-row-end: span 3;
+      grid-column-end: span 6;
+      background-image: url("img/board-ends.jpg");
+      background-size: 100% 200%;
+      outline: 1px solid #c49323;
+
+      transform-origin: 25% 50%;
+      &[data-rotation="0"] {
+        rotate: 0deg;
+      }
+      &[data-rotation="1"] {
+        rotate: 90deg;
+      }
+      &[data-rotation="2"] {
+        rotate: 180deg;
+      }
+      &[data-rotation="3"] {
+        rotate: 270deg;
+      }
+    }
+    .board-start {
+      background-position: 0% 100%;
+    }
+
+    .board-square {
+      grid-row-end: span 3;
+      grid-column-end: span 3;
+      outline: 1px solid #e6bc5db2;
+      z-index: 2;
+      &:hover {
+        background: rgba(255, 0, 0, 0.26);
+        cursor: pointer;
+      }
+    }
+
+    .board-cell {
+      grid-row-end: span 1;
+      grid-column-end: span 1;
+      border-radius: 50%;
+      z-index: 3;
+      &:hover {
+        background: rgba(0, 255, 0, 0.26);
+        cursor: pointer;
+      }
+    }
+  }
+
+  @for $i from 5 through 10 {
+    $t: 3 * $i;
+
+    &[data-x="#{$t}"] {
+      width: calc(var(--temboBoardScale) * #{$t * $cellSize + 4px});
+      #tembo-board {
+        width: $t * $cellSize;
+        grid-template-columns: repeat($t, $cellSize);
+      }
+    }
+
+    &[data-y="#{$t}"] {
+      height: calc(var(--temboBoardScale) * #{$t * $cellSize + 4px});
+      #tembo-board {
+        height: $t * $cellSize;
+        grid-template-rows: repeat($t, $cellSize);
+      }
+    }
+  }
+}

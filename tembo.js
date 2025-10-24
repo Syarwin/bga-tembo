@@ -35,6 +35,7 @@ define([
     setup(gamedatas) {
       debug('SETUP', gamedatas);
       this.setupCentralArea();
+      this.setupBoard();
 
       this.inherited(arguments);
     },

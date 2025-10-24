@@ -26,7 +26,7 @@
   font-style: normal;
   font-display: swap; }
 :root {
-  --temboBoardScale: 0.6;
+  --temboBoardScale: 1;
   --temboFlowerCardScale: 0.5;
   --temboEcosystemCardScale: 0.5; }
 
@@ -344,240 +344,147 @@ body {
           [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container #ecosystem-cards-container-sticky #ecosystem-cards-container-resizable #ecosystem-cards-holder {
             justify-content: center;
             width: 100%; } }
-.tembo-player-board-resizable {
-  width: calc(var(--temboBoardScale) * 1024px);
-  height: calc(var(--temboBoardScale) * 1064px);
+#tembo-board-resizable {
   margin: 5px; }
-  .tembo-player-board-resizable .tembo-player-board {
+  #tembo-board-resizable #tembo-board {
     scale: var(--temboBoardScale);
     transform-origin: top left;
-    width: 1020px;
-    height: 1060px;
+    display: grid;
     border: 2px solid black;
     position: relative;
-    background: #ebd5bd;
+    background: #f9cf69;
     box-shadow: 1px 1px 3px black;
     border-radius: 12px;
     overflow: hidden; }
-    .tembo-player-board-resizable .tembo-player-board .tembo-board-player-name {
-      height: 39px;
-      font-weight: bold;
-      border-bottom: 1px solid black;
-      font-family: "Hawlers Two";
-      font-size: 30px;
-      line-height: 48px;
-      text-align: center; }
-    .tembo-player-board-resizable .tembo-player-board .tembo-board-grid {
-      width: 1020px;
-      height: 1020px;
-      display: grid;
-      grid-template-columns: repeat(6, 170px);
-      grid-template-rows: repeat(6, 170px); }
-      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell {
-        background: transparent;
-        border: 2px solid transparent;
-        box-sizing: border-box;
-        width: 170px;
-        height: 170px;
-        position: relative;
-        z-index: 2;
-        font-size: 23px; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell .tembo-meeple {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          translate: -50% -50%; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell.selectable {
-          background: rgba(229, 255, 0, 0.5);
-          cursor: pointer; }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell.selectable:hover {
-            background: rgba(229, 255, 0, 0.7); }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell.selected {
-          background: rgba(229, 255, 0, 0.7); }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial {
-          position: absolute;
-          left: 0;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-wrap: wrap;
-          cursor: default; }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial .dial-selector {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            background: white;
-            border-radius: 50%;
-            height: 60px;
-            width: 60px;
-            border: 1px solid black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: -31px;
-            font-size: 28px;
-            cursor: pointer; }
-            .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial .dial-selector:hover {
-              background: #e5ff00; }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="2"] .dial-selector:nth-of-type(1) {
-            transform: rotate(0deg) translate(50px) rotate(0deg); }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="2"] .dial-selector:nth-of-type(2) {
-            transform: rotate(180deg) translate(50px) rotate(-180deg); }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="3"] .dial-selector:nth-of-type(1) {
-            transform: rotate(0deg) translate(50px) rotate(0deg); }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="3"] .dial-selector:nth-of-type(2) {
-            transform: rotate(120deg) translate(50px) rotate(-120deg); }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="3"] .dial-selector:nth-of-type(3) {
-            transform: rotate(240deg) translate(50px) rotate(-240deg); }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="4"] .dial-selector:nth-of-type(1) {
-            transform: rotate(0deg) translate(50px) rotate(0deg); }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="4"] .dial-selector:nth-of-type(2) {
-            transform: rotate(90deg) translate(50px) rotate(-90deg); }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="4"] .dial-selector:nth-of-type(3) {
-            transform: rotate(180deg) translate(50px) rotate(-180deg); }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="4"] .dial-selector:nth-of-type(4) {
-            transform: rotate(270deg) translate(50px) rotate(-270deg); }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="5"] .dial-selector:nth-of-type(1) {
-            transform: rotate(0deg) translate(50px) rotate(0deg); }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="5"] .dial-selector:nth-of-type(2) {
-            transform: rotate(72deg) translate(50px) rotate(-72deg); }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="5"] .dial-selector:nth-of-type(3) {
-            transform: rotate(144deg) translate(50px) rotate(-144deg); }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="5"] .dial-selector:nth-of-type(4) {
-            transform: rotate(216deg) translate(50px) rotate(-216deg); }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-cell #colors-dial[data-n="5"] .dial-selector:nth-of-type(5) {
-            transform: rotate(288deg) translate(50px) rotate(-288deg); }
-      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant {
-        grid-row-end: span 3;
-        grid-column-end: span 3;
-        background-size: 100% 100%;
-        transform-origin: center center;
-        position: relative; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant::before {
-          content: "";
-          display: block;
-          position: absolute;
-          top: 8px;
-          left: 8px;
-          width: 10px;
-          height: 10px;
-          border: 1px solid white;
-          border-radius: 2px; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-quadrant="0"] {
-          grid-row-start: 1;
-          grid-column-start: 1; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-quadrant="1"] {
-          grid-row-start: 1;
-          grid-column-start: 4; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-quadrant="2"] {
-          grid-row-start: 4;
-          grid-column-start: 4; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-quadrant="3"] {
-          grid-row-start: 4;
-          grid-column-start: 1; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-orientation="0"] {
-          rotate: 0deg; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-orientation="1"] {
-          rotate: 90deg; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-orientation="2"] {
-          rotate: 180deg; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-orientation="3"] {
-          rotate: 270deg; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="0"] {
-          background-image: url("img/board-0.jpg"); }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="1"] {
-          background-image: url("img/board-1.jpg"); }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="2"] {
-          background-image: url("img/board-2.jpg"); }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="3"] {
-          background-image: url("img/board-3.jpg"); }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="4"] {
-          background-image: url("img/board-4.jpg"); }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="5"] {
-          background-image: url("img/board-5.jpg"); }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="6"] {
-          background-image: url("img/board-6.jpg"); }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="7"] {
-          background-image: url("img/board-7.jpg"); }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="0"]::before {
-          background-color: #f680c6;
-          border-radius: 50%; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="1"]::before {
-          background-color: #ed1c24;
-          border-radius: 50%; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="2"]::before {
-          background-color: #1b4a96;
-          border-radius: 50%; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="3"]::before {
-          background-color: white;
-          border-color: black;
-          border-radius: 50%; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="4"]::before {
-          background-color: #f680c6; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="5"]::before {
-          background-color: #ed1c24; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="6"]::before {
-          background-color: #1b4a96; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="7"]::before {
-          background-color: white;
-          border-color: black; }
-      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="4"][data-orientation="1"] ~ .zone-info-19, .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="4"][data-orientation="3"] ~ .zone-info-19 {
-        translate: -25% 0%; }
-      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="4"][data-orientation="1"] ~ .zone-info-14, .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="4"][data-orientation="3"] ~ .zone-info-14 {
-        translate: -100% 0%; }
-      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="5"][data-orientation="2"] ~ .zone-info-16 {
-        translate: 100% 0%; }
-      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="5"][data-orientation="3"] ~ .zone-info-16 {
-        translate: -100% 0%; }
-      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="6"][data-orientation="3"] ~ .zone-info-18 {
-        translate: -25% 0%; }
-      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="6"][data-orientation="2"] ~ .zone-info-18 {
-        translate: 100% 0%; }
-      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .board-quadrant[data-board="6"][data-orientation="0"] ~ .zone-info-19 {
-        translate: 50% 0%; }
-      .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start; }
-        .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos {
-          width: 120px;
-          display: flex;
-          justify-content: center;
-          position: relative;
-          margin-top: -6px; }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-size-scoring,
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-animal-scoring {
-            height: 40px;
-            font-size: 28px;
-            line-height: 48px;
-            font-family: "DK Sensory Overload";
-            color: white;
-            text-shadow: black 3px 0px 0px, black 2.83487px 0.981584px 0px, black 2.35766px 1.85511px 0px, black 1.62091px 2.52441px 0px, black 0.705713px 2.91581px 0px, black -0.287171px 2.98622px 0px, black -1.24844px 2.72789px 0px, black -2.07227px 2.16926px 0px, black -2.66798px 1.37182px 0px, black -2.96998px 0.42336px 0px, black -2.94502px -0.571704px 0px, black -2.59586px -1.50383px 0px, black -1.96093px -2.27041px 0px, black -1.11013px -2.78704px 0px, black -0.137119px -2.99686px 0px, black 0.850987px -2.87677px 0px, black 1.74541px -2.43999px 0px, black 2.44769px -1.73459px 0px, black 2.88051px -0.838247px 0px; }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-size-scoring > span {
-            position: relative;
-            z-index: 2;
-            margin-right: -0.3em; }
-            .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-size-scoring > span[data-status="1"] {
-              color: #4aff4a;
-              margin-right: -0.4em; }
-              .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-size-scoring > span[data-status="1"]::before {
-                content: "+"; }
-            .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-size-scoring > span[data-status="-1"] {
-              color: #ff4b4b;
-              margin-right: -0.4em; }
-              .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-size-scoring > span[data-status="-1"]::before {
-                content: "-"; }
-          .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-animal-scoring {
-            text-align: center;
-            width: 40px; }
-            .tembo-player-board-resizable .tembo-player-board .tembo-board-grid .zone-infos-wrapper .zone-infos .zone-animal-scoring[data-status="1"] {
-              color: #4aff4a; }
+    #tembo-board-resizable #tembo-board .board-tile {
+      grid-row-end: span 6;
+      grid-column-end: span 6;
+      background-image: url("img/boards.jpg");
+      background-size: 300% 200%;
+      outline: 1px solid #c49323;
+      transform-origin: center center;
+      transition: rotate 0.7s; }
+      #tembo-board-resizable #tembo-board .board-tile[data-id="0"] {
+        background-position: 0% 0%; }
+      #tembo-board-resizable #tembo-board .board-tile[data-id="1"] {
+        background-position: 50% 0%; }
+      #tembo-board-resizable #tembo-board .board-tile[data-id="2"] {
+        background-position: 100% 0%; }
+      #tembo-board-resizable #tembo-board .board-tile[data-id="3"] {
+        background-position: 0% 100%; }
+      #tembo-board-resizable #tembo-board .board-tile[data-id="4"] {
+        background-position: 50% 100%; }
+      #tembo-board-resizable #tembo-board .board-tile[data-id="5"] {
+        background-position: 100% 100%; }
+      #tembo-board-resizable #tembo-board .board-tile[data-rotation="0"] {
+        rotate: 0deg; }
+      #tembo-board-resizable #tembo-board .board-tile[data-rotation="1"] {
+        rotate: 90deg; }
+      #tembo-board-resizable #tembo-board .board-tile[data-rotation="2"] {
+        rotate: 180deg; }
+      #tembo-board-resizable #tembo-board .board-tile[data-rotation="3"] {
+        rotate: 270deg; }
+    #tembo-board-resizable #tembo-board .board-start,
+    #tembo-board-resizable #tembo-board .board-destination {
+      grid-row-end: span 3;
+      grid-column-end: span 6;
+      background-image: url("img/board-ends.jpg");
+      background-size: 100% 200%;
+      outline: 1px solid #c49323;
+      transform-origin: 25% 50%; }
+      #tembo-board-resizable #tembo-board .board-start[data-rotation="0"],
+      #tembo-board-resizable #tembo-board .board-destination[data-rotation="0"] {
+        rotate: 0deg; }
+      #tembo-board-resizable #tembo-board .board-start[data-rotation="1"],
+      #tembo-board-resizable #tembo-board .board-destination[data-rotation="1"] {
+        rotate: 90deg; }
+      #tembo-board-resizable #tembo-board .board-start[data-rotation="2"],
+      #tembo-board-resizable #tembo-board .board-destination[data-rotation="2"] {
+        rotate: 180deg; }
+      #tembo-board-resizable #tembo-board .board-start[data-rotation="3"],
+      #tembo-board-resizable #tembo-board .board-destination[data-rotation="3"] {
+        rotate: 270deg; }
+    #tembo-board-resizable #tembo-board .board-start {
+      background-position: 0% 100%; }
+    #tembo-board-resizable #tembo-board .board-square {
+      grid-row-end: span 3;
+      grid-column-end: span 3;
+      outline: 1px solid #e6bc5db2;
+      z-index: 2; }
+      #tembo-board-resizable #tembo-board .board-square:hover {
+        background: rgba(255, 0, 0, 0.26);
+        cursor: pointer; }
+    #tembo-board-resizable #tembo-board .board-cell {
+      grid-row-end: span 1;
+      grid-column-end: span 1;
+      border-radius: 50%;
+      z-index: 3; }
+      #tembo-board-resizable #tembo-board .board-cell:hover {
+        background: rgba(0, 255, 0, 0.26);
+        cursor: pointer; }
+  #tembo-board-resizable[data-x="15"] {
+    width: calc(var(--temboBoardScale) * 754px); }
+    #tembo-board-resizable[data-x="15"] #tembo-board {
+      width: 750px;
+      grid-template-columns: repeat(15, 50px); }
+  #tembo-board-resizable[data-y="15"] {
+    height: calc(var(--temboBoardScale) * 754px); }
+    #tembo-board-resizable[data-y="15"] #tembo-board {
+      height: 750px;
+      grid-template-rows: repeat(15, 50px); }
+  #tembo-board-resizable[data-x="18"] {
+    width: calc(var(--temboBoardScale) * 904px); }
+    #tembo-board-resizable[data-x="18"] #tembo-board {
+      width: 900px;
+      grid-template-columns: repeat(18, 50px); }
+  #tembo-board-resizable[data-y="18"] {
+    height: calc(var(--temboBoardScale) * 904px); }
+    #tembo-board-resizable[data-y="18"] #tembo-board {
+      height: 900px;
+      grid-template-rows: repeat(18, 50px); }
+  #tembo-board-resizable[data-x="21"] {
+    width: calc(var(--temboBoardScale) * 1054px); }
+    #tembo-board-resizable[data-x="21"] #tembo-board {
+      width: 1050px;
+      grid-template-columns: repeat(21, 50px); }
+  #tembo-board-resizable[data-y="21"] {
+    height: calc(var(--temboBoardScale) * 1054px); }
+    #tembo-board-resizable[data-y="21"] #tembo-board {
+      height: 1050px;
+      grid-template-rows: repeat(21, 50px); }
+  #tembo-board-resizable[data-x="24"] {
+    width: calc(var(--temboBoardScale) * 1204px); }
+    #tembo-board-resizable[data-x="24"] #tembo-board {
+      width: 1200px;
+      grid-template-columns: repeat(24, 50px); }
+  #tembo-board-resizable[data-y="24"] {
+    height: calc(var(--temboBoardScale) * 1204px); }
+    #tembo-board-resizable[data-y="24"] #tembo-board {
+      height: 1200px;
+      grid-template-rows: repeat(24, 50px); }
+  #tembo-board-resizable[data-x="27"] {
+    width: calc(var(--temboBoardScale) * 1354px); }
+    #tembo-board-resizable[data-x="27"] #tembo-board {
+      width: 1350px;
+      grid-template-columns: repeat(27, 50px); }
+  #tembo-board-resizable[data-y="27"] {
+    height: calc(var(--temboBoardScale) * 1354px); }
+    #tembo-board-resizable[data-y="27"] #tembo-board {
+      height: 1350px;
+      grid-template-rows: repeat(27, 50px); }
+  #tembo-board-resizable[data-x="30"] {
+    width: calc(var(--temboBoardScale) * 1504px); }
+    #tembo-board-resizable[data-x="30"] #tembo-board {
+      width: 1500px;
+      grid-template-columns: repeat(30, 50px); }
+  #tembo-board-resizable[data-y="30"] {
+    height: calc(var(--temboBoardScale) * 1504px); }
+    #tembo-board-resizable[data-y="30"] #tembo-board {
+      height: 1500px;
+      grid-template-rows: repeat(30, 50px); }
 
 :root {
-  --temboBoardScale: 0.6;
+  --temboBoardScale: 1;
   --temboFlowerCardScale: 0.5;
   --temboEcosystemCardScale: 0.5; }
 
@@ -688,7 +595,7 @@ body {
     box-shadow: 0px 0px 5px 3px yellow; }
 
 :root {
-  --temboBoardScale: 0.6;
+  --temboBoardScale: 1;
   --temboFlowerCardScale: 0.5;
   --temboEcosystemCardScale: 0.5; }
 

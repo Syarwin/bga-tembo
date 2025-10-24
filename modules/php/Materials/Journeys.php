@@ -2,8 +2,8 @@
 
 const JOURNEYS = [
   1 => [
-    'start' => ['x' => 12, 'y' => 0, 'rotation' => 0],
-    'destination' => ['x' => 0, 'y' => 24, 'rotation' => 0],
+    'destination' => ['x' => 12, 'y' => 0, 'rotation' => 0],
+    'start' => ['x' => 0, 'y' => 24, 'rotation' => 0],
     'tiles' => [
       ['x' => 12, 'y' => 3],
       ['x' => 12, 'y' => 9],
