@@ -95,6 +95,19 @@ const CARD_DECK_THIRD = 3;
 const CARD_DECK_SUPPORT = 4;
 
 /*
+ * Spaces types
+ */
+const SPACE_NONE = 0;
+const SPACE_NORMAL = 1;
+const SPACE_OASIS = 2;
+const SPACE_ROUGH = 3;
+const SPACE_LANDMARK = 4;
+const SPACE_TREE_GREEN = 10;
+const SPACE_TREE_RED = 11;
+const SPACE_TREE_BROWN = 12;
+const SPACE_TREE_TEAL = 13;
+
+/*
  * Meeples
  */
 

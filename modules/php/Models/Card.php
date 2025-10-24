@@ -21,7 +21,7 @@ class Card extends DB_Model
   protected string $location;
   protected int $state;
   protected ?array $pattern;
-  protected ?array $spaces;
+  protected ?Spaces $spaces;
   protected string $type;
   protected int $internal_id;
   protected ?int $rotation;
@@ -31,7 +31,7 @@ class Card extends DB_Model
     parent::__construct($row);
     $cardInfo = CARDS[$this->internal_id];
     $this->pattern = $cardInfo['pattern'] ?? null;
-    $this->spaces = $cardInfo['spaces'] ?? null;
+    $this->spaces = empty($cardInfo['spaces']) ? null : new Spaces($cardInfo['spaces']);
     $this->type = $cardInfo['type'] === CARD_TYPE_SAVANNA ? $cardInfo['type'] :
       $cardInfo['type'] . '_' . $cardInfo['deck'];
   }
@@ -39,5 +39,10 @@ class Card extends DB_Model
   public function getId()
   {
     return $this->id;
+  }
+
+  public function getSpaces(): Spaces
+  {
+    return $this->spaces;
   }
 }
