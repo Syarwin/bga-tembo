@@ -10,6 +10,7 @@ const ST_SETUP_BRANCH = 2;
 const ST_DUMMY = 3;
 const ST_BEFORE_START_OF_GAME = 6;
 const ST_TURN_ACTION = 7;
+const ST_SETUP_CARDS = 11;
 
 
 const ST_RESOLVE_STACK = 90;
@@ -121,6 +122,7 @@ const SPACE_TREE_TEAL = 13;
  */
 
 const LOCATION_TABLE = 'table';
+const LOCATION_HAND = 'hand';
 const INFINITY = 1000;
 
 

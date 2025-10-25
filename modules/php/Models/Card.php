@@ -32,8 +32,7 @@ class Card extends DB_Model
     $cardInfo = CARDS[$this->internal_id];
     $this->pattern = $cardInfo['pattern'] ?? null;
     $this->spaces = empty($cardInfo['spaces']) ? null : new Spaces($cardInfo['spaces']);
-    $this->type = $cardInfo['type'] === CARD_TYPE_SAVANNA ? $cardInfo['type'] :
-      $cardInfo['type'] . '_' . $cardInfo['deck'];
+    $this->type = isset($cardInfo['type']) ? $cardInfo['type'] . '_' . $cardInfo['deck'] : CARD_TYPE_SAVANNA;
   }
 
   public function getId()

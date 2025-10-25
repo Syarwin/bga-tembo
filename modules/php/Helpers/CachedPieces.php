@@ -173,7 +173,7 @@ class CachedPieces extends DB_Manager
   /*
    * Check that the state is an integer
    */
-  final static function checkState(int $state, bool $canBeNull = false): void
+  final static function checkState(?int $state, bool $canBeNull = false): void
   {
     if (is_null($state) && !$canBeNull) {
       throw new \BgaVisibleSystemException('Class Pieces: state cannot be null');

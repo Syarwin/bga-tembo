@@ -47,6 +47,16 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stSetupBranch',
     'transitions' => [
+      'debug' => ST_SETUP_CARDS, // To be changed to active player state to rotate board tiles
+    ],
+  ],
+
+  ST_SETUP_CARDS => [
+    'name' => 'setupCards',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stSetupCards',
+    'transitions' => [
       'debug' => ST_DUMMY,
     ],
   ],
@@ -112,7 +122,9 @@ $machinestates = [
   ST_CONFIRM_PARTIAL_TURN => [
     'name' => 'confirmPartialTurn',
     'description' => clienttranslate('${actplayer} must confirm the switch of player'),
-    'descriptionmyturn' => clienttranslate('${you} must confirm the switch of player. You will not be able to restart turn'),
+    'descriptionmyturn' => clienttranslate(
+      '${you} must confirm the switch of player. You will not be able to restart turn'
+    ),
     'type' => 'activeplayer',
     'args' => 'argsConfirmTurn',
     'action' => 'stConfirmPartialTurn',
@@ -134,7 +146,9 @@ $machinestates = [
 
   ST_IMPOSSIBLE_MANDATORY_ACTION => [
     'name' => 'impossibleAction',
-    'description' => clienttranslate('${actplayer} can\'t take the mandatory action and must restart his turn or exchange/cook'),
+    'description' => clienttranslate(
+      '${actplayer} can\'t take the mandatory action and must restart his turn or exchange/cook'
+    ),
     'descriptionmyturn' => clienttranslate(
       '${you} can\'t take the mandatory action. Restart your turn or exchange/cook to make it possible'
     ),

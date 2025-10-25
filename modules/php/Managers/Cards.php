@@ -6,6 +6,8 @@ use Bga\Games\Tembo\Helpers\CachedPieces;
 use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Models\Card;
 
+require_once dirname(__FILE__) . "/../Materials/Cards.php";
+
 class Cards extends CachedPieces
 {
   protected static string $table = 'cards';
@@ -15,7 +17,7 @@ class Cards extends CachedPieces
   protected static bool $autoremovePrefix = false;
   protected static bool $autoIncrement = true;
 
-//  private static array $allCards = CARDS;
+  private static array $allCards = CARDS;
 
   protected static function cast(array $row): Card
   {
@@ -29,29 +31,33 @@ class Cards extends CachedPieces
 
   public static function setupNewGame()
   {
-    // shuffle(self::$allCards);
+    $startingCards = array_filter(static::getAllWithIds(), fn($card) => $card['deck'] === CARD_DECK_STARTING);
+    shuffle($startingCards);
 
-    // $isSolo = Globals::isSolo();
-    // $cardsInDeck = $isSolo ? 3 : (Players::count() * 2) - 1;
-    // // 18 or 9 stacks / decks
-    // $amountOfDecks = $isSolo ? 18 : 9;
-    // for ($i = 1; $i <= $amountOfDecks; $i++) {
-    //   $values = [];
-    //   for ($k = 0; $k < $cardsInDeck; $k++) {
-    //     $card = array_pop(self::$allCards);
-    //     $values[] = [
-    //       'flower_a' => $card[0],
-    //       'flower_b' => $card[1] ?? null,
-    //       'flower_c' => $card[2] ?? null
-    //     ];
-    //   }
-    //   self::create($values, LOCATION_DECK . $i);
-    // }
+    foreach (Players::getAll() as $player) {
+      $values = [];
+      for ($k = 0; $k < 3; $k++) {
+        $card = array_pop($startingCards);
+        $values[] = [
+          'internal_id' => $card['id'],
+          'state' => 0,
+        ];
+      }
+      static::create($values, LOCATION_HAND . '_' . $player->getId());
+    }
   }
-
 
   public static function get(int $id, bool $raiseExceptionIfNotEnough = true): Card
   {
     return parent::get($id, $raiseExceptionIfNotEnough);
+  }
+
+  private static function getAllWithIds(): array
+  {
+    $result = [];
+    foreach (static::$allCards as $id => $card) {
+      $result[] = [...$card, 'id' => $id];
+    }
+    return $result;
   }
 }
