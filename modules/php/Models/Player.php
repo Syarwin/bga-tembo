@@ -3,6 +3,8 @@
 namespace Bga\Games\Tembo\Models;
 
 use Bga\Games\Tembo\Helpers\DB_Model;
+use Bga\Games\Tembo\Managers\Cards;
+use Bga\Games\Tembo\Managers\Players;
 
 /*
  * Player: all utility functions concerning a player
@@ -59,5 +61,12 @@ class Player extends DB_Model
   public function isZombie(): bool
   {
     return $this->zombie;
+  }
+
+  public function getUiData(): array
+  {
+    $playerId = Players::getCurrentId();
+    $hand = $this->id == $playerId ? Cards::getInLocation(LOCATION_HAND . "_" . $this->id)->toArray() : [];
+    return [...parent::getUiData(), 'hand' => $hand];
   }
 }

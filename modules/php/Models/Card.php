@@ -32,7 +32,8 @@ class Card extends DB_Model
     $cardInfo = CARDS[$this->internal_id];
     $this->pattern = $cardInfo['pattern'] ?? null;
     $this->spaces = empty($cardInfo['spaces']) ? null : new Spaces($cardInfo['spaces']);
-    $this->type = isset($cardInfo['type']) ? $cardInfo['type'] . '_' . $cardInfo['deck'] : CARD_TYPE_SAVANNA;
+    $this->type = isset($cardInfo['type']) ? "{$cardInfo['type']}_{$cardInfo['deck']}" :
+      CARD_TYPE_SAVANNA . "_" . $this->internal_id;
   }
 
   public function getId()
@@ -43,5 +44,10 @@ class Card extends DB_Model
   public function getSpaces(): Spaces
   {
     return $this->spaces;
+  }
+
+  public function jsonSerialize(): array
+  {
+    return ['id' => $this->id, 'type' => $this->type];
   }
 }
