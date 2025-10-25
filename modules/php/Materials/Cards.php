@@ -2,7 +2,6 @@
 
 const CARDS = [
   0 => [
-    'type' => CARD_TYPE_SAVANNA,
     'deck' => CARD_DECK_SUPPORT,
     'pattern' => [],
     'spaces' => [
@@ -15,19 +14,302 @@ const CARDS = [
       SPACE_ROUGH,
       SPACE_OASIS,
       SPACE_ROUGH,
+    ],
+  ],
+  1 => [
+    'deck' => CARD_DECK_SUPPORT,
+    'pattern' => [],
+    'spaces' => [
+      SPACE_OASIS,
+      SPACE_NONE,
+      SPACE_NORMAL,
+      SPACE_NONE,
+      SPACE_ROUGH,
+      SPACE_TREE_RED,
+      SPACE_TREE_RED,
+      SPACE_ROUGH,
+      SPACE_NONE,
     ]
   ],
-  1 => ['type' => CARD_TYPE_SAVANNA, 'deck' => CARD_DECK_SUPPORT, 'pattern' => [], 'spaces' => []],
-  2 => ['type' => CARD_TYPE_SAVANNA, 'deck' => CARD_DECK_SUPPORT, 'pattern' => [], 'spaces' => []],
-  3 => ['type' => CARD_TYPE_SAVANNA, 'deck' => CARD_DECK_SUPPORT, 'pattern' => [], 'spaces' => []],
-  4 => ['type' => CARD_TYPE_SAVANNA, 'deck' => CARD_DECK_SUPPORT, 'pattern' => [], 'spaces' => []],
-  5 => ['type' => CARD_TYPE_SAVANNA, 'deck' => CARD_DECK_STARTING, 'pattern' => [], 'spaces' => []],
-  // TODO: Add more
-  // ...
-  // 6-16 - Starting
-  // 17-26 - Stage I
-  // 27-37 - Stage II,
-  // 38-49 - Stage III
+  2 => [
+    'deck' => CARD_DECK_SUPPORT,
+    'pattern' => [],
+    'spaces' => [
+      SPACE_TREE_BROWN,
+      SPACE_NONE,
+      SPACE_TREE_BROWN,
+      SPACE_OASIS,
+      SPACE_NONE,
+      SPACE_NONE,
+      SPACE_ROUGH,
+      SPACE_ROUGH,
+      SPACE_NORMAL,
+    ]
+  ],
+  3 => [
+    'deck' => CARD_DECK_SUPPORT,
+    'pattern' => [],
+    'spaces' => [
+      SPACE_NONE,
+      SPACE_NONE,
+      SPACE_NORMAL,
+      SPACE_NONE,
+      SPACE_OASIS,
+      SPACE_NORMAL,
+      SPACE_TREE_BROWN,
+      SPACE_TREE_BROWN,
+    ]
+  ],
+  4 => [
+    'deck' => CARD_DECK_SUPPORT,
+    'pattern' => [],
+    'spaces' => [
+      SPACE_TREE_TEAL,
+      SPACE_NONE,
+      SPACE_NORMAL,
+      SPACE_OASIS,
+      SPACE_NONE,
+      SPACE_NORMAL,
+      SPACE_NONE,
+      SPACE_NORMAL,
+      SPACE_TREE_TEAL
+    ]
+  ],
+  5 => [
+    'deck' => CARD_DECK_STARTING,
+    'pattern' => [],
+    'spaces' => [
+      SPACE_NONE,
+      SPACE_NONE,
+      SPACE_NORMAL,
+      SPACE_TREE_GREEN,
+      SPACE_TREE_GREEN,
+      SPACE_NONE,
+      SPACE_OASIS,
+      SPACE_NONE,
+      SPACE_NORMAL,
+    ]
+  ],
+  6 => [
+    'deck' => CARD_DECK_STARTING,
+    'pattern' => [],
+    'spaces' => []
+  ],
+  7 => [
+    'deck' => CARD_DECK_STARTING,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  8 => [
+    'deck' => CARD_DECK_STARTING,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  9 => [
+    'deck' => CARD_DECK_STARTING,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  10 => [
+    'deck' => CARD_DECK_STARTING,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  11 => [
+    'deck' => CARD_DECK_STARTING,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  12 => [
+    'deck' => CARD_DECK_STARTING,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  13 => [
+    'deck' => CARD_DECK_STARTING,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  14 => [
+    'deck' => CARD_DECK_STARTING,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  15 => [
+    'deck' => CARD_DECK_STARTING,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  16 => [
+    'deck' => CARD_DECK_STARTING,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  17 => [
+    'deck' => CARD_DECK_FIRST,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  18 => [
+    'deck' => CARD_DECK_FIRST,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  19 => [
+    'deck' => CARD_DECK_FIRST,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  20 => [
+    'deck' => CARD_DECK_FIRST,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  21 => [
+    'deck' => CARD_DECK_FIRST,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  22 => [
+    'deck' => CARD_DECK_FIRST,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  23 => [
+    'deck' => CARD_DECK_FIRST,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  24 => [
+    'deck' => CARD_DECK_FIRST,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  25 => [
+    'deck' => CARD_DECK_FIRST,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  26 => [
+    'deck' => CARD_DECK_FIRST,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  27 => [
+    'deck' => CARD_DECK_SECOND,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  28 => [
+    'deck' => CARD_DECK_SECOND,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  29 => [
+    'deck' => CARD_DECK_SECOND,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  30 => [
+    'deck' => CARD_DECK_SECOND,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  31 => [
+    'deck' => CARD_DECK_SECOND,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  32 => [
+    'deck' => CARD_DECK_SECOND,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  33 => [
+    'deck' => CARD_DECK_SECOND,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  34 => [
+    'deck' => CARD_DECK_SECOND,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  35 => [
+    'deck' => CARD_DECK_SECOND,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  36 => [
+    'deck' => CARD_DECK_SECOND,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  37 => [
+    'deck' => CARD_DECK_SECOND,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  38 => [
+    'deck' => CARD_DECK_THIRD,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  39 => [
+    'deck' => CARD_DECK_THIRD,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  40 => [
+    'deck' => CARD_DECK_THIRD,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  41 => [
+    'deck' => CARD_DECK_THIRD,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  42 => [
+    'deck' => CARD_DECK_THIRD,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  43 => [
+    'deck' => CARD_DECK_THIRD,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  44 => [
+    'deck' => CARD_DECK_THIRD,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  45 => [
+    'deck' => CARD_DECK_THIRD,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  46 => [
+    'deck' => CARD_DECK_THIRD,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  47 => [
+    'deck' => CARD_DECK_THIRD,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  48 => [
+    'deck' => CARD_DECK_THIRD,
+    'pattern' => [],
+    'spaces' => [],
+  ],
+  49 => [
+    'deck' => CARD_DECK_THIRD,
+    'pattern' => [],
+    'spaces' => [],
+  ],
   50 => ['type' => CARD_TYPE_MATRIARCH, 'deck' => CARD_DECK_FIRST],
   51 => ['type' => CARD_TYPE_MATRIARCH, 'deck' => CARD_DECK_FIRST],
   52 => ['type' => CARD_TYPE_MATRIARCH, 'deck' => CARD_DECK_FIRST],
