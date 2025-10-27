@@ -8,6 +8,9 @@
 
 -- dbmodel.sql
 
+ALTER TABLE `player`
+    ADD `player_rotation` TINYINT DEFAULT -1;
+
 CREATE TABLE IF NOT EXISTS `meeples`
 (
     `meeple_id`       smallint unsigned NOT NULL AUTO_INCREMENT,

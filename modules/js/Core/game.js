@@ -6,7 +6,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
     constructor() {
       this._notifications = [];
       this._inactiveStatesAdd = [];
-      this._inactiveStates = [];
+      this._inactiveStates = ['sittingAroundTable'];
       this._connections = [];
       this._selectableNodes = [];
 
@@ -76,6 +76,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
      *  - mixed args : additional information
      */
     onEnteringState(stateName, args) {
+      console.log(this.gamedatas.gamestate.name);
       debug('Entering state: ' + stateName, args);
       if (this.isFastMode() && ![].includes(stateName)) return;
 
@@ -536,10 +537,10 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
 
     getLogIcons(list) {
       return list
-        .map((resource) => {
-          return this.getLogIcon(resource);
-        })
-        .join(', ');
+      .map((resource) => {
+        return this.getLogIcon(resource);
+      })
+      .join(', ');
     },
 
     coloredPlayerName(id, name = '') {
@@ -939,7 +940,10 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
       ) {
         this.onClick($(`log_${notif.logId}`), () => this.undoToStep(stepId));
 
-        if ($(`dockedlog_${notif.mobileLogId}`)) this.onClick($(`dockedlog_${notif.mobileLogId}`), () => this.undoToStep(stepId));
+        if ($(`dockedlog_${notif.mobileLogId}`)) this.onClick(
+          $(`dockedlog_${notif.mobileLogId}`),
+          () => this.undoToStep(stepId)
+        );
       }
     },
 
@@ -1005,8 +1009,8 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
         disabled
           ? () => {}
           : () => {
-              this.askConfirmation(choice.irreversibleAction, () => this.takeAction('actChooseAction', { id: choice.id }));
-            }
+            this.askConfirmation(choice.irreversibleAction, () => this.takeAction('actChooseAction', { id: choice.id }));
+          }
       );
       if (disabled) {
         $(`btnChoice${choice.id}`).classList.add('disabled');
@@ -1064,8 +1068,8 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
         let msg =
           warning === true
             ? _(
-                "If you take this action, you won't be able to undo past this step because you will either draw card(s) or someone else is going to make a choice"
-              )
+              "If you take this action, you won't be able to undo past this step because you will either draw card(s) or someone else is going to make a choice"
+            )
             : warning;
         this.confirmationDialog(
           msg,

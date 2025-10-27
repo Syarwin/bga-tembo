@@ -11,6 +11,7 @@ const ST_DUMMY = 3;
 const ST_BEFORE_START_OF_GAME = 6;
 const ST_TURN_ACTION = 7;
 const ST_SETUP_CARDS = 11;
+const ST_SITTING_AROUND_TABLE = 12;
 
 
 const ST_RESOLVE_STACK = 90;

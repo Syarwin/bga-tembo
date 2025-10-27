@@ -2,6 +2,7 @@
 
 namespace Bga\Games\Tembo\States;
 
+use Bga\GameFramework\Actions\CheckAction;
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Players;
@@ -24,12 +25,26 @@ trait SetupTrait
 
   public function stSetupBranch()
   {
-    $this->gamestate->nextState('debug');
+    $this->gamestate->nextState(ST_SITTING_AROUND_TABLE);
   }
 
   public function stSetupCards()
   {
     Cards::setupNewGame();
     $this->gamestate->nextState('debug');
+  }
+
+  #[CheckAction(false)]
+  public function actChangedMind(): void
+  {
+    $this->gamestate->checkPossibleAction('actChangedMind');
+    $this->gamestate->setPlayersMultiactive([Players::getCurrentId()], '');
+  }
+
+  public function actSittingAroundTable(?int $rotation): void
+  {
+    $player = Players::getCurrent();
+    $player->setRotation($rotation ?? 0);
+    $this->gamestate->setPlayerNonMultiactive($player->getId(), '');
   }
 }

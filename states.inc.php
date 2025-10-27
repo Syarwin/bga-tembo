@@ -47,8 +47,18 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stSetupBranch',
     'transitions' => [
-      'debug' => ST_SETUP_CARDS, // To be changed to active player state to rotate board tiles
+      ST_SITTING_AROUND_TABLE => ST_SITTING_AROUND_TABLE,
     ],
+  ],
+
+  ST_SITTING_AROUND_TABLE => [
+    'name' => 'sittingAroundTable',
+    'description' => clienttranslate('${actplayer} must choose the direction of play for the entire game'),
+    'descriptionmyturn' => clienttranslate('${you} must choose your direction of play for the entire game'),
+    'type' => 'multipleactiveplayer',
+    'action' => 'stMakeEveryoneActive',
+    'possibleactions' => ['actSittingAroundTable', 'actChangedMind'],
+    'transitions' => ['' => ST_SETUP_CARDS],
   ],
 
   ST_SETUP_CARDS => [

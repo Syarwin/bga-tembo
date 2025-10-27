@@ -23,6 +23,7 @@ class Player extends DB_Model
     'score' => ['player_score', 'int'],
     'scoreAux' => ['player_score_aux', 'int'],
     'zombie' => ['player_zombie', 'bool'],
+    'rotation' => ['player_rotation', 'int'],
   ];
   protected int $id;
   protected int $no;
@@ -32,6 +33,7 @@ class Player extends DB_Model
   protected int $score;
   protected int $scoreAux;
   protected bool $zombie;
+  protected int $rotation;
 
   public function getId(): int
   {
