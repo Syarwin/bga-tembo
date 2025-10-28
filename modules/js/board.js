@@ -12,6 +12,10 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
 
   // Everything ralted to playerboards
   return declare('tembo.board', null, {
+    constructor() {
+      this._notifications.push('boardTileRotated');
+    },
+
     setupBoard() {
       let board = this.gamedatas.board;
       board.destination.id = DESTINATION;
@@ -79,5 +83,14 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
     //   let t = uid.split('-');
     //   return { x: parseInt(t[0]), y: parseInt(t[1]) };
     // },
+
+    notif_boardTileRotated(n) {
+      debug('Notif: board tile rotated', n);
+      dojo.query('.board-tile').forEach((tile) => {
+        if (n.id === parseInt(dojo.attr(tile, 'data-id'))) {
+          dojo.attr(tile, 'data-rotation', n.rotation);
+        }
+      });
+    },
   });
 });

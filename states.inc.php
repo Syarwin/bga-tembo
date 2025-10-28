@@ -47,7 +47,7 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stSetupBranch',
     'transitions' => [
-      ST_SITTING_AROUND_TABLE => ST_SITTING_AROUND_TABLE,
+      '' => ST_TURN_BOARD_TILE, // TODO: Change back to ST_SITTING_AROUND_TABLE
     ],
   ],
 
@@ -58,6 +58,18 @@ $machinestates = [
     'type' => 'multipleactiveplayer',
     'action' => 'stMakeEveryoneActive',
     'possibleactions' => ['actSittingAroundTable', 'actChangedMind'],
+    'transitions' => ['' => ST_TURN_BOARD_TILE],
+  ],
+
+  ST_TURN_BOARD_TILE => [
+    'name' => 'turnBoardTile',
+    'description' => clienttranslate(
+      'All players collectively must decide if they want to re-orientate one Savanna board'
+    ),
+    'descriptionmyturn' => clienttranslate('${you} must decide if they want to re-orientate one Savanna board'),
+    'type' => 'multipleactiveplayer',
+    'action' => 'stMakeEveryoneActive',
+    'possibleactions' => ['actReorientBoardTile', 'actLeaveBoardTiles'],
     'transitions' => ['' => ST_SETUP_CARDS],
   ],
 

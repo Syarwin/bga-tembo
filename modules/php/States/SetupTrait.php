@@ -4,6 +4,7 @@ namespace Bga\Games\Tembo\States;
 
 use Bga\GameFramework\Actions\CheckAction;
 use Bga\Games\Tembo\Core\Globals;
+use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Board;
@@ -25,7 +26,7 @@ trait SetupTrait
 
   public function stSetupBranch()
   {
-    $this->gamestate->nextState(ST_SITTING_AROUND_TABLE);
+    $this->gamestate->nextState('');
   }
 
   public function stSetupCards()
@@ -46,5 +47,34 @@ trait SetupTrait
     $player = Players::getCurrent();
     $player->setRotation($rotation ?? 0);
     $this->gamestate->setPlayerNonMultiactive($player->getId(), '');
+  }
+
+  public function actLeaveBoardTiles(): void
+  {
+    $this->gamestate->setPlayerNonMultiactive(Players::getCurrentId(), '');
+  }
+
+  /**
+   * @throws \BgaVisibleSystemException
+   */
+  public function actReorientBoardTile(int $id, int $rotation): void
+  {
+    $board = Globals::getBoard();
+    $tileToRotate = array_filter($board, function ($tile) use ($id) {
+      return $tile['id'] == $id;
+    });
+    if (empty($tileToRotate)) {
+      throw new \BgaVisibleSystemException("Tile with id $id not found");
+    }
+    $index = array_keys($tileToRotate)[0];
+    unset($board[$index]);
+    $tileToRotate = array_shift($tileToRotate);
+    $tileToRotate['rotation'] = $rotation;
+    $board[$index] = $tileToRotate;
+    Globals::setBoard($board);
+    Notifications::boardTileRotated($id, $rotation);
+    foreach (Players::getAll() as $player) {
+      $this->gamestate->setPlayerNonMultiactive($player->getId(), '');
+    }
   }
 }
