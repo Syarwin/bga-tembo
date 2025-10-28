@@ -23,7 +23,18 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.bgaPerformAction('actChangedMind', {}, { checkAction: false });
         this.statusBar.removeActionButtons();
         this.addIdontCareButton();
-      })
+      });
+    },
+
+    onEnteringStateTurnBoardTile() {
+      if (this.isCurrentPlayerActive()) {
+        this.addPrimaryActionButton('btnOk', _('Do nothing'), () => {
+          this.bgaPerformAction('actLeaveBoardTiles');
+        });
+        this.addPrimaryActionButton('btnReorient', _('Reorient id 1 to 2'), () => {
+          this.bgaPerformAction('actReorientBoardTile', { id: 1, rotation: 2 });
+        });
+      }
     },
   });
 });

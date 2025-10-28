@@ -10,6 +10,7 @@ class Notifications
   protected static $listeners = [];
 
   protected static $cachedValues = [];
+
   public static function resetCache()
   {
     foreach (self::$listeners as $listener) {
@@ -54,6 +55,7 @@ class Notifications
   {
     self::notifyAll('mediumMessage', $txt, $args);
   }
+
   public static function longMessage($txt, $args = [])
   {
     self::notifyAll('longMessage', $txt, $args);
@@ -90,6 +92,7 @@ class Notifications
       'pId' => $card['pId'],
     ];
   }
+
   public static function refreshUI($datas)
   {
     // // Keep only the thing that matters
@@ -123,7 +126,13 @@ class Notifications
   //                      |_|
   /////////////////////////////////
 
-
+  public static function boardTileRotated(int $id, int $rotation)
+  {
+    self::notifyAll('boardTileRotated', '', [
+      'id' => $id,
+      'rotation' => $rotation,
+    ]);
+  }
 
   ///////////////////////////////////////////////////////////////
   //  _   _           _       _            _
