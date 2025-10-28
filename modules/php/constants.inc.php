@@ -96,6 +96,14 @@ const CARD_DECK_SECOND = 2;
 const CARD_DECK_THIRD = 3;
 const CARD_DECK_SUPPORT = 4;
 
+const SHAPE_DIAG_DOWN = 0;
+const SHAPE_DIAG_UP = 1;
+const SHAPE_DASH_VERT = 2;
+const SHAPE_DASH_HOR = 3;
+const SHAPE_LONG_DASH_VERT = 4;
+const SHAPE_LONG_DASH_HOR = 5;
+const SHAPE_L = 6;
+
 /*
  * Spaces types
  */
