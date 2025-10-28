@@ -11,6 +11,8 @@ use Bga\Games\Tembo\Helpers\UserException;
 use Bga\Games\Tembo\Models\Player;
 use Bga\Games\Tembo\Game;
 
+require_once __DIR__ . "/../constants.inc.php";
+
 /*
  * Engine: a class that allows to handle complex flow
  */
@@ -67,7 +69,7 @@ class Engine
   public static function buildTree(array $t): AbstractNode
   {
     $t['childs'] = $t['childs'] ?? [];
-    $type = $t['type'] ?? (empty($t['childs']) ? NODE_LEAF : NODE_SEQ);
+    $type = $t['type'] ?? (empty($t['childs']) ? \NODE_LEAF : NODE_SEQ);
 
     $childs = [];
     foreach ($t['childs'] as $child) {
@@ -447,9 +449,9 @@ class Engine
   /**
    * Restart the whole flow
    */
-  public static function restart(int $pId): void
+  public static function restart(): void
   {
-    Log::undoTurn($pId);
+    Log::undoTurn();
 
     // Force to clear cached informations
     Globals::fetch();
@@ -460,9 +462,9 @@ class Engine
   /**
    * Restart at a given step
    */
-  public static function undoToStep(int $pId, int $stepId): void
+  public static function undoToStep(int $stepId): void
   {
-    Log::undoToStep($pId, $stepId);
+    Log::undoToStep($stepId);
 
     // Force to clear cached informations
     Globals::fetch();

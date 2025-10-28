@@ -19,7 +19,6 @@ trait SetupTrait
     Globals::setupNewGame($players, $options);
     Players::setupNewGame($players, $options);
     Board::setupNewGame();
-    Globals::setupNewGame($players);
     // Stats::checkExistence();
 
     $this->activeNextPlayer();

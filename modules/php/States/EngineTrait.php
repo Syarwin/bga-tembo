@@ -224,14 +224,12 @@ trait EngineTrait
       throw new \BgaVisibleSystemException('No choice to undo');
     }
 
-    $player = Players::getActive();
-    Engine::restart($player->getId());
+    Engine::restart();
   }
 
   public function actUndoToStep(int $stepId)
   {
     self::checkAction('actRestart');
-    $player = Players::getActive();
-    Engine::undoToStep($player->getId(), $stepId);
+    Engine::undoToStep($stepId);
   }
 }

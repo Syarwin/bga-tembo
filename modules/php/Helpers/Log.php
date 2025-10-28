@@ -55,16 +55,16 @@ class Log extends \APP_DbObject
   }
 
   // Create a new checkpoint : anything before that checkpoint cannot be undo (unless in studio)
-  public static function checkpoint(int $pId = 0)
+  public static function checkpoint()
   {
     self::clearUndoableStepNotifications();
-    return self::addEntry(['type' => 'checkpoint', 'player_id' => $pId]);
+    return self::addEntry(['type' => 'checkpoint']);
   }
 
   // Log the start of engine to allow "restart turn"
   public static function startEngine()
   {
-    if (!Globals::isSolo()) {
+    if (Players::count() > 1) {
       self::checkpoint();
     }
 
@@ -79,7 +79,7 @@ class Log extends \APP_DbObject
   }
 
   // Find the last checkpoint
-  public static function getLastCheckpoint(int $pId, bool $includeEngineStarts = false): int
+  public static function getLastCheckpoint(bool $includeEngineStarts = false): int
   {
     $query = new QueryBuilder('log', null, 'id');
     $query = $query->select(['id']);
@@ -88,7 +88,6 @@ class Log extends \APP_DbObject
     } else {
       $query = $query->where('type', 'checkpoint');
     }
-    $query = $query->whereIn('player_id', [0, $pId]);
 
     $log = $query
       ->orderBy('id', 'DESC')
@@ -102,14 +101,11 @@ class Log extends \APP_DbObject
   }
 
   // Find all the moments available to undo
-  public static function getUndoableSteps(int $pId, bool $onlyIds = true): array
+  public static function getUndoableSteps(bool $onlyIds = true): array
   {
-    $checkpoint = self::getLastCheckpoint($pId);
+    $checkpoint = self::getLastCheckpoint();
     $query = new QueryBuilder('log', null, 'id');
     $query = $query->select(['id', 'move_id'])->where('type', 'step');
-    if ($pId != 'all') {
-      $query = $query->whereIn('player_id', [0, $pId]);
-    }
 
     $logs = $query
       ->where('id', '>', $checkpoint)
@@ -123,16 +119,16 @@ class Log extends \APP_DbObject
   /**
    * Revert all the way to the last checkpoint or the last start of turn
    */
-  public static function undoTurn($pId)
+  public static function undoTurn()
   {
-    $checkpoint = static::getLastCheckpoint($pId, true);
-    return self::revertTo($pId, $checkpoint);
+    $checkpoint = static::getLastCheckpoint(true);
+    return self::revertTo($checkpoint);
   }
 
   /**
    * Revert to a given step (checking first that it exists)
    */
-  public static function undoToStep(int $pId, int $stepId)
+  public static function undoToStep(int $stepId)
   {
     $query = new QueryBuilder('log', null, 'id');
     $step = $query
@@ -143,18 +139,17 @@ class Log extends \APP_DbObject
       throw new \BgaVisibleSystemException('Cant undo here');
     }
 
-    self::revertTo($pId, $stepId - 1);
+    self::revertTo($stepId - 1);
   }
 
   /**
    * Revert all the logged changes up to an id
    */
-  public static function revertTo(int $pId, int $id)
+  public static function revertTo(int $id)
   {
     $query = new QueryBuilder('log', null, 'id');
     $logs = $query
       ->select(['id', 'table', 'primary', 'type', 'affected', 'move_id'])
-      ->where('player_id', $pId)
       ->where('id', '>', $id)
       ->orderBy('id', 'DESC')
       ->get();
@@ -199,7 +194,6 @@ class Log extends \APP_DbObject
     $query = new QueryBuilder('log', null, 'id');
     $query
       ->where('id', '>', $id)
-      ->where('player_id', $pId)
       ->delete()
       ->run();
 
@@ -210,7 +204,7 @@ class Log extends \APP_DbObject
         ->whereIn('gamelog_move_id', $moveIds)
         ->get();
       $notifIds = self::extractNotifIds($notifications);
-      Notifications::clearTurn(Players::get($pId), $notifIds);
+      Notifications::clearTurn(Players::getCurrent(), $notifIds);
     }
 
     // Force to clear cached informations
@@ -218,7 +212,7 @@ class Log extends \APP_DbObject
 
     // Notify
     $datas = Game::get()->getAllDatas();
-    Notifications::refreshUI($pId, $datas);
+    Notifications::refreshUI($datas);
 
     // Force notif flush to be able to delete "restart turn" notif
     Game::get()->sendNotifications();
@@ -227,7 +221,6 @@ class Log extends \APP_DbObject
       $query = new QueryBuilder('gamelog', null, 'gamelog_packet_id');
       $query
         ->delete()
-        ->where('gamelog_player', $pId)
         ->where('gamelog_move_id', '>=', min($moveIds), true)
         ->run();
     }

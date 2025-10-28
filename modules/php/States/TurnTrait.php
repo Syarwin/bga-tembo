@@ -19,17 +19,18 @@ trait TurnTrait
    */
   function stTurnAction()
   {
-    if (Globals::isEndOfGameTriggered()) {
-      $this->gamestate->jumpToState(ST_PRE_END_OF_GAME);
-      return;
-    }
+    // TODO
+    // if (Globals::isEndOfGameTriggered()) {
+    //   $this->gamestate->jumpToState(ST_PRE_END_OF_GAME);
+    //   return;
+    // }
 
 
     // Clear globals
 
     // Give extra time
     $player = Players::getActive();
-    self::giveExtraTime($player->getPId());
+    self::giveExtraTime($player->getId());
     // Stats::incPlayerTurns($player);
 
     // Inserting leaf CHOOSE_ACTION

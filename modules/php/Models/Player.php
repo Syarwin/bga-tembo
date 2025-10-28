@@ -2,7 +2,9 @@
 
 namespace Bga\Games\Tembo\Models;
 
+use Bga\Games\Tembo\Core\Engine\AbstractNode;
 use Bga\Games\Tembo\Helpers\DB_Model;
+use Bga\Games\Tembo\Managers\Actions;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Players;
 
@@ -70,5 +72,10 @@ class Player extends DB_Model
     $playerId = Players::getCurrentId();
     $hand = $this->id == $playerId ? Cards::getInLocation(LOCATION_HAND . "_" . $this->id)->toArray() : [];
     return [...parent::getUiData(), 'hand' => $hand];
+  }
+
+  public function canTakeAction(string $action, null|array|AbstractNode $ctx): bool
+  {
+    return Actions::isDoable($action, $ctx, $this);
   }
 }

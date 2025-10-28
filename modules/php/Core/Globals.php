@@ -19,11 +19,30 @@ class Globals extends DB_Manager
     'callbackEngineResolved' => 'obj', // DO NOT MODIFY, USED IN ENGINE MODULE
     'anytimeRecursion' => 'int', // DO NOT MODIFY, USED IN ENGINE MODULE
     'customTurnOrders' => 'obj', // DO NOT MODIFY, USED FOR CUSTOM TURN ORDER FEATURE
+    'firstPlayer' => 'int',
 
     'journey' => 'int',
     'board' => 'obj',
     'energy' => 'int',
   ];
+
+
+  public static function getJourney(): int
+  {
+    return 1; // return 1 for now, to be changed later
+  }
+
+  /*
+   * Setup new game
+   */
+  public static function setupNewGame(array $players): void
+  {
+    $energy = [1 => 9, 2 => 9, 3 => 7, 4 => 6][count($players)];
+    static::setEnergy($energy);
+
+    static::setFirstPlayer(array_keys($players)[0]);
+  }
+
 
   protected static string $table = 'global_variables';
   protected static string $primary = 'name';
@@ -142,19 +161,5 @@ class Globals extends DB_Manager
     }
     throw new \feException(print_r(debug_print_backtrace()));
     return null;
-  }
-
-  public static function getJourney(): int
-  {
-    return 1; // return 1 for now, to be changed later
-  }
-
-  /*
-   * Setup new game
-   */
-  public static function setupNewGame(array $players): void
-  {
-    $energy = [1 => 9, 2 => 9, 3 => 7, 4 => 6][count($players)];
-    static::setEnergy($energy);
   }
 }

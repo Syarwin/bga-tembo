@@ -79,7 +79,7 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stSetupCards',
     'transitions' => [
-      'debug' => ST_DUMMY,
+      'debug' => ST_BEFORE_START_OF_GAME,
     ],
   ],
 
@@ -197,6 +197,16 @@ $machinestates = [
   // /_/   \_\__\___/|_| |_| |_|_|\___/_/   \_\___|\__|_|\___/|_| |_|___/
   //
   ////////////////////////////////////////////////////////////////////////////
+
+  ST_CHOOSE_ACTION => [
+    'name' => 'chooseAction',
+    'description' => clienttranslate('${actplayer} must choose an action'),
+    'descriptionmyturn' => clienttranslate('${you} must choose an action'),
+    'type' => 'activeplayer',
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'possibleactions' => ['actRestart'],
+  ],
 
 
   //////////////////////////////////////////////////////////////////

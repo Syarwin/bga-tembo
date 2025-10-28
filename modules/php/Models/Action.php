@@ -138,7 +138,7 @@ class Action
   {
     // Duplicate the node and update the args
     $node = $this->ctx->toArray();
-    $node['type'] = \NODE_LEAF;
+    $node['type'] = NODE_LEAF;
     $node['childs'] = [];
     $node['args'] = array_merge($node['args'], $args);
     $node['duplicate'] = true;
