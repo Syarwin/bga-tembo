@@ -19,6 +19,7 @@ trait SetupTrait
     Globals::setupNewGame($players, $options);
     Players::setupNewGame($players, $options);
     Board::setupNewGame();
+    Globals::setupNewGame($players);
     // Stats::checkExistence();
 
     $this->activeNextPlayer();
@@ -73,6 +74,9 @@ trait SetupTrait
     $board[$index] = $tileToRotate;
     Globals::setBoard($board);
     Notifications::boardTileRotated($id, $rotation);
+    $energy = Globals::getEnergy() - 2;
+    Globals::setEnergy($energy);
+    Notifications::energyDecreased($energy, 2);
     foreach (Players::getAll() as $player) {
       $this->gamestate->setPlayerNonMultiactive($player->getId(), '');
     }

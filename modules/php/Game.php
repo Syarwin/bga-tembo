@@ -56,6 +56,7 @@ class Game extends \Bga\GameFramework\Table
     $data = [
       'players' => Players::getUiData(),
       'board' => $board->getUiData(),
+      'energy' => Globals::getEnergy(),
     ];
 
     return $data;

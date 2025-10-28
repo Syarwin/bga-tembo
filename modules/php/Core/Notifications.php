@@ -134,6 +134,22 @@ class Notifications
     ]);
   }
 
+  public static function energyDecreased(int $energy, int $delta): void
+  {
+    self::notifyAll('energyChanged', clienttranslate('You lose ${delta} energy and now it is at ${energy}'), [
+      'energy' => $energy,
+      'delta' => $delta,
+    ]);
+  }
+
+  public static function energyIncreased(int $energy, int $delta): void
+  {
+    self::notifyAll('energyChanged', clienttranslate('You gain ${delta} energy and now it is at ${energy}'), [
+      'energy' => $energy,
+      'delta' => $delta,
+    ]);
+  }
+
   ///////////////////////////////////////////////////////////////
   //  _   _           _       _            _
   // | | | |_ __   __| | __ _| |_ ___     / \   _ __ __ _ ___

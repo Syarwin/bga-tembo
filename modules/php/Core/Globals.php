@@ -22,6 +22,7 @@ class Globals extends DB_Manager
 
     'journey' => 'int',
     'board' => 'obj',
+    'energy' => 'int',
   ];
 
   protected static string $table = 'global_variables';
@@ -151,7 +152,9 @@ class Globals extends DB_Manager
   /*
    * Setup new game
    */
-  public static function setupNewGame(array $players, array $options): void
+  public static function setupNewGame(array $players): void
   {
+    $energy = [1 => 9, 2 => 9, 3 => 7, 4 => 6][count($players)];
+    static::setEnergy($energy);
   }
 }
