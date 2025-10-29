@@ -123,6 +123,30 @@ const SPACE_TREE_TEAL = 13;
  * Meeples
  */
 
+const TREE_GREEN = 'tree-green';
+const TREE_RED = 'tree-red';
+const TREE_BROWN = 'tree-brown';
+const TREE_TEAL = 'tree-teal';
+
+const LION = 'lion';
+const LIONESS = 'lioness';
+
+const LANDMARK_CANYON = 'landmark-canyon';
+const LANDMARK_RIVER = 'landmark-river';
+const LANDMARK_MEADOW = 'landmark-meadow';
+const LANDMARK_WATERFALL = 'landmark-waterfall';
+const LANDMARK_ROCKS = 'landmark-rocks';
+const LANDMARK_SNOW = 'landmark-snow';
+
+const ALL_LANDMARKS = [
+  LANDMARK_CANYON,
+  LANDMARK_RIVER,
+  LANDMARK_MEADOW,
+  LANDMARK_WATERFALL,
+  LANDMARK_ROCKS,
+  LANDMARK_SNOW
+];
+
 /*
  * Resources
  */
@@ -134,7 +158,13 @@ const SPACE_TREE_TEAL = 13;
 
 const LOCATION_TABLE = 'table';
 const LOCATION_HAND = 'hand';
+const LOCATION_RESERVE = 'reserve';
 const INFINITY = 1000;
+
+const STATE_LAYING = 0;
+const STATE_STANDING = 1;
+const STATE_TIRED = 0;
+const STATE_RESTED = 1;
 
 
 /******************

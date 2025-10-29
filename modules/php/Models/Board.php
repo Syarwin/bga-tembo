@@ -17,16 +17,17 @@ class Board
 {
   protected array $board = [];
 
-  public static function setupNewGame()
+  public static function setupNewGame(int $journey): array
   {
     $board = [];
     $boardTiles = ALL_BOARD_TILES;
     shuffle($boardTiles);
-    $journey = JOURNEYS[Globals::getJourney()];
+    $journey = JOURNEYS[$journey];
     for ($i = 0; $i < count($journey['tiles']); $i++) {
       $board[] = ['id' => $boardTiles[$i], 'rotation' => bga_rand(0, 3)];
     }
     Globals::setBoard($board);
+    return $board;
   }
 
   public function __construct()

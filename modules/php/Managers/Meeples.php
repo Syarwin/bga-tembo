@@ -6,6 +6,8 @@ use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Helpers\CachedPieces;
 use Bga\Games\Tembo\Models\Meeple;
 
+require_once dirname(__FILE__) . "/../Materials/Journeys.php";
+
 /* Class to manage all the meeples for Nemesis Retaliation */
 
 class Meeples extends CachedPieces
@@ -74,11 +76,23 @@ class Meeples extends CachedPieces
   ////////////////////////////////////
 
   /* Creation of various meeples */
-  public static function setupNewGame($players, $options)
+  public static function setupNewGame(int $journeyId, array $board): Collection
   {
     $meeples = [];
+    foreach ([TREE_GREEN, TREE_RED, TREE_BROWN, TREE_TEAL] as $type) {
+      $meeples[] = ['type' => $type, 'state' => STATE_STANDING];
+    }
 
-    return self::create($meeples);
+    foreach (ALL_LANDMARKS as $landmark) {
+      $meeples[] = ['type' => $landmark, 'state' => STATE_STANDING, 'location' => LOCATION_RESERVE];
+    }
+
+    $journey = JOURNEYS[$journeyId];
+    $lionBoardTile = $board[$journey['lion'] ?? 0];
+    $meeples[] = ['type' => LION, 'state' => STATE_LAYING, 'location' => $lionBoardTile['id']];
+    $lionessBoardTile = $board[$journey['lioness'] ?? 1];
+    $meeples[] = ['type' => LIONESS, 'state' => STATE_LAYING, 'location' => $lionessBoardTile['id']];
+    return self::create($meeples, LOCATION_TABLE);
   }
 
   /**

@@ -6,6 +6,7 @@ use Bga\GameFramework\Actions\CheckAction;
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Managers\Cards;
+use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Board;
 
@@ -16,9 +17,11 @@ trait SetupTrait
    */
   protected function setupNewGame($players, $options = [])
   {
-    Globals::setupNewGame($players, $options);
+    $journey = Globals::getJourney();
+    Globals::setupNewGame($players);
     Players::setupNewGame($players, $options);
-    Board::setupNewGame();
+    $board = Board::setupNewGame($journey);
+    Meeples::setupNewGame($journey, $board);
     // Stats::checkExistence();
 
     $this->activeNextPlayer();

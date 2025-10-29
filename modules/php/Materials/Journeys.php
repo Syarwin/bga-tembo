@@ -35,6 +35,8 @@ const JOURNEYS = [
       ['x' => 0, 'y' => 18],
       ['x' => 6, 'y' => 18],
     ],
+    'lion' => 0,
+    'lioness' => 3,
   ],
   2 => [
     'destination' => ['x' => 0, 'y' => 0, 'rotation' => 0],
