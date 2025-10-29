@@ -36,6 +36,7 @@ define([
       debug('SETUP', gamedatas);
       this.setupCentralArea();
       this.setupBoard();
+      this.setupPlayers();
 
       this.inherited(arguments);
     },
@@ -58,41 +59,10 @@ define([
     },
 
     setupPlayers() {
-      this._scoresCounters = {};
-
-      // Change No so that it fits the current player order view
-      let currentNo = this.getPlayers().reduce((carry, player) => (player.id == this.player_id ? player.no : carry), 0);
-      let nPlayers = Object.keys(this.gamedatas.players).length;
-      this.forEachPlayer((player) => (player.order = (player.no + nPlayers - currentNo) % nPlayers));
-      this.orderedPlayers = Object.values(this.gamedatas.players).sort((a, b) => a.order - b.order);
-
-      // Add player board and player panel
-      this.orderedPlayers.forEach((player, i) => {
-        // Player board
-        this.place('tplPlayerBoard', player, 'player-board-holder');
-
-        // Panels
-        this.place('tplPlayerPanel', player, `overall_player_board_${player.id}`);
-        $(`overall_player_board_${player.id}`).addEventListener('click', () => this.goToPlayerBoard(player.id));
-
-        // Scores
-        this._scoresCounters[player.id] = {};
-        ['name', 'trees', 'animals', 'completedAreas', 'unfinishedAndMixed', 'overall'].forEach((scoringCategory) => {
-          if (scoringCategory == 'name') {
-            $(`score-row-name`).insertAdjacentHTML('beforeend', `<td>${player.name}</td>`);
-            return;
-          }
-
-          $(`score-row-${scoringCategory}`).insertAdjacentHTML(
-            'beforeend',
-            `<td><span id='score-${player.id}-${scoringCategory}'></span></td>`
-          );
-
-          this._scoresCounters[player.id][scoringCategory] = this.createCounter(
-            `score-${player.id}-${scoringCategory}`,
-            player.scores[scoringCategory]
-          );
-        });
+      this.getPlayers().forEach((player, i) => {
+        if (player.hand) {
+          this.setupHand(player.hand);
+        }
       });
     },
 
@@ -103,6 +73,62 @@ define([
     //    | |__| (_| | | | (_| \__ \
     //     \____\__,_|_|  \__,_|___/
     /////////////////////////////////
+
+    // This function is refreshUI compatible
+    setupCards() {
+      let cardIds = this.gamedatas.cards.map((card) => {
+        if (!$(`card-${card.id}`)) {
+          this.addCard(card);
+        }
+
+        let o = $(`card-${card.id}`);
+        if (!o) return null;
+
+        let container = this.getCardContainer(card);
+        if (o.parentNode != $(container)) {
+          dojo.place(o, container);
+        }
+        o.dataset.state = card.state;
+
+        return card.id;
+      });
+      document.querySelectorAll('.tembo-card[id^="card-"]').forEach((oCard) => {
+        if (!cardIds.includes(parseInt(oCard.getAttribute('data-id')))) {
+          this.destroy(oCard);
+        }
+      });
+    },
+
+    setupHand(cards) {
+      cards.forEach((card) => this.addCard(card));
+    },
+
+    addCard(card, location = null) {
+      if ($('card-' + card.id)) return;
+
+      let o = this.place('tplSavannaCard', card, location == null ? this.getCardContainer(card) : location);
+      let tooltipDesc = this.getCardTooltip(card);
+      if (tooltipDesc != null) {
+        this.addCustomTooltip(o.id, tooltipDesc.map((t) => this.formatString(t)).join('<br/>'));
+      }
+
+      return o;
+    },
+
+    getCardTooltip(card) {
+      let type = card.type;
+      return null;
+    },
+
+    getCardContainer(card) {
+      let t = card.location.split('_');
+      if (t[0] == 'hand') {
+        return $('savanna-cards-holder');
+      }
+
+      console.error('Trying to get container of a card', card);
+      return 'game_play_area';
+    },
 
     //////////////////////////////////////////
     //  __  __                 _
@@ -115,16 +141,6 @@ define([
 
     // This function is refreshUI compatible
     setupMeeples() {
-      // Init grid for clientside logic
-      this._emptyBoard = true;
-      this._board = {};
-      for (let x = 0; x < 6; x++) {
-        this._board[x] = {};
-        for (let y = 0; y < 6; y++) {
-          this._board[x][y] = [];
-        }
-      }
-
       let meepleIds = this.gamedatas.meeples.map((meeple) => {
         if (!$(`meeple-${meeple.id}`)) {
           this.addMeeple(meeple);
@@ -139,12 +155,6 @@ define([
         }
         o.dataset.state = meeple.state;
 
-        // Update board
-        if (meeple.location == 'table' && meeple.pId == this.player_id) {
-          this._board[meeple.x][meeple.y].push(meeple);
-          this._emptyBoard = false;
-        }
-
         return meeple.id;
       });
       document.querySelectorAll('.tembo-meeple[id^="meeple-"]').forEach((oMeeple) => {
@@ -153,8 +163,8 @@ define([
         }
       });
 
-      if (!$('meeple-pangolin') && this.gamedatas.pangolin) {
-        this.addMeeple({ id: 'pangolin', location: this.gamedatas.pangolin, type: 'pangolin' });
+      if (!$('meeple-energy') && this.gamedatas.energy) {
+        this.addMeeple({ id: 'energy', location: this.gamedatas.energy, type: 'energy' });
       }
     },
 

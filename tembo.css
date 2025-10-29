@@ -27,7 +27,7 @@
   font-display: swap; }
 :root {
   --temboBoardScale: 1;
-  --temboFlowerCardScale: 0.5;
+  --temboSavannaCardScale: 0.9;
   --temboEcosystemCardScale: 0.5; }
 
 .icon-container {
@@ -243,7 +243,7 @@ body {
   display: flex;
   flex-flow: row;
   align-items: stretch; }
-  #tembo-main-container #flower-cards-container {
+  #tembo-main-container #savanna-cards-container {
     position: relative;
     margin-right: 10px;
     width: 270px;
@@ -251,12 +251,12 @@ body {
     background: #f0f0f0cc;
     border-radius: 5px;
     border: 1px solid #737373; }
-    #tembo-main-container #flower-cards-container #flower-cards-container-sticky {
+    #tembo-main-container #savanna-cards-container #savanna-cards-container-sticky {
       position: sticky;
       top: 60px; }
-      #tembo-main-container #flower-cards-container #flower-cards-container-sticky #flower-cards-container-resizable {
+      #tembo-main-container #savanna-cards-container #savanna-cards-container-sticky #savanna-cards-container-resizable {
         transform-origin: top left; }
-        #tembo-main-container #flower-cards-container #flower-cards-container-sticky #flower-cards-container-resizable #flower-cards-holder {
+        #tembo-main-container #savanna-cards-container #savanna-cards-container-sticky #savanna-cards-container-resizable #savanna-cards-holder {
           display: flex;
           flex-wrap: wrap;
           justify-content: space-evenly; }
@@ -296,17 +296,17 @@ body {
 
   #tembo-main-container {
     flex-flow: column; }
-    #tembo-main-container #flower-cards-container {
+    #tembo-main-container #savanna-cards-container {
       flex-basis: 100%;
       width: auto;
       margin-right: 0px; }
-      #tembo-main-container #flower-cards-container #flower-cards-container-sticky {
+      #tembo-main-container #savanna-cards-container #savanna-cards-container-sticky {
         position: initial; }
-        #tembo-main-container #flower-cards-container #flower-cards-container-sticky #flower-cards-container-resizable {
+        #tembo-main-container #savanna-cards-container #savanna-cards-container-sticky #savanna-cards-container-resizable {
           transform-origin: top left;
           display: flex;
           flex-flow: row; }
-          #tembo-main-container #flower-cards-container #flower-cards-container-sticky #flower-cards-container-resizable #flower-cards-holder {
+          #tembo-main-container #savanna-cards-container #savanna-cards-container-sticky #savanna-cards-container-resizable #savanna-cards-holder {
             justify-content: center;
             width: 100%; } }
 @media (max-width: 1438px) {
@@ -315,17 +315,17 @@ body {
   [data-ecosystems="1"] #tembo-main-container {
     flex-flow: column;
     order: 1; }
-    [data-ecosystems="1"] #tembo-main-container #flower-cards-container {
+    [data-ecosystems="1"] #tembo-main-container #savanna-cards-container {
       flex-basis: 100%;
       width: auto;
       margin-right: 0px; }
-      [data-ecosystems="1"] #tembo-main-container #flower-cards-container #flower-cards-container-sticky {
+      [data-ecosystems="1"] #tembo-main-container #savanna-cards-container #savanna-cards-container-sticky {
         position: initial; }
-        [data-ecosystems="1"] #tembo-main-container #flower-cards-container #flower-cards-container-sticky #flower-cards-container-resizable {
+        [data-ecosystems="1"] #tembo-main-container #savanna-cards-container #savanna-cards-container-sticky #savanna-cards-container-resizable {
           transform-origin: top left;
           display: flex;
           flex-flow: row; }
-          [data-ecosystems="1"] #tembo-main-container #flower-cards-container #flower-cards-container-sticky #flower-cards-container-resizable #flower-cards-holder {
+          [data-ecosystems="1"] #tembo-main-container #savanna-cards-container #savanna-cards-container-sticky #savanna-cards-container-resizable #savanna-cards-holder {
             justify-content: center;
             width: 100%; }
     [data-ecosystems="1"] #tembo-main-container #player-boards-container {
@@ -489,222 +489,228 @@ body {
 
 :root {
   --temboBoardScale: 1;
-  --temboFlowerCardScale: 0.5;
+  --temboSavannaCardScale: 0.9;
   --temboEcosystemCardScale: 0.5; }
 
-.tembo-flower-card {
-  width: calc(var(--temboFlowerCardScale) * 238px);
-  height: calc(var(--temboFlowerCardScale) * 374px);
+.tembo-savanna-card {
+  width: calc(var(--temboSavannaCardScale) * 256px);
+  height: calc(var(--temboSavannaCardScale) * 256px);
   margin: 5px;
   position: relative; }
-  .tembo-flower-card .tembo-flower-card-wrapper {
-    scale: var(--temboFlowerCardScale);
+  .tembo-savanna-card .tembo-savanna-card-wrapper {
+    scale: var(--temboSavannaCardScale);
     transform-origin: top left;
-    width: 230px;
-    height: 366px;
-    background-image: url("img/flowers-cards.jpg");
-    background-size: 700% 400%;
+    width: 248px;
+    height: 248px;
+    background-image: url("img/cards.jpg");
+    background-size: 800% 800%;
     border-radius: 15px;
     box-shadow: 2px 2px 5px 1px black;
     border: 4px solid white; }
-  .tembo-flower-card[data-type=""] .tembo-flower-card-wrapper {
+  .tembo-savanna-card[data-type="0"] .tembo-savanna-card-wrapper {
     background-position-x: 0%;
     background-position-y: 0%; }
-  .tembo-flower-card[data-type="bb"] .tembo-flower-card-wrapper {
-    background-position-x: 16.6666666667%;
+  .tembo-savanna-card[data-type="1"] .tembo-savanna-card-wrapper {
+    background-position-x: 14.2857142857%;
     background-position-y: 0%; }
-  .tembo-flower-card[data-type="yy"] .tembo-flower-card-wrapper {
-    background-position-x: 33.3333333333%;
+  .tembo-savanna-card[data-type="2"] .tembo-savanna-card-wrapper {
+    background-position-x: 28.5714285714%;
     background-position-y: 0%; }
-  .tembo-flower-card[data-type="rr"] .tembo-flower-card-wrapper {
-    background-position-x: 50%;
+  .tembo-savanna-card[data-type="3"] .tembo-savanna-card-wrapper {
+    background-position-x: 42.8571428571%;
     background-position-y: 0%; }
-  .tembo-flower-card[data-type="ww"] .tembo-flower-card-wrapper {
-    background-position-x: 66.6666666667%;
+  .tembo-savanna-card[data-type="4"] .tembo-savanna-card-wrapper {
+    background-position-x: 57.1428571429%;
     background-position-y: 0%; }
-  .tembo-flower-card[data-type="gg"] .tembo-flower-card-wrapper {
-    background-position-x: 83.3333333333%;
+  .tembo-savanna-card[data-type="5"] .tembo-savanna-card-wrapper {
+    background-position-x: 71.4285714286%;
     background-position-y: 0%; }
-  .tembo-flower-card[data-type="by"] .tembo-flower-card-wrapper {
+  .tembo-savanna-card[data-type="6"] .tembo-savanna-card-wrapper {
+    background-position-x: 85.7142857143%;
+    background-position-y: 0%; }
+  .tembo-savanna-card[data-type="7"] .tembo-savanna-card-wrapper {
     background-position-x: 100%;
     background-position-y: 0%; }
-  .tembo-flower-card[data-type="rw"] .tembo-flower-card-wrapper {
+  .tembo-savanna-card[data-type="8"] .tembo-savanna-card-wrapper {
     background-position-x: 0%;
-    background-position-y: 33.3333333333%; }
-  .tembo-flower-card[data-type="bw"] .tembo-flower-card-wrapper {
-    background-position-x: 16.6666666667%;
-    background-position-y: 33.3333333333%; }
-  .tembo-flower-card[data-type="bg"] .tembo-flower-card-wrapper {
-    background-position-x: 33.3333333333%;
-    background-position-y: 33.3333333333%; }
-  .tembo-flower-card[data-type="gr"] .tembo-flower-card-wrapper {
-    background-position-x: 50%;
-    background-position-y: 33.3333333333%; }
-  .tembo-flower-card[data-type="br"] .tembo-flower-card-wrapper {
-    background-position-x: 66.6666666667%;
-    background-position-y: 33.3333333333%; }
-  .tembo-flower-card[data-type="yg"] .tembo-flower-card-wrapper {
-    background-position-x: 83.3333333333%;
-    background-position-y: 33.3333333333%; }
-  .tembo-flower-card[data-type="gw"] .tembo-flower-card-wrapper {
+    background-position-y: 14.2857142857%; }
+  .tembo-savanna-card[data-type="9"] .tembo-savanna-card-wrapper {
+    background-position-x: 14.2857142857%;
+    background-position-y: 14.2857142857%; }
+  .tembo-savanna-card[data-type="10"] .tembo-savanna-card-wrapper {
+    background-position-x: 28.5714285714%;
+    background-position-y: 14.2857142857%; }
+  .tembo-savanna-card[data-type="11"] .tembo-savanna-card-wrapper {
+    background-position-x: 42.8571428571%;
+    background-position-y: 14.2857142857%; }
+  .tembo-savanna-card[data-type="12"] .tembo-savanna-card-wrapper {
+    background-position-x: 57.1428571429%;
+    background-position-y: 14.2857142857%; }
+  .tembo-savanna-card[data-type="13"] .tembo-savanna-card-wrapper {
+    background-position-x: 71.4285714286%;
+    background-position-y: 14.2857142857%; }
+  .tembo-savanna-card[data-type="14"] .tembo-savanna-card-wrapper {
+    background-position-x: 85.7142857143%;
+    background-position-y: 14.2857142857%; }
+  .tembo-savanna-card[data-type="15"] .tembo-savanna-card-wrapper {
     background-position-x: 100%;
-    background-position-y: 33.3333333333%; }
-  .tembo-flower-card[data-type="yr"] .tembo-flower-card-wrapper {
+    background-position-y: 14.2857142857%; }
+  .tembo-savanna-card[data-type="16"] .tembo-savanna-card-wrapper {
     background-position-x: 0%;
-    background-position-y: 66.6666666667%; }
-  .tembo-flower-card[data-type="yw"] .tembo-flower-card-wrapper {
-    background-position-x: 16.6666666667%;
-    background-position-y: 66.6666666667%; }
-  .tembo-flower-card[data-type="gbr"] .tembo-flower-card-wrapper {
-    background-position-x: 33.3333333333%;
-    background-position-y: 66.6666666667%; }
-  .tembo-flower-card[data-type="ybr"] .tembo-flower-card-wrapper {
-    background-position-x: 50%;
-    background-position-y: 66.6666666667%; }
-  .tembo-flower-card[data-type="wbr"] .tembo-flower-card-wrapper {
-    background-position-x: 66.6666666667%;
-    background-position-y: 66.6666666667%; }
-  .tembo-flower-card[data-type="ybg"] .tembo-flower-card-wrapper {
-    background-position-x: 83.3333333333%;
-    background-position-y: 66.6666666667%; }
-  .tembo-flower-card[data-type="ybw"] .tembo-flower-card-wrapper {
+    background-position-y: 28.5714285714%; }
+  .tembo-savanna-card[data-type="17"] .tembo-savanna-card-wrapper {
+    background-position-x: 14.2857142857%;
+    background-position-y: 28.5714285714%; }
+  .tembo-savanna-card[data-type="18"] .tembo-savanna-card-wrapper {
+    background-position-x: 28.5714285714%;
+    background-position-y: 28.5714285714%; }
+  .tembo-savanna-card[data-type="19"] .tembo-savanna-card-wrapper {
+    background-position-x: 42.8571428571%;
+    background-position-y: 28.5714285714%; }
+  .tembo-savanna-card[data-type="20"] .tembo-savanna-card-wrapper {
+    background-position-x: 57.1428571429%;
+    background-position-y: 28.5714285714%; }
+  .tembo-savanna-card[data-type="21"] .tembo-savanna-card-wrapper {
+    background-position-x: 71.4285714286%;
+    background-position-y: 28.5714285714%; }
+  .tembo-savanna-card[data-type="22"] .tembo-savanna-card-wrapper {
+    background-position-x: 85.7142857143%;
+    background-position-y: 28.5714285714%; }
+  .tembo-savanna-card[data-type="23"] .tembo-savanna-card-wrapper {
     background-position-x: 100%;
-    background-position-y: 66.6666666667%; }
-  .tembo-flower-card[data-type="gbw"] .tembo-flower-card-wrapper {
+    background-position-y: 28.5714285714%; }
+  .tembo-savanna-card[data-type="24"] .tembo-savanna-card-wrapper {
+    background-position-x: 0%;
+    background-position-y: 42.8571428571%; }
+  .tembo-savanna-card[data-type="25"] .tembo-savanna-card-wrapper {
+    background-position-x: 14.2857142857%;
+    background-position-y: 42.8571428571%; }
+  .tembo-savanna-card[data-type="26"] .tembo-savanna-card-wrapper {
+    background-position-x: 28.5714285714%;
+    background-position-y: 42.8571428571%; }
+  .tembo-savanna-card[data-type="27"] .tembo-savanna-card-wrapper {
+    background-position-x: 42.8571428571%;
+    background-position-y: 42.8571428571%; }
+  .tembo-savanna-card[data-type="28"] .tembo-savanna-card-wrapper {
+    background-position-x: 57.1428571429%;
+    background-position-y: 42.8571428571%; }
+  .tembo-savanna-card[data-type="29"] .tembo-savanna-card-wrapper {
+    background-position-x: 71.4285714286%;
+    background-position-y: 42.8571428571%; }
+  .tembo-savanna-card[data-type="30"] .tembo-savanna-card-wrapper {
+    background-position-x: 85.7142857143%;
+    background-position-y: 42.8571428571%; }
+  .tembo-savanna-card[data-type="31"] .tembo-savanna-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 42.8571428571%; }
+  .tembo-savanna-card[data-type="32"] .tembo-savanna-card-wrapper {
+    background-position-x: 0%;
+    background-position-y: 57.1428571429%; }
+  .tembo-savanna-card[data-type="33"] .tembo-savanna-card-wrapper {
+    background-position-x: 14.2857142857%;
+    background-position-y: 57.1428571429%; }
+  .tembo-savanna-card[data-type="34"] .tembo-savanna-card-wrapper {
+    background-position-x: 28.5714285714%;
+    background-position-y: 57.1428571429%; }
+  .tembo-savanna-card[data-type="35"] .tembo-savanna-card-wrapper {
+    background-position-x: 42.8571428571%;
+    background-position-y: 57.1428571429%; }
+  .tembo-savanna-card[data-type="36"] .tembo-savanna-card-wrapper {
+    background-position-x: 57.1428571429%;
+    background-position-y: 57.1428571429%; }
+  .tembo-savanna-card[data-type="37"] .tembo-savanna-card-wrapper {
+    background-position-x: 71.4285714286%;
+    background-position-y: 57.1428571429%; }
+  .tembo-savanna-card[data-type="38"] .tembo-savanna-card-wrapper {
+    background-position-x: 85.7142857143%;
+    background-position-y: 57.1428571429%; }
+  .tembo-savanna-card[data-type="39"] .tembo-savanna-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 57.1428571429%; }
+  .tembo-savanna-card[data-type="40"] .tembo-savanna-card-wrapper {
+    background-position-x: 0%;
+    background-position-y: 71.4285714286%; }
+  .tembo-savanna-card[data-type="41"] .tembo-savanna-card-wrapper {
+    background-position-x: 14.2857142857%;
+    background-position-y: 71.4285714286%; }
+  .tembo-savanna-card[data-type="42"] .tembo-savanna-card-wrapper {
+    background-position-x: 28.5714285714%;
+    background-position-y: 71.4285714286%; }
+  .tembo-savanna-card[data-type="43"] .tembo-savanna-card-wrapper {
+    background-position-x: 42.8571428571%;
+    background-position-y: 71.4285714286%; }
+  .tembo-savanna-card[data-type="44"] .tembo-savanna-card-wrapper {
+    background-position-x: 57.1428571429%;
+    background-position-y: 71.4285714286%; }
+  .tembo-savanna-card[data-type="45"] .tembo-savanna-card-wrapper {
+    background-position-x: 71.4285714286%;
+    background-position-y: 71.4285714286%; }
+  .tembo-savanna-card[data-type="46"] .tembo-savanna-card-wrapper {
+    background-position-x: 85.7142857143%;
+    background-position-y: 71.4285714286%; }
+  .tembo-savanna-card[data-type="47"] .tembo-savanna-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 71.4285714286%; }
+  .tembo-savanna-card[data-type="48"] .tembo-savanna-card-wrapper {
+    background-position-x: 0%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-type="49"] .tembo-savanna-card-wrapper {
+    background-position-x: 14.2857142857%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-type="50"] .tembo-savanna-card-wrapper {
+    background-position-x: 28.5714285714%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-type="51"] .tembo-savanna-card-wrapper {
+    background-position-x: 42.8571428571%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-type="52"] .tembo-savanna-card-wrapper {
+    background-position-x: 57.1428571429%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-type="53"] .tembo-savanna-card-wrapper {
+    background-position-x: 71.4285714286%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-type="54"] .tembo-savanna-card-wrapper {
+    background-position-x: 85.7142857143%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-type="55"] .tembo-savanna-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-type="56"] .tembo-savanna-card-wrapper {
     background-position-x: 0%;
     background-position-y: 100%; }
-  .tembo-flower-card[data-type="yrg"] .tembo-flower-card-wrapper {
-    background-position-x: 16.6666666667%;
+  .tembo-savanna-card[data-type="57"] .tembo-savanna-card-wrapper {
+    background-position-x: 14.2857142857%;
     background-position-y: 100%; }
-  .tembo-flower-card[data-type="wrg"] .tembo-flower-card-wrapper {
-    background-position-x: 33.3333333333%;
+  .tembo-savanna-card[data-type="58"] .tembo-savanna-card-wrapper {
+    background-position-x: 28.5714285714%;
     background-position-y: 100%; }
-  .tembo-flower-card[data-type="wry"] .tembo-flower-card-wrapper {
-    background-position-x: 50%;
+  .tembo-savanna-card[data-type="59"] .tembo-savanna-card-wrapper {
+    background-position-x: 42.8571428571%;
     background-position-y: 100%; }
-  .tembo-flower-card[data-type="wgy"] .tembo-flower-card-wrapper {
-    background-position-x: 66.6666666667%;
+  .tembo-savanna-card[data-type="60"] .tembo-savanna-card-wrapper {
+    background-position-x: 57.1428571429%;
     background-position-y: 100%; }
-  .tembo-flower-card[data-type="j"] .tembo-flower-card-wrapper {
-    background-position-x: 83.3333333333%;
+  .tembo-savanna-card[data-type="61"] .tembo-savanna-card-wrapper {
+    background-position-x: 71.4285714286%;
     background-position-y: 100%; }
-  .tembo-flower-card.selectable {
+  .tembo-savanna-card[data-type="62"] .tembo-savanna-card-wrapper {
+    background-position-x: 85.7142857143%;
+    background-position-y: 100%; }
+  .tembo-savanna-card[data-type="63"] .tembo-savanna-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 100%; }
+  .tembo-savanna-card[data-type="64"] .tembo-savanna-card-wrapper {
+    background-position-x: 0%;
+    background-position-y: 114.2857142857%; }
+  .tembo-savanna-card.selectable {
     cursor: pointer; }
-    .tembo-flower-card.selectable .tembo-flower-card-wrapper {
+    .tembo-savanna-card.selectable .tembo-savanna-card-wrapper {
       box-shadow: 1px 1px 5px 2px red; }
-    .tembo-flower-card.selectable:hover {
+    .tembo-savanna-card.selectable:hover {
       transform: scale(1.04); }
-  .tembo-flower-card.selected .tembo-flower-card-wrapper {
+  .tembo-savanna-card.selected .tembo-savanna-card-wrapper {
     border-color: #fffb00;
     box-shadow: 0px 0px 5px 3px yellow; }
-
-:root {
-  --temboBoardScale: 1;
-  --temboFlowerCardScale: 0.5;
-  --temboEcosystemCardScale: 0.5; }
-
-.tembo-ecosystem-card {
-  width: calc(var(--temboEcosystemCardScale) * 238px);
-  height: calc(var(--temboEcosystemCardScale) * 374px);
-  margin: 5px;
-  position: relative; }
-  .tembo-ecosystem-card .tembo-ecosystem-card-wrapper {
-    scale: var(--temboEcosystemCardScale);
-    transform-origin: top left;
-    width: 230px;
-    height: 366px;
-    background-image: url("img/ecosystems-cards.jpg");
-    background-size: 700% 400%;
-    border-radius: 15px;
-    box-shadow: 2px 2px 5px 1px black;
-    border: 4px solid white; }
-  .tembo-ecosystem-card[data-id="0"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 0%;
-    background-position-y: 0%; }
-  .tembo-ecosystem-card[data-id="1"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 16.6666666667%;
-    background-position-y: 0%; }
-  .tembo-ecosystem-card[data-id="2"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 33.3333333333%;
-    background-position-y: 0%; }
-  .tembo-ecosystem-card[data-id="3"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 50%;
-    background-position-y: 0%; }
-  .tembo-ecosystem-card[data-id="4"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 66.6666666667%;
-    background-position-y: 0%; }
-  .tembo-ecosystem-card[data-id="5"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 83.3333333333%;
-    background-position-y: 0%; }
-  .tembo-ecosystem-card[data-id="6"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 100%;
-    background-position-y: 0%; }
-  .tembo-ecosystem-card[data-id="7"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 0%;
-    background-position-y: 33.3333333333%; }
-  .tembo-ecosystem-card[data-id="8"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 16.6666666667%;
-    background-position-y: 33.3333333333%; }
-  .tembo-ecosystem-card[data-id="9"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 33.3333333333%;
-    background-position-y: 33.3333333333%; }
-  .tembo-ecosystem-card[data-id="10"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 50%;
-    background-position-y: 33.3333333333%; }
-  .tembo-ecosystem-card[data-id="11"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 66.6666666667%;
-    background-position-y: 33.3333333333%; }
-  .tembo-ecosystem-card[data-id="12"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 83.3333333333%;
-    background-position-y: 33.3333333333%; }
-  .tembo-ecosystem-card[data-id="13"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 100%;
-    background-position-y: 33.3333333333%; }
-  .tembo-ecosystem-card[data-id="14"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 0%;
-    background-position-y: 66.6666666667%; }
-  .tembo-ecosystem-card[data-id="15"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 16.6666666667%;
-    background-position-y: 66.6666666667%; }
-  .tembo-ecosystem-card[data-id="16"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 33.3333333333%;
-    background-position-y: 66.6666666667%; }
-  .tembo-ecosystem-card[data-id="17"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 50%;
-    background-position-y: 66.6666666667%; }
-  .tembo-ecosystem-card[data-id="18"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 66.6666666667%;
-    background-position-y: 66.6666666667%; }
-  .tembo-ecosystem-card[data-id="19"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 83.3333333333%;
-    background-position-y: 66.6666666667%; }
-  .tembo-ecosystem-card[data-id="20"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 100%;
-    background-position-y: 66.6666666667%; }
-  .tembo-ecosystem-card[data-id="21"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 0%;
-    background-position-y: 100%; }
-  .tembo-ecosystem-card[data-id="22"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 16.6666666667%;
-    background-position-y: 100%; }
-  .tembo-ecosystem-card[data-id="23"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 33.3333333333%;
-    background-position-y: 100%; }
-  .tembo-ecosystem-card[data-id="24"] .tembo-ecosystem-card-wrapper {
-    background-position-x: 50%;
-    background-position-y: 100%; }
-
-.card-tooltip {
-  display: flex;
-  flex-wrap: wrap;
-  --temboFlowerCardScale: 0.7;
-  --temboEcosystemCardScale: 0.7; }
-  .card-tooltip .tooltip-text {
-    margin-left: 10px; }
-    .card-tooltip .tooltip-text h2 {
-      text-decoration: underline; }
-    .card-tooltip .tooltip-text p {
-      max-width: 200px; }
 
 .player-board {
   order: 2; }
@@ -802,81 +808,6 @@ body {
         left: 0;
         top: 0;
         visibility: hidden; }
-
-#popin_showScores {
-  background-image: url("img/background.jpg");
-  background-size: 600px;
-  position: relative;
-  border-radius: 8px;
-  box-shadow: 1px 1px 3px black;
-  max-width: min-content; }
-  #popin_showScores #popin_showScores_close {
-    background-color: #30952d;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: -18px;
-    right: -18px;
-    font-size: 90%;
-    color: white !important;
-    border: 1px solid #35302d;
-    z-index: 2; }
-    #popin_showScores #popin_showScores_close:hover {
-      text-decoration: none;
-      color: #ccc !important;
-      transform: scale(1.1); }
-    #popin_showScores #popin_showScores_close i {
-      margin-top: -2px; }
-  #popin_showScores table {
-    margin: 30px;
-    font-size: 18px;
-    --temboEcosystemCardScale: 0.12; }
-    #popin_showScores table td,
-    #popin_showScores table th {
-      padding: 12px 15px;
-      text-align: center;
-      font-weight: bold; }
-    #popin_showScores table td {
-      border: 1px solid #016101;
-      background: rgba(255, 255, 255, 0.5); }
-    #popin_showScores table tr:nth-child(2n + 1) td {
-      background: rgba(128, 194, 112, 0.5); }
-    #popin_showScores table tr#score-row-name td {
-      background: rgba(255, 255, 255, 0.8);
-      border: 2px solid #016101; }
-    #popin_showScores table tr#score-row-overall td {
-      background: rgba(255, 255, 255, 0.8);
-      border: 2px solid #016101; }
-    #popin_showScores table tr#score-row-unfinishedAndMixed td span {
-      color: #e10301; }
-      #popin_showScores table tr#score-row-unfinishedAndMixed td span::before {
-        content: "-"; }
-    #popin_showScores table tr.score-row-ecosystem th {
-      padding: 0px;
-      align-content: center;
-      display: flex;
-      justify-content: center; }
-      #popin_showScores table tr.score-row-ecosystem th .tembo-ecosystem-card-wrapper {
-        box-shadow: 1px 1px 12px 6px black;
-        border-radius: 2px; }
-  #popin_showScores #end-game-text-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: "DK Sensory Overload";
-    font-size: 24px;
-    gap: 10px;
-    margin-bottom: 10px; }
-    #popin_showScores #end-game-text-block #end-game-text {
-      text-align: center; }
-    #popin_showScores #end-game-text-block #end-game-stars {
-      display: flex; }
-      #popin_showScores #end-game-text-block #end-game-stars .tembo-icon {
-        height: 2.5em; }
 
 #logs .log.notif_newTurn .roundedbox,
 .chatwindowlogs_zone .log.notif_newTurn.roundedbox {

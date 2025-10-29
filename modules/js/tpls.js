@@ -1,62 +1,13 @@
 define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
-  const COLORS_FULL_TYPE = {
-    b: 'flower-blue',
-    y: 'flower-yellow',
-    r: 'flower-red',
-    w: 'flower-white',
-    g: 'flower-grey',
-    j: 'flower-joker',
-  };
-
-  const ZONES_SCORING = {
-    2: [2, 3],
-    3: [4, 6],
-    4: [6, 9],
-    5: [8, 12],
-  };
-
-  const ZONE_SHAPES = {
-    // PINK_CIRCLE
-    0: '2',
-    1: '3I',
-    2: '2',
-    3: '2',
-    // RED_CIRCLE
-    4: '2',
-    5: '3L',
-    6: '3I',
-    // BLUE_CIRCLE
-    7: '4O',
-    8: '2',
-    9: '2',
-    // WHITE_CIRCLE
-    10: '4T',
-    11: '2',
-    12: '2',
-    // PINK_SQUARE
-    13: '2',
-    14: '5S',
-    15: '2',
-    // RED_SQUARE
-    16: '5L',
-    17: '3L',
-    // BLUE_SQUARE
-    18: '4L',
-    19: '4S',
-    // WHITE_SQUARE
-    20: '3I',
-    21: '2',
-    22: '3L',
-  };
-
   return declare('tembo.htmltemplates', null, {
     centralAreaHtml() {
       return `
       <div id="tembo-main-container">
-        <div id="flower-cards-container">
-          <div id="flower-cards-container-sticky">
-            <div id="flower-cards-container-resizable">
-              <div id="flower-cards-holder"></div>
+        <div id="savanna-cards-container">
+          ${this.tplInfoPanel()}
+          <div id="savanna-cards-container-sticky">
+            <div id="savanna-cards-container-resizable">
+              <div id="savanna-cards-holder"></div>
             </div>
           </div>
         </div>
@@ -83,12 +34,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
   </svg>`;
     },
 
-    tplFlowerCard(card, tooltip = false) {
-      let uid = (tooltip ? 'tooltip-' : '') + 'flower-card-' + card.id;
-      let type = card.flowers.join('');
+    tplSavannaCard(card, tooltip = false) {
+      let uid = (tooltip ? 'tooltip-' : '') + 'savanna-card-' + card.id;
+      let typeId = card.type.split('_')[1];
 
-      return `<div id="${uid}" class='tembo-flower-card' data-id='${card.id}' data-type='${type}'>
-          <div class='tembo-flower-card-wrapper'></div>
+      return `<div id="${uid}" class='tembo-savanna-card' data-id='${card.id}' data-type='${typeId}'>
+          <div class='tembo-savanna-card-wrapper'></div>
         </div>`;
     },
 
@@ -111,12 +62,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     tplInfoPanel(animals) {
       let animalsReserves = '';
-      animals.forEach((type) => {
-        animalsReserves += `<div class='animal-reserve-holder' data-n="0">
-          <span id='animal-reserve-${type}-counter' class='animal-reserve-counter'>0</span>x
-          <div id='animal-reserve-${type}' class='animal-reserve tembo-icon icon-${type}'></div>
-        </div>`;
-      });
+      // animals.forEach((type) => {
+      //   animalsReserves += `<div class='animal-reserve-holder' data-n="0">
+      //     <span id='animal-reserve-${type}-counter' class='animal-reserve-counter'>0</span>x
+      //     <div id='animal-reserve-${type}' class='animal-reserve tembo-icon icon-${type}'></div>
+      //   </div>`;
+      // });
 
       return `
    <div class='player-board' id="info-panel">
@@ -158,7 +109,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
    `;
     },
 
-    tplFlowerIcon(type, isButton = false) {
+    tplSavannaIcon(type, isButton = false) {
       const buttonClass = isButton ? ' button-icon' : '';
       return `<div class="tembo-icon ${type}${buttonClass} status-bar-icon"></div>`;
     },
@@ -256,18 +207,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       content += `<tr id="score-row-overall"><th></th></tr>
       </table>`;
       return content;
-    },
-
-    tplEndGameText(starsAmount, text) {
-      let stars = new Array(starsAmount).fill(this.tplFlowerIcon('icon-flower-yellow'));
-      for (let i = 0; i < 5 - starsAmount; i++) {
-        stars.push(this.tplFlowerIcon('icon-flower-empty'));
-      }
-      return `
-<div id="end-game-text-block">
-  <div id="end-game-text">${_(text)}</div>
-  <div id="end-game-stars">${stars.join('')}</div>
-</div>`;
     },
   });
 });

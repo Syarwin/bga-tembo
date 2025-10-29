@@ -70,7 +70,7 @@ class Player extends DB_Model
   public function getUiData(): array
   {
     $playerId = Players::getCurrentId();
-    $hand = $this->id == $playerId ? Cards::getInLocation(LOCATION_HAND . "_" . $this->id)->toArray() : [];
+    $hand = $this->id == $playerId ? Cards::getInLocation(LOCATION_HAND . "_" . $this->id)->ui() : [];
     return [...parent::getUiData(), 'hand' => $hand];
   }
 

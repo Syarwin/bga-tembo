@@ -15,7 +15,7 @@ body {
   flex-flow: row;
   align-items: stretch;
 
-  #flower-cards-container {
+  #savanna-cards-container {
     position: relative;
     margin-right: 10px;
     width: 270px;
@@ -25,14 +25,14 @@ body {
     border-radius: 5px;
     border: 1px solid #737373;
 
-    #flower-cards-container-sticky {
+    #savanna-cards-container-sticky {
       position: sticky;
       top: 60px;
 
-      #flower-cards-container-resizable {
+      #savanna-cards-container-resizable {
         transform-origin: top left;
 
-        #flower-cards-holder {
+        #savanna-cards-holder {
           display: flex;
           flex-wrap: wrap;
           justify-content: space-evenly;
@@ -101,20 +101,20 @@ body {
     // #tembo-main-container[data-mode="1"] {
     flex-flow: column;
 
-    #flower-cards-container {
+    #savanna-cards-container {
       flex-basis: 100%;
       width: auto;
       margin-right: 0px;
 
-      #flower-cards-container-sticky {
+      #savanna-cards-container-sticky {
         position: initial;
 
-        #flower-cards-container-resizable {
+        #savanna-cards-container-resizable {
           transform-origin: top left;
           display: flex;
           flex-flow: row;
 
-          #flower-cards-holder {
+          #savanna-cards-holder {
             justify-content: center;
             width: 100%;
           }
@@ -135,20 +135,20 @@ body {
       flex-flow: column;
       order: 1;
 
-      #flower-cards-container {
+      #savanna-cards-container {
         flex-basis: 100%;
         width: auto;
         margin-right: 0px;
 
-        #flower-cards-container-sticky {
+        #savanna-cards-container-sticky {
           position: initial;
 
-          #flower-cards-container-resizable {
+          #savanna-cards-container-resizable {
             transform-origin: top left;
             display: flex;
             flex-flow: row;
 
-            #flower-cards-holder {
+            #savanna-cards-holder {
               justify-content: center;
               width: 100%;
             }
