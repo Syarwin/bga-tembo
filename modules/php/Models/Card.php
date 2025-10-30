@@ -23,6 +23,7 @@ class Card extends DB_Model
   protected ?array $pattern;
   protected ?Spaces $spaces;
   protected string $type;
+  protected string $typeUi;
   protected int $internal_id;
   protected ?int $rotation;
 
@@ -36,8 +37,9 @@ class Card extends DB_Model
     $cardInfo = CARDS[$this->internal_id];
     $this->pattern = $cardInfo['pattern'] ?? null;
     $this->spaces = empty($cardInfo['spaces']) ? null : new Spaces($cardInfo['spaces']);
-    $this->type = isset($cardInfo['type']) ? "{$cardInfo['type']}_{$cardInfo['deck']}" :
-      CARD_TYPE_SAVANNA . "_" . $this->internal_id;
+    $this->type = $cardInfo['type'] ?? CARD_TYPE_SAVANNA;
+    $this->typeUi = isset($cardInfo['type']) ? "{$cardInfo['type']}_{$cardInfo['deck']}" :
+      CARD_TYPE_SAVANNA . "_" . $this->internal_id;;
   }
 
   public function getId()
@@ -53,5 +55,10 @@ class Card extends DB_Model
   public function getInternalId(): int
   {
     return $this->internal_id;
+  }
+
+  public function getUiData()
+  {
+    return [...parent::getUiData(), 'type' => $this->typeUi];
   }
 }

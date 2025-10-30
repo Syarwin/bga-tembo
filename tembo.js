@@ -61,7 +61,7 @@ define([
 
     setupPlayers() {
       this.getPlayers().forEach((player, i) => {
-        if (player.hand) {
+        if (player.hand && player.id === this.player_id) {
           this.setupHand(player.hand);
         }
       });

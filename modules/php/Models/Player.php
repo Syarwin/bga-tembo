@@ -69,8 +69,18 @@ class Player extends DB_Model
 
   public function getUiData(): array
   {
-    $playerId = Players::getCurrentId();
-    $hand = $this->id == $playerId ? Cards::getInLocation(LOCATION_HAND . "_" . $this->id)->ui() : [];
+    $currentId = Players::getCurrentId();
+    if ($this->id == $currentId) {
+      $hand = Cards::getInLocation(LOCATION_HAND . "_" . $this->id)->ui();
+    } else {
+      $matriarchCount = count(Cards::getInLocation(LOCATION_HAND . "_" . $this->id)->filter(function (Card $card) {
+        return $card->getType() === CARD_TYPE_MATRIARCH;
+      }));
+      $hand = [
+        'all' => Cards::countInLocation(LOCATION_HAND . "_" . $this->id),
+        'matriarch' => $matriarchCount,
+      ];
+    }
     return [...parent::getUiData(), 'hand' => $hand];
   }
 
