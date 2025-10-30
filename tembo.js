@@ -37,6 +37,7 @@ define([
       this.setupCentralArea();
       this.setupBoard();
       this.setupPlayers();
+      this.setupMeeples();
 
       this.inherited(arguments);
     },
@@ -190,6 +191,17 @@ define([
     },
 
     getMeepleContainer(meeple) {
+      let loc = meeple.location;
+      let firstType = meeple.type.split('-')[0];
+
+      if (loc == 'reserve' && firstType == 'landmark') {
+        return $('landmarks-reserve');
+      }
+
+      if (loc == 'table' && firstType == 'tree') {
+        return $('trees-holder');
+      }
+
       console.error('Trying to get container of a meeple', meeple);
       return 'game_play_area';
     },
@@ -219,40 +231,6 @@ define([
       //      <div id="settings-controls-container"></div>
       //    </div>`,
       // });
-
-      this._scoresModal = new customgame.modal('showScores', {
-        class: 'tembo_popin',
-        closeIcon: 'fa-times',
-        closeAction: 'hide',
-        verticalAlign: 'flex-start',
-        contentsTpl: this.tplScoreModal(),
-      });
-      $('show-scores').addEventListener('click', () => this._scoresModal.show());
-
-      this.addTooltip('score-row-trees', _('Trees: count all your Trees and score 2 points for each.'), '');
-      this.addTooltip(
-        'score-row-animals',
-        _('Animals: each animal scores the point shown on the paw icon in their respective Areas.'),
-        ''
-      );
-      this.addTooltip(
-        'score-row-completedAreas',
-        _('Each completed Area scores the points shown in their respective Area icon.'),
-        ''
-      );
-      this.addTooltip(
-        'score-row-unfinishedAndMixed',
-        _(
-          'You score minus points for each unfinished and mixed Area. The minus value is the same as shown in their respective Area icon.'
-        ),
-        ''
-      );
-
-      if (this.gamedatas.ecosystemsTexts) {
-        Object.entries(this.gamedatas.ecosystemsTexts).forEach(([id, text]) => {
-          this.addTooltip(`score-row-ecosystem-${id}`, _(text), '');
-        });
-      }
     },
 
     onEnteringStateGameEnd(args) {

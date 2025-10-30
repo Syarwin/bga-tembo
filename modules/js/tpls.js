@@ -4,8 +4,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       return `
       <div id="tembo-main-container">
         <div id="savanna-cards-container">
-          ${this.tplInfoPanel()}
           <div id="savanna-cards-container-sticky">
+            ${this.tplInfoPanel()}
             <div id="savanna-cards-container-resizable">
               <div id="savanna-cards-holder"></div>
             </div>
@@ -53,22 +53,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     tplMeeple(meeple) {
       let type = meeple.type;
-      if (COLORS_FULL_TYPE[type] !== undefined) {
-        type = COLORS_FULL_TYPE[type];
-      }
-
-      return `<div class="tembo-meeple tembo-icon icon-${type}" id="meeple-${meeple.id}" data-id="${meeple.id}" data-type="${type}"></div>`;
+      return `<div class="tembo-meeple meeple-${type}" id="meeple-${meeple.id}" data-id="${meeple.id}" data-type="${type}"></div>`;
     },
 
     tplInfoPanel(animals) {
-      let animalsReserves = '';
-      // animals.forEach((type) => {
-      //   animalsReserves += `<div class='animal-reserve-holder' data-n="0">
-      //     <span id='animal-reserve-${type}-counter' class='animal-reserve-counter'>0</span>x
-      //     <div id='animal-reserve-${type}' class='animal-reserve tembo-icon icon-${type}'></div>
-      //   </div>`;
-      // });
-
       return `
    <div class='player-board' id="info-panel">
      <div class="info-panel-row" id="player_config">
@@ -102,10 +90,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         </div>
      </div>
 
-      <div class="info-panel-row" id="animals-reserves">
-        ${animalsReserves}
-      </div>
-   </div>
+      <div class="info-panel-row" id="trees-holder"></div>
+
+      <div class="info-panel-row" id="landmarks-reserve"></div>
+    </div>
    `;
     },
 

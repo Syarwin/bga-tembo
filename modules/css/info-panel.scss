@@ -4,7 +4,7 @@
 
 #info-panel {
   order: 1;
-  border-radius: 7px;
+  border-radius: 4px;
   box-shadow: 1px 1px 1px #404040;
   border: 1px solid #424242;
 
@@ -24,12 +24,10 @@
     // border-bottom: 1px solid #6a4b2f;
     margin: 0px 3px;
     text-align: center;
-    font-size: 27px;
-    font-family: "Hawlers Two";
+    font-size: 25px;
+    font-family: "BerlinSans";
     display: block;
     position: relative;
-    line-height: 31px;
-    padding: 6px 0px 0px;
   }
 
   #player_config {
@@ -113,33 +111,41 @@
     }
   }
 
-  #animals-reserves {
-    .animal-reserve-holder {
-      display: flex;
-      font-size: 12px;
-      justify-content: center;
-      align-items: center;
-      & > span {
-        font-family: "Hawlers Two";
-        font-size: 18px;
-        margin-top: 5px;
-      }
+  // #animals-reserves {
+  //   .animal-reserve-holder {
+  //     display: flex;
+  //     font-size: 12px;
+  //     justify-content: center;
+  //     align-items: center;
+  //     & > span {
+  //       font-family: "Hawlers Two";
+  //       font-size: 18px;
+  //       margin-top: 5px;
+  //     }
 
-      &[data-n="0"] {
-        opacity: 0.4;
-      }
+  //     &[data-n="0"] {
+  //       opacity: 0.4;
+  //     }
 
-      .animal-reserve {
-        width: 28px;
-        position: relative;
+  //     .animal-reserve {
+  //       width: 28px;
+  //       position: relative;
 
-        .tembo-meeple {
-          position: absolute;
-          left: 0;
-          top: 0;
-          visibility: hidden;
-        }
-      }
-    }
+  //       .tembo-meeple {
+  //         position: absolute;
+  //         left: 0;
+  //         top: 0;
+  //         visibility: hidden;
+  //       }
+  //     }
+  //   }
+  // }
+
+  #trees-holder {
+    padding-bottom: 2px;
+  }
+
+  #landmarks-reserve {
+    padding-top: 2px;
   }
 }
