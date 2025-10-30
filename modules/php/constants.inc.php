@@ -160,6 +160,7 @@ const ALL_LANDMARKS = [
 const LOCATION_TABLE = 'table';
 const LOCATION_HAND = 'hand';
 const LOCATION_RESERVE = 'reserve';
+const LOCATION_DECK = 'deck';
 const INFINITY = 1000;
 
 const STATE_LAYING = 0;

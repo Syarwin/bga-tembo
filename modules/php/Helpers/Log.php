@@ -18,7 +18,6 @@ use Bga\Games\Tembo\Managers\Players;
  *  `type` varchar(32) NOT NULL,
  *  `affected` JSON,
  */
-
 class Log extends \APP_DbObject
 {
   public static function clearCache()
@@ -243,7 +242,6 @@ class Log extends \APP_DbObject
     return $notificationUIds;
   }
 
-
   /**
    * clearUndoableStepNotifications : extract and remove all notifications of type 'newUndoableStep' in the gamelog
    */
@@ -255,7 +253,7 @@ class Log extends \APP_DbObject
     } else {
       $moveIds = [];
       foreach (self::getUndoableSteps('all', false) as $step) {
-        $moveIds[] = (int)$step['move_id'];
+        $moveIds[] = (int) $step['move_id'];
       }
       if (empty($moveIds)) {
         return;

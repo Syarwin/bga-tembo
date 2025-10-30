@@ -29,6 +29,7 @@ class Card extends DB_Model
   protected array $staticAttributes = [
     'type'
   ];
+
   public function __construct($row)
   {
     parent::__construct($row);
@@ -47,5 +48,10 @@ class Card extends DB_Model
   public function getSpaces(): Spaces
   {
     return $this->spaces;
+  }
+
+  public function getInternalId(): int
+  {
+    return $this->internal_id;
   }
 }

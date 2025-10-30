@@ -496,7 +496,7 @@ const CARDS = [
     ],
   ],
   26 => [
-    'deck' => CARD_DECK_SECOND,
+    'deck' => CARD_DECK_FIRST,
     'pattern' => [
       'shape' => SHAPE_DIAG_UP,
       'canBeRotated' => false,
@@ -686,7 +686,7 @@ const CARDS = [
     ],
   ],
   36 => [
-    'deck' => CARD_DECK_THIRD,
+    'deck' => CARD_DECK_SECOND,
     'pattern' => [
       'shape' => SHAPE_LONG_DASH_HOR,
       'canBeRotated' => false,
@@ -705,7 +705,7 @@ const CARDS = [
     ],
   ],
   37 => [
-    'deck' => CARD_DECK_THIRD,
+    'deck' => CARD_DECK_SECOND,
     'pattern' => [
       'shape' => SHAPE_L,
       'canBeRotated' => true,

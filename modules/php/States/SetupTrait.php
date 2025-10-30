@@ -22,6 +22,7 @@ trait SetupTrait
     Players::setupNewGame($players, $options);
     $board = Board::setupNewGame($journey);
     Meeples::setupNewGame($journey, $board);
+    Cards::setupNewGame($options);
     // Stats::checkExistence();
 
     $this->activeNextPlayer();
@@ -34,7 +35,7 @@ trait SetupTrait
 
   public function stSetupCards()
   {
-    Cards::setupNewGame();
+    Cards::setupPlayersDecks();
     $this->gamestate->nextState('debug');
   }
 

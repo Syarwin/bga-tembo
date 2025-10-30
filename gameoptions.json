@@ -30,7 +30,9 @@
       {
         "type": "otheroption",
         "id": 110,
-        "value": [3]
+        "value": [
+          3
+        ]
       }
     ],
     "default": 0,
@@ -90,6 +92,37 @@
       "13": {
         "name": "Scenario N",
         "tmdisplay": "[Scenario N]"
+      }
+    }
+  },
+  "112": {
+    "name": "Difficulty",
+    "default": 0,
+    "values": {
+      "0": {
+        "name": "0 (Easiest)",
+        "firstgameonly": true,
+        "description": "Play with 5 Support cards"
+      },
+      "1": {
+        "name": "1",
+        "description": "Play with 4 Support cards"
+      },
+      "2": {
+        "name": "2",
+        "description": "Play with 3 Support cards"
+      },
+      "3": {
+        "name": "3",
+        "description": "Play with 2 Support cards"
+      },
+      "4": {
+        "name": "4",
+        "description": "Play with 1 Support cards"
+      },
+      "5": {
+        "name": "5 (Hardest)",
+        "description": "Play with no Support cards"
       }
     }
   }
