@@ -90,7 +90,9 @@ class Cards extends CachedPieces
     /** @var Card $card */
     foreach ($all as $card) {
       $cardDeck = $allFromMaterials[$card->getInternalId()]['deck'];
-      $remaining[$cardDeck] += 1;
+      if ($cardDeck !== CARD_DECK_STARTING) {
+        $remaining[$cardDeck] += 1;
+      }
     }
     return $remaining;
   }
