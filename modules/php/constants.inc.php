@@ -138,6 +138,7 @@ const LANDMARK_WATERFALL = 'landmark-waterfall';
 const LANDMARK_ROCKS = 'landmark-rocks';
 const LANDMARK_SNOW = 'landmark-snow';
 
+const ALL_TREES = [TREE_GREEN, TREE_RED, TREE_BROWN, TREE_TEAL];
 const ALL_LANDMARKS = [
   LANDMARK_CANYON,
   LANDMARK_RIVER,

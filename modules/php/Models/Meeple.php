@@ -15,11 +15,11 @@ class Meeple extends DB_Model
   protected array $attributes = [
     'id' => ['meeple_id', 'int'],
     'location' => 'meeple_location',
-    'state' => 'meeple_state',
+    'state' => ['meeple_state', 'int'],
     'type' => 'type',
     'pId' => ['player_id', 'int'],
-    'x' => 'x',
-    'y' => 'y',
+    'x' => ['x', 'int'],
+    'y' => ['y', 'int'],
   ];
 
   public function getPos()

@@ -3,6 +3,7 @@
 namespace Bga\Games\Tembo\Models;
 
 use Bga\Games\Tembo\Core\Globals;
+use Bga\Games\Tembo\Managers\Meeples;
 
 require_once dirname(__FILE__) . "/../Materials/Journeys.php";
 
@@ -47,7 +48,12 @@ class Board
 
   public function getUiData(): array
   {
-    return $this->board;
+    return [
+      'tiles' => $this->board,
+      'lions' => Meeples::getLions(),
+      'trees' => Meeples::getTrees(),
+      'landmarks' => Meeples::getLandmarks(),
+    ];
   }
 
   public function getJourney1FromRulebook(): array

@@ -17,7 +17,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
     },
 
     setupBoard() {
-      let board = this.gamedatas.board;
+      let board = this.gamedatas.board.tiles;
       board.destination.id = DESTINATION;
       board.start.id = START;
 

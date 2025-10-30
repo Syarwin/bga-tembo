@@ -112,10 +112,23 @@ class Meeples extends CachedPieces
     foreach ($players as $pId => $player) {
       $meeples = $meeples->merge(self::setupPlayer($player));
     }
-
     return $meeples;
   }
 
+  public static function getLions(): array
+  {
+    return self::getAll()->filter(fn($meeple) => in_array($meeple->getType(), [LION, LIONESS]))->toArray();
+  }
+
+  public static function getTrees(): array
+  {
+    return self::getAll()->filter(fn($meeple) => in_array($meeple->getType(), ALL_TREES))->toArray();
+  }
+
+  public static function getLandmarks(): array
+  {
+    return self::getAll()->filter(fn($meeple) => in_array($meeple->getType(), ALL_LANDMARKS))->toArray();
+  }
 
   // public static function createResourceOnHex($type, $x, $y)
   // {
