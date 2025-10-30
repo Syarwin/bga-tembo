@@ -56,7 +56,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       return `<div class="tembo-meeple meeple-${type}" id="meeple-${meeple.id}" data-id="${meeple.id}" data-type="${type}"></div>`;
     },
 
-    tplInfoPanel(animals) {
+    tplInfoPanel() {
       return `
    <div class='player-board' id="info-panel">
      <div class="info-panel-row" id="player_config">

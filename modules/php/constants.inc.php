@@ -161,6 +161,7 @@ const LOCATION_TABLE = 'table';
 const LOCATION_HAND = 'hand';
 const LOCATION_RESERVE = 'reserve';
 const LOCATION_DECK = 'deck';
+const LOCATION_BOARD = 'board';
 const INFINITY = 1000;
 
 const STATE_LAYING = 0;

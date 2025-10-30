@@ -202,6 +202,10 @@ define([
         return $('trees-holder');
       }
 
+      if (loc == 'board') {
+        return this.getCell(meeple);
+      }
+
       console.error('Trying to get container of a meeple', meeple);
       return 'game_play_area';
     },

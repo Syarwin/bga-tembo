@@ -105,6 +105,10 @@ $cellSize: 50px;
       grid-column-end: span 1;
       border-radius: 50%;
       z-index: 3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       &:hover {
         background: rgba(0, 255, 0, 0.26);
         cursor: pointer;

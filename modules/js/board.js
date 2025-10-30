@@ -75,10 +75,10 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
       });
     },
 
-    // getCell(cell, pId = null) {
-    //   if (pId == null) pId = this.player_id;
-    //   return $(`cell-${pId}-${cell.x}-${cell.y}`);
-    // },
+    getCell(cell) {
+      return $(`cell-${cell.x}-${cell.y}`);
+    },
+
     // extractCellFromUId(uid) {
     //   let t = uid.split('-');
     //   return { x: parseInt(t[0]), y: parseInt(t[1]) };

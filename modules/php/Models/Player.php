@@ -3,6 +3,7 @@
 namespace Bga\Games\Tembo\Models;
 
 use Bga\Games\Tembo\Core\Engine\AbstractNode;
+use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Helpers\DB_Model;
 use Bga\Games\Tembo\Managers\Actions;
 use Bga\Games\Tembo\Managers\Cards;
@@ -69,19 +70,20 @@ class Player extends DB_Model
 
   public function getUiData(): array
   {
+    $data = parent::getUiData();
+
     $currentId = Players::getCurrentId();
-    if ($this->id == $currentId) {
-      $hand = Cards::getInLocation(LOCATION_HAND . "_" . $this->id)->ui();
-    } else {
-      $matriarchCount = count(Cards::getInLocation(LOCATION_HAND . "_" . $this->id)->filter(function (Card $card) {
-        return $card->getType() === CARD_TYPE_MATRIARCH;
-      }));
-      $hand = [
-        'all' => Cards::countInLocation(LOCATION_HAND . "_" . $this->id),
-        'matriarch' => $matriarchCount,
-      ];
-    }
-    return [...parent::getUiData(), 'hand' => $hand];
+    $hand = $this->getHand();
+    $data['hand'] = ($this->id == $currentId) ? $hand->ui() : [];
+    $data['handCount'] = $hand->count();
+    $data['matriarchCount'] = $hand->filter(fn(Card $card) => $card->isMatriarch())->count();
+
+    return $data;
+  }
+
+  public function getHand(): Collection
+  {
+    return Cards::getInLocation(LOCATION_HAND . "_" . $this->id);
   }
 
   public function canTakeAction(string $action, null|array|AbstractNode $ctx): bool

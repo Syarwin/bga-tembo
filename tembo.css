@@ -107,6 +107,17 @@
     transform: scaleY(0.7) skewX(-25deg); }
 .tembo-meeple.meeple-landmark-meadow, .tembo-meeple.meeple-landmark-rocks, .tembo-meeple.meeple-landmark-waterfall, .tembo-meeple.meeple-landmark-canyon, .tembo-meeple.meeple-landmark-river, .tembo-meeple.meeple-landmark-snow {
   height: 2em; }
+.tembo-meeple.meeple-lion, .tembo-meeple.meeple-lioness {
+  height: 3em;
+  transform-origin: bottom left;
+  transition: transform 0.5s, opacity 0.5s, filter 0.5s;
+  opacity: 1;
+  transform: scaleY(1) skewX(0deg);
+  filter: grayscale(0); }
+  .tembo-meeple.meeple-lion[data-state="0"], .tembo-meeple.meeple-lioness[data-state="0"] {
+    opacity: 0.7;
+    transform: scaleY(0.8) skewX(-20deg);
+    filter: grayscale(0.8); }
 
 .meeple-lion {
   background-image: url("img/meeples.png");
@@ -428,7 +439,10 @@ body {
       grid-row-end: span 1;
       grid-column-end: span 1;
       border-radius: 50%;
-      z-index: 3; }
+      z-index: 3;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
       #tembo-board-resizable #tembo-board .board-cell:hover {
         background: rgba(0, 255, 0, 0.26);
         cursor: pointer; }

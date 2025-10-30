@@ -88,10 +88,13 @@ class Meeples extends CachedPieces
     }
 
     $journey = JOURNEYS[$journeyId];
-    $lionBoardTile = $board[$journey['lion'] ?? 0];
-    $meeples[] = ['type' => LION, 'state' => STATE_LAYING, 'location' => $lionBoardTile['id']];
-    $lionessBoardTile = $board[$journey['lioness'] ?? 1];
-    $meeples[] = ['type' => LIONESS, 'state' => STATE_LAYING, 'location' => $lionessBoardTile['id']];
+    if (isset($journey['lion'])) {
+      $meeples[] = ['type' => LION, 'state' => STATE_LAYING, 'location' => LOCATION_BOARD, 'x' => $journey['lion']['x'], 'y' => $journey['lion']['y']];
+    }
+    if (isset($journey['lioness'])) {
+      $meeples[] = ['type' => LIONESS, 'state' => STATE_LAYING, 'location' => LOCATION_BOARD, 'x' => $journey['lioness']['x'], 'y' => $journey['lioness']['y']];
+    }
+
     return self::create($meeples, LOCATION_TABLE);
   }
 

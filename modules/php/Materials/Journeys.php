@@ -11,6 +11,7 @@ const JOURNEYS = [
       ['x' => 9, 'y' => 15],
       ['x' => 3, 'y' => 18],
     ],
+    'lioness' => ['x' => 6, 'y' => 9],
   ],
   "B" => [
     'destination' => ['x' => 0, 'y' => 0, 'rotation' => 3],
@@ -23,6 +24,7 @@ const JOURNEYS = [
       ['x' => 3, 'y' => 18],
       ['x' => 9, 'y' => 18],
     ],
+    'lioness' => ['x' => 9, 'y' => 6],
   ],
   1 => [
     'destination' => ['x' => 12, 'y' => 0, 'rotation' => 0],
@@ -35,8 +37,8 @@ const JOURNEYS = [
       ['x' => 0, 'y' => 18],
       ['x' => 6, 'y' => 18],
     ],
-    'lion' => 0,
-    'lioness' => 3,
+    'lion' => ['x' => 15, 'y' => 3],
+    'lioness' => ['x' => 15, 'y' => 18],
   ],
   2 => [
     'destination' => ['x' => 0, 'y' => 0, 'rotation' => 0],
@@ -49,6 +51,8 @@ const JOURNEYS = [
       ['x' => 9, 'y' => 12],
       ['x' => 9, 'y' => 18],
     ],
+    'lion' => ['x' => 3, 'y' => 12],
+    'lioness' => ['x' => 9, 'y' => 12],
   ],
   3 => [
     'destination' => ['x' => 12, 'y' => 0, 'rotation' => 0],
@@ -61,6 +65,8 @@ const JOURNEYS = [
       ['x' => 12, 'y' => 3],
       ['x' => 9, 'y' => 18],
     ],
+    'lion' => ['x' => 15, 'y' => 6],
+    'lioness' => ['x' => 6, 'y' => 15],
   ],
   4 => [
     'destination' => ['x' => 6, 'y' => 0, 'rotation' => 0],
@@ -73,6 +79,8 @@ const JOURNEYS = [
       ['x' => 9, 'y' => 9],
       ['x' => 12, 'y' => 15],
     ],
+    'lion' => ['x' => 9, 'y' => 3],
+    'lioness' => ['x' => 0, 'y' => 18],
   ],
   5 => [
     'destination' => ['x' => 18, 'y' => 3, 'rotation' => 1],
@@ -85,6 +93,8 @@ const JOURNEYS = [
       ['x' => 9, 'y' => 9],
       ['x' => 12, 'y' => 3],
     ],
+    'lion' => ['x' => 6, 'y' => 9],
+    'lioness' => ['x' => 9, 'y' => 12],
   ],
   6 => [
     'destination' => ['x' => 3, 'y' => 0, 'rotation' => 0],
@@ -97,6 +107,8 @@ const JOURNEYS = [
       ['x' => 12, 'y' => 9],
       ['x' => 6, 'y' => 15],
     ],
+    'lion' => ['x' => 3, 'y' => 9],
+    'lioness' => ['x' => 12, 'y' => 9],
   ],
   7 => [
     'destination' => ['x' => 6, 'y' => 0, 'rotation' => 0],
@@ -109,6 +121,8 @@ const JOURNEYS = [
       ['x' => 12, 'y' => 12],
       ['x' => 6, 'y' => 15],
     ],
+    'lion' => ['x' => 3, 'y' => 15],
+    'lioness' => ['x' => 12, 'y' => 15],
   ],
   8 => [
     'destination' => ['x' => 18, 'y' => 6, 'rotation' => 1],
@@ -121,6 +135,8 @@ const JOURNEYS = [
       ['x' => 3, 'y' => 18],
       ['x' => 12, 'y' => 6],
     ],
+    'lion' => ['x' => 6, 'y' => 12],
+    'lioness' => ['x' => 9, 'y' => 15],
   ],
   9 => [
     'destination' => ['x' => 9, 'y' => 0, 'rotation' => 0],
@@ -133,6 +149,8 @@ const JOURNEYS = [
       ['x' => 12, 'y' => 9],
       ['x' => 9, 'y' => 3],
     ],
+    'lion' => ['x' => 3, 'y' => 9],
+    'lioness' => ['x' => 12, 'y' => 15],
   ],
   10 => [
     'destination' => ['x' => 3, 'y' => 0, 'rotation' => 0],
@@ -145,6 +163,8 @@ const JOURNEYS = [
       ['x' => 12, 'y' => 6],
       ['x' => 12, 'y' => 12],
     ],
+    'lion' => ['x' => 9, 'y' => 9],
+    'lioness' => ['x' => 9, 'y' => 12],
   ],
   11 => [
     'destination' => ['x' => 6, 'y' => 0, 'rotation' => 0],
@@ -157,6 +177,8 @@ const JOURNEYS = [
       ['x' => 6, 'y' => 15],
       ['x' => 12, 'y' => 6],
     ],
+    'lion' => ['x' => 12, 'y' => 9],
+    'lioness' => ['x' => 6, 'y' => 15],
   ],
   12 => [
     'destination' => ['x' => 3, 'y' => 0, 'rotation' => 0],
@@ -169,5 +191,7 @@ const JOURNEYS = [
       ['x' => 15, 'y' => 15],
       ['x' => 3, 'y' => 15],
     ],
+    'lion' => ['x' => 9, 'y' => 9],
+    'lioness' => ['x' => 12, 'y' => 15],
   ],
 ];

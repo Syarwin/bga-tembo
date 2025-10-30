@@ -57,6 +57,11 @@ class Card extends DB_Model
     return $this->internal_id;
   }
 
+  public function isMatriarch(): bool
+  {
+    return $card->getType() === CARD_TYPE_MATRIARCH;
+  }
+
   public function getUiData()
   {
     return [...parent::getUiData(), 'type' => $this->typeUi];

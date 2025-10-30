@@ -26,6 +26,26 @@
   &.meeple-landmark-snow {
     height: 2em;
   }
+
+  &.meeple-lion,
+  &.meeple-lioness {
+    height: 3em;
+
+    transform-origin: bottom left;
+    transition:
+      transform 0.5s,
+      opacity 0.5s,
+      filter 0.5s;
+    opacity: 1;
+    transform: scaleY(1) skewX(0deg);
+    filter: grayscale(0);
+
+    &[data-state="0"] {
+      opacity: 0.7;
+      transform: scaleY(0.8) skewX(-20deg);
+      filter: grayscale(0.8);
+    }
+  }
 }
 
 @import "_meeples.generated";
