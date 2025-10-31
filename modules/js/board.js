@@ -41,12 +41,24 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
             }
           }
 
+          let additionalContent = '';
+          if (tile.id == START) {
+            for (let i = 0; i <= 12; i++) {
+              additionalContent += `<div class='energy-slot' id='energy-${i}'></div>`;
+            }
+          }
+
           maxX = Math.max(maxX, tile.x + w);
           maxY = Math.max(maxY, tile.y + h);
           $('tembo-board').insertAdjacentHTML(
             'beforeend',
-            `<div class='board-${className}' data-id='${tile.id}' style="grid-column-start:${tile.x + 1}; grid-row-start:${tile.y + 1}" data-rotation="${tile.rotation}"></div>`
+            `<div class='board-${className}' data-id='${tile.id}' style="grid-column-start:${tile.x + 1}; grid-row-start:${tile.y + 1}" data-rotation="${tile.rotation}">${additionalContent}</div>`
           );
+
+          // No cell for starting tile
+          if (tile.id == START) {
+            return;
+          }
 
           for (let i = 0; 3 * i < w; i++) {
             for (let j = 0; 3 * j < h; j++) {

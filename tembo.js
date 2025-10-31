@@ -38,6 +38,7 @@ define([
       this.setupBoard();
       this.setupPlayers();
       this.setupMeeples();
+      this.setupInfoPanel();
 
       this.inherited(arguments);
     },
@@ -206,6 +207,10 @@ define([
         return this.getCell(meeple);
       }
 
+      if (firstType == 'energy') {
+        return $(`energy-${loc}`);
+      }
+
       console.error('Trying to get container of a meeple', meeple);
       return 'game_play_area';
     },
@@ -222,19 +227,8 @@ define([
       let chk = $('help-mode-chk');
       dojo.connect(chk, 'onchange', () => this.toggleHelpMode(chk.checked));
       this.addTooltip('help-mode-switch', '', _('Toggle help/safe mode.'));
-      this.updateTurnNumber();
 
-      // this._settingsModal = new customgame.modal('showSettings', {
-      //   class: 'tembo_popin',
-      //   closeIcon: 'fa-times',
-      //   title: _('Settings'),
-      //   closeAction: 'hide',
-      //   verticalAlign: 'flex-start',
-      //   contentsTpl: `<div id='tembo-settings'>
-      //      <div id='tembo-settings-header'></div>
-      //      <div id="settings-controls-container"></div>
-      //    </div>`,
-      // });
+      this._energyCounter = this.createCounter('energy-counter', this.gamedatas.energy);
     },
 
     onEnteringStateGameEnd(args) {
@@ -249,11 +243,6 @@ define([
     //   this.inherited(arguments);
     //   dojo.place('player_board_config', 'player_boards', 'first');
     // },
-
-    updateTurnNumber() {
-      $('turn-number').innerHTML = this.gamedatas.turn;
-      $('max-turns').innerHTML = this.getPlayers().length == 1 ? 18 : 9;
-    },
 
     ////////////////////////////////////////////////////////////
     // _____                          _   _   _

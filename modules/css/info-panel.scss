@@ -34,13 +34,6 @@
     padding-bottom: 8px;
     margin-bottom: 4px;
 
-    #show-scores {
-      svg {
-        width: 30px;
-        cursor: pointer;
-      }
-    }
-
     #help-mode-switch {
       zoom: 0.8;
 
@@ -81,65 +74,31 @@
         width: 27px;
       }
     }
-
-    #show-settings {
-      height: 40px;
-      width: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      display: none;
-
-      &:hover {
-        color: grey;
-      }
-      cursor: pointer;
-
-      svg {
-        width: auto;
-        height: 40px;
-      }
-
-      .fa-primary {
-        transform-origin: 216px 255px;
-        transition: transform 1s;
-      }
-
-      &:hover .fa-primary {
-        transform: rotate(180deg);
-      }
-    }
   }
 
-  // #animals-reserves {
-  //   .animal-reserve-holder {
-  //     display: flex;
-  //     font-size: 12px;
-  //     justify-content: center;
-  //     align-items: center;
-  //     & > span {
-  //       font-family: "Hawlers Two";
-  //       font-size: 18px;
-  //       margin-top: 5px;
-  //     }
+  #energy-counter-holder {
+    display: flex;
+    font-family: "BerlinSans";
 
-  //     &[data-n="0"] {
-  //       opacity: 0.4;
-  //     }
+    .icon-energy {
+      background-color: white;
+      border: 1px solid #848181;
+      box-shadow: 1px 1px 1px #595858;
+      border-radius: 50%;
+      width: 1.3em;
+      margin-left: 4px;
+    }
 
-  //     .animal-reserve {
-  //       width: 28px;
-  //       position: relative;
-
-  //       .tembo-meeple {
-  //         position: absolute;
-  //         left: 0;
-  //         top: 0;
-  //         visibility: hidden;
-  //       }
-  //     }
-  //   }
-  // }
+    .counter-separator {
+      position: relative;
+      top: 3px;
+      margin: 0px 1px;
+    }
+    .counter-max {
+      position: relative;
+      top: 6px;
+    }
+  }
 
   #trees-holder {
     padding-bottom: 2px;

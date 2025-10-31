@@ -118,6 +118,18 @@
     opacity: 0.7;
     transform: scaleY(0.8) skewX(-20deg);
     filter: grayscale(0.8); }
+.tembo-meeple.meeple-energy {
+  width: 36px;
+  height: 36px;
+  background-image: url("img/icons.png");
+  background-size: 362.000000% auto;
+  background-position: 0.000000% 100.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 100/100;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 1px 1px 3px black;
+  border-radius: 50%; }
 
 .meeple-lion {
   background-image: url("img/meeples.png");
@@ -426,7 +438,52 @@ body {
         transform-origin: 50% 50%;
         transform: scaleX(-1); }
     #tembo-board-resizable #tembo-board .board-start {
-      background-position: 0% 100%; }
+      background-position: 0% 100%;
+      position: relative; }
+      #tembo-board-resizable #tembo-board .board-start .energy-slot {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%; }
+        #tembo-board-resizable #tembo-board .board-start .energy-slot#energy-0 {
+          left: 205px;
+          top: 54px; }
+        #tembo-board-resizable #tembo-board .board-start .energy-slot#energy-1 {
+          left: 173px;
+          top: 88px; }
+        #tembo-board-resizable #tembo-board .board-start .energy-slot#energy-2 {
+          left: 213px;
+          top: 105px; }
+        #tembo-board-resizable #tembo-board .board-start .energy-slot#energy-3 {
+          left: 250px;
+          top: 84px; }
+        #tembo-board-resizable #tembo-board .board-start .energy-slot#energy-4 {
+          left: 256px;
+          top: 43px; }
+        #tembo-board-resizable #tembo-board .board-start .energy-slot#energy-5 {
+          left: 233px;
+          top: 9px; }
+        #tembo-board-resizable #tembo-board .board-start .energy-slot#energy-6 {
+          left: 191px;
+          top: 5px; }
+        #tembo-board-resizable #tembo-board .board-start .energy-slot#energy-7 {
+          left: 155px;
+          top: 29px; }
+        #tembo-board-resizable #tembo-board .board-start .energy-slot#energy-8 {
+          left: 120px;
+          top: 53px; }
+        #tembo-board-resizable #tembo-board .board-start .energy-slot#energy-9 {
+          left: 100px;
+          top: 91px; }
+        #tembo-board-resizable #tembo-board .board-start .energy-slot#energy-10 {
+          left: 61px;
+          top: 104px; }
+        #tembo-board-resizable #tembo-board .board-start .energy-slot#energy-11 {
+          left: 20px;
+          top: 94px; }
+        #tembo-board-resizable #tembo-board .board-start .energy-slot#energy-12 {
+          left: 7px;
+          top: 55px; }
     #tembo-board-resizable #tembo-board .board-square {
       grid-row-end: span 3;
       grid-column-end: span 3;
@@ -759,9 +816,6 @@ body {
   #info-panel #player_config {
     padding-bottom: 8px;
     margin-bottom: 4px; }
-    #info-panel #player_config #show-scores svg {
-      width: 30px;
-      cursor: pointer; }
     #info-panel #player_config #help-mode-switch {
       zoom: 0.8; }
       #info-panel #player_config #help-mode-switch .checkbox {
@@ -789,24 +843,23 @@ body {
         transform: translateX(24px); }
       #info-panel #player_config #help-mode-switch svg {
         width: 27px; }
-    #info-panel #player_config #show-settings {
-      height: 40px;
-      width: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      display: none;
-      cursor: pointer; }
-      #info-panel #player_config #show-settings:hover {
-        color: grey; }
-      #info-panel #player_config #show-settings svg {
-        width: auto;
-        height: 40px; }
-      #info-panel #player_config #show-settings .fa-primary {
-        transform-origin: 216px 255px;
-        transition: transform 1s; }
-      #info-panel #player_config #show-settings:hover .fa-primary {
-        transform: rotate(180deg); }
+  #info-panel #energy-counter-holder {
+    display: flex;
+    font-family: "BerlinSans"; }
+    #info-panel #energy-counter-holder .icon-energy {
+      background-color: white;
+      border: 1px solid #848181;
+      box-shadow: 1px 1px 1px #595858;
+      border-radius: 50%;
+      width: 1.3em;
+      margin-left: 4px; }
+    #info-panel #energy-counter-holder .counter-separator {
+      position: relative;
+      top: 3px;
+      margin: 0px 1px; }
+    #info-panel #energy-counter-holder .counter-max {
+      position: relative;
+      top: 6px; }
   #info-panel #trees-holder {
     padding-bottom: 2px; }
   #info-panel #landmarks-reserve {

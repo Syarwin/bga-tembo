@@ -46,6 +46,16 @@
       filter: grayscale(0.8);
     }
   }
+
+  &.meeple-energy {
+    width: 36px;
+    height: 36px;
+    @include icon-energy;
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 1px 1px 3px black;
+    border-radius: 50%;
+  }
 }
 
 @import "_meeples.generated";

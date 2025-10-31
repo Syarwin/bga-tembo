@@ -87,6 +87,67 @@ $cellSize: 50px;
     }
     .board-start {
       background-position: 0% 100%;
+      position: relative;
+
+      .energy-slot {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        &#energy-0 {
+          left: 205px;
+          top: 54px;
+        }
+        &#energy-1 {
+          left: 173px;
+          top: 88px;
+        }
+        &#energy-2 {
+          left: 213px;
+          top: 105px;
+        }
+        &#energy-3 {
+          left: 250px;
+          top: 84px;
+        }
+        &#energy-4 {
+          left: 256px;
+          top: 43px;
+        }
+        &#energy-5 {
+          left: 233px;
+          top: 9px;
+        }
+        &#energy-6 {
+          left: 191px;
+          top: 5px;
+        }
+        &#energy-7 {
+          left: 155px;
+          top: 29px;
+        }
+        &#energy-8 {
+          left: 120px;
+          top: 53px;
+        }
+        &#energy-9 {
+          left: 100px;
+          top: 91px;
+        }
+        &#energy-10 {
+          left: 61px;
+          top: 104px;
+        }
+        &#energy-11 {
+          left: 20px;
+          top: 94px;
+        }
+        &#energy-12 {
+          left: 7px;
+          top: 55px;
+        }
+      }
     }
 
     .board-square {
