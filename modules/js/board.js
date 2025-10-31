@@ -85,6 +85,35 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
           }
         }
       });
+
+      // DEBUGGING : BLOCKS
+      const MAP = {
+        0: 'SNOW',
+        1: 'MEADOW',
+        2: 'RIVER',
+        3: 'ROCKS',
+        4: 'CANYON',
+        5: 'WATERFALL',
+
+        10: 'ALL GAIN 2',
+        11: 'ANOTHER GAINS 4',
+        12: 'YOU 5 ANOTHER -2',
+        13: 'GAIN 3 IGNORE ROUGH',
+      };
+
+      this.gamedatas.board.blocks.forEach((block) => {
+        $('tembo-board').insertAdjacentHTML(
+          'beforeend',
+          `<div class='board-square board-block' style="grid-column-start:${block.x + 1}; grid-row-start:${block.y + 1}">${MAP[block.type]}</div>`
+        );
+      });
+
+      // DEBUGGING : CELLS
+      Object.entries(this.gamedatas.board.cells).forEach(([x, column]) => {
+        Object.entries(column).forEach(([y, type]) => {
+          $(`cell-${x}-${y}`).dataset.type = type;
+        });
+      });
     },
 
     getCell(cell) {

@@ -6,6 +6,7 @@ use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Managers\Meeples;
 
 require_once dirname(__FILE__) . "/../Materials/Journeys.php";
+require_once dirname(__FILE__) . "/../Materials/BoardTiles.php";
 
 const DIRECTIONS = [
   ['x' => 0, 'y' => 1],
@@ -17,6 +18,8 @@ const DIRECTIONS = [
 class Board
 {
   protected array $board = [];
+  protected array $blocks = [];
+  protected array $cells = [];
 
   public static function setupNewGame(int $journey): array
   {
@@ -44,6 +47,45 @@ class Board
     foreach ($board as $index => $tile) {
       $this->board['tiles'][] = [...$journey['tiles'][$index], ...$tile];
     }
+
+    foreach ($this->board['tiles'] as $tile) {
+      // Blocks of that tile
+      $b = BOARD_TILES[$tile['id']];
+      $b = [
+        [$b[0], $b[1]],
+        [$b[2], $b[3]]
+      ];
+      for ($r = 0; $r < $tile['rotation']; $r++) {
+        $b = [
+          [$b[1][0], $b[0][0]],
+          [$b[1][1], $b[0][1]]
+        ];
+      }
+
+      // Compute correesponding coordinates
+      for ($i = 0; $i < 2; $i++) {
+        for ($j = 0; $j < 2; $j++) {
+          $x = $tile['x'] + 3 * $i;
+          $y = $tile['y'] + 3 * $j;
+          $type = $b[$j][$i];
+
+          if (in_array($type, ALL_CARD_REFS)) {
+            $spaces = new Spaces(LANDMARK_ZONES[$type]);
+            for ($dx = 0; $dx < 3; $dx++) {
+              for ($dy = 0; $dy < 3; $dy++) {
+                $this->cells[$x + $dx][$y + $dy] = $spaces->getByCoords($dx, $dy, $tile['rotation']);
+              }
+            }
+          }
+
+          $this->blocks[] = [
+            'type' => $b[$j][$i],
+            'x' => $x,
+            'y' => $y,
+          ];
+        }
+      }
+    }
   }
 
   public function getUiData(): array
@@ -53,6 +95,10 @@ class Board
       'lions' => Meeples::getLions(),
       'trees' => Meeples::getTrees(),
       'landmarks' => Meeples::getLandmarks(),
+
+      // Used for debugging
+      'blocks' => $this->blocks,
+      'cells' => $this->cells,
     ];
   }
 

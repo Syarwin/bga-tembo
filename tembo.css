@@ -503,6 +503,27 @@ body {
       #tembo-board-resizable #tembo-board .board-cell:hover {
         background: rgba(0, 255, 0, 0.26);
         cursor: pointer; }
+      #tembo-board-resizable #tembo-board .board-cell[data-type] {
+        border-radius: 50%;
+        opacity: 0.3; }
+      #tembo-board-resizable #tembo-board .board-cell[data-type="0"] {
+        background: rgba(128, 128, 128, 0.534); }
+      #tembo-board-resizable #tembo-board .board-cell[data-type="1"] {
+        background: white; }
+      #tembo-board-resizable #tembo-board .board-cell[data-type="2"] {
+        background: blue; }
+      #tembo-board-resizable #tembo-board .board-cell[data-type="3"] {
+        background: black; }
+      #tembo-board-resizable #tembo-board .board-cell[data-type="4"] {
+        background: purple; }
+      #tembo-board-resizable #tembo-board .board-cell[data-type="10"] {
+        background: green; }
+      #tembo-board-resizable #tembo-board .board-cell[data-type="11"] {
+        background: red; }
+      #tembo-board-resizable #tembo-board .board-cell[data-type="12"] {
+        background: brown; }
+      #tembo-board-resizable #tembo-board .board-cell[data-type="13"] {
+        background: teal; }
   #tembo-board-resizable[data-x="15"] {
     width: calc(var(--temboBoardScale) * 754px); }
     #tembo-board-resizable[data-x="15"] #tembo-board {
