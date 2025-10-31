@@ -82,6 +82,11 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
               'beforeend',
               `<div class='board-cell' id="cell-${square.x + i}-${square.y + j}" style="grid-column-start:${square.x + i + 1}; grid-row-start:${square.y + j + 1}"></div>`
             );
+
+            // DEBUG
+            $(`cell-${square.x + i}-${square.y + j}`).addEventListener('click', () =>
+              this.bgaPerformAction('actTestFitShape', { x: square.x + i, y: square.y + j }, { lock: false, checkAction: false })
+            );
           }
         }
       });

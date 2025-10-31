@@ -107,9 +107,6 @@ class Board
   {
     return [
       'tiles' => $this->board,
-      'lions' => Meeples::getLions(),
-      'trees' => Meeples::getTrees(),
-      'landmarks' => Meeples::getLandmarks(),
 
       // Used for debugging
       'squares' => $this->squares,
@@ -117,49 +114,34 @@ class Board
     ];
   }
 
-  public function getJourney1FromRulebook(): array
+  public function getFitShapeElephantCost(int $shape, int $x, int $y, int $rotation, bool $ignoreRough): int
   {
-    return [
-      'start' => ['x' => 12, 'y' => 0, 'rotation' => 0],
-      'destination' => ['x' => 0, 'y' => 24, 'rotation' => 0],
-      'tiles' => [
-        [
-          'id' => BOARD_TILE_DIAGONAL_CANYON,
-          'x' => 12,
-          'y' => 3,
-          'rotation' => 1,
-        ],
-        [
-          'id' => BOARD_TILE_L_SHAPED_RIVER,
-          'x' => 12,
-          'y' => 9,
-          'rotation' => 0,
-        ],
-        [
-          'id' => BOARD_TILE_DIAGONAL_MEADOW,
-          'x' => 6,
-          'y' => 12,
-          'rotation' => 2,
-        ],
-        [
-          'id' => BOARD_TILE_CORNER_WATERFALL,
-          'x' => 12,
-          'y' => 15,
-          'rotation' => 3,
-        ],
-        [
-          'id' => BOARD_TILE_V_ROCKS,
-          'x' => 0,
-          'y' => 18,
-          'rotation' => 0,
-        ],
-        [
-          'id' => BOARD_TILE_SINGLE_SNOW,
-          'x' => 6,
-          'y' => 18,
-          'rotation' => 1,
-        ],
-      ],
-    ];
+    $elephantsNeeded = 0;
+    $cells = SHAPES_CELLS[$shape];
+    foreach ($cells as $delta) {
+      if (($rotation % 2) == 0) {
+        $dx = $rotation == 0 ? $delta[0] : -$delta[0];
+        $dy = $rotation == 0 ? $delta[1] : -$delta[1];
+      } else {
+        $dx = $rotation == 1 ? -$delta[1] : $delta[1];
+        $dy = $rotation == 1 ? $delta[0] : -$delta[0];
+      }
+
+      $nx = $x + $dx;
+      $ny = $y + $dy;
+      $cellType = $this->cells[$nx][$ny] ?? null;
+      if (is_null($cellType) || $cellType == SPACE_NONE) {
+        return INFINITY;
+      }
+      $elephantsNeeded += ($cellType == SPACE_ROUGH && !$ignoreRough) ? 2 : 1;
+    }
+
+    return $elephantsNeeded;
+  }
+
+  public function canFitShape(int $shape, int $x, int $y, int $rotation, bool $ignoreRough, int $nElephantAvailable): bool
+  {
+    $elephantsNeeded = $this->getFitShapeElephantCost($shape, $x, $y, $rotation, $ignoreRough);
+    return $nElephantAvailable >= $elephantsNeeded;
   }
 }

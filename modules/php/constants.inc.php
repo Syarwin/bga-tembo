@@ -113,6 +113,15 @@ const SHAPE_DASH_HOR = 3;
 const SHAPE_LONG_DASH_VERT = 4;
 const SHAPE_LONG_DASH_HOR = 5;
 const SHAPE_L = 6;
+const SHAPES_CELLS = [
+  SHAPE_DIAG_DOWN => [[0, 0], [1, 1]],
+  SHAPE_DIAG_UP => [[0, 0], [1, -1]],
+  SHAPE_DASH_HOR => [[0, 0], [1, 0]],
+  SHAPE_DASH_VERT => [[0, 0], [0, 1]],
+  SHAPE_LONG_DASH_HOR => [[0, 0], [-1, 0], [1, 0]],
+  SHAPE_LONG_DASH_VERT => [[0, 0], [0, -1], [0, 1]],
+  SHAPE_L => [[0, 0], [-1, 0], [0, -1]],
+];
 
 /*
  * Spaces types
