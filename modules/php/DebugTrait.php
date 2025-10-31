@@ -6,11 +6,19 @@ use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Core\Engine;
 use Bga\Games\Tembo\Helpers\Log;
+use Bga\Games\Tembo\Managers\Cards;
 
 trait DebugTrait
 {
 
-  function tp() {}
+  function tp()
+  {
+    $card = Cards::getAll()->where('internalId', 1)->first();
+    $card->setLocation(LOCATION_BOARD);
+    $card->setX(12);
+    $card->setY(3);
+    $card->setRotation(1);
+  }
 
 
   function undoToStep($stepId)

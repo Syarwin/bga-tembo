@@ -590,6 +590,28 @@ body {
   --temboSavannaCardScale: 0.9;
   --temboEcosystemCardScale: 0.5; }
 
+#tembo-board {
+  --temboSavannaCardScale: 0.57; }
+  #tembo-board .tembo-savanna-card {
+    width: 150px;
+    height: 150px;
+    margin: 0px;
+    transform-origin: center center; }
+    #tembo-board .tembo-savanna-card[data-rotation="0"] {
+      rotate: 0deg; }
+    #tembo-board .tembo-savanna-card[data-rotation="1"] {
+      rotate: 90deg; }
+    #tembo-board .tembo-savanna-card[data-rotation="2"] {
+      rotate: 180deg; }
+    #tembo-board .tembo-savanna-card[data-rotation="3"] {
+      rotate: 270deg; }
+    #tembo-board .tembo-savanna-card .tembo-savanna-card-wrapper {
+      scale: 1;
+      width: 150px;
+      height: 150px;
+      border: none;
+      box-shadow: none; }
+
 .tembo-savanna-card {
   width: calc(var(--temboSavannaCardScale) * 256px);
   height: calc(var(--temboSavannaCardScale) * 256px);

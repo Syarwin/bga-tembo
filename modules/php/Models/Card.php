@@ -14,18 +14,23 @@ class Card extends DB_Model
     'id' => 'card_id',
     'location' => 'card_location',
     'state' => 'card_state',
+    'x' => ['x', 'int'],
+    'y' => ['y', 'int'],
     'rotation' => ['rotation', 'int'],
     'internal_id' => ['internal_id', 'int'],
   ];
   protected int $id;
   protected string $location;
   protected int $state;
+  protected ?int $x;
+  protected ?int $y;
+  protected ?int $rotation;
+  protected int $internal_id;
+
   protected ?array $pattern;
   protected ?Spaces $spaces;
   protected string $type;
   protected string $typeUi;
-  protected int $internal_id;
-  protected ?int $rotation;
 
   protected array $staticAttributes = [
     'type'
@@ -47,7 +52,7 @@ class Card extends DB_Model
     return $this->id;
   }
 
-  public function getSpaces(): Spaces
+  public function getSpaces(): ?Spaces
   {
     return $this->spaces;
   }
@@ -59,7 +64,7 @@ class Card extends DB_Model
 
   public function isMatriarch(): bool
   {
-    return $card->getType() === CARD_TYPE_MATRIARCH;
+    return $this->getType() === CARD_TYPE_MATRIARCH;
   }
 
   public function getUiData()

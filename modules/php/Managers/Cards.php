@@ -13,7 +13,7 @@ class Cards extends CachedPieces
 {
   protected static string $table = 'cards';
   protected static string $prefix = 'card_';
-  protected static array $customFields = ['rotation', 'internal_id'];
+  protected static array $customFields = ['x', 'y', 'rotation', 'internal_id'];
   protected static null|Collection $datas = null;
   protected static bool $autoremovePrefix = false;
   protected static bool $autoIncrement = true;
@@ -27,7 +27,7 @@ class Cards extends CachedPieces
 
   public static function getUiData(): array
   {
-    return self::getInLocation(LOCATION_TABLE)->ui();
+    return self::getInLocation(LOCATION_BOARD)->ui();
   }
 
   public static function setupNewGame(array $options): void
@@ -109,5 +109,10 @@ class Cards extends CachedPieces
       $result[] = [...$card, 'id' => $id];
     }
     return $result;
+  }
+
+  public static function getAtSquare(int $x, int $y): ?Card
+  {
+    return self::getInLocation(LOCATION_BOARD)->filter(fn($card) => $card->getX() == $x && $card->getY() == $y)->first();
   }
 }

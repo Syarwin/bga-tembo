@@ -73,7 +73,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
       squares.forEach((square) => {
         $('tembo-board').insertAdjacentHTML(
           'beforeend',
-          `<div class='board-square' style="grid-column-start:${square.x + 1}; grid-row-start:${square.y + 1}"></div>`
+          `<div class='board-square' id='square-${square.x}-${square.y}' style="grid-column-start:${square.x + 1}; grid-row-start:${square.y + 1}"></div>`
         );
 
         for (let i = 0; i < 3; i++) {
@@ -101,10 +101,10 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
         13: 'GAIN 3 IGNORE ROUGH',
       };
 
-      this.gamedatas.board.blocks.forEach((block) => {
+      this.gamedatas.board.squares.forEach((square) => {
         $('tembo-board').insertAdjacentHTML(
           'beforeend',
-          `<div class='board-square board-block' style="grid-column-start:${block.x + 1}; grid-row-start:${block.y + 1}">${MAP[block.type]}</div>`
+          `<div class='board-square board-square' style="grid-column-start:${square.x + 1}; grid-row-start:${square.y + 1}">${MAP[square.type]}</div>`
         );
       });
 

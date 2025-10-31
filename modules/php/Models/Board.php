@@ -3,6 +3,7 @@
 namespace Bga\Games\Tembo\Models;
 
 use Bga\Games\Tembo\Core\Globals;
+use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Meeples;
 
 require_once dirname(__FILE__) . "/../Materials/Journeys.php";
@@ -18,7 +19,7 @@ const DIRECTIONS = [
 class Board
 {
   protected array $board = [];
-  protected array $blocks = [];
+  protected array $squares = [];
   protected array $cells = [];
 
   public static function setupNewGame(int $journey): array
@@ -49,7 +50,7 @@ class Board
     }
 
     foreach ($this->board['tiles'] as $tile) {
-      // Blocks of that tile
+      // Squares of that tile
       $b = BOARD_TILES[$tile['id']];
       $b = [
         [$b[0], $b[1]],
@@ -69,16 +70,30 @@ class Board
           $y = $tile['y'] + 3 * $j;
           $type = $b[$j][$i];
 
+          $spaces = null;
+          $rotation = null;
+          // Landmark square type
           if (in_array($type, ALL_CARD_REFS)) {
             $spaces = new Spaces(LANDMARK_ZONES[$type]);
+            $rotation = $tile['rotation'];
+          }
+          // Savanna card placed on that square?
+          $card = Cards::getAtSquare($x, $y);
+          if (!is_null($card)) {
+            $spaces = $card->getSpaces();
+            $rotation = $card->getRotation();
+          }
+
+          // Cells informations
+          if (!is_null($spaces)) {
             for ($dx = 0; $dx < 3; $dx++) {
               for ($dy = 0; $dy < 3; $dy++) {
-                $this->cells[$x + $dx][$y + $dy] = $spaces->getByCoords($dx, $dy, $tile['rotation']);
+                $this->cells[$x + $dx][$y + $dy] = $spaces->getByCoords($dx, $dy, $rotation);
               }
             }
           }
 
-          $this->blocks[] = [
+          $this->squares[] = [
             'type' => $b[$j][$i],
             'x' => $x,
             'y' => $y,
@@ -97,7 +112,7 @@ class Board
       'landmarks' => Meeples::getLandmarks(),
 
       // Used for debugging
-      'blocks' => $this->blocks,
+      'squares' => $this->squares,
       'cells' => $this->cells,
     ];
   }

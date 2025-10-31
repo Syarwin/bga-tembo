@@ -38,7 +38,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       let uid = (tooltip ? 'tooltip-' : '') + 'savanna-card-' + card.id;
       let typeId = card.type.split('_')[1];
 
-      return `<div id="${uid}" class='tembo-savanna-card' data-id='${card.id}' data-type='${typeId}'>
+      let rotation = '';
+      if (card.rotation !== undefined) {
+        rotation = ` data-rotation="${card.rotation}"`;
+      }
+
+      return `<div id="${uid}" class='tembo-savanna-card' data-id='${card.id}' data-type='${typeId}' ${rotation}>
           <div class='tembo-savanna-card-wrapper'></div>
         </div>`;
     },

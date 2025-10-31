@@ -38,6 +38,7 @@ define([
       this.setupBoard();
       this.setupPlayers();
       this.setupMeeples();
+      this.setupCards();
       this.setupInfoPanel();
 
       this.inherited(arguments);
@@ -126,6 +127,9 @@ define([
       let t = card.location.split('_');
       if (t[0] == 'hand') {
         return $('savanna-cards-holder');
+      }
+      if (t[0] == 'board') {
+        return $(`square-${card.x}-${card.y}`);
       }
 
       console.error('Trying to get container of a card', card);

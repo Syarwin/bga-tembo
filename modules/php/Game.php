@@ -60,6 +60,7 @@ class Game extends \Bga\GameFramework\Table
     $board = new Board();
     $data = [
       'players' => Players::getUiData(),
+      'cards' => Cards::getUiData(),
       'meeples' => Meeples::getUiData(),
       'board' => $board->getUiData(),
       'energy' => Globals::getEnergy(),
