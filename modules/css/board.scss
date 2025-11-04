@@ -155,9 +155,15 @@ $cellSize: 50px;
       grid-column-end: span 3;
       outline: 1px solid #e6bc5db2;
       z-index: 2;
-      &:hover {
-        background: rgba(255, 0, 0, 0.26);
+
+      &.selectable {
+        background: rgba(255, 0, 0, 0.15);
         cursor: pointer;
+        z-index: 100;
+
+        &:hover {
+          background: rgba(255, 0, 0, 0.4);
+        }
       }
     }
 
@@ -170,10 +176,10 @@ $cellSize: 50px;
       justify-content: center;
       align-items: center;
 
-      &:hover {
-        background: rgba(0, 255, 0, 0.26);
-        cursor: pointer;
-      }
+      // &:hover {
+      //   background: rgba(0, 255, 0, 0.26);
+      //   cursor: pointer;
+      // }
 
       // DEBUGGING
       &[data-type] {

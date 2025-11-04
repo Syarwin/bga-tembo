@@ -198,24 +198,14 @@ $machinestates = [
   //
   ////////////////////////////////////////////////////////////////////////////
 
-  ST_CHOOSE_ACTION => [
-    'name' => 'chooseAction',
-    'description' => clienttranslate('${actplayer} must choose an action'),
-    'descriptionmyturn' => clienttranslate('${you} must choose an action'),
+  ST_USE_CARD => [
+    'name' => 'useCard',
+    'description' => clienttranslate('${actplayer} must choose to build savanna or to place elephants'),
+    'descriptionmyturn' => clienttranslate('${you} must choose to build savanna or to place elephants'),
     'type' => 'activeplayer',
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
-    'possibleactions' => ['actRestart', 'actChooseAction'],
-  ],
-
-  ST_PLACE_CARD => [
-    'name' => 'placeCard',
-    'description' => clienttranslate('${actplayer} must place a card'),
-    'descriptionmyturn' => clienttranslate('${you} must place a card'),
-    'type' => 'activeplayer',
-    'args' => 'argsAtomicAction',
-    'action' => 'stAtomicAction',
-    'possibleactions' => ['actRestart'],
+    'possibleactions' => ['actRestart', 'actPlaceCard'],
   ],
 
   //////////////////////////////////////////////////////////////////

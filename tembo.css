@@ -489,9 +489,12 @@ body {
       grid-column-end: span 3;
       outline: 1px solid #e6bc5db2;
       z-index: 2; }
-      #tembo-board-resizable #tembo-board .board-square:hover {
-        background: rgba(255, 0, 0, 0.26);
-        cursor: pointer; }
+      #tembo-board-resizable #tembo-board .board-square.selectable {
+        background: rgba(255, 0, 0, 0.15);
+        cursor: pointer;
+        z-index: 100; }
+        #tembo-board-resizable #tembo-board .board-square.selectable:hover {
+          background: rgba(255, 0, 0, 0.26); }
     #tembo-board-resizable #tembo-board .board-cell {
       grid-row-end: span 1;
       grid-column-end: span 1;
@@ -500,9 +503,6 @@ body {
       display: flex;
       justify-content: center;
       align-items: center; }
-      #tembo-board-resizable #tembo-board .board-cell:hover {
-        background: rgba(0, 255, 0, 0.26);
-        cursor: pointer; }
       #tembo-board-resizable #tembo-board .board-cell[data-type] {
         border-radius: 50%;
         opacity: 0.3; }

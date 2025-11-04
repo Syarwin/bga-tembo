@@ -1,6 +1,6 @@
 <?php
 
-namespace Bga\Games\Tembo\States;
+namespace Bga\Games\Tembo\Traits;
 
 trait EndOfGameTrait
 {

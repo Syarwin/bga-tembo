@@ -14,8 +14,7 @@ use Bga\Games\Tembo\Models\Player;
 class Actions
 {
   static array $classes = [
-    CHOOSE_ACTION,
-    PLACE_CARD,
+    USE_CARD,
   ];
 
   public static function get(string $actionId, null|AbstractNode|array &$ctx = null): Action
@@ -57,9 +56,13 @@ class Actions
     return array_merge($args, ['optionalAction' => $ctx->isOptional()]);
   }
 
-  public static function takeAction(string $actionId, string $actionName, array $args, AbstractNode &$ctx,
-    bool $automatic = false): void
-  {
+  public static function takeAction(
+    string $actionId,
+    string $actionName,
+    array $args,
+    AbstractNode &$ctx,
+    bool $automatic = false
+  ): void {
     $player = Players::getActive();
     if (!self::isDoable($actionId, $ctx, $player)) {
       throw new \BgaUserException(self::getErrorMessage($actionId));

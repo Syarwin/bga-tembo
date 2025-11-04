@@ -9,25 +9,30 @@ use Bga\Games\Tembo\Models\Action;
 use Bga\Games\Tembo\Models\Board;
 use Bga\Games\Tembo\Models\Player;
 
-class PlaceCard extends Action
+class UseCard extends Action
 {
   public function getState(): int
   {
-    return ST_PLACE_CARD;
+    return ST_USE_CARD;
   }
 
-  public function argsPlaceCard()
+  public function argsUseCard()
   {
     $player = Players::getActive();
 
-    return ['options' => (new Board())->getEmptySquares(), 'rotation' => $player->getRotation()];
+    return [
+      'cardIds' => $player->getHand()->getIds(),
+      'patterns' => [], // For each cards, compute the list of positions to place the corresponding elephants
+      'squares' => (new Board())->getEmptySquares(),
+      'rotation' => $player->getRotation()
+    ];
   }
 
   public function actPlaceCard(int $cardId, int $x, int $y)
   {
     $activePlayer = Players::getActive();
     $args = $this->getArgs();
-    $squaresWithCoords = array_filter($args['options'], fn($square) => $square['x'] === $x && $square['y'] === $y);
+    $squaresWithCoords = array_filter($args['squares'], fn($square) => $square['x'] === $x && $square['y'] === $y);
     if (empty($squaresWithCoords)) {
       throw new \BgaVisibleSystemException("actPlaceCard: Incorrect coords x: $x, y: $y");
     }

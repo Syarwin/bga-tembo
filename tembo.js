@@ -26,290 +26,286 @@ define([
   g_gamethemeurl + 'modules/js/lexemes.js',
   g_gamethemeurl + 'modules/js/tpls.js',
   g_gamethemeurl + 'modules/js/States/Turn.js',
-  g_gamethemeurl + 'modules/js/States/ChooseAction.js',
+  g_gamethemeurl + 'modules/js/States/UseCard.js',
 ], function (dojo, declare) {
-  return declare('bgagame.tembo', [
-    customgame.game,
-    tembo.board,
-    tembo.common,
-    tembo.lexemes,
-    tembo.turn,
-    tembo.chooseAction,
-    tembo.htmltemplates
-  ], {
-    constructor() {
-      // this.default_viewport = 'width=990';
-    },
+  return declare(
+    'bgagame.tembo',
+    [customgame.game, tembo.board, tembo.common, tembo.lexemes, tembo.turn, tembo.useCard, tembo.htmltemplates],
+    {
+      constructor() {
+        // this.default_viewport = 'width=990';
+      },
 
-    setup(gamedatas) {
-      debug('SETUP', gamedatas);
-      this.setupCentralArea();
-      this.setupBoard();
-      this.setupPlayers();
-      this.setupMeeples();
-      this.setupCards();
-      this.setupInfoPanel();
+      setup(gamedatas) {
+        debug('SETUP', gamedatas);
+        this.setupCentralArea();
+        this.setupBoard();
+        this.setupPlayers();
+        this.setupMeeples();
+        this.setupCards();
+        this.setupInfoPanel();
 
-      this.inherited(arguments);
-    },
+        this.inherited(arguments);
+      },
 
-    setupCentralArea() {
-      $('game_play_area').insertAdjacentHTML('beforeend', this.centralAreaHtml());
-    },
+      setupCentralArea() {
+        $('game_play_area').insertAdjacentHTML('beforeend', this.centralAreaHtml());
+      },
 
-    //////////////////////////////////////////
-    //  ____  _
-    // |  _ \| | __ _ _   _  ___ _ __ ___
-    // | |_) | |/ _` | | | |/ _ \ '__/ __|
-    // |  __/| | (_| | |_| |  __/ |  \__ \
-    // |_|   |_|\__,_|\__, |\___|_|  |___/
-    //                |___/
-    //////////////////////////////////////////
+      //////////////////////////////////////////
+      //  ____  _
+      // |  _ \| | __ _ _   _  ___ _ __ ___
+      // | |_) | |/ _` | | | |/ _ \ '__/ __|
+      // |  __/| | (_| | |_| |  __/ |  \__ \
+      // |_|   |_|\__,_|\__, |\___|_|  |___/
+      //                |___/
+      //////////////////////////////////////////
 
-    getPlayers() {
-      return Object.values(this.gamedatas.players);
-    },
+      getPlayers() {
+        return Object.values(this.gamedatas.players);
+      },
 
-    setupPlayers() {
-      this.getPlayers().forEach((player, i) => {
-        if (player.hand && player.id === this.player_id) {
-          this.setupHand(player.hand);
-        }
-      });
-    },
+      setupPlayers() {
+        this.getPlayers().forEach((player, i) => {
+          if (player.hand && player.id === this.player_id) {
+            this.setupHand(player.hand);
+          }
+        });
+      },
 
-    /////////////////////////////////
-    //      ____              _
-    //     / ___|__ _ _ __ __| |___
-    //    | |   / _` | '__/ _` / __|
-    //    | |__| (_| | | | (_| \__ \
-    //     \____\__,_|_|  \__,_|___/
-    /////////////////////////////////
+      /////////////////////////////////
+      //      ____              _
+      //     / ___|__ _ _ __ __| |___
+      //    | |   / _` | '__/ _` / __|
+      //    | |__| (_| | | | (_| \__ \
+      //     \____\__,_|_|  \__,_|___/
+      /////////////////////////////////
 
-    // This function is refreshUI compatible
-    setupCards() {
-      let cardIds = this.gamedatas.cards.map((card) => {
-        if (!$(`card-${card.id}`)) {
-          this.addCard(card);
-        }
+      // This function is refreshUI compatible
+      setupCards() {
+        let cardIds = this.gamedatas.cards.map((card) => {
+          if (!$(`card-${card.id}`)) {
+            this.addCard(card);
+          }
 
-        let o = $(`card-${card.id}`);
-        if (!o) return null;
+          let o = $(`card-${card.id}`);
+          if (!o) return null;
 
-        let container = this.getCardContainer(card);
-        if (o.parentNode != $(container)) {
-          dojo.place(o, container);
-        }
-        o.dataset.state = card.state;
+          let container = this.getCardContainer(card);
+          if (o.parentNode != $(container)) {
+            dojo.place(o, container);
+          }
+          o.dataset.state = card.state;
 
-        return card.id;
-      });
-      document.querySelectorAll('.tembo-card[id^="card-"]').forEach((oCard) => {
-        if (!cardIds.includes(parseInt(oCard.getAttribute('data-id')))) {
-          this.destroy(oCard);
-        }
-      });
-    },
+          return card.id;
+        });
+        document.querySelectorAll('.tembo-card[id^="card-"]').forEach((oCard) => {
+          if (!cardIds.includes(parseInt(oCard.getAttribute('data-id')))) {
+            this.destroy(oCard);
+          }
+        });
+      },
 
-    setupHand(cards) {
-      cards.forEach((card) => this.addCard(card));
-    },
+      setupHand(cards) {
+        cards.forEach((card) => this.addCard(card));
+      },
 
-    addCard(card, location = null) {
-      if ($('card-' + card.id)) return;
+      addCard(card, location = null) {
+        if ($('card-' + card.id)) return;
 
-      let o = this.place('tplSavannaCard', card, location == null ? this.getCardContainer(card) : location);
-      let tooltipDesc = this.getCardTooltip(card);
-      if (tooltipDesc != null) {
-        this.addCustomTooltip(o.id, tooltipDesc.map((t) => this.formatString(t)).join('<br/>'));
-      }
-
-      return o;
-    },
-
-    getCardTooltip(card) {
-      let type = card.type;
-      return null;
-    },
-
-    getCardContainer(card) {
-      let t = card.location.split('-');
-      if (t[0] == 'hand') {
-        return $('savanna-cards-holder');
-      }
-      if (t[0] == 'board') {
-        return $(`square-${card.x}-${card.y}`);
-      }
-
-      console.error('Trying to get container of a card', card);
-      return 'game_play_area';
-    },
-
-    //////////////////////////////////////////
-    //  __  __                 _
-    // |  \/  | ___  ___ _ __ | | ___  ___
-    // | |\/| |/ _ \/ _ \ '_ \| |/ _ \/ __|
-    // | |  | |  __/  __/ |_) | |  __/\__ \
-    // |_|  |_|\___|\___| .__/|_|\___||___/
-    //                  |_|
-    //////////////////////////////////////////
-
-    // This function is refreshUI compatible
-    setupMeeples() {
-      let meepleIds = this.gamedatas.meeples.map((meeple) => {
-        if (!$(`meeple-${meeple.id}`)) {
-          this.addMeeple(meeple);
+        let o = this.place('tplSavannaCard', card, location == null ? this.getCardContainer(card) : location);
+        let tooltipDesc = this.getCardTooltip(card);
+        if (tooltipDesc != null) {
+          this.addCustomTooltip(o.id, tooltipDesc.map((t) => this.formatString(t)).join('<br/>'));
         }
 
-        let o = $(`meeple-${meeple.id}`);
-        if (!o) return null;
+        return o;
+      },
 
-        let container = this.getMeepleContainer(meeple);
-        if (o.parentNode != $(container)) {
-          dojo.place(o, container);
+      getCardTooltip(card) {
+        let type = card.type;
+        return null;
+      },
+
+      getCardContainer(card) {
+        let t = card.location.split('-');
+        if (t[0] == 'hand') {
+          return $('savanna-cards-holder');
         }
-        o.dataset.state = meeple.state;
-
-        return meeple.id;
-      });
-      document.querySelectorAll('.tembo-meeple[id^="meeple-"]').forEach((oMeeple) => {
-        if (!meepleIds.includes(parseInt(oMeeple.getAttribute('data-id')))) {
-          this.destroy(oMeeple);
+        if (t[0] == 'board') {
+          return $(`square-${card.x}-${card.y}`);
         }
-      });
 
-      if (!$('meeple-energy') && this.gamedatas.energy) {
-        this.addMeeple({ id: 'energy', location: this.gamedatas.energy, type: 'energy' });
-      }
-    },
+        console.error('Trying to get container of a card', card);
+        return 'game_play_area';
+      },
 
-    addMeeple(meeple, location = null) {
-      if ($('meeple-' + meeple.id)) return;
+      //////////////////////////////////////////
+      //  __  __                 _
+      // |  \/  | ___  ___ _ __ | | ___  ___
+      // | |\/| |/ _ \/ _ \ '_ \| |/ _ \/ __|
+      // | |  | |  __/  __/ |_) | |  __/\__ \
+      // |_|  |_|\___|\___| .__/|_|\___||___/
+      //                  |_|
+      //////////////////////////////////////////
 
-      if (meeple.type == 'tree') {
-        meeple.type += '-' + 2 * Math.ceil(Math.random() * 4);
-      }
+      // This function is refreshUI compatible
+      setupMeeples() {
+        let meepleIds = this.gamedatas.meeples.map((meeple) => {
+          if (!$(`meeple-${meeple.id}`)) {
+            this.addMeeple(meeple);
+          }
 
-      let o = this.place('tplMeeple', meeple, location == null ? this.getMeepleContainer(meeple) : location);
-      let tooltipDesc = this.getMeepleTooltip(meeple);
-      if (tooltipDesc != null) {
-        this.addCustomTooltip(o.id, tooltipDesc.map((t) => this.formatString(t)).join('<br/>'));
-      }
+          let o = $(`meeple-${meeple.id}`);
+          if (!o) return null;
 
-      return o;
-    },
+          let container = this.getMeepleContainer(meeple);
+          if (o.parentNode != $(container)) {
+            dojo.place(o, container);
+          }
+          o.dataset.state = meeple.state;
 
-    getMeepleTooltip(meeple) {
-      let type = meeple.type;
-      return null;
-    },
+          return meeple.id;
+        });
+        document.querySelectorAll('.tembo-meeple[id^="meeple-"]').forEach((oMeeple) => {
+          if (!meepleIds.includes(parseInt(oMeeple.getAttribute('data-id')))) {
+            this.destroy(oMeeple);
+          }
+        });
 
-    getMeepleContainer(meeple) {
-      let loc = meeple.location;
-      let firstType = meeple.type.split('-')[0];
+        if (!$('meeple-energy') && this.gamedatas.energy) {
+          this.addMeeple({ id: 'energy', location: this.gamedatas.energy, type: 'energy' });
+        }
+      },
 
-      if (loc == 'reserve' && firstType == 'landmark') {
-        return $('landmarks-reserve');
-      }
+      addMeeple(meeple, location = null) {
+        if ($('meeple-' + meeple.id)) return;
 
-      if (loc == 'table' && firstType == 'tree') {
-        return $('trees-holder');
-      }
+        if (meeple.type == 'tree') {
+          meeple.type += '-' + 2 * Math.ceil(Math.random() * 4);
+        }
 
-      if (loc == 'board') {
-        return this.getCell(meeple);
-      }
+        let o = this.place('tplMeeple', meeple, location == null ? this.getMeepleContainer(meeple) : location);
+        let tooltipDesc = this.getMeepleTooltip(meeple);
+        if (tooltipDesc != null) {
+          this.addCustomTooltip(o.id, tooltipDesc.map((t) => this.formatString(t)).join('<br/>'));
+        }
 
-      if (firstType == 'energy') {
-        return $(`energy-${loc}`);
-      }
+        return o;
+      },
 
-      console.error('Trying to get container of a meeple', meeple);
-      return 'game_play_area';
-    },
+      getMeepleTooltip(meeple) {
+        let type = meeple.type;
+        return null;
+      },
 
-    //////////////////////////////////////////////////////
-    //  ___        __         ____                  _
-    // |_ _|_ __  / _| ___   |  _ \ __ _ _ __   ___| |
-    //  | || '_ \| |_ / _ \  | |_) / _` | '_ \ / _ \ |
-    //  | || | | |  _| (_) | |  __/ (_| | | | |  __/ |
-    // |___|_| |_|_|  \___/  |_|   \__,_|_| |_|\___|_|
-    //////////////////////////////////////////////////////
+      getMeepleContainer(meeple) {
+        let loc = meeple.location;
+        let firstType = meeple.type.split('-')[0];
 
-    setupInfoPanel() {
-      let chk = $('help-mode-chk');
-      dojo.connect(chk, 'onchange', () => this.toggleHelpMode(chk.checked));
-      this.addTooltip('help-mode-switch', '', _('Toggle help/safe mode.'));
+        if (loc == 'reserve' && firstType == 'landmark') {
+          return $('landmarks-reserve');
+        }
 
-      this._energyCounter = this.createCounter('energy-counter', this.gamedatas.energy);
-    },
+        if (loc == 'table' && firstType == 'tree') {
+          return $('trees-holder');
+        }
 
-    onEnteringStateGameEnd(args) {
-      debug('onEnteringStateGameEnd', args);
-      if (this.gamedatas.endGameText) {
-        dojo.place(this.tplEndGameText(this.gamedatas.endGameStars, this.gamedatas.endGameText), 'popin_showScores');
-      }
-      this._scoresModal.show();
-    },
+        if (loc == 'board') {
+          return this.getCell(meeple);
+        }
 
-    // updatePlayerOrdering() {
-    //   this.inherited(arguments);
-    //   dojo.place('player_board_config', 'player_boards', 'first');
-    // },
+        if (firstType == 'energy') {
+          return $(`energy-${loc}`);
+        }
 
-    ////////////////////////////////////////////////////////////
-    // _____                          _   _   _
-    // |  ___|__  _ __ _ __ ___   __ _| |_| |_(_)_ __   __ _
-    // | |_ / _ \| '__| '_ ` _ \ / _` | __| __| | '_ \ / _` |
-    // |  _| (_) | |  | | | | | | (_| | |_| |_| | | | | (_| |
-    // |_|  \___/|_|  |_| |_| |_|\__,_|\__|\__|_|_| |_|\__, |
-    //                                                 |___/
-    ////////////////////////////////////////////////////////////
+        console.error('Trying to get container of a meeple', meeple);
+        return 'game_play_area';
+      },
 
-    /**
-     * Replace some expressions by corresponding html formating
-     */
-    formatIcon(name, n = null, lowerCase = true) {
-      let type = lowerCase ? name.toLowerCase() : name;
+      //////////////////////////////////////////////////////
+      //  ___        __         ____                  _
+      // |_ _|_ __  / _| ___   |  _ \ __ _ _ __   ___| |
+      //  | || '_ \| |_ / _ \  | |_) / _` | '_ \ / _ \ |
+      //  | || | | |  _| (_) | |  __/ (_| | | | |  __/ |
+      // |___|_| |_|_|  \___/  |_|   \__,_|_| |_|\___|_|
+      //////////////////////////////////////////////////////
 
-      let text = n == null ? '' : `<span>${n}</span>`;
-      return `${text}<div class="icon-container icon-container-${type}">
+      setupInfoPanel() {
+        let chk = $('help-mode-chk');
+        dojo.connect(chk, 'onchange', () => this.toggleHelpMode(chk.checked));
+        this.addTooltip('help-mode-switch', '', _('Toggle help/safe mode.'));
+
+        this._energyCounter = this.createCounter('energy-counter', this.gamedatas.energy);
+      },
+
+      onEnteringStateGameEnd(args) {
+        debug('onEnteringStateGameEnd', args);
+        if (this.gamedatas.endGameText) {
+          dojo.place(this.tplEndGameText(this.gamedatas.endGameStars, this.gamedatas.endGameText), 'popin_showScores');
+        }
+        this._scoresModal.show();
+      },
+
+      // updatePlayerOrdering() {
+      //   this.inherited(arguments);
+      //   dojo.place('player_board_config', 'player_boards', 'first');
+      // },
+
+      ////////////////////////////////////////////////////////////
+      // _____                          _   _   _
+      // |  ___|__  _ __ _ __ ___   __ _| |_| |_(_)_ __   __ _
+      // | |_ / _ \| '__| '_ ` _ \ / _` | __| __| | '_ \ / _` |
+      // |  _| (_) | |  | | | | | | (_| | |_| |_| | | | | (_| |
+      // |_|  \___/|_|  |_| |_| |_|\__,_|\__|\__|_|_| |_|\__, |
+      //                                                 |___/
+      ////////////////////////////////////////////////////////////
+
+      /**
+       * Replace some expressions by corresponding html formating
+       */
+      formatIcon(name, n = null, lowerCase = true) {
+        let type = lowerCase ? name.toLowerCase() : name;
+
+        let text = n == null ? '' : `<span>${n}</span>`;
+        return `${text}<div class="icon-container icon-container-${type}">
             <div class="tembo-icon icon-${type}"></div>
           </div>`;
-    },
+      },
 
-    formatString(str) {
-      const ICONS = [];
+      formatString(str) {
+        const ICONS = [];
 
-      ICONS.forEach((name) => {
-        str = str.replaceAll(new RegExp('<' + name + '>', 'g'), this.formatIcon(name));
-      });
+        ICONS.forEach((name) => {
+          str = str.replaceAll(new RegExp('<' + name + '>', 'g'), this.formatIcon(name));
+        });
 
-      return str;
-    },
+        return str;
+      },
 
-    /**
-     * Format log strings
-     *  @Override
-     */
-    format_string_recursive(log, args) {
-      try {
-        if (log && args && !args.processed) {
-          args.processed = true;
+      /**
+       * Format log strings
+       *  @Override
+       */
+      format_string_recursive(log, args) {
+        try {
+          if (log && args && !args.processed) {
+            args.processed = true;
 
-          log = this.formatString(_(log));
+            log = this.formatString(_(log));
 
-          if (args.color_icon !== undefined) {
-            args.color_icon = this.formatIcon(args.color_type);
-            args.color_name = '';
+            if (args.color_icon !== undefined) {
+              args.color_icon = this.formatIcon(args.color_type);
+              args.color_name = '';
+            }
           }
+        } catch (e) {
+          console.error(log, args, 'Exception thrown', e.stack);
         }
-      } catch (e) {
-        console.error(log, args, 'Exception thrown', e.stack);
-      }
 
-      let str = this.inherited(arguments);
-      return this.formatString(str);
-    },
-  });
+        let str = this.inherited(arguments);
+        return this.formatString(str);
+      },
+    }
+  );
 });

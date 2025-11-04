@@ -1,6 +1,6 @@
 <?php
 
-namespace Bga\Games\Tembo\States;
+namespace Bga\Games\Tembo\Traits;
 
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Engine;
@@ -35,8 +35,7 @@ trait TurnTrait
 
     // Inserting leaf CHOOSE_ACTION
     $node = [
-      'action' => CHOOSE_ACTION,
-      'flag' => 'chooseAction',
+      'action' => USE_CARD,
       'pId' => $player->getId(),
     ];
     Engine::setup($node, ['method' => 'stEndOfTurn']);

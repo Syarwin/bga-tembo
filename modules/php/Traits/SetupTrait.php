@@ -1,6 +1,6 @@
 <?php
 
-namespace Bga\Games\Tembo\States;
+namespace Bga\Games\Tembo\Traits;
 
 use Bga\GameFramework\Actions\CheckAction;
 use Bga\Games\Tembo\Core\Globals;

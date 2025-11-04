@@ -1,7 +1,9 @@
 <?php
 
-namespace Bga\Games\Tembo\States;
+namespace Bga\Games\Tembo\Traits;
 
+use Bga\GameFramework\Actions\CheckAction;
+use Bga\GameFramework\Actions\Types\JsonParam;
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Engine;
 use Bga\Games\Tembo\Core\Engine\AbstractNode;
@@ -93,11 +95,12 @@ trait EngineTrait
   /**
    * Pass the argument of the action to the atomic action
    */
-  function actTakeAtomicAction(string $actionName, array $args): void
+  #[CheckAction(false)]
+  function actTakeAtomicAction(string $actionName, #[JsonParam()] array $actionArgs): void
   {
     $node = Engine::getNextUnresolved();
     $action = $node->getAction();
-    Actions::takeAction($action, $actionName, $args, $node);
+    Actions::takeAction($action, $actionName, $actionArgs, $node);
   }
 
   /**
@@ -188,7 +191,8 @@ trait EngineTrait
   public function stConfirmTurn(): void
   {
     // Check user preference to bypass if DISABLED is picked
-    $pref = Players::getActive()->getPlayer()->getPref(OPTION_CONFIRM);
+
+    $pref = $this->userPreferences->get(Players::getActiveId(), OPTION_CONFIRM);
     if ($pref == OPTION_CONFIRM_DISABLED || Globals::getEngineChoices() == 0) {
       $this->actConfirmTurn(true);
     }
