@@ -126,7 +126,7 @@ class Meeples extends CachedPieces
 
     $meeples = self::create($meeples, LOCATION_TABLE);
     foreach ($allPlayers as $player) {
-      $player->gainElephants(3);
+      $player->gainElephants(3, true);
     }
     return $meeples;
   }
