@@ -26,8 +26,17 @@ define([
   g_gamethemeurl + 'modules/js/lexemes.js',
   g_gamethemeurl + 'modules/js/tpls.js',
   g_gamethemeurl + 'modules/js/States/Turn.js',
+  g_gamethemeurl + 'modules/js/States/ChooseAction.js',
 ], function (dojo, declare) {
-  return declare('bgagame.tembo', [customgame.game, tembo.board, tembo.common, tembo.lexemes, tembo.turn, tembo.htmltemplates], {
+  return declare('bgagame.tembo', [
+    customgame.game,
+    tembo.board,
+    tembo.common,
+    tembo.lexemes,
+    tembo.turn,
+    tembo.chooseAction,
+    tembo.htmltemplates
+  ], {
     constructor() {
       // this.default_viewport = 'width=990';
     },

@@ -15,6 +15,7 @@ const ST_SITTING_AROUND_TABLE = 12;
 const ST_TURN_BOARD_TILE = 13;
 
 const ST_CHOOSE_ACTION = 20;
+const ST_PLACE_CARD = 21;
 
 const ST_RESOLVE_STACK = 90;
 const ST_RESOLVE_CHOICE = 91;
@@ -46,6 +47,7 @@ const PASS = 99;
  */
 
 const CHOOSE_ACTION = 'ChooseAction';
+const PLACE_CARD = 'PlaceCard';
 
 /*
  * Board tiles

@@ -115,4 +115,12 @@ class Cards extends CachedPieces
   {
     return self::getInLocation(LOCATION_BOARD)->filter(fn($card) => $card->getX() == $x && $card->getY() == $y)->first();
   }
+
+  public static function placeOnBoard(int $cardId, int $x, int $y, int $rotation): void
+  {
+    self::DB()
+      ->update(['card_location' => LOCATION_BOARD, 'x' => $x, 'y' => $y, 'rotation' => $rotation])
+      ->where('card_id', $cardId)
+      ->run();
+  }
 }

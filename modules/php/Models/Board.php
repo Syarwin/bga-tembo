@@ -72,13 +72,16 @@ class Board
 
           $spaces = null;
           $rotation = null;
-          // Landmark square type
-          if (in_array($type, ALL_CARD_REFS)) {
+          $square = [
+            'type' => $b[$j][$i],
+            'x' => $x,
+            'y' => $y,
+          ];
+          if ($this->isSquareHasLandmark($square)) {
             $spaces = new Spaces(LANDMARK_ZONES[$type]);
             $rotation = $tile['rotation'];
           }
-          // Savanna card placed on that square?
-          $card = Cards::getAtSquare($x, $y);
+          $card = $this->getSquareCard($square);
           if (!is_null($card)) {
             $spaces = $card->getSpaces();
             $rotation = $card->getRotation();
@@ -93,14 +96,31 @@ class Board
             }
           }
 
-          $this->squares[] = [
-            'type' => $b[$j][$i],
-            'x' => $x,
-            'y' => $y,
-          ];
+          $this->squares[] = $square;
         }
       }
     }
+  }
+
+  private function isSquareHasLandmark(array $square): bool
+  {
+    return in_array($square['type'], ALL_CARD_REFS);
+  }
+
+  private function getSquareCard(array $square): ?Card
+  {
+    return Cards::getAtSquare($square['x'], $square['y']);
+  }
+
+  public function getEmptySquares(): array
+  {
+    $squares = [];
+    foreach ($this->squares as $square) {
+      if (!$this->isSquareHasLandmark($square) && is_null($this->getSquareCard($square))) {
+        $squares[] = $square;
+      }
+    }
+    return $squares;
   }
 
   public function getUiData(): array

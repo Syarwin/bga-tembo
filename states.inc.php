@@ -205,9 +205,18 @@ $machinestates = [
     'type' => 'activeplayer',
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
-    'possibleactions' => ['actRestart'],
+    'possibleactions' => ['actRestart', 'actChooseAction'],
   ],
 
+  ST_PLACE_CARD => [
+    'name' => 'placeCard',
+    'description' => clienttranslate('${actplayer} must place a card'),
+    'descriptionmyturn' => clienttranslate('${you} must place a card'),
+    'type' => 'activeplayer',
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'possibleactions' => ['actRestart'],
+  ],
 
   //////////////////////////////////////////////////////////////////
   //  _____           _    ___   __    ____

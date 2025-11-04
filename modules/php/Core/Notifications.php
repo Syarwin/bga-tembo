@@ -3,6 +3,7 @@
 namespace Bga\Games\Tembo\Core;
 
 use Bga\Games\Tembo\Game;
+use Bga\Games\Tembo\Models\Card;
 use Bga\Games\Tembo\Models\Player;
 
 class Notifications
@@ -165,6 +166,14 @@ class Notifications
       'player' => $player,
       'lost' => $lost,
       'lostAmount' => count($lost),
+    ]);
+  }
+
+  public static function cardPlacedOnBoard(Player $player, Card $card)
+  {
+    self::notifyAll('cardPlacedOnBoard', clienttranslate('${player_name} places a card'), [
+      'player' => $player,
+      'card' => $card,
     ]);
   }
 

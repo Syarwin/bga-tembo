@@ -91,7 +91,8 @@ class Game extends \Bga\GameFramework\Table
     bool $loop = false,
     bool $autoNext = true,
     array $args = []
-  ): void {
+  ): void
+  {
     $turnOrders = Globals::getCustomTurnOrders();
     $turnOrders[$key] = [
       'order' => $order ?? Players::getTurnOrder(),
@@ -114,7 +115,8 @@ class Game extends \Bga\GameFramework\Table
     mixed $endCallback,
     bool $loop = false,
     bool $autoNext = true
-  ): void {
+  ): void
+  {
     $this->initCustomTurnOrder($key, null, $callback, $endCallback, $loop, $autoNext);
   }
 
@@ -183,7 +185,7 @@ class Game extends \Bga\GameFramework\Table
   public function zombieTurn($state, $active_player): void
   {
     switch ($state['name']) {
-        // TODO
+      // TODO
     }
   }
 
