@@ -3,10 +3,12 @@
 namespace Bga\Games\Tembo\Models;
 
 use Bga\Games\Tembo\Core\Engine\AbstractNode;
+use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Helpers\DB_Model;
 use Bga\Games\Tembo\Managers\Actions;
 use Bga\Games\Tembo\Managers\Cards;
+use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 
 /*
@@ -68,6 +70,22 @@ class Player extends DB_Model
     return $this->zombie;
   }
 
+  public function gainElephants(int $amount = 1, bool $silent = false): void
+  {
+    $gained = Meeples::gainElephants($this->id, $amount);
+    if (!$silent) {
+      Notifications::elephantsGained($this, $gained);
+    }
+  }
+
+  public function loseElephants(int $amount = 1, bool $silent = false): void
+  {
+    $lost = Meeples::loseElephants($this->id, $amount);
+    if (!$silent) {
+      Notifications::elephantsLost($this, $lost);
+    }
+  }
+
   public function getUiData(): array
   {
     $data = parent::getUiData();
@@ -83,7 +101,7 @@ class Player extends DB_Model
 
   public function getHand(): Collection
   {
-    return Cards::getInLocation(LOCATION_HAND . "_" . $this->id);
+    return Cards::getInLocation(LOCATION_HAND . '-' . $this->id);
   }
 
   public function canTakeAction(string $action, null|array|AbstractNode $ctx): bool

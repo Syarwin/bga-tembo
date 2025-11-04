@@ -147,6 +147,7 @@ const TREE_TEAL = 'tree-teal';
 
 const LION = 'lion';
 const LIONESS = 'lioness';
+const ELEPHANT = 'elephant';
 
 const LANDMARK_CANYON = 'landmark-canyon';
 const LANDMARK_RIVER = 'landmark-river';

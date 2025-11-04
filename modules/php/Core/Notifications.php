@@ -2,8 +2,8 @@
 
 namespace Bga\Games\Tembo\Core;
 
-use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Game;
+use Bga\Games\Tembo\Models\Player;
 
 class Notifications
 {
@@ -147,6 +147,24 @@ class Notifications
     self::notifyAll('energyChanged', clienttranslate('You gain ${delta} energy and now it is at ${energy}'), [
       'energy' => $energy,
       'delta' => $delta,
+    ]);
+  }
+
+  public static function elephantsGained(Player $player, array $gained)
+  {
+    self::notifyAll('elephantsGained', clienttranslate('${player_name} gains ${gainedAmount} elephants'), [
+      'player' => $player,
+      'gained' => $gained,
+      'gainedAmount' => count($gained),
+    ]);
+  }
+
+  public static function elephantsLost(Player $player, array $lost)
+  {
+    self::notifyAll('elephantsLost', clienttranslate('${player_name} loses ${lostAmount} elephants'), [
+      'player' => $player,
+      'lost' => $lost,
+      'lostAmount' => count($lost),
     ]);
   }
 

@@ -68,7 +68,7 @@ class Cards extends CachedPieces
           'state' => 0,
         ];
       }
-      static::create($values, LOCATION_HAND . '_' . $player->getId());
+      static::create($values, LOCATION_HAND . '-' . $player->getId());
     }
   }
 

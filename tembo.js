@@ -124,7 +124,7 @@ define([
     },
 
     getCardContainer(card) {
-      let t = card.location.split('_');
+      let t = card.location.split('-');
       if (t[0] == 'hand') {
         return $('savanna-cards-holder');
       }
