@@ -124,6 +124,11 @@ class Meeples extends CachedPieces
       }
     }
 
+    $meeples[] = [
+      'type' => MATRIARCH,
+      'location' => LOCATION_BOARD_START,
+    ];
+
     $meeples = self::create($meeples, LOCATION_TABLE);
     foreach ($allPlayers as $player) {
       $player->gainElephants(3, true);

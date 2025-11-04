@@ -148,6 +148,7 @@ const TREE_TEAL = 'tree-teal';
 const LION = 'lion';
 const LIONESS = 'lioness';
 const ELEPHANT = 'elephant';
+const MATRIARCH = 'matriarch';
 
 const LANDMARK_CANYON = 'landmark-canyon';
 const LANDMARK_RIVER = 'landmark-river';
@@ -180,6 +181,7 @@ const LOCATION_HAND = 'hand';
 const LOCATION_RESERVE = 'reserve';
 const LOCATION_DECK = 'deck';
 const LOCATION_BOARD = 'board';
+const LOCATION_BOARD_START = 'board-start';
 const INFINITY = 1000;
 
 const STATE_LAYING = 0;
