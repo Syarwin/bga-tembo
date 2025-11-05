@@ -9,8 +9,6 @@ use Bga\Games\Tembo\Models\Player;
 
 require_once dirname(__FILE__) . "/../Materials/Journeys.php";
 
-/* Class to manage all the meeples for Nemesis Retaliation */
-
 class Meeples extends CachedPieces
 {
   protected static string $table = 'meeples';
