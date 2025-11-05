@@ -3,6 +3,8 @@
 namespace Bga\Games\Tembo\Models;
 
 use Bga\Games\Tembo\Core\Globals;
+use Bga\Games\Tembo\Helpers\Collection;
+use Bga\Games\Tembo\Helpers\Utils;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Meeples;
 
@@ -141,8 +143,26 @@ class Board
   public function getFitShapeElephantCost(int $shape, int $x, int $y, int $rotation, bool $ignoreRough): int
   {
     $elephantsNeeded = 0;
-    $cells = SHAPES_CELLS[$shape];
-    foreach ($cells as $delta) {
+    foreach ($this->getCellTypesForShape($shape, $x, $y, $rotation) as $cellType) {
+      if (is_null($cellType) || $cellType == SPACE_NONE) {
+        return INFINITY;
+      }
+      $elephantsNeeded += ($cellType == SPACE_ROUGH && !$ignoreRough) ? 2 : 1;
+    }
+
+    return $elephantsNeeded;
+  }
+
+  private function getCellTypesForShape(int $shape, int $x, int $y, int $rotation): array
+  {
+    return array_map(fn($cell) => $this->cells[$cell['x']][$cell['y']] ?? null, $this->getCellsForShape($shape, $x, $y, $rotation));
+  }
+
+  public function getCellsForShape(int $shape, int $x, int $y, int $rotation)
+  {
+    $cells = [];
+    $cellsOfShape = SHAPES_CELLS[$shape];
+    foreach ($cellsOfShape as $delta) {
       if (($rotation % 2) == 0) {
         $dx = $rotation == 0 ? $delta[0] : -$delta[0];
         $dy = $rotation == 0 ? $delta[1] : -$delta[1];
@@ -153,20 +173,23 @@ class Board
 
       $nx = $x + $dx;
       $ny = $y + $dy;
-      $cellType = $this->cells[$nx][$ny] ?? null;
-      if (is_null($cellType) || $cellType == SPACE_NONE) {
-        return INFINITY;
-      }
-      $elephantsNeeded += ($cellType == SPACE_ROUGH && !$ignoreRough) ? 2 : 1;
+      $cells[] = ['x' => $nx, 'y' => $ny];
     }
-
-    return $elephantsNeeded;
+    return $cells;
   }
 
-  public function canFitShape(int $shape, int $x, int $y, int $rotation, bool $ignoreRough, int $nElephantAvailable): bool
+  public function canFitShape(int $shape, int $x, int $y, int $rotation, int $nElephantAvailable,
+    bool $ignoreRough = false): bool
   {
     $elephantsNeeded = $this->getFitShapeElephantCost($shape, $x, $y, $rotation, $ignoreRough);
-    return $nElephantAvailable >= $elephantsNeeded;
+
+    $noNoneSpaces = !in_array(SPACE_NONE, $this->getCellTypesForShape($shape, $x, $y, $rotation));
+
+    $cellsOfShape = $this->getCellsForShape($shape, $x, $y, $rotation);
+    $meeplesOnCellsMap = array_map(fn($cell) => Meeples::getOnCell($cell)->empty(), $cellsOfShape);
+    $noMeeplesOnCellsMap = !in_array(false, array_unique($meeplesOnCellsMap));
+
+    return $nElephantAvailable >= $elephantsNeeded && $noNoneSpaces && $noMeeplesOnCellsMap;
   }
 
   public function getAllPossibleCoordsSingle(bool $ignoreRough = false): array
@@ -176,9 +199,9 @@ class Board
     if ($matriarch->getLocation() === 'board-start') {
       [$x, $y] = [$this->board['start']['x'] + 1, $this->board['start']['y']];
     }
-    $allCoords = $this->getPossibleCoordsSingle($x, $y, $ignoreRough);
+    $allCoords = $this->getAdjacentCoordsSingle($x, $y, $ignoreRough);
     foreach (Meeples::getElephantsOnBoard() as $elephant) {
-      foreach ($this->getPossibleCoordsSingle($elephant->getX(), $elephant->getY(), $ignoreRough) as $coords) {
+      foreach ($this->getAdjacentCoordsSingle($elephant->getX(), $elephant->getY(), $ignoreRough) as $coords) {
         if (!in_array($coords, $allCoords)) {
           $allCoords[] = $coords;
         }
@@ -187,7 +210,7 @@ class Board
     return $allCoords;
   }
 
-  private function getPossibleCoordsSingle(int $x, int $y, bool $ignoreRough): array
+  private function getAdjacentCoordsSingle(int $x, int $y, bool $ignoreRough): array
   {
     $results = [];
     foreach (DIRECTIONS as $direction) {
@@ -203,5 +226,29 @@ class Board
       }
     }
     return $results;
+  }
+
+  public function getAllPossiblePatterns(Collection $hand, int $rotation, int $nElephantsAvailable): array
+  {
+    $patterns = [];
+    $adjacentSpaces = $this->getAllPossibleCoordsSingle(true);
+    /** @var Card $card */
+    foreach ($hand as $card) {
+      $patterns[$card->getId()] = [];
+      $patternInfo = $card->getPattern();
+      // TODO: Find max width and height
+      for ($x = 0; $x < 30; $x++) {
+        for ($y = 0; $y < 30; $y++) {
+          // TODO: Support rotatable shapes
+          if ($this->canFitShape($patternInfo['shape'], $x, $y, $rotation, $nElephantsAvailable, $patternInfo['ignoreRough'])) {
+            $cellsForThisShape = $this->getCellsForShape($patternInfo['shape'], $x, $y, $rotation);
+            if (Utils::someCellsIntersect($cellsForThisShape, $adjacentSpaces)) {
+              $patterns[$card->getId()] = array_merge($patterns[$card->getId()], [$cellsForThisShape]);
+            }
+          }
+        }
+      }
+    }
+    return $patterns;
   }
 }

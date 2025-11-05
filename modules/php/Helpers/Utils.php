@@ -63,4 +63,14 @@ abstract class Utils
     }
     return $t;
   }
+
+  public static function someCellsIntersect(array $cells1, array $cells2): bool
+  {
+    foreach ($cells1 as $cell) {
+      if (in_array($cell, $cells2)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

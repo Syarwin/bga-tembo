@@ -67,6 +67,11 @@ class Card extends DB_Model
     return $this->getType() === CARD_TYPE_MATRIARCH;
   }
 
+  public function getPattern(): array
+  {
+    return $this->pattern;
+  }
+
   public function getUiData()
   {
     return [...parent::getUiData(), 'type' => $this->typeUi];

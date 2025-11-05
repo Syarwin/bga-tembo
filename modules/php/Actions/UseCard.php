@@ -19,12 +19,14 @@ class UseCard extends Action
 
   public function argsUseCard()
   {
-    $player = Players::getActive();
+    $player = Players::getCurrent();
+    $hand = $player->getHand();
+    $board = new Board();
 
     return [
-      'cardIds' => $player->getHand()->getIds(),
-      'patterns' => [], // For each cards, compute the list of positions to place the corresponding elephants
-      'squares' => (new Board())->getEmptySquares(),
+      'cardIds' => $hand->getIds(),
+      'patterns' => $board->getAllPossiblePatterns($hand, $player->getRotation(), $player->getRestedElephantsAmount()),
+      'squares' => $board->getEmptySquares(),
       'rotation' => $player->getRotation()
     ];
   }

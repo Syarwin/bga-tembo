@@ -115,4 +115,9 @@ class Player extends DB_Model
   {
     return Actions::isDoable($action, $ctx, $this);
   }
+
+  public function getRestedElephantsAmount(): int
+  {
+    return Meeples::getTiredRestedElephants($this->id, STATE_RESTED)->count();
+  }
 }
