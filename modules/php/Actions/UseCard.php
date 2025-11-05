@@ -58,7 +58,7 @@ class UseCard extends Action
         break;
       case BONUS_GAIN_3_PLACE_1_IGNORE_ROUGH:
         $activePlayer->gainElephants(3);
-        // TODO: Add action to place 1 elephant
+        Engine::insertAsChild(['action' => PLACE_SINGLE_ELEPHANT, 'args' => ['ignoreRough' => true]]);
         break;
       default:
         throw new \BgaVisibleSystemException("actPlaceCard: Unknown bonus type $bonus. Should not happen");

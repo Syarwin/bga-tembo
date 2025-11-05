@@ -25,6 +25,9 @@ class PlayerGainLoseElephants extends Action
 
   public function actChoosePlayerGainLoseElephants(int $pId)
   {
+    if (!in_array($pId, Players::getAll(Players::getActiveId())->toArray())) {
+      throw new \BgaVisibleSystemException("actChoosePlayerGainLoseElephants: Incorrect player with id {$pId}");
+    }
     Players::get($pId)->gainElephants($this->getCtxArg('amount'));
   }
 }

@@ -204,11 +204,42 @@ class Meeples extends CachedPieces
     return static::getElephants($pId)->filter(fn($elephant) => $elephant->getState() === $state);
   }
 
-  private static function getElephants(int $pId): Collection
+  private static function getElephants(int $pId = null): Collection
   {
-    return self::getAll()->filter(
-      fn($meeple) => $meeple->getPId() === $pId && str_contains($meeple->getType(), ELEPHANT)
+    $allElephants = self::getAll()->filter(
+      fn($meeple) => str_contains($meeple->getType(), ELEPHANT)
     );
+    return is_null($pId) ? $allElephants : $allElephants->filter(fn($elephant) => $elephant->getPId() === $pId);
+  }
+
+  public static function getElephantsOnBoard(): Collection
+  {
+    return self::getElephants()->filter(fn($elephant) => $elephant->getLocation() === LOCATION_BOARD);
+  }
+
+  public static function getMatriarch(): Meeple
+  {
+    return self::getAll()->where('type', MATRIARCH)->first();
+  }
+
+  public static function placeElephantsOnBoard(int $pId, array $coords): array
+  {
+    $elephantsOfPlayer = static::getTiredRestedElephants($pId, STATE_RESTED)->toArray();
+    $coordsCount = count($coords);
+    $elephantsCount = count($elephantsOfPlayer);
+    if ($elephantsCount < $coordsCount) {
+      throw new \BgaVisibleSystemException("placeElephantOnBoard: player with id {$pId} does not have enough elephants ({$coordsCount}, needed $elephantsCount)");
+    }
+    shuffle($elephantsOfPlayer);
+    $elephants = [];
+    foreach ($coords as $coord) {
+      $elephant = array_shift($elephantsOfPlayer);
+      $elephant->setX($coord['x']);
+      $elephant->setY($coord['y']);
+      $elephant->setLocation(LOCATION_BOARD);
+      $elephants[] = $elephant;
+    }
+    return $elephants;
   }
 
   // public static function createResourceOnHex($type, $x, $y)

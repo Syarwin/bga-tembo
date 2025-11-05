@@ -185,6 +185,14 @@ class Notifications
     ]);
   }
 
+  public static function elephantsPlaced(Player $player, array $elephants)
+  {
+    self::notifyAll('elephantsPlaced', '', [
+      'player' => $player,
+      'elephants' => $elephants,
+    ]);
+  }
+
   ///////////////////////////////////////////////////////////////
   //  _   _           _       _            _
   // | | | |_ __   __| | __ _| |_ ___     / \   _ __ __ _ ___

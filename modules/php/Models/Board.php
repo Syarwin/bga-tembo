@@ -10,10 +10,14 @@ require_once dirname(__FILE__) . "/../Materials/Journeys.php";
 require_once dirname(__FILE__) . "/../Materials/BoardTiles.php";
 
 const DIRECTIONS = [
-  ['x' => 0, 'y' => 1],
+  ['x' => -1, 'y' => -1],
   ['x' => 0, 'y' => -1],
-  ['x' => 1, 'y' => 0],
+  ['x' => 1, 'y' => -1],
   ['x' => -1, 'y' => 0],
+  ['x' => 1, 'y' => 0],
+  ['x' => -1, 'y' => 1],
+  ['x' => 0, 'y' => 1],
+  ['x' => 1, 'y' => 1],
 ];
 
 class Board
@@ -163,5 +167,41 @@ class Board
   {
     $elephantsNeeded = $this->getFitShapeElephantCost($shape, $x, $y, $rotation, $ignoreRough);
     return $nElephantAvailable >= $elephantsNeeded;
+  }
+
+  public function getAllPossibleCoordsSingle(bool $ignoreRough = false): array
+  {
+    $matriarch = Meeples::getMatriarch();
+    [$x, $y] = [$matriarch->getX(), $matriarch->getY()];
+    if ($matriarch->getLocation() === 'board-start') {
+      [$x, $y] = [$this->board['start']['x'] + 1, $this->board['start']['y']];
+    }
+    $allCoords = $this->getPossibleCoordsSingle($x, $y, $ignoreRough);
+    foreach (Meeples::getElephantsOnBoard() as $elephant) {
+      foreach ($this->getPossibleCoordsSingle($elephant->getX(), $elephant->getY(), $ignoreRough) as $coords) {
+        if (!in_array($coords, $allCoords)) {
+          $allCoords[] = $coords;
+        }
+      }
+    }
+    return $allCoords;
+  }
+
+  private function getPossibleCoordsSingle(int $x, int $y, bool $ignoreRough): array
+  {
+    $results = [];
+    foreach (DIRECTIONS as $direction) {
+      $dx = $x + $direction['x'];
+      $dy = $y + $direction['y'];
+      $cellType = $this->cells[$dx][$dy] ?? null;
+
+      $meeplesAtSpace = Meeples::getOnCell(['x' => $dx, 'y' => $dy]);
+      if (!is_null($cellType) && $cellType !== SPACE_NONE && $meeplesAtSpace->empty()) {
+        if ($ignoreRough || $cellType !== SPACE_ROUGH) {
+          $results[] = ['x' => $dx, 'y' => $dy];
+        }
+      }
+    }
+    return $results;
   }
 }

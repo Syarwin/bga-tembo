@@ -220,6 +220,16 @@ $machinestates = [
     'possibleactions' => ['actRestart', 'actChoosePlayerGainLoseElephants'],
   ],
 
+  ST_PLACE_SINGLE_ELEPHANT => [
+    'name' => 'placeSingleElephant',
+    'description' => clienttranslate('${actplayer} must place a single elephant'),
+    'descriptionmyturn' => clienttranslate('${you} must place a single elephant'),
+    'type' => 'activeplayer',
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'possibleactions' => ['actRestart', 'actPlaceSingleElephant'],
+  ],
+
   //////////////////////////////////////////////////////////////////
   //  _____           _    ___   __    ____
   // | ____|_ __   __| |  / _ \ / _|  / ___| __ _ _ __ ___   ___

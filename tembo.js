@@ -28,10 +28,11 @@ define([
   g_gamethemeurl + 'modules/js/States/Turn.js',
   g_gamethemeurl + 'modules/js/States/UseCard.js',
   g_gamethemeurl + 'modules/js/States/PlayerGainLoseElephants.js',
+  g_gamethemeurl + 'modules/js/States/PlaceSingleElephant.js',
 ], function (dojo, declare) {
   return declare(
     'bgagame.tembo',
-    [customgame.game, tembo.board, tembo.common, tembo.lexemes, tembo.turn, tembo.useCard, tembo.htmltemplates, tembo.playerGainLoseElephants],
+    [customgame.game, tembo.board, tembo.common, tembo.lexemes, tembo.turn, tembo.useCard, tembo.htmltemplates, tembo.playerGainLoseElephants, tembo.placeSingleElephant],
     {
       constructor() {
         // this.default_viewport = 'width=990';
