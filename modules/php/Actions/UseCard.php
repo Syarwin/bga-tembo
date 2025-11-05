@@ -2,6 +2,7 @@
 
 namespace Bga\Games\Tembo\Actions;
 
+use Bga\Games\Tembo\Core\Engine;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Players;
@@ -49,11 +50,11 @@ class UseCard extends Action
         }
         break;
       case BONUS_ANOTHER_GAINS_4:
-        // TODO: Add action to select player who gains 4
+        Engine::insertAsChild(['action' => PLAYER_GAIN_LOSE_ELEPHANTS, 'args' => ['amount' => 4]]);
         break;
       case BONUS_YOU_5_ANOTHER_MINUS_2:
         $activePlayer->gainElephants(5);
-        // TODO: Add action to select player who loses 2
+        Engine::insertAsChild(['action' => PLAYER_GAIN_LOSE_ELEPHANTS, 'args' => ['amount' => -2]]);
         break;
       case BONUS_GAIN_3_PLACE_1_IGNORE_ROUGH:
         $activePlayer->gainElephants(3);

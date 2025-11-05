@@ -208,6 +208,18 @@ $machinestates = [
     'possibleactions' => ['actRestart', 'actPlaceCard'],
   ],
 
+  ST_PLAYER_GAIN_LOSE_ELEPHANTS => [
+    'name' => 'playerGainLoseElephants',
+    'description' => clienttranslate('${actplayer} must choose a player who will GAIN ${amount} elephants'),
+    'descriptionmyturn' => clienttranslate('${you} must choose a player who will GAIN ${amount} elephants'),
+    'descriptionlose' => clienttranslate('${actplayer} must choose a player who will LOSE ${amount} elephants'),
+    'descriptionmyturnlose' => clienttranslate('${you} must choose a player who will LOSE ${amount} elephants'),
+    'type' => 'activeplayer',
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'possibleactions' => ['actRestart', 'actChoosePlayerGainLoseElephants'],
+  ],
+
   //////////////////////////////////////////////////////////////////
   //  _____           _    ___   __    ____
   // | ____|_ __   __| |  / _ \ / _|  / ___| __ _ _ __ ___   ___

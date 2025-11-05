@@ -4,6 +4,7 @@ namespace Bga\Games\Tembo\Managers;
 
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Helpers\CachedDB_Manager;
+use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Models\Player;
 use Bga\Games\Tembo\Game;
 
@@ -50,6 +51,15 @@ class Players extends CachedDB_Manager
     self::invalidate();
     Game::get()->reattributeColorsBasedOnPreferences($players, $colors);
     Game::get()->reloadPlayersBasicInfos();
+  }
+
+  public static function getAll(int $except = null): Collection
+  {
+    $players = parent::getAll();
+    if ($except) {
+      $players = $players->filter(fn($player) => $player->getId() !== $except);
+    }
+    return $players;
   }
 
   public static function getActiveId(): int

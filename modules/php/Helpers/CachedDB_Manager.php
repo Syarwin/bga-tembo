@@ -26,7 +26,7 @@ class CachedDB_Manager extends DB_Manager
     static::$datas = null;
   }
 
-  public static function getAll(): ?Collection
+  public static function getAll(int $except = null): ?Collection
   {
     self::invalidate();
     self::fetchIfNeeded();

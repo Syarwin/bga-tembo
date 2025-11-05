@@ -15,6 +15,7 @@ class Actions
 {
   static array $classes = [
     USE_CARD,
+    PLAYER_GAIN_LOSE_ELEPHANTS,
   ];
 
   public static function get(string $actionId, null|AbstractNode|array &$ctx = null): Action
@@ -62,7 +63,8 @@ class Actions
     array $args,
     AbstractNode &$ctx,
     bool $automatic = false
-  ): void {
+  ): void
+  {
     $player = Players::getActive();
     if (!self::isDoable($actionId, $ctx, $player)) {
       throw new \BgaUserException(self::getErrorMessage($actionId));

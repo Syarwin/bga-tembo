@@ -1081,6 +1081,33 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
       }
     },
 
+    changePageTitle(suffix = null, save = false) {
+      if (suffix == null) {
+        suffix = 'generic';
+      }
+
+      let state = this.gamedatas.gamestate;
+      if (state.private_state && this.isCurrentPlayerActive()) {
+        state = state.private_state;
+        if (!state['descriptionmyturn' + suffix]) return;
+        state.descriptionmyturn = state['descriptionmyturn' + suffix];
+        this.updatePageTitle();
+        return;
+      }
+
+      if (!this.gamedatas.gamestate['descriptionmyturn' + suffix] && this.isCurrentPlayerActive()) return;
+
+      if (save) {
+        this.gamedatas.gamestate.descriptionmyturngeneric = this.gamedatas.gamestate.descriptionmyturn;
+        this.gamedatas.gamestate.descriptiongeneric = this.gamedatas.gamestate.description;
+      }
+
+      this.gamedatas.gamestate.descriptionmyturn = this.gamedatas.gamestate['descriptionmyturn' + suffix];
+      if (this.gamedatas.gamestate['description' + suffix])
+        this.gamedatas.gamestate.description = this.gamedatas.gamestate['description' + suffix];
+      this.updatePageTitle();
+    },
+
     // Generic call for Atomic Action that encode args as a JSON to be decoded by backend
     takeAtomicAction(action, args, warning = false, checkAction = true) {
       if (checkAction && !this.checkAction(action)) return false;

@@ -74,6 +74,7 @@ const CARDS = [
       SPACE_NORMAL,
       SPACE_TREE_BROWN,
       SPACE_TREE_BROWN,
+      SPACE_NORMAL,
     ]
   ],
   4 => [

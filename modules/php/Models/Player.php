@@ -72,17 +72,14 @@ class Player extends DB_Model
 
   public function gainElephants(int $amount = 1, bool $silent = false): void
   {
-    $gained = Meeples::gainElephants($this->id, $amount);
-    if (!$silent) {
-      Notifications::elephantsGained($this, $gained);
+    $isGain = $amount > 0;
+    if ($isGain) {
+      $elephants = Meeples::gainElephants($this->id, $amount);
+    } else {
+      $elephants = Meeples::loseElephants($this->id, $amount);
     }
-  }
-
-  public function loseElephants(int $amount = 1, bool $silent = false): void
-  {
-    $lost = Meeples::loseElephants($this->id, $amount);
     if (!$silent) {
-      Notifications::elephantsLost($this, $lost);
+      $isGain ? Notifications::elephantsGained($this, $elephants) : Notifications::elephantsLost($this, $elephants);
     }
   }
 
@@ -90,6 +87,9 @@ class Player extends DB_Model
   {
     $handAmount = $this->getHand()->count();
     $cards = Cards::pickForLocation(3 - $handAmount, LOCATION_DECK, [LOCATION_HAND, $this->id]);
+    if ($cards->count() < 3 - $handAmount) {
+      // TODO: This is the end of deck thus end of game
+    }
     Notifications::cardsDrawn($this, $cards->toArray());
   }
 

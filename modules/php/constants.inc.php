@@ -15,6 +15,7 @@ const ST_SITTING_AROUND_TABLE = 12;
 const ST_TURN_BOARD_TILE = 13;
 
 const ST_USE_CARD = 20;
+const ST_PLAYER_GAIN_LOSE_ELEPHANTS = 21;
 
 const ST_RESOLVE_STACK = 90;
 const ST_RESOLVE_CHOICE = 91;
@@ -46,6 +47,7 @@ const PASS = 99;
  */
 
 const USE_CARD = 'UseCard';
+const PLAYER_GAIN_LOSE_ELEPHANTS = 'PlayerGainLoseElephants';
 
 /*
  * Board tiles
