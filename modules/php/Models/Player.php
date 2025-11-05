@@ -86,6 +86,13 @@ class Player extends DB_Model
     }
   }
 
+  public function replenishCardsFromDeck(): void
+  {
+    $handAmount = $this->getHand()->count();
+    $cards = Cards::pickForLocation(3 - $handAmount, LOCATION_DECK, [LOCATION_HAND, $this->id]);
+    Notifications::cardsDrawn($this, $cards->toArray());
+  }
+
   public function getUiData(): array
   {
     $data = parent::getUiData();

@@ -123,7 +123,7 @@ class CachedPieces extends DB_Manager
    * Check that the location only contains alphanum and underscore character
    *  -> if the location is an array, implode it using underscores
    */
-  final static function checkLocation(string &$location, bool $like = false): void
+  final static function checkLocation(string|array &$location, bool $like = false): void
   {
     if (is_null($location)) {
       throw new \BgaVisibleSystemException('Class Pieces: location cannot be null');
@@ -376,8 +376,8 @@ class CachedPieces extends DB_Manager
    */
   public static function pickForLocation(
     int $nbr,
-    string $fromLocation,
-    string $toLocation,
+    string|array $fromLocation,
+    string|array $toLocation,
     int $state = 0,
     bool $deckReform = true
   ): Collection

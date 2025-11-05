@@ -58,6 +58,7 @@ trait TurnTrait
    */
   function stEndOfTurn()
   {
+    Players::getActive()->replenishCardsFromDeck();
     $this->nextPlayerCustomOrder('action');
   }
 }

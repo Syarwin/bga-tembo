@@ -137,7 +137,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
             _('Restart turn'),
             () => {
               this.stopActionTimer();
-              this.takeAction('actRestart');
+              this.bgaPerformAction('actRestart');
             },
             'restartAction'
           );
@@ -947,7 +947,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
     undoToStep(stepId) {
       this.stopActionTimer();
       this.checkAction('actRestart');
-      this.takeAction('actUndoToStep', { stepId }, false);
+      this.bgaPerformAction('actUndoToStep', { stepId }, false);
     },
 
     notif_clearTurn(n) {

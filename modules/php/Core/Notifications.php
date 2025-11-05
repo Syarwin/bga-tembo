@@ -177,6 +177,14 @@ class Notifications
     ]);
   }
 
+  public static function cardsDrawn(Player $player, array $cards)
+  {
+    self::notifyAll('cardsDrawn', '', [
+      'player' => $player,
+      'cards' => $cards,
+    ]);
+  }
+
   ///////////////////////////////////////////////////////////////
   //  _   _           _       _            _
   // | | | |_ __   __| | __ _| |_ ___     / \   _ __ __ _ ___
