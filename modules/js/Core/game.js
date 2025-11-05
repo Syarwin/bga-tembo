@@ -1033,7 +1033,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
     addConfirmTurn(args, action) {
       this.addPrimaryActionButton('btnConfirmTurn', _('Confirm'), () => {
         this.stopActionTimer();
-        this.takeAction(action);
+        this.bgaPerformAction(action);
       });
 
       const OPTION_CONFIRM = 103;

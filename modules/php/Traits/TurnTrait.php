@@ -2,16 +2,21 @@
 
 namespace Bga\Games\Tembo\Traits;
 
-use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Engine;
-use Bga\Games\Tembo\Core\Stats;
 use Bga\Games\Tembo\Managers\Players;
+use Bga\Games\Tembo\Models\Player;
 
 trait TurnTrait
 {
   function stBeforeStartOfGame()
   {
     $this->initCustomDefaultTurnOrder('action', ST_TURN_ACTION, 0, true);
+    /** @var Player $player */
+    foreach (Players::getAll() as $player) {
+      if ($player->getRotation() === -1) {
+        $player->setRotation(bga_rand(0, 3));
+      }
+    }
   }
 
   /**

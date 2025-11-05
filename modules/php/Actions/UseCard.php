@@ -32,7 +32,7 @@ class UseCard extends Action
   {
     $activePlayer = Players::getActive();
     $args = $this->getArgs();
-    $squaresWithCoords = array_filter($args['squares'], fn($square) => $square['x'] === $x && $square['y'] === $y);
+    $squaresWithCoords = array_values(array_filter($args['squares'], fn($square) => $square['x'] === $x && $square['y'] === $y));
     if (empty($squaresWithCoords)) {
       throw new \BgaVisibleSystemException("actPlaceCard: Incorrect coords x: $x, y: $y");
     }

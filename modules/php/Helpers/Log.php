@@ -252,8 +252,8 @@ class Log extends \APP_DbObject
       $minMoveId = 1;
     } else {
       $moveIds = [];
-      foreach (self::getUndoableSteps('all', false) as $step) {
-        $moveIds[] = (int) $step['move_id'];
+      foreach (self::getUndoableSteps('all') as $step) {
+        $moveIds[] = $step;
       }
       if (empty($moveIds)) {
         return;
