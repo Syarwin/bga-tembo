@@ -3,6 +3,7 @@
 namespace Bga\Games\Tembo\Actions;
 
 use Bga\Games\Tembo\Core\Engine;
+use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Meeples;
@@ -84,5 +85,47 @@ class UseCard extends Action
     $activePlayer = Players::getActive();
     $elephants = Meeples::placeElephantsOnBoard($activePlayer->getId(), $pattern);
     Notifications::elephantsPlaced($activePlayer, $elephants);
+    $this->verifySpacesBonuses($activePlayer, $pattern);
+  }
+
+  private function verifySpacesBonuses(Player $player, array $pattern)
+  {
+    $board = new Board();
+    $pattern = $board->injectSpacesTypes($pattern);
+    $this->verifyOasis($player, $pattern);
+    $this->verifyTrees($player, $pattern, $board);
+  }
+
+  private function verifyOasis(Player $player, array $pattern): void
+  {
+    $cellsWithOasis = array_filter($pattern, fn($cell) => $cell['type'] === SPACE_OASIS);
+    if (!empty($cellsWithOasis)) {
+      $msg = clienttranslate('${player_name} covers a water spaces and gains 3 elephants');
+      $player->gainElephants(3, $msg);
+    }
+  }
+
+  private function verifyTrees(Player $player, array $pattern, Board $board): void
+  {
+    $allTreesTypes = [SPACE_TREE_GREEN, SPACE_TREE_RED, SPACE_TREE_BROWN, SPACE_TREE_TEAL];
+    $cellsWithTrees = array_filter($pattern, fn($cell) => in_array($cell['type'], $allTreesTypes));
+    if (!empty($cellsWithTrees)) {
+      $processedCells = [];
+      foreach ($cellsWithTrees as $cell) {
+        $correspondingCell = $board->getCorrespondingTreeSpace($cell);
+        if (!in_array($correspondingCell, $processedCells)) {
+          $successful = Meeples::layTree($cell['type']);
+          if ($successful) {
+            $energyAmount = $cell['type'] === SPACE_TREE_GREEN ? 2 : 1;
+            // TODO: Add limit of 12 to energy
+            Globals::incEnergy($energyAmount);
+            Notifications::treesEaten($player, $cell['type'], $energyAmount);
+          } else {
+            Notifications::treesEaten($player, $cell['type'], 0);
+          }
+        }
+        $processedCells[] = ['x' => $cell['x'], 'y' => $cell['y']];
+      }
+    }
   }
 }

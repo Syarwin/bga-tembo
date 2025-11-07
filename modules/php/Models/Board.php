@@ -263,4 +263,28 @@ class Board
     }
     return $patterns;
   }
+
+  public function injectSpacesTypes(array $pattern)
+  {
+    return array_map(fn($cell) => [...$cell, 'type' => $this->cells[$cell['x']][$cell['y']]], $pattern);
+  }
+
+  public function getCorrespondingTreeSpace(array $cell): array
+  {
+    $x = $cell['x'];
+    $y = $cell['y'];
+    // First find the square this cell belongs to
+    $squareCoords = ['x' => $x - $x % 3, 'y' => $y - $y % 3];
+    foreach (DIRECTIONS as $direction) {
+      $dx = $x + $direction['x'];
+      $dy = $y + $direction['y'];
+      // The tree space should be inside this square
+      if ($dx >= $squareCoords['x'] && $dx < $squareCoords['x'] + 3 && $dy >= $squareCoords['y'] && $dy < $squareCoords['y'] + 3) {
+        if ($this->cells[$dx][$dy] === $cell['type']) {
+          return ['x' => $dx, 'y' => $dy];
+        }
+      }
+    }
+    throw new \BgaVisibleSystemException("Cannot find a corresponding tree to cell x: $x, y: $y");
+  }
 }

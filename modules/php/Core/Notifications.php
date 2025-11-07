@@ -151,18 +151,24 @@ class Notifications
     ]);
   }
 
-  public static function elephantsGained(Player $player, array $gained)
+  public static function elephantsGained(Player $player, array $gained, string $msg = null)
   {
-    self::notifyAll('elephantsGained', clienttranslate('${player_name} gains ${gainedAmount} elephants'), [
+    if (is_null($msg)) {
+      $msg = clienttranslate('${player_name} gains ${gainedAmount} elephants');
+    }
+    self::notifyAll('elephantsGained', $msg, [
       'player' => $player,
       'gained' => $gained,
       'gainedAmount' => count($gained),
     ]);
   }
 
-  public static function elephantsLost(Player $player, array $lost)
+  public static function elephantsLost(Player $player, array $lost, string $msg = null)
   {
-    self::notifyAll('elephantsLost', clienttranslate('${player_name} loses ${lostAmount} elephants'), [
+    if (is_null($msg)) {
+      $msg = clienttranslate('${player_name} loses ${lostAmount} elephants');
+    }
+    self::notifyAll('elephantsLost', $msg, [
       'player' => $player,
       'lost' => $lost,
       'lostAmount' => count($lost),
@@ -192,6 +198,27 @@ class Notifications
       'player' => $player,
       'elephants' => $elephants,
       'amount' => count($elephants),
+    ]);
+  }
+
+  public static function treesEaten(Player $player, int $color, int $energyAmount)
+  {
+    $colorName = [
+      SPACE_TREE_GREEN => clienttranslate('green'),
+      SPACE_TREE_RED => clienttranslate('red'),
+      SPACE_TREE_BROWN => clienttranslate('brown'),
+      SPACE_TREE_TEAL => clienttranslate('teal'),
+    ][$color];
+    if ($energyAmount === 0) {
+      $msg = clienttranslate('Elephants placed by ${player_name} eat ${color} trees but the matching color standee is already laying on its side, nothing happened');
+    } else {
+      $msg = clienttranslate('Elephants placed by ${player_name} eat ${color} trees and gain ${amount} energy');
+    }
+    self::notifyAll('elephantsPlaced', $msg, [
+      'player' => $player,
+      'color' => $colorName,
+      'amount' => $energyAmount,
+      'i18n' => ['color'],
     ]);
   }
 

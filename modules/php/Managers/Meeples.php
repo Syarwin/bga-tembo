@@ -40,6 +40,26 @@ class Meeples extends CachedPieces
       ->where('y', $hex['y']);
   }
 
+  public static function layTree(int $spaceType): bool
+  {
+    $treeType = [
+      SPACE_TREE_GREEN => TREE_GREEN,
+      SPACE_TREE_RED => TREE_RED,
+      SPACE_TREE_BROWN => TREE_BROWN,
+      SPACE_TREE_TEAL => TREE_TEAL,
+    ][$spaceType];
+    $requiredTree = static::getTrees()->filter(fn($tree) => $tree->getType() === $treeType)->first();
+    if (is_null($requiredTree)) {
+      throw new \BgaVisibleSystemException('No tree of type ' . $treeType . ' available');
+    }
+    if ($requiredTree->getState() === STATE_STANDING) {
+      $requiredTree->setState(STATE_LAYING);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // public static function getUnitsOnCell($hex)
   // {
   //   return self::getOnCell($hex)->where('type', [WORKER, MECH, CHARACTER]);
@@ -129,7 +149,7 @@ class Meeples extends CachedPieces
 
     $meeples = self::create($meeples, LOCATION_TABLE);
     foreach ($allPlayers as $player) {
-      $player->gainElephants(3, true);
+      $player->gainElephants(3, '');
     }
     return $meeples;
   }
@@ -159,9 +179,9 @@ class Meeples extends CachedPieces
     return self::getAll()->filter(fn($meeple) => in_array($meeple->getType(), [LION, LIONESS]))->toArray();
   }
 
-  public static function getTrees(): array
+  public static function getTrees(): Collection
   {
-    return self::getAll()->filter(fn($meeple) => in_array($meeple->getType(), ALL_TREES))->toArray();
+    return self::getAll()->filter(fn($meeple) => in_array($meeple->getType(), ALL_TREES));
   }
 
   public static function getLandmarks(): array

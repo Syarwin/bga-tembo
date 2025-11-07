@@ -70,7 +70,7 @@ class Player extends DB_Model
     return $this->zombie;
   }
 
-  public function gainElephants(int $amount = 1, bool $silent = false): void
+  public function gainElephants(int $amount = 1, string $msg = null): void
   {
     $isGain = $amount > 0;
     if ($isGain) {
@@ -78,9 +78,7 @@ class Player extends DB_Model
     } else {
       $elephants = Meeples::loseElephants($this->id, $amount);
     }
-    if (!$silent) {
-      $isGain ? Notifications::elephantsGained($this, $elephants) : Notifications::elephantsLost($this, $elephants);
-    }
+    $isGain ? Notifications::elephantsGained($this, $elephants, $msg) : Notifications::elephantsLost($this, $elephants, $msg);
   }
 
   public function replenishCardsFromDeck(): void
