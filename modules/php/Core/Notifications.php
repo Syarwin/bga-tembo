@@ -187,9 +187,11 @@ class Notifications
 
   public static function elephantsPlaced(Player $player, array $elephants)
   {
-    self::notifyAll('elephantsPlaced', '', [
+    $msg = clienttranslate('${player_name} places ${amount} elephants on the board');
+    self::notifyAll('elephantsPlaced', $msg, [
       'player' => $player,
       'elephants' => $elephants,
+      'amount' => count($elephants),
     ]);
   }
 
