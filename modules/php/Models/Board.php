@@ -234,16 +234,23 @@ class Board
     $adjacentSpaces = $this->getAllPossibleCoordsSingle(true);
     /** @var Card $card */
     foreach ($hand as $card) {
-      $patterns[$card->getId()] = [];
       $patternInfo = $card->getPattern();
+      $rotations = [$rotation];
+      if ($patternInfo['canBeRotated']) {
+        $rotations = [0, 1, 2, 3];
+      }
       // TODO: Find max width and height
       for ($x = 0; $x < 30; $x++) {
         for ($y = 0; $y < 30; $y++) {
-          // TODO: Support rotatable shapes
-          if ($this->canFitShape($patternInfo['shape'], $x, $y, $rotation, $nElephantsAvailable, $patternInfo['ignoreRough'])) {
-            $cellsForThisShape = $this->getCellsForShape($patternInfo['shape'], $x, $y, $rotation);
-            if (Utils::someCellsIntersect($cellsForThisShape, $adjacentSpaces)) {
-              $patterns[$card->getId()] = array_merge($patterns[$card->getId()], [$cellsForThisShape]);
+          foreach ($rotations as $rotation) {
+            if ($this->canFitShape($patternInfo['shape'], $x, $y, $rotation, $nElephantsAvailable, $patternInfo['ignoreRough'])) {
+              $cellsForThisShape = $this->getCellsForShape($patternInfo['shape'], $x, $y, $rotation);
+              if (Utils::someCellsIntersect($cellsForThisShape, $adjacentSpaces)) {
+                if (!isset($patterns[$card->getId()])) {
+                  $patterns[$card->getId()] = [];
+                }
+                $patterns[$card->getId()] = array_merge($patterns[$card->getId()], [$cellsForThisShape]);
+              }
             }
           }
         }
