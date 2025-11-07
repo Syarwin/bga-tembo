@@ -19,7 +19,7 @@ class UseCard extends Action
 
   public function argsUseCard()
   {
-    $player = Players::getCurrent();
+    $player = Players::getActive(); // TODO: This should be current, not active. But this leads to a table not able to start
     $hand = $player->getHand();
     $board = new Board();
 
