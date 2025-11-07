@@ -231,11 +231,13 @@ class Meeples extends CachedPieces
     shuffle($elephantsOfPlayer);
     $elephants = [];
     foreach ($coords as $coord) {
-      $elephant = array_shift($elephantsOfPlayer);
-      $elephant->setX($coord['x']);
-      $elephant->setY($coord['y']);
-      $elephant->setLocation(LOCATION_BOARD);
-      $elephants[] = $elephant;
+      for ($i = 0; $i < $coord['amount']; $i++) {
+        $elephant = array_shift($elephantsOfPlayer);
+        $elephant->setX($coord['x']);
+        $elephant->setY($coord['y']);
+        $elephant->setLocation(LOCATION_BOARD);
+        $elephants[] = $elephant;
+      }
     }
     return $elephants;
   }

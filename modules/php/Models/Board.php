@@ -249,6 +249,11 @@ class Board
                 if (!isset($patterns[$card->getId()])) {
                   $patterns[$card->getId()] = [];
                 }
+                // Inject amount of elephants needed for each cell
+                $cellsForThisShape = array_map(function ($cell) {
+                  $cellType = $this->cells[$cell['x']][$cell['y']];
+                  return [...$cell, 'amount' => $cellType === SPACE_ROUGH ? 2 : 1];
+                }, $cellsForThisShape);
                 $patterns[$card->getId()] = array_merge($patterns[$card->getId()], [$cellsForThisShape]);
               }
             }

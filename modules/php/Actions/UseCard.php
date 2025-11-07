@@ -5,6 +5,7 @@ namespace Bga\Games\Tembo\Actions;
 use Bga\Games\Tembo\Core\Engine;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Managers\Cards;
+use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Action;
 use Bga\Games\Tembo\Models\Board;
@@ -68,5 +69,20 @@ class UseCard extends Action
 
     Cards::placeOnBoard($cardId, $x, $y, $activePlayer->getRotation());
     Notifications::cardPlacedOnBoard($activePlayer, Cards::get($cardId));
+  }
+
+  public function actPlaceElephants(int $cardId, int $patternIndex)
+  {
+    $patterns = $this->getArgs()['patterns'];
+    if (!isset($patterns[$cardId])) {
+      throw new \BgaVisibleSystemException("actPlaceElephants: Cannot find patterns for card $cardId");
+    }
+    if (!isset($patterns[$cardId][$patternIndex])) {
+      throw new \BgaVisibleSystemException("actPlaceElephants: Incorrect pattern index $patternIndex");
+    }
+    $pattern = $patterns[$cardId][$patternIndex];
+    $activePlayer = Players::getActive();
+    $elephants = Meeples::placeElephantsOnBoard($activePlayer->getId(), $pattern);
+    Notifications::elephantsPlaced($activePlayer, $elephants);
   }
 }

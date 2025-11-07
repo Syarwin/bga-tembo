@@ -205,7 +205,7 @@ $machinestates = [
     'type' => 'activeplayer',
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
-    'possibleactions' => ['actRestart', 'actPlaceCard'],
+    'possibleactions' => ['actRestart', 'actPlaceCard', 'actPlaceElephants'],
   ],
 
   ST_PLAYER_GAIN_LOSE_ELEPHANTS => [

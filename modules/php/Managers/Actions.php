@@ -7,7 +7,6 @@ use Bga\Games\Tembo\Core\Engine;
 use Bga\Games\Tembo\Core\Engine\AbstractNode;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Helpers\Log;
-use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Action;
 use Bga\Games\Tembo\Models\Player;
 
@@ -103,7 +102,7 @@ class Actions
     $player = Players::getActive();
     if (!self::isDoable($actionId, $ctx, $player)) {
       if (!$ctx->isOptional()) {
-        if (self::isDoable($actionId, $ctx, $player, true)) {
+        if (self::isDoable($actionId, $ctx, $player)) {
           Game::get()->gamestate->jumpToState(ST_IMPOSSIBLE_MANDATORY_ACTION);
           return false;
         } else {
