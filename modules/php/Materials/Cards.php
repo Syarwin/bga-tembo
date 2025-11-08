@@ -118,9 +118,9 @@ const CARDS = [
   6 => [
     'deck' => CARD_DECK_STARTING,
     'pattern' => [
-      'shape' => SHAPE_DASH_HOR,
+      'shape' => SHAPE_LONG_DASH_VERT,
       'canBeRotated' => false,
-      'ignoreRough' => true,
+      'ignoreRough' => false,
     ],
     'spaces' => [
       SPACE_ROUGH,

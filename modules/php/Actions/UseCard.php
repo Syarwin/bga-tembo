@@ -114,7 +114,7 @@ class UseCard extends Action
       $processedCells = [];
       foreach ($cellsWithTrees as $cell) {
         $correspondingCell = $board->getCorrespondingTreeSpace($cell);
-        if (!in_array($correspondingCell, $processedCells)) {
+        if (!in_array($correspondingCell, $processedCells) && !Meeples::getOnCell($correspondingCell)->empty()) {
           $successful = Meeples::layTree($cell['type']);
           if ($successful) {
             $energyAmount = $cell['type'] === SPACE_TREE_GREEN ? 2 : 1;
