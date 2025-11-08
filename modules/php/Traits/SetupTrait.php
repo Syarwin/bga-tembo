@@ -6,6 +6,7 @@ use Bga\GameFramework\Actions\CheckAction;
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Managers\Cards;
+use Bga\Games\Tembo\Managers\Energy;
 use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Board;
@@ -77,9 +78,7 @@ trait SetupTrait
     $board[$index] = $tileToRotate;
     Globals::setBoard($board);
     Notifications::boardTileRotated($id, $rotation);
-    $energy = Globals::getEnergy() - 2;
-    Globals::setEnergy($energy);
-    Notifications::energyDecreased($energy, 2);
+    Energy::decrease(2);
     foreach (Players::getAll() as $player) {
       $this->gamestate->setPlayerNonMultiactive($player->getId(), '');
     }

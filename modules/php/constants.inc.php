@@ -193,6 +193,7 @@ const STATE_STANDING = 1;
 const STATE_TIRED = 0;
 const STATE_RESTED = 1;
 
+const MAX_ENERGY = 12;
 
 /******************
  ****** STATS ******

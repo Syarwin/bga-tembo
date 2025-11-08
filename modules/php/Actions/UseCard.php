@@ -3,9 +3,9 @@
 namespace Bga\Games\Tembo\Actions;
 
 use Bga\Games\Tembo\Core\Engine;
-use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Managers\Cards;
+use Bga\Games\Tembo\Managers\Energy;
 use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Action;
@@ -118,8 +118,7 @@ class UseCard extends Action
           $successful = Meeples::layTree($cell['type']);
           if ($successful) {
             $energyAmount = $cell['type'] === SPACE_TREE_GREEN ? 2 : 1;
-            // TODO: Add limit of 12 to energy
-            Globals::incEnergy($energyAmount);
+            Energy::increase($energyAmount);
             Notifications::treesEaten($player, $cell['type'], $energyAmount);
           } else {
             Notifications::treesEaten($player, $cell['type'], 0);
