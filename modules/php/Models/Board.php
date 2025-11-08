@@ -212,7 +212,7 @@ class Board
     foreach (Meeples::getElephantsOnBoard() as $elephant) {
       foreach ($this->getAdjacentCoordsSingle($elephant->getX(), $elephant->getY(), $ignoreRough) as $coords) {
         if (!in_array($coords, $allCoords)) {
-          $allCoords[] = $coords;
+          $allCoords[] = [...$coords, 'amount' => 1];
         }
       }
     }

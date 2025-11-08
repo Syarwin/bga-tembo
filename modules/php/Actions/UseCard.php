@@ -29,7 +29,8 @@ class UseCard extends Action
       'cardIds' => $hand->getIds(),
       'patterns' => $board->getAllPossiblePatterns($hand, $player->getRotation(), $player->getRestedElephantsAmount()),
       'squares' => $board->getEmptySquares(),
-      'rotation' => $player->getRotation()
+      'rotation' => $player->getRotation(),
+      'singleSpaces' => $board->getAllPossibleCoordsSingle(),
     ];
   }
 
@@ -84,11 +85,28 @@ class UseCard extends Action
     $pattern = $patterns[$cardId][$patternIndex];
     $activePlayer = Players::getActive();
     $elephants = Meeples::placeElephantsOnBoard($activePlayer->getId(), $pattern);
-    Notifications::elephantsPlaced($activePlayer, $elephants);
+    Notifications::elephantsPlaced($activePlayer, $elephants, $cardId);
+    Cards::move($cardId, LOCATION_DISCARD);
     $this->verifySpacesBonuses($activePlayer, $pattern);
   }
 
-  private function verifySpacesBonuses(Player $player, array $pattern)
+  public function actPlaceSingleElephant(int $x, int $y, ?int $cardId = null): void
+  {
+    $player = Players::getActive();
+    $args = $this->getArgs();
+    $coords = ['x' => $x, 'y' => $y, 'amount' => 1];
+    if (!in_array($coords, $args['singleSpaces'])) {
+      throw new \BgaVisibleSystemException("actPlaceSingleElephant: Incorrect coords x: {$x}, y: {$y}");
+    }
+    $elephants = Meeples::placeElephantsOnBoard($player->getId(), [$coords]);
+    if (!is_null($cardId)) {
+      Cards::move($cardId, LOCATION_DISCARD);
+    }
+    Notifications::elephantsPlaced($player, $elephants, $cardId);
+    $this->verifySpacesBonuses($player, [$coords]);
+  }
+
+  public function verifySpacesBonuses(Player $player, array $pattern)
   {
     $board = new Board();
     $pattern = $board->injectSpacesTypes($pattern);

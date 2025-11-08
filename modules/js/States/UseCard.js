@@ -6,7 +6,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       args.cardIds.forEach((cardId) => {
         this.onClick(`savanna-card-${cardId}`, () => {
           args.cardId = cardId;
-          if (args.patterns[cardId] !== undefined) {
+          if (args.patterns[cardId] !== undefined || args.singleSpaces.length > 0) {
             this.clientState('useCardChooseOption', _('How do you want to use that card?'), args);
           } else {
             this.moveToPlaceCardState(args);
@@ -31,9 +31,16 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.addPrimaryActionButton('btnPlaceCard' , 'Build the savanna', () => {
         this.moveToPlaceCardState(args);
       });
-      this.addPrimaryActionButton('btnPlaceElephants' , 'Place elephants', () => {
-        this.clientState('placeElephants', _('Select where to place elephants on the board'), args);
-      });
+      if (args.patterns[args.cardId] !== undefined) {
+        this.addPrimaryActionButton('btnPlaceElephants', 'Place elephants', () => {
+          this.clientState('placeElephants', _('Select where to place elephants on the board'), args);
+        });
+      }
+      if (args.singleSpaces.length > 0) {
+        this.addPrimaryActionButton('btnPlaceSingleElephant' , 'Place a single elephant', () => {
+          this.clientState('placeSingleElephant', _('Select where to place an elephant on the board'), args);
+        });
+      }
       this.addCancelStateBtn();
     },
 
@@ -46,6 +53,16 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       $(`savanna-card-${args.cardId}`).classList.add('selected');
       this.addPrimaryActionButton('btnPlaceElephants' , 'Use first available option', () => {
         this.takeAtomicAction('actPlaceElephants', { cardId: args.cardId, patternIndex: 0 });
+      });
+      this.addCancelStateBtn();
+    },
+
+    onEnteringStatePlaceSingleElephant(args) {
+      // TODO: Feel free to refactor this as well
+      args.singleSpaces.forEach((cell) => {
+        this.onClick(`cell-${cell.x}-${cell.y}`, () => {
+          this.takeAtomicAction('actPlaceSingleElephant', { 'x': cell.x, 'y': cell.y , cardId: args.cardId });
+        });
       });
       this.addCancelStateBtn();
     },

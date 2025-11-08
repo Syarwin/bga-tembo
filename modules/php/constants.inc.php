@@ -186,6 +186,7 @@ const LOCATION_RESERVE = 'reserve';
 const LOCATION_DECK = 'deck';
 const LOCATION_BOARD = 'board';
 const LOCATION_BOARD_START = 'board-start';
+const LOCATION_DISCARD = 'discard';
 const INFINITY = 1000;
 
 const STATE_LAYING = 0;
