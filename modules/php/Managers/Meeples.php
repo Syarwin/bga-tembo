@@ -48,12 +48,31 @@ class Meeples extends CachedPieces
       SPACE_TREE_BROWN => TREE_BROWN,
       SPACE_TREE_TEAL => TREE_TEAL,
     ][$spaceType];
-    $requiredTree = static::getTrees()->filter(fn($tree) => $tree->getType() === $treeType)->first();
-    if (is_null($requiredTree)) {
-      throw new \BgaVisibleSystemException('No tree of type ' . $treeType . ' available');
+    return static::layMeeple($treeType);
+  }
+
+  public static function layLandmark(int $caredRefType): string
+  {
+    $landmarkType = [
+      CARD_REF_SINGLE_SNOW => LANDMARK_SNOW,
+      CARD_REF_DIAGONAL_MEADOW => LANDMARK_MEADOW,
+      CARD_REF_L_SHAPED_RIVER => LANDMARK_RIVER,
+      CARD_REF_V_ROCKS => LANDMARK_ROCKS,
+      CARD_REF_DIAGONAL_CANYON => LANDMARK_CANYON,
+      CARD_REF_CORNER_WATERFALL => LANDMARK_WATERFALL,
+    ][$caredRefType];
+    static::layMeeple($landmarkType);
+    return $landmarkType;
+  }
+
+  private static function layMeeple(string $type): bool
+  {
+    $requiredMeeple = static::getAll()->filter(fn($meeple) => $meeple->getType() === $type)->first();
+    if (is_null($requiredMeeple)) {
+      throw new \BgaVisibleSystemException('No landmark/tree of type ' . $type . ' available');
     }
-    if ($requiredTree->getState() === STATE_STANDING) {
-      $requiredTree->setState(STATE_LAYING);
+    if ($requiredMeeple->getState() === STATE_STANDING) {
+      $requiredMeeple->setState(STATE_LAYING);
       return true;
     } else {
       return false;

@@ -94,6 +94,7 @@ class UseCard extends Action
     $pattern = $board->injectSpacesTypes($pattern);
     $this->verifyOasis($player, $pattern);
     $this->verifyTrees($player, $pattern, $board);
+    $this->verifyLandmarks($pattern, $board);
   }
 
   private function verifyOasis(Player $player, array $pattern): void
@@ -125,6 +126,32 @@ class UseCard extends Action
           }
         }
         $processedCells[] = ['x' => $cell['x'], 'y' => $cell['y']];
+      }
+    }
+  }
+
+  private function verifyLandmarks(array $pattern, Board $board)
+  {
+    $cellsWithLandmarks = array_filter($pattern, fn($cell) => $cell['type'] === SPACE_LANDMARK);
+    if (!empty($cellsWithLandmarks)) {
+      $processedLandmarks = [];
+      foreach ($cellsWithLandmarks as $cell) {
+        $landmark = $board->getLandmarkByCell($cell);
+        if (!in_array($landmark, $processedLandmarks)) {
+          $correspondingCells = $board->getCorrespondingLandmarkSpaces($cell);
+          $landmarkFilled = true;
+          foreach ($correspondingCells as $correspondingCell) {
+            if (Meeples::getOnCell($correspondingCell)->empty()) {
+              $landmarkFilled = false;
+              break;
+            }
+          }
+          if ($landmarkFilled) {
+            $landmarkType = Meeples::layLandmark($landmark);
+            Notifications::landmarkVisited($landmarkType);
+          }
+          $processedLandmarks[] = $landmark;
+        }
       }
     }
   }

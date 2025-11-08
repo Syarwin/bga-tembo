@@ -22,6 +22,15 @@ const DIRECTIONS = [
   ['x' => 1, 'y' => 1],
 ];
 
+const LANDMARK_SPACES = [
+  CARD_REF_SINGLE_SNOW => 1,
+  CARD_REF_DIAGONAL_MEADOW => 2,
+  CARD_REF_L_SHAPED_RIVER => 4,
+  CARD_REF_V_ROCKS => 3,
+  CARD_REF_DIAGONAL_CANYON => 3,
+  CARD_REF_CORNER_WATERFALL => 3,
+];
+
 class Board
 {
   protected array $board = [];
@@ -286,5 +295,37 @@ class Board
       }
     }
     throw new \BgaVisibleSystemException("Cannot find a corresponding tree to cell x: $x, y: $y");
+  }
+
+  public function getCorrespondingLandmarkSpaces(array $cell): array
+  {
+    $landmarkCells = [];
+    $cellX = $cell['x'];
+    $cellY = $cell['y'];
+    $squareCoords = ['x' => $cellX - $cellX % 3, 'y' => $cellY - $cellY % 3];
+    $landmarkSpaces = LANDMARK_SPACES[$this->getLandmarkByCell($cell)];
+    if ($landmarkSpaces < 2) {
+      return [];
+    }
+    for ($x = $squareCoords['x']; $x < $squareCoords['x'] + 3; $x++) {
+      for ($y = $squareCoords['y']; $y < $squareCoords['y'] + 3; $y++) {
+        if ($this->cells[$x][$y] === SPACE_LANDMARK && !($x === $cellX && $y === $cellY)) {
+          $landmarkCells[] = ['x' => $x, 'y' => $y];
+        }
+      }
+    }
+    if (count($landmarkCells) < $landmarkSpaces - 1) {
+      throw new \BgaVisibleSystemException("Not enough landmark cells for landmark x: $cellX, y: $cellY");
+    }
+    return $landmarkCells;
+  }
+
+  public function getLandmarkByCell(array $cell): int
+  {
+    $x = $cell['x'];
+    $y = $cell['y'];
+    $squareCoords = ['x' => $x - $x % 3, 'y' => $y - $y % 3];
+    $square = array_filter($this->squares, fn($square) => $square['x'] === $squareCoords['x'] && $square['y'] === $squareCoords['y']);
+    return array_values($square)[0]['type'];
   }
 }

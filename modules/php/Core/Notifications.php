@@ -214,11 +214,29 @@ class Notifications
     } else {
       $msg = clienttranslate('Elephants placed by ${player_name} eat ${color} trees and gain ${amount} energy');
     }
-    self::notifyAll('elephantsPlaced', $msg, [
+    self::notifyAll('treesEaten', $msg, [
       'player' => $player,
       'color' => $colorName,
       'amount' => $energyAmount,
       'i18n' => ['color'],
+    ]);
+  }
+
+  public static function landmarkVisited(string $landMark)
+  {
+    $landMarkName = [
+      LANDMARK_SNOW => clienttranslate('Snow'),
+      LANDMARK_MEADOW => clienttranslate('Meadow'),
+      LANDMARK_RIVER => clienttranslate('River'),
+      LANDMARK_ROCKS => clienttranslate('Rocks'),
+      LANDMARK_CANYON => clienttranslate('Canyon'),
+      LANDMARK_WATERFALL => clienttranslate('Waterfall'),
+    ][$landMark];
+    $msg = clienttranslate('Elephants have just visited the ${landmarkName} landmark!');
+    self::notifyAll('landmarkVisited', $msg, [
+      'landmark' => $landMark,
+      'landmarkName' => $landMarkName,
+      'i18n' => ['landmarkName'],
     ]);
   }
 
