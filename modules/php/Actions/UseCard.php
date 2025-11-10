@@ -93,10 +93,14 @@ class UseCard extends Action
 
   public function actPlaceSingleElephant(int $x, int $y, ?int $cardId = null): void
   {
+    static::placeSingleElephant($x, $y, $this->getArgs(), $cardId);
+  }
+
+  public static function placeSingleElephant(int $x, int $y, array $args, ?int $cardId = null): void
+  {
     $player = Players::getActive();
-    $args = $this->getArgs();
     $coords = ['x' => $x, 'y' => $y, 'amount' => 1];
-    if (!in_array($coords, $args['singleSpaces'])) {
+    if (!in_array(['x' => $x, 'y' => $y], $args['singleSpaces'])) {
       throw new \BgaVisibleSystemException("actPlaceSingleElephant: Incorrect coords x: {$x}, y: {$y}");
     }
     $elephants = Meeples::placeElephantsOnBoard($player->getId(), [$coords]);
@@ -104,19 +108,19 @@ class UseCard extends Action
       Cards::move($cardId, LOCATION_DISCARD);
     }
     Notifications::elephantsPlaced($player, $elephants, $cardId);
-    $this->verifySpacesBonuses($player, [$coords]);
+    static::verifySpacesBonuses($player, [$coords]);
   }
 
-  public function verifySpacesBonuses(Player $player, array $pattern)
+  public static function verifySpacesBonuses(Player $player, array $pattern)
   {
     $board = new Board();
     $pattern = $board->injectSpacesTypes($pattern);
-    $this->verifyOasis($player, $pattern);
-    $this->verifyTrees($player, $pattern, $board);
-    $this->verifyLandmarks($pattern, $board);
+    static::verifyOasis($player, $pattern);
+    static::verifyTrees($player, $pattern, $board);
+    static::verifyLandmarks($pattern, $board);
   }
 
-  private function verifyOasis(Player $player, array $pattern): void
+  private static function verifyOasis(Player $player, array $pattern): void
   {
     $cellsWithOasis = array_filter($pattern, fn($cell) => $cell['type'] === SPACE_OASIS);
     if (!empty($cellsWithOasis)) {
@@ -125,7 +129,7 @@ class UseCard extends Action
     }
   }
 
-  private function verifyTrees(Player $player, array $pattern, Board $board): void
+  private static function verifyTrees(Player $player, array $pattern, Board $board): void
   {
     $allTreesTypes = [SPACE_TREE_GREEN, SPACE_TREE_RED, SPACE_TREE_BROWN, SPACE_TREE_TEAL];
     $cellsWithTrees = array_filter($pattern, fn($cell) => in_array($cell['type'], $allTreesTypes));
@@ -148,7 +152,7 @@ class UseCard extends Action
     }
   }
 
-  private function verifyLandmarks(array $pattern, Board $board)
+  private static function verifyLandmarks(array $pattern, Board $board)
   {
     $cellsWithLandmarks = array_filter($pattern, fn($cell) => $cell['type'] === SPACE_LANDMARK);
     if (!empty($cellsWithLandmarks)) {

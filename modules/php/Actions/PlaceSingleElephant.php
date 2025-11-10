@@ -35,14 +35,6 @@ class PlaceSingleElephant extends Action
 
   public function actPlaceSingleElephant(int $x, int $y)
   {
-    // TODO: Reuse the same method from UseCard.php
-    $player = Players::getActive();
-    $args = $this->getArgs();
-    $coords = ['x' => $x, 'y' => $y, 'amount' => 1];
-    if (!in_array($coords, $args['singleSpaces'])) {
-      throw new \BgaVisibleSystemException("actPlaceSingleElephant: Incorrect coords x: {$x}, y: {$y}");
-    }
-    $elephants = Meeples::placeElephantsOnBoard($player->getId(), [$coords]);
-    Notifications::elephantsPlaced($player, $elephants, null);
+    UseCard::placeSingleElephant($x, $y, $this->getArgs());
   }
 }
