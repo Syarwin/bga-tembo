@@ -8,6 +8,7 @@ use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Energy;
 use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
+use Bga\Games\Tembo\Managers\SupportTokens;
 use Bga\Games\Tembo\Models\Action;
 use Bga\Games\Tembo\Models\Board;
 use Bga\Games\Tembo\Models\Player;
@@ -136,7 +137,7 @@ class UseCard extends Action
           $successful = Meeples::layTree($cell['type']);
           if ($successful) {
             $energyAmount = $cell['type'] === SPACE_TREE_GREEN ? 2 : 1;
-            Energy::increase($energyAmount);
+            Energy::increase($energyAmount, '');
             Notifications::treesEaten($player, $cell['type'], $energyAmount);
           } else {
             Notifications::treesEaten($player, $cell['type'], 0);
@@ -171,5 +172,10 @@ class UseCard extends Action
         }
       }
     }
+  }
+
+  public function actUseSupportToken(int $option): void
+  {
+    SupportTokens::spend(Players::getActive(), $option);
   }
 }

@@ -24,6 +24,7 @@ class Globals extends DB_Manager
     'journey' => 'int',
     'board' => 'obj',
     'energy' => 'int',
+    'supportTokens' => 'int',
   ];
 
 

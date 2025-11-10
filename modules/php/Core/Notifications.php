@@ -143,11 +143,15 @@ class Notifications
     ]);
   }
 
-  public static function energyIncreased(int $energy, int $delta): void
+  public static function energyIncreased(int $energy, int $delta, string $msg = null, array $args = []): void
   {
-    self::notifyAll('energyChanged', clienttranslate('You gain ${delta} energy and now it is at ${energy}'), [
+    if (is_null($msg)) {
+      $msg = clienttranslate('You gain ${delta} energy and now it is at ${energy}');
+    }
+    self::notifyAll('energyChanged', $msg, [
       'energy' => $energy,
       'delta' => $delta,
+      ...$args,
     ]);
   }
 

@@ -194,6 +194,11 @@ const STATE_STANDING = 1;
 const STATE_TIRED = 0;
 const STATE_RESTED = 1;
 
+const SUPPORT_ENERGY = 0;
+const SUPPORT_ELEPHANTS = 1;
+const SUPPORT_ROTATE = 2;
+const SUPPORT_PLACE_ELEPHANT_IGNORE_TERRAIN = 3;
+
 const MAX_ENERGY = 12;
 
 /******************

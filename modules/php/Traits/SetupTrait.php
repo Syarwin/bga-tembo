@@ -9,6 +9,7 @@ use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Energy;
 use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
+use Bga\Games\Tembo\Managers\SupportTokens;
 use Bga\Games\Tembo\Models\Board;
 
 trait SetupTrait
@@ -24,6 +25,7 @@ trait SetupTrait
     $board = Board::setupNewGame($journey);
     Meeples::setupNewGame($journey, $board);
     Cards::setupNewGame($options);
+    SupportTokens::setupNewGame($options);
     // Stats::checkExistence();
 
     $this->activeNextPlayer();
