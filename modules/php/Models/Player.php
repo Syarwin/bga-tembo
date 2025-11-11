@@ -81,7 +81,7 @@ class Player extends DB_Model
     $isGain ? Notifications::elephantsGained($this, $elephants, $msg) : Notifications::elephantsLost($this, $elephants, $msg);
   }
 
-  public function replenishCardsFromDeck(): void
+  public function replenishCardsFromDeck(): bool
   {
     $handAmount = $this->getHand()->count();
     $cards = Cards::pickForLocation(3 - $handAmount, LOCATION_DECK, [LOCATION_HAND, $this->id]);
@@ -89,10 +89,8 @@ class Player extends DB_Model
       // TODO: This is the end of deck thus end of game
     }
     Notifications::cardsDrawn($this, $cards->toArray());
-    // TODO: Fix this
-    //    if ($this->getMatriarchCards()->count() >= 2) {
-    //      Engine::insertAsChild(['action' => PLAY_MATRIARCH]);
-    //    }
+
+    return $this->getMatriarchCards()->count() >= 2;
   }
 
   public function getUiData(): array

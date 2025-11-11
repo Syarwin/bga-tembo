@@ -58,7 +58,12 @@ trait TurnTrait
    */
   function stEndOfTurn()
   {
-    Players::getActive()->replenishCardsFromDeck();
-    $this->nextPlayerCustomOrder('action');
+    $mustPlayMatriarch = Players::getActive()->replenishCardsFromDeck();
+    if ($mustPlayMatriarch) {
+      Engine::setup(['action' => PLAY_MATRIARCH], ['method' => 'stEndOfTurn']);
+      Engine::proceed();
+    } else {
+      $this->nextPlayerCustomOrder('action');
+    }
   }
 }
