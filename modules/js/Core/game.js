@@ -1109,7 +1109,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
     },
 
     // Generic call for Atomic Action that encode args as a JSON to be decoded by backend
-    takeAtomicAction(action, args, warning = false, checkAction = true) {
+    takeAtomicAction(action, args = {}, warning = false, checkAction = true) {
       if (checkAction && !this.checkAction(action)) return false;
 
       this.askConfirmation(warning, () =>

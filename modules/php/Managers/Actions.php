@@ -16,6 +16,7 @@ class Actions
     USE_CARD,
     PLAYER_GAIN_LOSE_ELEPHANTS,
     PLACE_SINGLE_ELEPHANT,
+    PLAY_MATRIARCH,
   ];
 
   public static function get(string $actionId, null|AbstractNode|array &$ctx = null): Action

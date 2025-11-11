@@ -28,7 +28,7 @@ class PlayMatriarch extends Action
     ];
   }
 
-  public function actPlayMatriarchForced(int $x, int $y)
+  public function actPlayMatriarch(int $x, int $y)
   {
     PlaceSingleElephant::checkCoords($x, $y, $this->getArgs()['singleSpaces']);
     static::play($x, $y, Players::getActive());

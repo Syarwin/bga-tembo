@@ -71,10 +71,15 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           }
         });
       });
-      this.addCancelStateBtn();
+      if (!isMatriarch) {
+        this.addCancelStateBtn();
+      }
     },
 
     onEnteringStatePlayMatriarch(args) {
+      this.addPrimaryActionButton('btnNotMovingMatriarch', 'Do not move the Matriarch', () => {
+        this.takeAtomicAction('actLeaveMatriarch');
+      });
       this.onEnteringStatePlaceSingleElephant(args, true);
     }
   });

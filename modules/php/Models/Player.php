@@ -89,6 +89,10 @@ class Player extends DB_Model
       // TODO: This is the end of deck thus end of game
     }
     Notifications::cardsDrawn($this, $cards->toArray());
+    // TODO: Fix this
+//    if ($this->getMatriarchCards()->count() >= 2) {
+//      Engine::insertAsChild(['action' => PLAY_MATRIARCH]);
+//    }
   }
 
   public function getUiData(): array
