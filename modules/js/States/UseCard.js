@@ -13,6 +13,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           }
         });
       });
+
+      this.addPrimaryActionButton('btnTest', _('TEST: use token'), () => this.takeAtomicAction('actUseSupportToken', [0]));
     },
 
     onEnteringStatePlaceCard(args) {
@@ -28,7 +30,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     onEnteringStateUseCardChooseOption(args) {
       $(`savanna-card-${args.cardId}`).classList.add('selected');
-      this.addPrimaryActionButton('btnPlaceCard' , 'Build the savanna', () => {
+      this.addPrimaryActionButton('btnPlaceCard', 'Build the savanna', () => {
         this.moveToPlaceCardState(args);
       });
       if (args.patterns[args.cardId] !== undefined) {
@@ -37,10 +39,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         });
       }
       if (args.singleSpaces.length > 0) {
-        this.addPrimaryActionButton('btnPlaceSingleElephant' , 'Place a single elephant', () => {
+        this.addPrimaryActionButton('btnPlaceSingleElephant', 'Place a single elephant', () => {
           this.clientState('placeSingleElephant', _('Select where to place an elephant on the board'), args);
         });
-        this.addPrimaryActionButton('btnPlayMatriarch' , 'Play Matriarch', () => {
+        this.addPrimaryActionButton('btnPlayMatriarch', 'Play Matriarch', () => {
           this.clientState('playMatriarch', _('Select where to place the Matriarch'), args);
         });
       }
@@ -54,7 +56,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     onEnteringStatePlaceElephants(args) {
       // TODO: Delete everything and change to clicking on the board
       $(`savanna-card-${args.cardId}`).classList.add('selected');
-      this.addPrimaryActionButton('btnPlaceElephants' , 'Use first available option', () => {
+      this.addPrimaryActionButton('btnPlaceElephants', 'Use first available option', () => {
         this.takeAtomicAction('actPlaceElephants', { cardId: args.cardId, patternIndex: 0 });
       });
       this.addCancelStateBtn();
@@ -65,9 +67,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       args.singleSpaces.forEach((cell) => {
         this.onClick(`cell-${cell.x}-${cell.y}`, () => {
           if (isMatriarch) {
-            this.takeAtomicAction('actPlayMatriarch', { 'x': cell.x, 'y': cell.y });
+            this.takeAtomicAction('actPlayMatriarch', { x: cell.x, y: cell.y });
           } else {
-            this.takeAtomicAction('actPlaceSingleElephant', { 'x': cell.x, 'y': cell.y, cardId: args.cardId });
+            this.takeAtomicAction('actPlaceSingleElephant', { x: cell.x, y: cell.y, cardId: args.cardId });
           }
         });
       });
@@ -81,6 +83,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.takeAtomicAction('actLeaveMatriarch');
       });
       this.onEnteringStatePlaceSingleElephant(args, true);
-    }
+    },
   });
 });

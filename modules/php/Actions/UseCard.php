@@ -102,7 +102,9 @@ class UseCard extends Action
 
   public function actUseSupportToken(int $option): void
   {
+    // TODO : add sanity check
     SupportTokens::spend(Players::getActive(), $option);
+    $this->duplicateAction([]);
   }
 
   public function actPlayMatriarch(int $x, int $y)

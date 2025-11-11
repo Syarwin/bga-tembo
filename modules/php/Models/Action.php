@@ -140,7 +140,7 @@ class Action
     $node = $this->ctx->toArray();
     $node['type'] = NODE_LEAF;
     $node['childs'] = [];
-    $node['args'] = array_merge($node['args'], $args);
+    $node['args'] = array_merge($node['args'] ?? [], $args);
     $node['duplicate'] = true;
     unset($node['mandatory']); // Weird edge case
     $node = Engine::buildTree($node);
