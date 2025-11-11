@@ -2,6 +2,9 @@
 
 namespace Bga\Games\Tembo\Helpers;
 
+use Bga\Games\Tembo\Helpers\Log;
+use Bga\Games\Tembo\Helpers\QueryBuilder;
+
 class DB_Manager
 {
   protected static string $table = "";

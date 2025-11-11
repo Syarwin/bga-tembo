@@ -43,6 +43,7 @@ define([
     ],
     {
       constructor() {
+        this._notifications = ['clearTurn', 'refreshUI', 'refreshHand', 'cardPlacedOnBoard'];
         // this.default_viewport = 'width=990';
       },
 
@@ -60,6 +61,21 @@ define([
 
       setupCentralArea() {
         $('game_play_area').insertAdjacentHTML('beforeend', this.centralAreaHtml());
+      },
+
+      notif_refreshUI(args) {
+        ['meeples', 'players', 'cards'].forEach((value) => {
+          this.gamedatas[value] = args.datas[value];
+        });
+
+        this.setupMeeples();
+        this.setupCards();
+        // this.refreshPlayers();
+      },
+
+      notif_refreshHand(args) {
+        this.gamedatas.players[args.player_id].hand = args.hand;
+        this.setupHand(args.hand);
       },
 
       //////////////////////////////////////////
@@ -123,8 +139,8 @@ define([
 
           return card.id;
         });
-        document.querySelectorAll('.tembo-card[id^="card-"]').forEach((oCard) => {
-          if (!cardIds.includes(parseInt(oCard.getAttribute('data-id')))) {
+        document.querySelectorAll('.tembo-savanna-card[id^="savanna-card-"]').forEach((oCard) => {
+          if (!cardIds.includes(parseInt(oCard.getAttribute('data-id'))) && oCard.parentNode.id != 'savanna-cards-holder') {
             this.destroy(oCard);
           }
         });
@@ -162,6 +178,15 @@ define([
 
         console.error('Trying to get container of a card', card);
         return 'game_play_area';
+      },
+
+      async notif_cardPlacedOnBoard(args) {
+        let card = args.card;
+        if (!$(`savanna-card-${card.id}`)) {
+          this.addCard(card, this.getVisibleTitleContainer());
+        }
+
+        await this.slide(`savanna-card-${card.id}`, this.getCardContainer(card));
       },
 
       //////////////////////////////////////////

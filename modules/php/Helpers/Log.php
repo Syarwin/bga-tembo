@@ -5,6 +5,8 @@ namespace Bga\Games\Tembo\Helpers;
 use Bga\Games\Tembo\Game;
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
+use Bga\Games\Tembo\Managers\Cards;
+use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 
 /**
@@ -24,6 +26,8 @@ class Log extends \APP_DbObject
   {
     Globals::fetch();
     Players::invalidate();
+    Meeples::invalidate();
+    Cards::invalidate();
     // Stats::invalidate();
     Notifications::resetCache();
   }
@@ -212,6 +216,8 @@ class Log extends \APP_DbObject
     // Notify
     $datas = Game::get()->getAllDatas();
     Notifications::refreshUI($datas);
+    $player = Players::getCurrent();
+    Notifications::refreshHand($player, $player->getHand());
 
     // Force notif flush to be able to delete "restart turn" notif
     Game::get()->sendNotifications();
@@ -220,7 +226,7 @@ class Log extends \APP_DbObject
       $query = new QueryBuilder('gamelog', null, 'gamelog_packet_id');
       $query
         ->delete()
-        ->where('gamelog_move_id', '>=', min($moveIds), true)
+        ->where('gamelog_move_id', '>=', min($moveIds))
         ->run();
     }
 

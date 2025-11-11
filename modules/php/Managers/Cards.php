@@ -118,9 +118,10 @@ class Cards extends CachedPieces
 
   public static function placeOnBoard(int $cardId, int $x, int $y, int $rotation): void
   {
-    self::DB()
-      ->update(['card_location' => LOCATION_BOARD, 'x' => $x, 'y' => $y, 'rotation' => $rotation])
-      ->where('card_id', $cardId)
-      ->run();
+    $card = Cards::getSingle($cardId);
+    $card->setLocation(LOCATION_BOARD);
+    $card->setX($x);
+    $card->setY($y);
+    $card->setRotation($rotation);
   }
 }

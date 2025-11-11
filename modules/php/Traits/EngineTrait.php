@@ -231,6 +231,7 @@ trait EngineTrait
     Engine::restart();
   }
 
+  #[CheckAction(false)]
   public function actUndoToStep(int $stepId)
   {
     self::checkAction('actRestart');

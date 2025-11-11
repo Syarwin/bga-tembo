@@ -46,6 +46,12 @@ class UseCard extends Action
     if (count($squaresWithCoords) > 1) {
       throw new \BgaVisibleSystemException("actPlaceCard: There's more than one square at x: $x, y: $y. Should not happen");
     }
+
+    // Place the card
+    Cards::placeOnBoard($cardId, $x, $y, $activePlayer->getRotation());
+    Notifications::cardPlacedOnBoard($activePlayer, Cards::get($cardId));
+
+    // Any bonus ?
     $bonus = $squaresWithCoords[0]['type'];
     $allPlayers = Players::getAll();
     switch ($bonus) {
@@ -69,9 +75,6 @@ class UseCard extends Action
       default:
         throw new \BgaVisibleSystemException("actPlaceCard: Unknown bonus type $bonus. Should not happen");
     }
-
-    Cards::placeOnBoard($cardId, $x, $y, $activePlayer->getRotation());
-    Notifications::cardPlacedOnBoard($activePlayer, Cards::get($cardId));
   }
 
   public function actPlaceElephants(int $cardId, int $patternIndex)

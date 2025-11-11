@@ -239,6 +239,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
         var functionName = 'notif_' + notif;
 
         let wrapper = async (args) => {
+          console.log(`Notif: ${notif}`, args);
           let msg = this.formatString(this.format_string_recursive(args.log, args.args));
           if (msg != '') {
             this.clearPossible();
@@ -438,11 +439,17 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
      *  - time : time before auto click, seconds
      */
 
-    startActionTimer(buttonId, time) {
+    startActionTimer(buttonId, time, pref, autoclick = false) {
       var button = $(buttonId);
       var isReadOnly = this.isReadOnly();
-      if (button === null || isReadOnly) {
-        debug('Ignoring startActionTimer(' + buttonId + ')', 'readOnly=' + isReadOnly);
+      if (button == null || isReadOnly || pref == 2) {
+        debug('Ignoring startActionTimer(' + buttonId + ')', 'readOnly=' + isReadOnly, 'prefValue=' + pref);
+        return;
+      }
+
+      // If confirm disabled, click on button
+      if (pref == 0) {
+        if (autoclick) button.click();
         return;
       }
 
@@ -450,29 +457,26 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
       this._actionTimerSeconds = time;
       this._actionTimerFunction = () => {
         var button = $(buttonId);
-        if (button === null) {
+        if (button == null) {
           this.stopActionTimer();
         } else if (this._actionTimerSeconds-- > 1) {
           button.innerHTML = this._actionTimerLabel + ' (' + this._actionTimerSeconds + ')';
         } else {
           debug('Timer ' + buttonId + ' execute');
           button.click();
+          this.stopActionTimer();
         }
       };
-      dojo.connect($(buttonId), 'click', () => this.stopActionTimer());
       this._actionTimerFunction();
-      this._actionTimerId = window.setInterval(this._actionTimerFunction, 1000);
+      this._actionTimerId = window.setInterval(this._actionTimerFunction.bind(this), 1000);
       debug('Timer #' + this._actionTimerId + ' ' + buttonId + ' start');
     },
 
-    stopActionTimer(buttonWithTimer = null) {
+    stopActionTimer() {
       if (this._actionTimerId != null) {
         debug('Timer #' + this._actionTimerId + ' stop');
         window.clearInterval(this._actionTimerId);
         delete this._actionTimerId;
-      }
-      if (buttonWithTimer) {
-        $(buttonWithTimer).innerHTML = this._actionTimerLabel;
       }
     },
 
@@ -947,29 +951,11 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
     undoToStep(stepId) {
       this.stopActionTimer();
       this.checkAction('actRestart');
-      this.bgaPerformAction('actUndoToStep', { stepId }, false);
+      this.bgaPerformAction('actUndoToStep', { stepId }, { checkAction: false });
     },
 
-    notif_clearTurn(n) {
-      debug('Notif: restarting turn', n);
-      this.cancelLogs(n.args.notifIds);
-    },
-
-    notif_refreshUI(n) {
-      debug('Notif: refreshing UI', n);
-
-      ['meeples', 'players'].forEach((value) => {
-        this.gamedatas[value] = n.args.datas[value];
-      });
-      this.setupMeeples();
-      this.refreshPlayers();
-    },
-
-    notif_refreshHand(n) {
-      debug('Notif: refreshing UI', n);
-      this.gamedatas.players[n.args.player_id].hand = n.args.hand;
-      this.updateHandCards();
-      this.updateCardCosts();
+    notif_clearTurn(args) {
+      this.cancelLogs(args.notifIds);
     },
 
     ////////////////////////////////////////
