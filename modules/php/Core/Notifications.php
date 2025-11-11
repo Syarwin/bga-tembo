@@ -143,7 +143,7 @@ class Notifications
     ]);
   }
 
-  public static function elephantsGained(Player $player, array $gained, string $msg = null)
+  public static function elephantsGained(Player $player, array $gained, ?string $msg = null)
   {
     if (is_null($msg)) {
       $msg = clienttranslate('${player_name} gains ${gainedAmount} elephants');
@@ -155,7 +155,7 @@ class Notifications
     ]);
   }
 
-  public static function elephantsLost(Player $player, array $lost, string $msg = null)
+  public static function elephantsLost(Player $player, array $lost, ?string $msg = null)
   {
     if (is_null($msg)) {
       $msg = clienttranslate('${player_name} loses ${lostAmount} elephants');

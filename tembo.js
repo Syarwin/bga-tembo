@@ -43,7 +43,7 @@ define([
     ],
     {
       constructor() {
-        this._notifications = ['clearTurn', 'refreshUI', 'refreshHand', 'cardPlacedOnBoard'];
+        this._notifications = ['clearTurn', 'refreshUI', 'refreshHand', 'cardPlacedOnBoard', 'elephantsGained', 'elephantsLost'];
         // this.default_viewport = 'width=990';
       },
 
@@ -275,6 +275,18 @@ define([
 
         console.error('Trying to get container of a meeple', meeple);
         return 'game_play_area';
+      },
+
+      async notif_elephantsLost(args) {
+        await Promise.all(
+          args.lost.map((meeple, i) => this.slide(`meeple-${meeple.id}`, this.getMeepleContainer(meeple), { delay: 100 * i }))
+        );
+      },
+
+      async notif_elephantsGained(args) {
+        await Promise.all(
+          args.gained.map((meeple, i) => this.slide(`meeple-${meeple.id}`, this.getMeepleContainer(meeple), { delay: 100 * i }))
+        );
       },
 
       //////////////////////////////////////////////////////

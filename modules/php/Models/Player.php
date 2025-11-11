@@ -70,7 +70,7 @@ class Player extends DB_Model
     return $this->zombie;
   }
 
-  public function gainElephants(int $amount = 1, string $msg = null): void
+  public function gainElephants(int $amount = 1, ?string $msg = null): void
   {
     $isGain = $amount > 0;
     if ($isGain) {
@@ -90,9 +90,9 @@ class Player extends DB_Model
     }
     Notifications::cardsDrawn($this, $cards->toArray());
     // TODO: Fix this
-//    if ($this->getMatriarchCards()->count() >= 2) {
-//      Engine::insertAsChild(['action' => PLAY_MATRIARCH]);
-//    }
+    //    if ($this->getMatriarchCards()->count() >= 2) {
+    //      Engine::insertAsChild(['action' => PLAY_MATRIARCH]);
+    //    }
   }
 
   public function getUiData(): array
