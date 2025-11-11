@@ -109,13 +109,13 @@ abstract class DB_Model extends \APP_DbObject implements \JsonSerializable
         if (is_array($field)) {
           if ($field[1] == 'int') {
             $value = (int) $value;
-            if ($value == $this->$name) {
+            if ($value === $this->$name) {
               return; // No modification, abort DB call
             }
           }
           if ($field[1] == 'bool') {
             $value = (bool) $value;
-            if ($value == $this->$name) {
+            if ($value === $this->$name) {
               return; // No modification, abort DB call
             }
           }

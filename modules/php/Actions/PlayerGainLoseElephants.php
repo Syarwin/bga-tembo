@@ -17,7 +17,7 @@ class PlayerGainLoseElephants extends Action
     $player = Players::getActive();
     $amount = $this->getCtxArg('amount');
     return [
-      'amount' => $amount,
+      'amount' => abs($amount),
       'descSuffix' => $amount > 0 ? '' : 'lose',
       'players' => Players::getAll($player->getId())->toArray(),
     ];

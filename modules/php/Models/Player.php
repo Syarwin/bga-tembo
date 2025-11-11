@@ -76,7 +76,7 @@ class Player extends DB_Model
     if ($isGain) {
       $elephants = Meeples::gainElephants($this->id, $amount);
     } else {
-      $elephants = Meeples::loseElephants($this->id, $amount);
+      $elephants = Meeples::loseElephants($this->id, abs($amount));
     }
     $isGain ? Notifications::elephantsGained($this, $elephants, $msg) : Notifications::elephantsLost($this, $elephants, $msg);
   }

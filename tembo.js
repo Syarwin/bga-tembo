@@ -151,7 +151,7 @@ define([
       },
 
       addCard(card, location = null) {
-        if ($('card-' + card.id)) return;
+        if ($('savanna-card-' + card.id)) return;
 
         let o = this.place('tplSavannaCard', card, location == null ? this.getCardContainer(card) : location);
         let tooltipDesc = this.getCardTooltip(card);
