@@ -103,7 +103,16 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     tplPlayerPanel(player) {
       return `<div class='player-info'>
-        <div class="tembo-pangolin-holder" id="pangolin-${player.id}"></div>
+        <div class='elephant-reserve-holder' data-n="0">
+          <span id='elephant-reserve-${player.id}-counter' class='elephant-reserve-counter'>0</span>x
+          <div id='elephant-reserve-${player.id}' class='elephant-reserve tembo-meeple meeple-elephant-1'></div>
+        </div>
+
+        <div class='tired-elephant-reserve-holder' data-n="0">
+          <i class="fa fa-hourglass"></i>
+          <span id='tired-elephant-reserve-${player.id}-counter' class='elephant-reserve-counter'>0</span>x
+          <div id='tired-elephant-reserve-${player.id}' class='elephant-reserve tembo-meeple meeple-elephant-1'></div>
+        </div>
       </div>`;
     },
 

@@ -1,0 +1,43 @@
+.player-board-game-specific-content {
+  .player-info {
+    display: flex;
+    justify-content: space-around;
+
+    .elephant-reserve-holder,
+    .tired-elephant-reserve-holder {
+      font-family: "BerlinSans";
+      display: flex;
+      border-radius: 5px;
+      padding: 2px 7px;
+      align-items: center;
+      font-size: 17px;
+
+      span {
+        margin-right: 1px;
+      }
+
+      .elephant-reserve {
+        height: 2em;
+        position: relative;
+        margin-right: -5px;
+
+        .tembo-meeple {
+          position: absolute;
+          top: 0;
+          left: 0;
+          visibility: hidden;
+        }
+      }
+    }
+
+    .tired-elephant-reserve-holder {
+      border: 1px solid rgb(85, 85, 85);
+      background: rgba(0, 0, 0, 0.1);
+      opacity: 0.8;
+
+      i {
+        margin-right: 4px;
+      }
+    }
+  }
+}

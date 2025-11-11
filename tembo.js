@@ -31,7 +31,16 @@ define([
 ], function (dojo, declare) {
   return declare(
     'bgagame.tembo',
-    [customgame.game, tembo.board, tembo.common, tembo.lexemes, tembo.turn, tembo.useCard, tembo.htmltemplates, tembo.playerGainLoseElephants],
+    [
+      customgame.game,
+      tembo.board,
+      tembo.common,
+      tembo.lexemes,
+      tembo.turn,
+      tembo.useCard,
+      tembo.htmltemplates,
+      tembo.playerGainLoseElephants,
+    ],
     {
       constructor() {
         // this.default_viewport = 'width=990';
@@ -71,6 +80,20 @@ define([
           if (player.hand && player.id === this.player_id) {
             this.setupHand(player.hand);
           }
+
+          this.getPlayerPanelElement(player.id).insertAdjacentHTML('beforeend', this.tplPlayerPanel(player));
+
+          // Mutators observers
+          ['elephant', 'tired-elephant'].forEach((type) => {
+            const reserve = $(`${type}-reserve-${player.id}`);
+            let observer = new MutationObserver(() => {
+              let n = reserve.childNodes.length;
+              let counter = $(`${type}-reserve-${player.id}-counter`);
+              counter.innerHTML = n;
+              counter.parentNode.dataset.n = n;
+            });
+            observer.observe(reserve, { childList: true });
+          });
         });
       },
 
@@ -202,6 +225,7 @@ define([
 
       getMeepleContainer(meeple) {
         let loc = meeple.location;
+        let t = ('' + loc).split('-');
         let firstType = meeple.type.split('-')[0];
 
         if (loc == 'reserve' && firstType == 'landmark') {
@@ -214,6 +238,10 @@ define([
 
         if (loc == 'board') {
           return this.getCell(meeple);
+        }
+
+        if (t[0] == 'reserve') {
+          return $(`${meeple.state == 0 ? 'tired-' : ''}elephant-reserve-${t[1]}`);
         }
 
         if (firstType == 'energy') {
