@@ -40,6 +40,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.addPrimaryActionButton('btnPlaceSingleElephant' , 'Place a single elephant', () => {
           this.clientState('placeSingleElephant', _('Select where to place an elephant on the board'), args);
         });
+        this.addPrimaryActionButton('btnPlayMatriarch' , 'Play Matriarch', () => {
+          this.clientState('playMatriarch', _('Select where to place the Matriarch'), args);
+        });
       }
       this.addCancelStateBtn();
     },
@@ -57,14 +60,22 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.addCancelStateBtn();
     },
 
-    onEnteringStatePlaceSingleElephant(args) {
+    onEnteringStatePlaceSingleElephant(args, isMatriarch = false) {
       // TODO: Feel free to refactor this as well
       args.singleSpaces.forEach((cell) => {
         this.onClick(`cell-${cell.x}-${cell.y}`, () => {
-          this.takeAtomicAction('actPlaceSingleElephant', { 'x': cell.x, 'y': cell.y , cardId: args.cardId });
+          if (isMatriarch) {
+            this.takeAtomicAction('actPlayMatriarch', { 'x': cell.x, 'y': cell.y });
+          } else {
+            this.takeAtomicAction('actPlaceSingleElephant', { 'x': cell.x, 'y': cell.y, cardId: args.cardId });
+          }
         });
       });
       this.addCancelStateBtn();
     },
+
+    onEnteringStatePlayMatriarch(args) {
+      this.onEnteringStatePlaceSingleElephant(args, true);
+    }
   });
 });

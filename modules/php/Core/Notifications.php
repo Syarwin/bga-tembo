@@ -245,6 +245,16 @@ class Notifications
     ]);
   }
 
+  public static function matriarchAction(Player $player, array $cards)
+  {
+    $msg = clienttranslate('${player_name} uses the Matriarch action. All players return their elephants from the board and all Tree standees are stood back upright');
+    self::notify($player, 'cardsDiscarded', '', ['cards' => $cards]);
+    self::notifyAll('matriarchAction', $msg, [
+      'player' => $player,
+      // Any more args?
+    ]);
+  }
+
   ///////////////////////////////////////////////////////////////
   //  _   _           _       _            _
   // | | | |_ __   __| | __ _| |_ ___     / \   _ __ __ _ ___

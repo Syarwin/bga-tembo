@@ -3,6 +3,8 @@
 namespace Bga\Games\Tembo\Actions;
 
 use Bga\Games\Tembo\Core\Notifications;
+use Bga\Games\Tembo\Managers\Cards;
+use Bga\Games\Tembo\Managers\Energy;
 use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Action;
@@ -35,6 +37,96 @@ class PlaceSingleElephant extends Action
 
   public function actPlaceSingleElephant(int $x, int $y)
   {
-    UseCard::placeSingleElephant($x, $y, $this->getArgs());
+    static::checkCoords($x, $y, $this->getArgs()['singleSpaces']);
+    static::placeSingleElephant($x, $y);
+  }
+
+  public static function placeSingleElephant(int $x, int $y, ?int $cardId = null, bool $isMatriarch = false): void
+  {
+    $player = Players::getActive();
+    $coords = ['x' => $x, 'y' => $y, 'amount' => 1];
+    $elephants = Meeples::placeElephantsOnBoard($player->getId(), [$coords], $isMatriarch);
+    if (!is_null($cardId)) {
+      Cards::move($cardId, LOCATION_DISCARD);
+    }
+    if (!$isMatriarch) {
+      Notifications::elephantsPlaced($player, $elephants, $cardId);
+    }
+    PlaceSingleElephant::verifySpacesBonuses($player, [$coords]);
+  }
+
+  public static function verifySpacesBonuses(Player $player, array $pattern)
+  {
+    $board = new Board();
+    $pattern = $board->injectSpacesTypes($pattern);
+    static::verifyOasis($player, $pattern);
+    static::verifyTrees($player, $pattern, $board);
+    static::verifyLandmarks($pattern, $board);
+  }
+
+  private static function verifyOasis(Player $player, array $pattern): void
+  {
+    $cellsWithOasis = array_filter($pattern, fn($cell) => $cell['type'] === SPACE_OASIS);
+    if (!empty($cellsWithOasis)) {
+      $msg = clienttranslate('${player_name} covers a water spaces and gains 3 elephants');
+      $player->gainElephants(3, $msg);
+    }
+  }
+
+  private static function verifyTrees(Player $player, array $pattern, Board $board): void
+  {
+    $allTreesTypes = [SPACE_TREE_GREEN, SPACE_TREE_RED, SPACE_TREE_BROWN, SPACE_TREE_TEAL];
+    $cellsWithTrees = array_filter($pattern, fn($cell) => in_array($cell['type'], $allTreesTypes));
+    if (!empty($cellsWithTrees)) {
+      $processedCells = [];
+      foreach ($cellsWithTrees as $cell) {
+        $correspondingCell = $board->getCorrespondingTreeSpace($cell);
+        if (!in_array($correspondingCell, $processedCells) && !Meeples::getOnCell($correspondingCell)->empty()) {
+          $successful = Meeples::layTree($cell['type']);
+          if ($successful) {
+            $energyAmount = $cell['type'] === SPACE_TREE_GREEN ? 2 : 1;
+            Energy::increase($energyAmount, '');
+            Notifications::treesEaten($player, $cell['type'], $energyAmount);
+          } else {
+            Notifications::treesEaten($player, $cell['type'], 0);
+          }
+        }
+        $processedCells[] = ['x' => $cell['x'], 'y' => $cell['y']];
+      }
+    }
+  }
+
+  private static function verifyLandmarks(array $pattern, Board $board)
+  {
+    $cellsWithLandmarks = array_filter($pattern, fn($cell) => $cell['type'] === SPACE_LANDMARK);
+    if (!empty($cellsWithLandmarks)) {
+      $processedLandmarks = [];
+      foreach ($cellsWithLandmarks as $cell) {
+        $landmark = $board->getLandmarkByCell($cell);
+        if (!in_array($landmark, $processedLandmarks)) {
+          $correspondingCells = $board->getCorrespondingLandmarkSpaces($cell);
+          $landmarkFilled = true;
+          foreach ($correspondingCells as $correspondingCell) {
+            if (Meeples::getOnCell($correspondingCell)->empty()) {
+              $landmarkFilled = false;
+              break;
+            }
+          }
+          if ($landmarkFilled) {
+            $landmarkType = Meeples::layLandmark($landmark);
+            Notifications::landmarkVisited($landmarkType);
+          }
+          $processedLandmarks[] = $landmark;
+        }
+      }
+    }
+  }
+
+  public static function checkCoords(int $x, int $y, array $spaces): void
+  {
+    $spaces = array_map(fn($space) => ['x' => $space['x'], 'y' => $space['y']], $spaces);
+    if (!in_array(['x' => $x, 'y' => $y], $spaces)) {
+      throw new \BgaVisibleSystemException("checkCoords: Incorrect coords x: {$x}, y: {$y}");
+    }
   }
 }

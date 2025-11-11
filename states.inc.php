@@ -210,7 +210,8 @@ $machinestates = [
       'actPlaceCard',
       'actPlaceElephants',
       'actPlaceSingleElephant',
-      'actUseSupportToken'
+      'actUseSupportToken',
+      'actPlayMatriarch',
     ],
   ],
 
@@ -234,6 +235,16 @@ $machinestates = [
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'possibleactions' => ['actRestart', 'actPlaceSingleElephant'],
+  ],
+
+  ST_MATRIARCH => [
+    'name' => 'playMatriarch',
+    'description' => clienttranslate('${actplayer} must decide to move the Matriarch or not'),
+    'descriptionmyturn' => clienttranslate('${you} must decide to move the Matriarch or not'),
+    'type' => 'activeplayer',
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'possibleactions' => ['actRestart', 'actPlayMatriarch', 'actLeaveMatriarch'],
   ],
 
   //////////////////////////////////////////////////////////////////

@@ -259,19 +259,21 @@ class Meeples extends CachedPieces
     return self::getAll()->where('type', MATRIARCH)->first();
   }
 
-  public static function placeElephantsOnBoard(int $pId, array $coords): array
+  public static function placeElephantsOnBoard(int $pId, array $coords, bool $isMatriarch = false): array
   {
-    $elephantsOfPlayer = static::getTiredRestedElephants($pId, STATE_RESTED)->toArray();
-    $coordsCount = count($coords);
-    $elephantsCount = count($elephantsOfPlayer);
-    if ($elephantsCount < $coordsCount) {
-      throw new \BgaVisibleSystemException("placeElephantOnBoard: player with id {$pId} does not have enough elephants ({$coordsCount}, needed $elephantsCount)");
-    }
-    shuffle($elephantsOfPlayer);
     $elephants = [];
+    if (!$isMatriarch) {
+      $elephantsOfPlayer = static::getTiredRestedElephants($pId, STATE_RESTED)->toArray();
+      $coordsCount = count($coords);
+      $elephantsCount = count($elephantsOfPlayer);
+      if ($elephantsCount < $coordsCount) {
+        throw new \BgaVisibleSystemException("placeElephantOnBoard: player with id {$pId} does not have enough elephants ({$coordsCount}, needed $elephantsCount)");
+      }
+      shuffle($elephantsOfPlayer);
+    }
     foreach ($coords as $coord) {
       for ($i = 0; $i < $coord['amount']; $i++) {
-        $elephant = array_shift($elephantsOfPlayer);
+        $elephant = $isMatriarch ? static::getMatriarch() : array_shift($elephantsOfPlayer);
         $elephant->setX($coord['x']);
         $elephant->setY($coord['y']);
         $elephant->setLocation(LOCATION_BOARD);
@@ -279,6 +281,25 @@ class Meeples extends CachedPieces
       }
     }
     return $elephants;
+  }
+
+  public static function gatherHerd(): void
+  {
+    $elephants = self::getElephantsOnBoard();
+    /** @var Meeple $elephant */
+    foreach ($elephants as $elephant) {
+      $elephant->setLocation(LOCATION_RESERVE . '-' . $elephant->getPId());
+      $elephant->setState(STATE_TIRED);
+    }
+  }
+
+  public static function refreshTrees()
+  {
+    $trees = self::getTrees();
+    /** @var Meeple $tree */
+    foreach ($trees as $tree) {
+      $tree->setState(STATE_STANDING);
+    }
   }
 
   // public static function createResourceOnHex($type, $x, $y)

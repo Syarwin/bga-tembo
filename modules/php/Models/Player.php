@@ -99,9 +99,14 @@ class Player extends DB_Model
     $hand = $this->getHand();
     $data['hand'] = ($this->id == $currentId) ? $hand->ui() : [];
     $data['handCount'] = $hand->count();
-    $data['matriarchCount'] = $hand->filter(fn(Card $card) => $card->isMatriarch())->count();
+    $data['matriarchCount'] = $this->getMatriarchCards()->count();
 
     return $data;
+  }
+
+  public function getMatriarchCards(): Collection
+  {
+    return $this->getHand()->filter(fn(Card $card) => $card->isMatriarch());
   }
 
   public function getHand(): Collection

@@ -26,7 +26,9 @@ class Energy
   {
     // TODO: Add losing the game if 0
     $current = self::get();
-    $amount = $current - $amount;
+    if ($current - $amount < 0) {
+      $amount = $current;
+    }
     Globals::incEnergy(-$amount);
     Notifications::energyDecreased($current - $amount, $amount);
   }

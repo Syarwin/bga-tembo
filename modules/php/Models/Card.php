@@ -67,7 +67,7 @@ class Card extends DB_Model
     return $this->getType() === CARD_TYPE_MATRIARCH;
   }
 
-  public function getPattern(): array
+  public function getPattern(): ?array
   {
     return $this->pattern;
   }

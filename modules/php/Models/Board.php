@@ -244,6 +244,9 @@ class Board
     /** @var Card $card */
     foreach ($hand as $card) {
       $patternInfo = $card->getPattern();
+      if (is_null($patternInfo)) {
+        continue; // This is a Matriarch or a Lion card
+      }
       $rotations = [$rotation];
       if ($patternInfo['canBeRotated']) {
         $rotations = [0, 1, 2, 3];
