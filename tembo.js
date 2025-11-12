@@ -51,6 +51,7 @@ define([
           'elephantsGained',
           'elephantsLost',
           'elephantsPlaced',
+          'cardsDrawn',
         ];
         // this.default_viewport = 'width=990';
       },
@@ -196,6 +197,17 @@ define([
         }
 
         await this.slide(`savanna-card-${card.id}`, this.getCardContainer(card));
+      },
+
+      async notif_cardsDrawn(args) {
+        if (args.player_id !== this.player_id) return;
+
+        await Promise.all(
+          args.cards.map((card, i) => {
+            this.addCard(card, this.getVisibleTitleContainer());
+            return this.slide(`savanna-card-${card.id}`, this.getCardContainer(card), { delay: 100 * i });
+          })
+        );
       },
 
       //////////////////////////////////////////

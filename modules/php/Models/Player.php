@@ -84,11 +84,13 @@ class Player extends DB_Model
   public function replenishCardsFromDeck(): bool
   {
     $handAmount = $this->getHand()->count();
-    $cards = Cards::pickForLocation(3 - $handAmount, LOCATION_DECK, [LOCATION_HAND, $this->id]);
-    if ($cards->count() < 3 - $handAmount) {
+    $nToDraw = 3 - $handAmount;
+    $cards = Cards::pickForLocation($nToDraw, LOCATION_DECK, [LOCATION_HAND, $this->id]);
+    if ($cards->count() < $nToDraw) {
       // TODO: This is the end of deck thus end of game
+      die("TODO: end of deck");
     }
-    Notifications::cardsDrawn($this, $cards->toArray());
+    Notifications::cardsDrawn($this, $cards);
 
     return $this->getMatriarchCards()->count() >= 2;
   }

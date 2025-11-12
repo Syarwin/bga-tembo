@@ -3,6 +3,7 @@
 namespace Bga\Games\Tembo\Core;
 
 use Bga\Games\Tembo\Game;
+use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Models\Card;
 use Bga\Games\Tembo\Models\Player;
 
@@ -175,11 +176,12 @@ class Notifications
     ]);
   }
 
-  public static function cardsDrawn(Player $player, array $cards)
+  public static function cardsDrawn(Player $player, Collection $cards)
   {
-    self::notifyAll('cardsDrawn', '', [
+    self::notifyAll('cardsDrawn', clienttranslate('${player_name} draws ${n} card(s)'), [
       'player' => $player,
-      'cards' => $cards,
+      'cards' => $cards->ui(),
+      'n' => $cards->count(),
     ]);
   }
 
