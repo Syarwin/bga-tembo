@@ -187,7 +187,6 @@ const LOCATION_HAND = 'hand';
 const LOCATION_RESERVE = 'reserve';
 const LOCATION_DECK = 'deck';
 const LOCATION_BOARD = 'board';
-const LOCATION_BOARD_START = 'board-start';
 const LOCATION_DISCARD = 'discard';
 const INFINITY = 1000;
 

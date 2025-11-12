@@ -205,9 +205,6 @@ class Board
   {
     $matriarch = Meeples::getMatriarch();
     [$x, $y] = [$matriarch->getX(), $matriarch->getY()];
-    if ($matriarch->getLocation() === 'board-start') {
-      [$x, $y] = [$this->board['start']['x'] + 1, $this->board['start']['y']];
-    }
     $allCoords = $this->getAdjacentCoordsSingle($x, $y, $ignoreRough);
     foreach (Meeples::getElephantsOnBoard() as $elephant) {
       foreach ($this->getAdjacentCoordsSingle($elephant->getX(), $elephant->getY(), $ignoreRough) as $coords) {

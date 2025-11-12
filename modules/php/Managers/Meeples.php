@@ -163,7 +163,9 @@ class Meeples extends CachedPieces
 
     $meeples[] = [
       'type' => MATRIARCH,
-      'location' => LOCATION_BOARD_START,
+      'location' => LOCATION_BOARD,
+      'x' => $journey['start']['x'] + 1,
+      'y' => $journey['start']['y'],
     ];
 
     $meeples = self::create($meeples, LOCATION_TABLE);
