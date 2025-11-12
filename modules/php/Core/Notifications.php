@@ -183,14 +183,14 @@ class Notifications
     ]);
   }
 
-  public static function elephantsPlaced(Player $player, array $elephants, ?int $cardId)
+  public static function elephantsPlaced(Player $player, array $elephants, ?Card $card)
   {
     $msg = clienttranslate('${player_name} places ${amount} elephant(s) on the board');
     self::notifyAll('elephantsPlaced', $msg, [
       'player' => $player,
       'elephants' => $elephants,
       'amount' => count($elephants),
-      'cardId' => $cardId,
+      'card' => is_null($card) ? null : $card->getUiData(),
     ]);
   }
 

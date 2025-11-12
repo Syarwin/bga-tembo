@@ -89,8 +89,8 @@ class UseCard extends Action
     $pattern = $patterns[$cardId][$patternIndex];
     $activePlayer = Players::getActive();
     $elephants = Meeples::placeElephantsOnBoard($activePlayer->getId(), $pattern);
-    Notifications::elephantsPlaced($activePlayer, $elephants, $cardId);
     Cards::move($cardId, LOCATION_DISCARD);
+    Notifications::elephantsPlaced($activePlayer, $elephants, Cards::getSingle($cardId));
     PlaceSingleElephant::verifySpacesBonuses($activePlayer, $pattern);
   }
 

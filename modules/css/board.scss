@@ -184,34 +184,33 @@ $cellSize: 50px;
       // DEBUGGING
       &[data-type] {
         border-radius: 50%;
-        opacity: 0.3;
       }
       &[data-type="0"] {
-        background: rgba(128, 128, 128, 0.534);
+        background: rgba(128, 128, 128, 0.1);
       }
       &[data-type="1"] {
-        background: white;
+        background: rgba(255, 255, 255, 0.3);
       }
       &[data-type="2"] {
-        background: blue;
+        background: rgba(0, 0, 255, 0.3);
       }
       &[data-type="3"] {
-        background: black;
+        background: rgba(0, 0, 0, 0.3);
       }
       &[data-type="4"] {
-        background: purple;
+        background: rgba(128, 0, 128, 0.3);
       }
       &[data-type="10"] {
-        background: green;
+        background: rgba(0, 128, 0, 0.3);
       }
       &[data-type="11"] {
-        background: red;
+        background: rgba(255, 0, 0, 0.3);
       }
       &[data-type="12"] {
-        background: brown;
+        background: rgba(165, 42, 42, 0.3);
       }
       &[data-type="13"] {
-        background: teal;
+        background: rgba(0, 128, 128, 0.3);
       }
     }
   }
@@ -241,13 +240,11 @@ $cellSize: 50px;
 #game_play_area {
   @for $i from 1 through 5 {
     .meeple-elephant-#{$i} {
-      width: 50px;
-      height: 50px;
+      height: 46px;
     }
   }
 
   .meeple-matriarch {
-    width: 50px;
-    height: 50px;
+    height: 46px;
   }
 }

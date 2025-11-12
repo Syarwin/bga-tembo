@@ -55,11 +55,6 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
             `<div class='board-${className}' data-id='${tile.id}' style="grid-column-start:${tile.x + 1}; grid-row-start:${tile.y + 1}" data-rotation="${tile.rotation}">${additionalContent}</div>`
           );
 
-          // No cell for starting tile
-          if (tile.id == START) {
-            return;
-          }
-
           for (let i = 0; 3 * i < w; i++) {
             for (let j = 0; 3 * j < h; j++) {
               squares.push({ x: tile.x + 3 * i, y: tile.y + 3 * j });

@@ -43,7 +43,15 @@ define([
     ],
     {
       constructor() {
-        this._notifications = ['clearTurn', 'refreshUI', 'refreshHand', 'cardPlacedOnBoard', 'elephantsGained', 'elephantsLost'];
+        this._notifications = [
+          'clearTurn',
+          'refreshUI',
+          'refreshHand',
+          'cardPlacedOnBoard',
+          'elephantsGained',
+          'elephantsLost',
+          'elephantsPlaced',
+        ];
         // this.default_viewport = 'width=990';
       },
 
@@ -124,11 +132,11 @@ define([
       // This function is refreshUI compatible
       setupCards() {
         let cardIds = this.gamedatas.cards.map((card) => {
-          if (!$(`card-${card.id}`)) {
+          if (!$(`savanna-card-${card.id}`)) {
             this.addCard(card);
           }
 
-          let o = $(`card-${card.id}`);
+          let o = $(`savanna-card-${card.id}`);
           if (!o) return null;
 
           let container = this.getCardContainer(card);
@@ -139,6 +147,7 @@ define([
 
           return card.id;
         });
+        console.log(cardIds);
         document.querySelectorAll('.tembo-savanna-card[id^="savanna-card-"]').forEach((oCard) => {
           if (!cardIds.includes(parseInt(oCard.getAttribute('data-id'))) && oCard.parentNode.id != 'savanna-cards-holder') {
             this.destroy(oCard);
@@ -286,6 +295,22 @@ define([
       async notif_elephantsGained(args) {
         await Promise.all(
           args.gained.map((meeple, i) => this.slide(`meeple-${meeple.id}`, this.getMeepleContainer(meeple), { delay: 100 * i }))
+        );
+      },
+
+      async notif_elephantsPlaced(args) {
+        if (args.card) {
+          if (!$(`savanna-card-${args.card.id}`)) {
+            this.addCard(args.card, this.getPlayerPanelElement(args.player_id));
+          }
+
+          await this.slide(`savanna-card-${args.card.id}`, this.getVisibleTitleContainer(), { destroy: true });
+        }
+
+        await Promise.all(
+          args.elephants.map((meeple, i) =>
+            this.slide(`meeple-${meeple.id}`, this.getMeepleContainer(meeple), { delay: 100 * i })
+          )
         );
       },
 
