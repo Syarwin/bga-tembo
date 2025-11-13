@@ -25,6 +25,7 @@ class Globals extends DB_Manager
     'board' => 'obj',
     'energy' => 'int',
     'supportTokens' => 'int',
+    'destinationUnlocked' => 'bool',
   ];
 
 
@@ -40,6 +41,7 @@ class Globals extends DB_Manager
   {
     $energy = [1 => 9, 2 => 9, 3 => 7, 4 => 6][count($players)];
     static::setEnergy($energy);
+    static::setDestinationUnlocked(false);
 
     static::setFirstPlayer(array_keys($players)[0]);
   }

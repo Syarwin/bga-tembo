@@ -143,6 +143,7 @@ const SPACE_TREE_GREEN = 10;
 const SPACE_TREE_RED = 11;
 const SPACE_TREE_BROWN = 12;
 const SPACE_TREE_TEAL = 13;
+const SPACE_DESTINATION = 14;
 
 /*
  * Meeples

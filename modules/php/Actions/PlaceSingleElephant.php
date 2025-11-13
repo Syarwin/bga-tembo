@@ -2,6 +2,7 @@
 
 namespace Bga\Games\Tembo\Actions;
 
+use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Energy;
@@ -9,6 +10,7 @@ use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Action;
 use Bga\Games\Tembo\Models\Board;
+use Bga\Games\Tembo\Models\Meeple;
 use Bga\Games\Tembo\Models\Player;
 
 class PlaceSingleElephant extends Action
@@ -62,6 +64,7 @@ class PlaceSingleElephant extends Action
     static::verifyOasis($player, $pattern);
     static::verifyTrees($player, $pattern, $board);
     static::verifyLandmarks($pattern, $board);
+    static::verifyEndGameSpaces();
   }
 
   private static function verifyOasis(Player $player, array $pattern): void
@@ -118,6 +121,19 @@ class PlaceSingleElephant extends Action
           }
           $processedLandmarks[] = $landmark;
         }
+      }
+    }
+  }
+
+  private static function verifyEndGameSpaces()
+  {
+    if (!Globals::isDestinationUnlocked()) {
+      /** @var Meeple $landmark */
+      $unVisitedLandmarks = array_filter(Meeples::getLandmarks(), fn($landmark) => $landmark->getState() === STATE_STANDING);
+      if (empty($unVisitedLandmarks)) {
+        Globals::setDestinationUnlocked(true);
+        $msg = clienttranslate('All landmarks have been visited, destination spaces have been unlocked!');
+        Notifications::message($msg);
       }
     }
   }

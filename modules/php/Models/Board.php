@@ -78,7 +78,7 @@ class Board
         ];
       }
 
-      // Compute correesponding coordinates
+      // Compute corresponding coordinates
       for ($i = 0; $i < 2; $i++) {
         for ($j = 0; $j < 2; $j++) {
           $x = $tile['x'] + 3 * $i;
@@ -114,6 +114,15 @@ class Board
           $this->squares[] = $square;
         }
       }
+    }
+    if (Globals::isDestinationUnlocked()) {
+      $destinationBoard = $journey['destination'];
+      // TODO: Support destination rotation
+      $firstCellCoords = ['x' => $destinationBoard['x'] + 1, 'y' => $destinationBoard['y'] + 2];
+      $this->cells[$firstCellCoords['x']][$firstCellCoords['y']] = SPACE_NORMAL;
+      $this->cells[$firstCellCoords['x'] + 3][$firstCellCoords['y']] = SPACE_NORMAL;
+      $this->cells[$firstCellCoords['x'] + 1][$firstCellCoords['y']] = SPACE_DESTINATION;
+      $this->cells[$firstCellCoords['x'] + 2][$firstCellCoords['y']] = SPACE_DESTINATION;
     }
   }
 
