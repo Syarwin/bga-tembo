@@ -64,13 +64,51 @@ abstract class Utils
     return $t;
   }
 
+  public static function uniqueZones($arr1)
+  {
+    if (empty($arr1)) {
+      return [];
+    }
+    return array_values(
+      array_uunique($arr1, function ($a, $b) {
+        return $a['x'] == $b['x'] ?
+          $a['y'] - $b['y'] :
+          $a['x'] - $b['x'];
+      })
+    );
+  }
+
+  /**
+   * Intersect two arrays of obj with keys x,y
+   */
+  public static function intersectZones($arr1, $arr2)
+  {
+    return array_values(
+      \array_uintersect($arr1, $arr2, function ($a, $b) {
+        return $a['x'] == $b['x'] ?
+          $a['y'] - $b['y'] :
+          $a['x'] - $b['x'];
+      })
+    );
+  }
+
+  /**
+   * Diff two arrays of obj with keys x,y
+   */
+  public static function diffZones($arr1, $arr2)
+  {
+    return array_values(
+      array_udiff($arr1, $arr2, function ($a, $b) {
+        return $a['x'] == $b['x'] ?
+          $a['y'] - $b['y'] :
+          $a['x'] - $b['x'];
+      })
+    );
+  }
+
+
   public static function someCellsIntersect(array $cells1, array $cells2): bool
   {
-    foreach ($cells1 as $cell) {
-      if (in_array($cell, $cells2)) {
-        return true;
-      }
-    }
-    return false;
+    return count(self::intersectZones($cells1, $cells2)) > 0;
   }
 }

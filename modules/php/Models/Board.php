@@ -196,9 +196,14 @@ class Board
     return $cells;
   }
 
-  public function canFitShape(int $shape, int $x, int $y, int $rotation, int $nElephantAvailable,
-    bool $ignoreRough = false): bool
-  {
+  public function canFitShape(
+    int $shape,
+    int $x,
+    int $y,
+    int $rotation,
+    int $nElephantAvailable,
+    bool $ignoreRough = false
+  ): bool {
     $elephantsNeeded = $this->getFitShapeElephantCost($shape, $x, $y, $rotation, $ignoreRough);
 
     $noNoneSpaces = !in_array(SPACE_NONE, $this->getCellTypesForShape($shape, $x, $y, $rotation));
@@ -247,6 +252,7 @@ class Board
   {
     $patterns = [];
     $adjacentSpaces = $this->getAllPossibleCoordsSingle(true);
+
     /** @var Card $card */
     foreach ($hand as $card) {
       $patternInfo = $card->getPattern();
