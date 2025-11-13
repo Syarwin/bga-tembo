@@ -81,7 +81,7 @@ class Player extends DB_Model
     $isGain ? Notifications::elephantsGained($this, $elephants, $msg) : Notifications::elephantsLost($this, $elephants, $msg);
   }
 
-  public function replenishCardsFromDeck(): bool
+  public function replenishCardsFromDeck(): array
   {
     $handAmount = $this->getHand()->count();
     $nToDraw = 3 - $handAmount;
@@ -92,7 +92,7 @@ class Player extends DB_Model
     }
     Notifications::cardsDrawn($this, $cards);
 
-    return $this->getMatriarchCards()->count() >= 2;
+    return [$this->getMatriarchCards()->count() >= 2, $this->getLionCards()->count() > 0];
   }
 
   public function getUiData(): array
@@ -111,6 +111,11 @@ class Player extends DB_Model
   public function getMatriarchCards(): Collection
   {
     return $this->getHand()->filter(fn(Card $card) => $card->isMatriarch());
+  }
+
+  public function getLionCards(): Collection
+  {
+    return $this->getHand()->filter(fn(Card $card) => $card->isLion());
   }
 
   public function getHand(): Collection

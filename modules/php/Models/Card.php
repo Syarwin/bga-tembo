@@ -67,6 +67,11 @@ class Card extends DB_Model
     return $this->getType() === CARD_TYPE_MATRIARCH;
   }
 
+  public function isLion(): bool
+  {
+    return $this->getType() === CARD_TYPE_LION;
+  }
+
   public function getPattern(): ?array
   {
     return $this->pattern;

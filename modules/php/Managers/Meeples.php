@@ -189,7 +189,7 @@ class Meeples extends CachedPieces
   public static function setupPlayers($players)
   {
     $meeples = new Collection();
-    foreach ($players as $pId => $player) {
+    foreach ($players as $player) {
       $meeples = $meeples->merge(self::setupPlayer($player));
     }
     return $meeples;
@@ -197,7 +197,8 @@ class Meeples extends CachedPieces
 
   public static function getLions(): array
   {
-    return self::getAll()->filter(fn($meeple) => in_array($meeple->getType(), [LION, LIONESS]))->toArray();
+    return array_map(fn($lionType) => self::getAll()->filter(fn($meeple) => $meeple->getType() === $lionType)->first(),
+      [LIONESS, LION]);
   }
 
   public static function getTrees(): Collection

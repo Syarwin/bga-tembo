@@ -245,6 +245,15 @@ class Notifications
     ]);
   }
 
+  public static function lionsMoved(Player $player, array $lions)
+  {
+    $msg = clienttranslate('${player_name} gets a Lion card. All lions have been activated');
+    self::notifyAll('lionsMoved', $msg, [
+      'player' => $player,
+      'lions' => $lions,
+    ]);
+  }
+
   ///////////////////////////////////////////////////////////////
   //  _   _           _       _            _
   // | | | |_ __   __| | __ _| |_ ___     / \   _ __ __ _ ___

@@ -328,4 +328,10 @@ class Board
     $square = array_filter($this->squares, fn($square) => $square['x'] === $squareCoords['x'] && $square['y'] === $squareCoords['y']);
     return array_values($square)[0]['type'];
   }
+
+  public function isSquareExist(array $coords): bool
+  {
+    $squares = array_filter($this->squares, fn($square) => $square['x'] === $coords['x'] && $square['y'] === $coords['y']);
+    return !empty($squares);
+  }
 }

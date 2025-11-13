@@ -42,9 +42,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.addPrimaryActionButton('btnPlaceSingleElephant', 'Place a single elephant', () => {
           this.clientState('placeSingleElephant', _('Select where to place an elephant on the board'), args);
         });
-        this.addPrimaryActionButton('btnPlayMatriarch', 'Play Matriarch', () => {
-          this.clientState('playMatriarch', _('Select where to place the Matriarch'), args);
-        });
       }
       this.addCancelStateBtn();
     },

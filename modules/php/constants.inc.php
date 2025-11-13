@@ -26,6 +26,7 @@ const ST_CONFIRM_TURN = 93;
 const ST_CONFIRM_PARTIAL_TURN = 94;
 const ST_CONFIRM_END_OF_TURN = 95; // NEEDED FOR OBJECTIVE VALIDATION
 
+const ST_GENERIC_AUTOMATIC = 96;
 const ST_GENERIC_NEXT_PLAYER = 97;
 const ST_PRE_END_OF_GAME = 98;
 const ST_END_GAME = 99;
@@ -52,6 +53,7 @@ const USE_CARD = 'UseCard';
 const PLAYER_GAIN_LOSE_ELEPHANTS = 'PlayerGainLoseElephants';
 const PLACE_SINGLE_ELEPHANT = 'PlaceSingleElephant';
 const PLAY_MATRIARCH = 'PlayMatriarch';
+const ACTIVATE_LIONS = 'ActivateLions';
 
 /*
  * Board tiles

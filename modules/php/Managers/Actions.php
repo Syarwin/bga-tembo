@@ -17,6 +17,7 @@ class Actions
     PLAYER_GAIN_LOSE_ELEPHANTS,
     PLACE_SINGLE_ELEPHANT,
     PLAY_MATRIARCH,
+    ACTIVATE_LIONS
   ];
 
   public static function get(string $actionId, null|AbstractNode|array &$ctx = null): Action

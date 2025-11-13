@@ -189,6 +189,14 @@ $machinestates = [
     'possibleactions' => ['actConfirmEndOfTurn', 'actRestart'],
   ],
 
+  ST_GENERIC_AUTOMATIC => [
+    'name' => "genericAutomatic",
+    'descriptionmyturn' => "",
+    'type' => "private",
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction'
+  ],
+
   ////////////////////////////////////////////////////////////////////////////
   //     _   _                  _         _        _   _
   //    / \ | |_ ___  _ __ ___ (_) ___   / \   ___| |_(_) ___  _ __  ___
