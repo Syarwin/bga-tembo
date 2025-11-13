@@ -132,4 +132,19 @@ class Player extends DB_Model
   {
     return Meeples::getTiredRestedElephants($this->id, STATE_RESTED)->count();
   }
+
+  public function getTiredElephantsAmount(): int
+  {
+    return Meeples::getTiredRestedElephants($this->id, STATE_TIRED)->count();
+  }
+
+  public function eliminateRestedElephant(): void
+  {
+    Meeples::eliminateElephant($this->id, STATE_RESTED);
+  }
+
+  public function eliminateTiredElephant(): void
+  {
+    Meeples::eliminateElephant($this->id, STATE_TIRED);
+  }
 }

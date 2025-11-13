@@ -343,4 +343,34 @@ class Board
     $squares = array_filter($this->squares, fn($square) => $square['x'] === $coords['x'] && $square['y'] === $coords['y']);
     return !empty($squares);
   }
+
+  public function getElephantsOfSquare(int $x, int $y, bool $isMatriarch = false): array
+  {
+    $squares = array_filter($this->squares, fn($square) => $square['x'] === $x && $square['y'] === $y);
+    if (empty($squares)) {
+      throw new \BgaVisibleSystemException("getElephantsOfSquare: Cannot find a square by coords {$x}, {$y}. Should not happen");
+    }
+    $square = array_values($squares)[0];
+    $allElephants = [];
+    if (!$this->isSquareHasLandmark($square) && is_null($this->getSquareCard($square))) {
+      return [];
+    }
+    for ($x = $square['x']; $x < $square['x'] + 3; $x++) {
+      for ($y = $square['y']; $y < $square['y'] + 3; $y++) {
+        $elephants = Meeples::getOnCell(['x' => $x, 'y' => $y]);
+        if ($isMatriarch) {
+          $elephants = $elephants->filter(fn(Meeple $meeple) => $meeple->getType() === MATRIARCH);
+        } else {
+          $elephants = $elephants->filter(fn(Meeple $meeple) => $meeple->isElephant());
+        }
+        $allElephants = array_merge($allElephants, $elephants->toArray());
+      }
+    }
+    return $allElephants;
+  }
+
+  public function isMatriarchInSquare(int $x, int $y): bool
+  {
+    return !empty($this->getElephantsOfSquare($x, $y, true));
+  }
 }

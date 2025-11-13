@@ -72,7 +72,7 @@ $gameinfos = array(
   'is_beta' => 1,
 
   // Is this game cooperative (all players wins together or loose together)
-  'is_coop' => 0,
+  'is_coop' => 1,
 
   // Language dependency. If false or not set, there is no language dependency. If true, all players at the table must speak the same language.
   // If an array of shortcode languages such as array( 1 => 'en', 2 => 'fr', 3 => 'it' ) then all players at the table must speak the same language, and this language must be one of the listed languages.

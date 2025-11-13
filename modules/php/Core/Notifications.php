@@ -254,6 +254,22 @@ class Notifications
     ]);
   }
 
+  public static function elephantsEaten(array $elephantsEaten)
+  {
+    $msg = clienttranslate('All Elephants in an area with standing lions have been removed from the game');
+    self::notifyAll('elephantsEaten', $msg, [
+      'elephantsEaten' => $elephantsEaten,
+    ]);
+  }
+
+  public static function matriarchInjured(array $elephants)
+  {
+    $msg = clienttranslate('A lion is chasing the Matriarch. Each player removes 1 elephant from the game');
+    self::notifyAll('elephantsEaten', $msg, [
+      'elephants' => $elephants,
+    ]);
+  }
+
   ///////////////////////////////////////////////////////////////
   //  _   _           _       _            _
   // | | | |_ __   __| | __ _| |_ ___     / \   _ __ __ _ ___

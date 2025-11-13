@@ -38,4 +38,9 @@ class Meeple extends DB_Model
 
     return $names[$this->getType()] ?? $this->getType();
   }
+
+  public function isElephant()
+  {
+    return str_contains($this->getType(), ELEPHANT);
+  }
 }

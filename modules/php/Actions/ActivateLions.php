@@ -9,6 +9,7 @@ use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Action;
 use Bga\Games\Tembo\Models\Board;
 use Bga\Games\Tembo\Models\Meeple;
+use Bga\Games\Tembo\Models\Player;
 
 class ActivateLions extends Action
 {
@@ -31,7 +32,8 @@ class ActivateLions extends Action
       Cards::move($card->getId(), LOCATION_DISCARD);
     }
     $lions = Meeples::getLions();
-
+    $elephantsEaten = [];
+    $isMatriarchInjured = false;
     /** @var Meeple $lion */
     foreach ($lions as $lion) {
       if ($lion->getState() === STATE_LAYING) {
@@ -52,11 +54,45 @@ class ActivateLions extends Action
         }
         // If PHP doesn't shuffle elements during array_values(), first direction should be a priority on the lion compass
         $direction = $potentialDirections[0];
-        $lion->setX($lionCoords['x'] + $direction['x']);
-        $lion->setY($lionCoords['y'] + $direction['y']);
+        $newX = $lionCoords['x'] + $direction['x'];
+        $newY = $lionCoords['y'] + $direction['y'];
+        $lion->setX($newX);
+        $lion->setY($newY);
+        $elephantsEatenByThisLion = $board->getElephantsOfSquare($newX, $newY);
+        $elephantsEaten = [...$elephantsEaten, ...$elephantsEatenByThisLion];
+        foreach ($elephantsEaten as $elephant) {
+          $elephant->setLocation(LOCATION_DISCARD);
+        }
+        if (!empty($elephantsEatenByThisLion)) {
+          $lion->setState(STATE_LAYING);
+        }
+        if ($board->isMatriarchInSquare($newX, $newY)) {
+          if (!$isMatriarchInjured) {
+            $isMatriarchInjured = true;
+          }
+          /** @var Player $player */
+          foreach (Players::getAll() as $player) {
+            if ($player->getRestedElephantsAmount() > 0) {
+              $player->eliminateRestedElephant();
+            } else {
+              $player->eliminateTiredElephant();
+            }
+          }
+        }
       };
     }
     Notifications::lionsMoved($player, $lions);
+    if (!empty($elephantsEaten)) {
+      Notifications::elephantsEaten($elephantsEaten);
+    }
+    if ($isMatriarchInjured) {
+      $playersElephants = [];
+      foreach (Players::getAll() as $player) {
+        $playersElephants[$player->getId()]['rested'] = $player->getRestedElephantsAmount();
+        $playersElephants[$player->getId()]['tired'] = $player->getTiredElephantsAmount();
+      }
+      Notifications::matriarchInjured($playersElephants);
+    }
   }
 
   private function findAvailableDirections(array $lionCoords, Board $board)
