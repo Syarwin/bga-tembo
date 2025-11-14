@@ -248,7 +248,7 @@ class Board
     return $results;
   }
 
-  public function getAllPossiblePatterns(Collection $hand, int $rotation, int $nElephantsAvailable): array
+  public function getAllPossiblePatterns(Collection $hand, int $playerRotation, int $nElephantsAvailable, bool $supportTokenRotationUsed): array
   {
     $patterns = [];
     $adjacentSpaces = $this->getAllPossibleCoordsSingle(true);
@@ -259,10 +259,11 @@ class Board
       if (is_null($patternInfo)) {
         continue; // This is a Matriarch or a Lion card
       }
-      $rotations = [$rotation];
-      if ($patternInfo['canBeRotated']) {
+      $rotations = [$playerRotation];
+      if ($patternInfo['canBeRotated'] || $supportTokenRotationUsed) {
         $rotations = [0, 1, 2, 3];
       }
+
       // TODO: Find max width and height
       for ($x = 0; $x < 30; $x++) {
         for ($y = 0; $y < 30; $y++) {

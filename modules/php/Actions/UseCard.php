@@ -26,12 +26,13 @@ class UseCard extends Action
     $hand = $player->getHand();
     $board = new Board();
 
-    $rotatableCards = ($this->getCtxArg('supportRotate') ?? false) ? $hand : $hand->filter(fn($card) => $card->canBeRotated());
+    $supportTokenRotationUsed = ($this->getCtxArg('supportRotate') ?? false);
+    $rotatableCards = $supportTokenRotationUsed ? $hand : $hand->filter(fn($card) => $card->canBeRotated());
 
     return [
       'cardIds' => $hand->getIds(),
       'rotatableCardIds' => $rotatableCards->getIds(),
-      'patterns' => $board->getAllPossiblePatterns($hand, $player->getRotation(), $player->getRestedElephantsAmount()),
+      'patterns' => $board->getAllPossiblePatterns($hand, $player->getRotation(), $player->getRestedElephantsAmount(), $supportTokenRotationUsed),
       'squares' => $board->getEmptySquares(),
       'rotation' => $player->getRotation(),
       'singleSpaces' => $board->getAllPossibleCoordsSingle(),
