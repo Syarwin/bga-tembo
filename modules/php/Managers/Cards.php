@@ -66,6 +66,7 @@ class Cards extends CachedPieces
         $values[] = [
           'internal_id' => $card['id'],
           'state' => 0,
+          'rotation' => $player->getRotation(),
         ];
       }
       static::create($values, LOCATION_HAND . '-' . $player->getId());

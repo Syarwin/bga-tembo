@@ -145,10 +145,10 @@ define([
             dojo.place(o, container);
           }
           o.dataset.state = card.state;
+          o.dataset.rotation = card.rotation;
 
           return card.id;
         });
-        console.log(cardIds);
         document.querySelectorAll('.tembo-savanna-card[id^="savanna-card-"]').forEach((oCard) => {
           if (!cardIds.includes(parseInt(oCard.getAttribute('data-id'))) && oCard.parentNode.id != 'savanna-cards-holder') {
             this.destroy(oCard);
@@ -195,7 +195,7 @@ define([
         if (!$(`savanna-card-${card.id}`)) {
           this.addCard(card, this.getVisibleTitleContainer());
         }
-
+        $(`savanna-card-${card.id}`).dataset.rotation = card.rotation;
         await this.slide(`savanna-card-${card.id}`, this.getCardContainer(card));
       },
 

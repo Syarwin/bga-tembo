@@ -17,17 +17,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.addPrimaryActionButton('btnTest', _('TEST: use token'), () => this.takeAtomicAction('actUseSupportToken', [0]));
     },
 
-    onEnteringStatePlaceCard(args) {
-      $(`savanna-card-${args.cardId}`).classList.add('selected');
-      this.addCancelStateBtn();
-
-      args.squares.forEach((square) => {
-        this.onClick(`square-${square.x}-${square.y}`, () => {
-          this.takeAtomicAction('actPlaceCard', [args.cardId, square.x, square.y]);
-        });
-      });
-    },
-
     onEnteringStateUseCardChooseOption(args) {
       $(`savanna-card-${args.cardId}`).classList.add('selected');
       this.addPrimaryActionButton('btnPlaceCard', 'Build the savanna', () => {
@@ -48,6 +37,54 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     moveToPlaceCardState(args) {
       this.clientState('placeCard', _('Where do you want to place that card?'), args);
+    },
+
+    onEnteringStatePlaceCard(args) {
+      $(`savanna-card-${args.cardId}`).classList.add('selected');
+      this.addCancelStateBtn();
+
+      args.squares.forEach((square) => {
+        this.onClick(`square-${square.x}-${square.y}`, () => {
+          // Can rotate the card ?
+          if (args.rotatableCardIds.includes(args.cardId)) {
+            args.square = square;
+            this.clientState('chooseCardRotation', _('How do you want to rotate that card?'), args);
+          }
+          // No => standard rotation of current player
+          else {
+            this.takeAtomicAction('actPlaceCard', [args.cardId, square.x, square.y, args.rotation]);
+          }
+        });
+      });
+    },
+
+    onEnteringStateChooseCardRotation(args) {
+      let oCard = $(`savanna-card-${args.cardId}`);
+      oCard.classList.add('selected');
+      this.addCancelStateBtn();
+
+      let tmpCard = oCard.cloneNode(true);
+      tmpCard.id = 'tmpCard';
+      tmpCard.classList.add('tmp');
+      tmpCard.dataset.rotation = args.rotation;
+      $(`square-${args.square.x}-${args.square.y}`).insertAdjacentElement('beforeend', tmpCard);
+      // tmpCard.insertAdjacentHTML(
+      //   'beforeend',
+      //   `
+      //   <div id="card-rotate-clockwise"><svg><use href="#rotate-clockwise-svg" /></svg></div>
+      //   <div id="card-rotate-cclockwise"><svg><use href="#rotate-cclockwise-svg" /></svg></div>
+      //   <div id="card-confirm-btn" class="action-button bgabutton bgabutton_blue">✓</div>
+      // `
+      // );
+
+      let incRotation = (delta) => {
+        tmpCard.dataset.rotation = (+tmpCard.dataset.rotation + delta + 4) % 4;
+      };
+      this.addPrimaryActionButton('btnRotateCClockwise', '<i class="fa fa-undo"></i>', () => incRotation(-1));
+      this.addPrimaryActionButton('btnRotateClockwise', '<i class="fa fa-repeat"></i>', () => incRotation(1));
+      this.addPrimaryActionButton('btnConfirm', _('Confirm'), () =>
+        this.takeAtomicAction('actPlaceCard', [args.cardId, args.square.x, args.square.y, +tmpCard.dataset.rotation])
+      );
     },
 
     onEnteringStatePlaceElephants(args) {

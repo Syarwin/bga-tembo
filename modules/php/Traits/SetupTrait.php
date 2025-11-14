@@ -42,6 +42,19 @@ trait SetupTrait
     $this->gamestate->nextState('debug');
   }
 
+  // TODO : remove
+  public function stSittingAroundTable()
+  {
+    /** @var Player $player */
+    foreach (Players::getAll() as $player) {
+      if ($player->getRotation() === -1) {
+        $player->setRotation(bga_rand(0, 3));
+      }
+    }
+
+    $this->gamestate->jumpToState(ST_SETUP_CARDS);
+  }
+
   #[CheckAction(false)]
   public function actChangedMind(): void
   {

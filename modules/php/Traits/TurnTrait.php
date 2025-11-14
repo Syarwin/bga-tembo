@@ -11,12 +11,6 @@ trait TurnTrait
   function stBeforeStartOfGame()
   {
     $this->initCustomDefaultTurnOrder('action', ST_TURN_ACTION, 0, true);
-    /** @var Player $player */
-    foreach (Players::getAll() as $player) {
-      if ($player->getRotation() === -1) {
-        $player->setRotation(bga_rand(0, 3));
-      }
-    }
   }
 
   /**

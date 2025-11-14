@@ -77,6 +77,11 @@ class Card extends DB_Model
     return $this->pattern;
   }
 
+  public function canBeRotated(): bool
+  {
+    return $this->pattern['canBeRotated'] ?? false;
+  }
+
   public function getUiData()
   {
     return [...parent::getUiData(), 'type' => $this->typeUi];

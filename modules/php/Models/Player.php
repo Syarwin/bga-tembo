@@ -60,6 +60,11 @@ class Player extends DB_Model
     return $this->score;
   }
 
+  public function getRotation(): int
+  {
+    return $this->rotation;
+  }
+
   public function isEliminated(): bool
   {
     return $this->eliminated;
@@ -90,8 +95,8 @@ class Player extends DB_Model
       // TODO: This is the end of deck thus end of game
       die("TODO: end of deck");
     }
+    $cards->update('rotation', $this->rotation);
     Notifications::cardsDrawn($this, $cards);
-
     return [$this->getMatriarchCards()->count() >= 2, $this->getLionCards()->count() > 0];
   }
 

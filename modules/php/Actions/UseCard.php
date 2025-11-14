@@ -26,8 +26,11 @@ class UseCard extends Action
     $hand = $player->getHand();
     $board = new Board();
 
+    $rotatableCards = ($this->getCtxArg('supportRotate') ?? false) ? $hand : $hand->filter(fn($card) => $card->canBeRotated());
+
     return [
       'cardIds' => $hand->getIds(),
+      'rotatableCardIds' => $rotatableCards->getIds(),
       'patterns' => $board->getAllPossiblePatterns($hand, $player->getRotation(), $player->getRestedElephantsAmount()),
       'squares' => $board->getEmptySquares(),
       'rotation' => $player->getRotation(),
@@ -35,7 +38,7 @@ class UseCard extends Action
     ];
   }
 
-  public function actPlaceCard(int $cardId, int $x, int $y)
+  public function actPlaceCard(int $cardId, int $x, int $y, int $rotation)
   {
     $activePlayer = Players::getActive();
     $args = $this->getArgs();
@@ -46,9 +49,12 @@ class UseCard extends Action
     if (count($squaresWithCoords) > 1) {
       throw new \BgaVisibleSystemException("actPlaceCard: There's more than one square at x: $x, y: $y. Should not happen");
     }
+    if ($rotation != $args['rotation'] && !in_array($cardId, $args['rotatableCardIds'])) {
+      throw new \BgaVisibleSystemException("actPlaceCard: You can't place that card with this rotation. Should not happen");
+    }
 
     // Place the card
-    Cards::placeOnBoard($cardId, $x, $y, $activePlayer->getRotation());
+    Cards::placeOnBoard($cardId, $x, $y, $rotation);
     Notifications::cardPlacedOnBoard($activePlayer, Cards::get($cardId));
 
     // Any bonus ?

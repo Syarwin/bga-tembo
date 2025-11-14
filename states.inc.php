@@ -47,7 +47,7 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stSetupBranch',
     'transitions' => [
-      '' => ST_SETUP_CARDS, // TODO: Change back to ST_SITTING_AROUND_TABLE
+      '' => ST_SITTING_AROUND_TABLE,
     ],
   ],
 
@@ -56,7 +56,7 @@ $machinestates = [
     'description' => clienttranslate('${actplayer} must choose the direction of play for the entire game'),
     'descriptionmyturn' => clienttranslate('${you} must choose your direction of play for the entire game'),
     'type' => 'multipleactiveplayer',
-    'action' => 'stMakeEveryoneActive',
+    'action' => 'stSittingAroundTable',
     'possibleactions' => ['actSittingAroundTable', 'actChangedMind'],
     'transitions' => ['' => ST_TURN_BOARD_TILE],
   ],
