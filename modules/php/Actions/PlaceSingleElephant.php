@@ -48,11 +48,12 @@ class PlaceSingleElephant extends Action
     $player = Players::getActive();
     $coords = ['x' => $x, 'y' => $y, 'amount' => 1];
     $elephants = Meeples::placeElephantsOnBoard($player->getId(), [$coords], $isMatriarch);
-    if (!is_null($cardId)) {
-      Cards::move($cardId, LOCATION_DISCARD);
+    $card = is_null($cardId) ? null : Cards::getSingle($cardId);
+    if (!is_null($card)) {
+      $card->setLocation(LOCATION_DISCARD);
     }
     if (!$isMatriarch) {
-      Notifications::elephantsPlaced($player, $elephants, $cardId);
+      Notifications::elephantsPlaced($player, $elephants, $card);
     }
     PlaceSingleElephant::verifySpacesBonuses($player, [$coords]);
   }

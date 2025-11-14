@@ -37,6 +37,12 @@
   visibility: hidden;
 }
 
+#page-title {
+  .tembo-savanna-card {
+    position: absolute;
+  }
+}
+
 ///////////////////////////////////
 // CUSTOM TOOLTIP / SAFE HELP MODE
 #ebd-body.help-mode {

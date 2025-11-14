@@ -305,7 +305,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
           className: 'moving',
           from: null,
           clearPos: true,
-          phantom: false,
+          phantom: true,
           targetPos: 'last',
         },
         options
