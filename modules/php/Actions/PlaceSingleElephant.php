@@ -88,13 +88,16 @@ class PlaceSingleElephant extends Action
       foreach ($cellsWithTrees as $cell) {
         $correspondingCell = $board->getCorrespondingTreeSpace($cell);
         if (!in_array($correspondingCell, $processedCells) && !Meeples::getOnCell($correspondingCell)->empty()) {
-          $successful = Meeples::layTree($cell['type']);
+          $treeType = Meeples::getTreeType($cell['type']);
+          $successful = Meeples::layMeeple($treeType);
+          $tree = Meeples::getSingleOfType($treeType);
+
           if ($successful) {
             $energyAmount = $cell['type'] === SPACE_TREE_GREEN ? 2 : 1;
+            Notifications::treesEaten($player, $cell['type'], $energyAmount, $tree);
             Energy::increase($energyAmount, '');
-            Notifications::treesEaten($player, $cell['type'], $energyAmount);
           } else {
-            Notifications::treesEaten($player, $cell['type'], 0);
+            Notifications::treesEaten($player, $cell['type'], 0, $tree);
           }
         }
         $processedCells[] = ['x' => $cell['x'], 'y' => $cell['y']];
@@ -132,7 +135,8 @@ class PlaceSingleElephant extends Action
   {
     if (!Globals::isDestinationUnlocked()) {
       /** @var Meeple $landmark */
-      $unVisitedLandmarks = array_filter(Meeples::getLandmarks(), fn($landmark
+      $unVisitedLandmarks = array_filter(Meeples::getLandmarks(), fn(
+        $landmark
       ) => $landmark->getState() === STATE_STANDING);
       if (empty($unVisitedLandmarks)) {
         Globals::setDestinationUnlocked(true);

@@ -55,6 +55,7 @@ define([
           'elephantsPlaced',
           'cardsDrawn',
           'energyChanged',
+          'treesEaten',
         ];
         // this.default_viewport = 'width=990';
       },
@@ -350,6 +351,14 @@ define([
       async notif_energyChanged(args) {
         this._energyCounter.toValue(args.energy);
         await this.slide('meeple-energy', `energy-${args.energy}`);
+      },
+
+      async notif_treesEaten(args) {
+        $(`meeple-${args.meeple.id}`).dataset.state = args.meeple.state;
+        if (args.amount > 0) {
+          this._energyCounter.toValue(args.energy);
+        }
+        await this.wait(800);
       },
 
       //////////////////////////////////////////////////////

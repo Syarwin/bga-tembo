@@ -4,8 +4,10 @@ namespace Bga\Games\Tembo\Core;
 
 use Bga\Games\Tembo\Game;
 use Bga\Games\Tembo\Helpers\Collection;
+use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Card;
+use Bga\Games\Tembo\Models\Meeple;
 use Bga\Games\Tembo\Models\Player;
 
 class Notifications
@@ -202,7 +204,7 @@ class Notifications
   {
     self::notifyAll('cardPlacedOnBoard', clienttranslate('${player_name} places a card'), [
       'player' => $player,
-      'card' => $card,
+      'card' => $card->getUiData(),
     ]);
   }
 
@@ -226,7 +228,7 @@ class Notifications
     ]);
   }
 
-  public static function treesEaten(Player $player, int $color, int $energyAmount)
+  public static function treesEaten(Player $player, int $color, int $energyAmount, Meeple $tree)
   {
     $colorName = [
       SPACE_TREE_GREEN => clienttranslate('green'),
@@ -243,6 +245,8 @@ class Notifications
       'player' => $player,
       'color' => $colorName,
       'amount' => $energyAmount,
+      'energy' => Globals::getEnergy(),
+      'meeple' => $tree,
       'i18n' => ['color'],
     ]);
   }

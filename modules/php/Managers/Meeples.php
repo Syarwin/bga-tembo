@@ -40,14 +40,19 @@ class Meeples extends CachedPieces
       ->where('y', $hex['y']);
   }
 
-  public static function layTree(int $spaceType): bool
+  public static function getTreeType(int $spaceType): string
   {
-    $treeType = [
+    return [
       SPACE_TREE_GREEN => TREE_GREEN,
       SPACE_TREE_RED => TREE_RED,
       SPACE_TREE_BROWN => TREE_BROWN,
       SPACE_TREE_TEAL => TREE_TEAL,
     ][$spaceType];
+  }
+
+  public static function layTree(int $spaceType): bool
+  {
+    $treeType = static::getTreeType($spaceType);
     return static::layMeeple($treeType);
   }
 
@@ -65,9 +70,14 @@ class Meeples extends CachedPieces
     return $landmarkType;
   }
 
-  private static function layMeeple(string $type): bool
+  public static function getSingleOfType(string $type): ?Meeple
   {
-    $requiredMeeple = static::getAll()->filter(fn($meeple) => $meeple->getType() === $type)->first();
+    return static::getAll()->filter(fn($meeple) => $meeple->getType() == $type)->first();
+  }
+
+  public static function layMeeple(string $type): bool
+  {
+    $requiredMeeple = static::getSingleOfType($type);
     if (is_null($requiredMeeple)) {
       throw new \BgaVisibleSystemException('No landmark/tree of type ' . $type . ' available');
     }
@@ -204,8 +214,10 @@ class Meeples extends CachedPieces
 
   public static function getLions(): array
   {
-    return array_map(fn($lionType) => self::getAll()->filter(fn($meeple) => $meeple->getType() === $lionType)->first(),
-      [LIONESS, LION]);
+    return array_map(
+      fn($lionType) => self::getAll()->filter(fn($meeple) => $meeple->getType() === $lionType)->first(),
+      [LIONESS, LION]
+    );
   }
 
   public static function getTrees(): Collection
@@ -248,13 +260,13 @@ class Meeples extends CachedPieces
 
   public static function getTiredRestedElephants(int $pId, int $state): Collection
   {
-    return static::getElephants($pId)->filter(fn($elephant) => $elephant->getState() === $state);
+    return static::getElephants($pId)->filter(fn($elephant) => $elephant->getState() === $state && $elephant->getLocation() !== LOCATION_BOARD);
   }
 
   private static function getElephants(int $pId = null): Collection
   {
     $allElephants = self::getAll()->filter(
-    /** @var Meeple $meeple */
+      /** @var Meeple $meeple */
       fn($meeple) => $meeple->isElephant()
     );
     return is_null($pId) ? $allElephants : $allElephants->filter(fn($elephant) => $elephant->getPId() === $pId);
