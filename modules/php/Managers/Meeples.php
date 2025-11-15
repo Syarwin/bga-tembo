@@ -24,7 +24,7 @@ class Meeples extends CachedPieces
 
   public static function getUiData(): array
   {
-    return self::getAll()->filter(fn($meeple) => $meeple->getLocation() != 'box')->toArray();
+    return self::getAll()->filter(fn($meeple) => $meeple->getLocation() !== LOCATION_DISCARD)->toArray();
   }
 
   public static function getOfPlayer($pId): Collection
