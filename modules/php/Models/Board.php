@@ -36,6 +36,7 @@ class Board
   protected array $board = [];
   protected array $squares = [];
   protected array $cells = [];
+  protected array $destinationSpaces = [];
 
   public static function setupNewGame(int $journey): array
   {
@@ -118,11 +119,13 @@ class Board
     if (Globals::isDestinationUnlocked()) {
       $destinationBoard = $journey['destination'];
       // TODO: Support destination rotation
-      $firstCellCoords = ['x' => $destinationBoard['x'] + 1, 'y' => $destinationBoard['y'] + 2];
-      $this->cells[$firstCellCoords['x']][$firstCellCoords['y']] = SPACE_NORMAL;
-      $this->cells[$firstCellCoords['x'] + 3][$firstCellCoords['y']] = SPACE_NORMAL;
-      $this->cells[$firstCellCoords['x'] + 1][$firstCellCoords['y']] = SPACE_DESTINATION;
-      $this->cells[$firstCellCoords['x'] + 2][$firstCellCoords['y']] = SPACE_DESTINATION;
+      [$x, $y] = [$destinationBoard['x'] + 1, $destinationBoard['y'] + 2];
+      $this->cells[$x][$y] = SPACE_NORMAL;
+      $this->cells[$x + 3][$y] = SPACE_NORMAL;
+      $this->cells[$x + 1][$y] = SPACE_DESTINATION;
+      $this->cells[$x + 2][$y] = SPACE_DESTINATION;
+      $this->destinationSpaces[] = ['x' => $x + 1, 'y' => $y];
+      $this->destinationSpaces[] = ['x' => $x + 2, 'y' => $y];
     }
   }
 
@@ -173,7 +176,8 @@ class Board
 
   private function getCellTypesForShape(int $shape, int $x, int $y, int $rotation): array
   {
-    return array_map(fn($cell) => $this->cells[$cell['x']][$cell['y']] ?? null, $this->getCellsForShape($shape, $x, $y, $rotation));
+    $cellsOfShape = $this->getCellsForShape($shape, $x, $y, $rotation);
+    return array_map(fn($cell) => $this->cells[$cell['x']][$cell['y']] ?? null, $cellsOfShape);
   }
 
   public function getCellsForShape(int $shape, int $x, int $y, int $rotation)
@@ -248,8 +252,12 @@ class Board
     return $results;
   }
 
-  public function getAllPossiblePatterns(Collection $hand, int $playerRotation, int $nElephantsAvailable, bool $supportTokenRotationUsed): array
-  {
+  public function getAllPossiblePatterns(
+    Collection $hand,
+    int $playerRotation,
+    int $nElephantsAvailable,
+    bool $supportTokenRotationUsed
+  ): array {
     $patterns = [];
     $adjacentSpaces = $this->getAllPossibleCoordsSingle(true);
 
@@ -341,13 +349,14 @@ class Board
     $x = $cell['x'];
     $y = $cell['y'];
     $squareCoords = ['x' => $x - $x % 3, 'y' => $y - $y % 3];
-    $square = array_filter($this->squares, fn($square) => $square['x'] === $squareCoords['x'] && $square['y'] === $squareCoords['y']);
+    $square = array_filter($this->squares, fn($square
+    ) => $square['x'] === $squareCoords['x'] && $square['y'] === $squareCoords['y']);
     return array_values($square)[0]['type'];
   }
 
   public function isSquareExist(array $coords): bool
   {
-    $squares = array_filter($this->squares, fn($square) => $square['x'] === $coords['x'] && $square['y'] === $coords['y']);
+    $squares = array_filter($this->squares, fn($sq) => $sq['x'] === $coords['x'] && $sq['y'] === $coords['y']);
     return !empty($squares);
   }
 
@@ -379,5 +388,11 @@ class Board
   public function isMatriarchInSquare(int $x, int $y): bool
   {
     return !empty($this->getElephantsOfSquare($x, $y, true));
+  }
+
+  public function isBothDestinationHaveElephants(): bool
+  {
+    $cellsArray = array_map(fn($cell) => !Meeples::getOnCell($cell)->empty(), $this->destinationSpaces);
+    return !in_array(false, $cellsArray);
   }
 }
