@@ -33,6 +33,15 @@
 .icon-lion {
   height: 2em; }
 
+.icon-support-token {
+  aspect-ratio: 502/269;
+  background-image: url("img/support.jpg");
+  background-size: 100% auto;
+  border: 1px solid #555;
+  border-radius: 0.2em;
+  box-shadow: 1px 1px 1px black;
+  height: 1.3em; }
+
 .icon-tree-green {
   background-image: url("img/icons.png");
   background-size: 362.000000% auto;
@@ -912,6 +921,11 @@ body {
     #info-panel #energy-counter-holder .counter-max {
       position: relative;
       top: 6px; }
+  #info-panel #support-counter-holder {
+    display: flex;
+    font-family: "BerlinSans"; }
+    #info-panel #support-counter-holder .icon-support-token {
+      margin-left: 2px; }
   #info-panel #trees-holder {
     padding-bottom: 2px; }
   #info-panel #landmarks-reserve {

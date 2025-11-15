@@ -44,6 +44,8 @@ define([
     {
       constructor() {
         this._notifications = [
+          'mediumMessage',
+          'longMessage',
           'clearTurn',
           'refreshUI',
           'refreshHand',
@@ -52,6 +54,7 @@ define([
           'elephantsLost',
           'elephantsPlaced',
           'cardsDrawn',
+          'energyChanged',
         ];
         // this.default_viewport = 'width=990';
       },
@@ -73,9 +76,11 @@ define([
       },
 
       notif_refreshUI(args) {
-        ['meeples', 'players', 'cards'].forEach((value) => {
+        ['meeples', 'players', 'cards', 'energy', 'supportTokens'].forEach((value) => {
           this.gamedatas[value] = args.datas[value];
         });
+        this._supportCounter.toValue(this.gamedatas.supportTokens);
+        this._energyCounter.toValue(this.gamedatas.energy);
 
         this.setupMeeples();
         this.setupCards();
@@ -85,6 +90,22 @@ define([
       notif_refreshHand(args) {
         this.gamedatas.players[args.player_id].hand = args.hand;
         this.setupHand(args.hand);
+      },
+
+      notif_mediumMessage(args) {
+        return this.wait(900);
+      },
+
+      notif_longMessage(args) {
+        return this.wait(1200);
+      },
+
+      updateInfosFromNotif(infos) {
+        debug('updateInfosFromNotif', infos);
+
+        if (infos.supportTokens !== undefined) {
+          this._supportCounter.toValue(infos.supportTokens);
+        }
       },
 
       //////////////////////////////////////////
@@ -326,6 +347,11 @@ define([
         );
       },
 
+      async notif_energyChanged(args) {
+        this._energyCounter.toValue(args.energy);
+        await this.slide('meeple-energy', `energy-${args.energy}`);
+      },
+
       //////////////////////////////////////////////////////
       //  ___        __         ____                  _
       // |_ _|_ __  / _| ___   |  _ \ __ _ _ __   ___| |
@@ -340,6 +366,7 @@ define([
         this.addTooltip('help-mode-switch', '', _('Toggle help/safe mode.'));
 
         this._energyCounter = this.createCounter('energy-counter', this.gamedatas.energy);
+        this._supportCounter = this.createCounter('support-counter', this.gamedatas.supportTokens);
       },
 
       onEnteringStateGameEnd(args) {

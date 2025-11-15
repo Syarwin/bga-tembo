@@ -4,12 +4,18 @@ namespace Bga\Games\Tembo\Core;
 
 use Bga\Games\Tembo\Game;
 use Bga\Games\Tembo\Helpers\Collection;
+use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Card;
 use Bga\Games\Tembo\Models\Player;
 
 class Notifications
 {
-  protected static $listeners = [];
+  protected static $listeners = [
+    [
+      'name' => 'supportTokens',
+      'method' => 'Bga\Games\Tembo\Managers\SupportTokens::get'
+    ]
+  ];
 
   protected static $cachedValues = [];
 
@@ -17,24 +23,47 @@ class Notifications
   {
     foreach (self::$listeners as $listener) {
       $method = $listener['method'];
-      self::$cachedValues[$listener['name']] = call_user_func($method);
+      if ($listener['player'] ?? false) {
+        foreach (Players::getAll() as $pId => $player) {
+          $val = $player->$method();
+          self::$cachedValues[$listener['name']][$pId] = $val;
+        }
+      } else {
+        self::$cachedValues[$listener['name']] = call_user_func($method);
+      }
     }
   }
 
-  public static function updateIfNeeded()
+  public static function updateIfNeeded(&$args, $notifName, $notifType)
   {
     foreach (self::$listeners as $listener) {
       $name = $listener['name'];
       $method = $listener['method'];
-      $val = call_user_func($method);
-      if ($val !== self::$cachedValues[$name]) {
-        self::$cachedValues[$name] = $val;
-        Game::get()->notify->all('updateInformations', '', [
-          $name => $val,
-        ]);
+
+      if ($listener['player'] ?? false) {
+        foreach (Players::getAll() as $pId => $player) {
+          $val = $player->$method();
+          if ($val !== (self::$cachedValues[$name][$pId] ?? null)) {
+            $args['infos'][$name][$pId] = $val;
+            // // Only bust cache when a public non-ignored notif is sent to make sure everyone gets the info
+            // if ($notifType == 'public' && !in_array($notifName, self::$ignoredNotifs)) {
+            self::$cachedValues[$name][$pId] = $val;
+            // }
+          }
+        }
+      } else {
+        $val = call_user_func($method);
+        if ($val !== (self::$cachedValues[$name] ?? null)) {
+          $args['infos'][$name] = $val;
+          // // Only bust cache when a public non-ignored notif is sent to make sure everyone gets the info
+          // if ($notifType == 'public' && !in_array($notifName, self::$ignoredNotifs)) {
+          self::$cachedValues[$name] = $val;
+          // }
+        }
       }
     }
   }
+
 
   /*************************
    **** GENERIC METHODS ****
@@ -42,14 +71,15 @@ class Notifications
   protected static function notifyAll($name, $msg, $data)
   {
     self::updateArgs($data);
+    self::updateIfNeeded($data, $name, 'public');
     Game::get()->notify->all($name, $msg, $data);
-    self::updateIfNeeded();
   }
 
   protected static function notify($player, $name, $msg, $data)
   {
     $pId = is_int($player) ? $player : $player->getId();
     self::updateArgs($data);
+    self::updateIfNeeded($data, $name, 'private');
     Game::get()->notify->player($pId, $name, $msg, $data);
   }
 
@@ -132,7 +162,7 @@ class Notifications
     ]);
   }
 
-  public static function energyIncreased(int $energy, int $delta, string $msg = null, array $args = []): void
+  public static function energyIncreased(int $energy, int $delta, ?string $msg = null, array $args = []): void
   {
     if (is_null($msg)) {
       $msg = clienttranslate('You gain ${delta} energy and now it is at ${energy}');

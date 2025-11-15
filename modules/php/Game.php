@@ -22,6 +22,7 @@ namespace Bga\Games\Tembo;
 
 use Bga\Games\Tembo\Core\Engine;
 use Bga\Games\Tembo\Core\Globals;
+use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
@@ -46,6 +47,7 @@ class Game extends \Bga\GameFramework\Table
     self::$instance = $this;
     self::initGameStateLabels([]);
     Engine::boot();
+    Notifications::resetCache();
   }
 
   public static function get()
@@ -93,8 +95,7 @@ class Game extends \Bga\GameFramework\Table
     bool $loop = false,
     bool $autoNext = true,
     array $args = []
-  ): void
-  {
+  ): void {
     $turnOrders = Globals::getCustomTurnOrders();
     $turnOrders[$key] = [
       'order' => $order ?? Players::getTurnOrder(),
@@ -117,8 +118,7 @@ class Game extends \Bga\GameFramework\Table
     mixed $endCallback,
     bool $loop = false,
     bool $autoNext = true
-  ): void
-  {
+  ): void {
     $this->initCustomTurnOrder($key, null, $callback, $endCallback, $loop, $autoNext);
   }
 
@@ -187,7 +187,7 @@ class Game extends \Bga\GameFramework\Table
   public function zombieTurn($state, $active_player): void
   {
     switch ($state['name']) {
-      // TODO
+        // TODO
     }
   }
 

@@ -83,6 +83,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           <div class="tembo-icon icon-energy"></div>
         </div>
 
+        <div id="support-counter-holder">
+          <span id="support-counter"></span>
+          <div class="tembo-icon icon-support-token"></div>
+        </div>
+        
         <div id="help-mode-switch">
           <input type="checkbox" class="checkbox" id="help-mode-chk" />
           <label class="label" for="help-mode-chk">

@@ -14,7 +14,24 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         });
       });
 
-      this.addPrimaryActionButton('btnTest', _('TEST: use token'), () => this.takeAtomicAction('actUseSupportToken', [0]));
+      if (args.supportTokens > 0) {
+        this.addPrimaryActionButton('btnTest', _('Use a support token'), () =>
+          this.clientState('useSupportToken', _('How do you want to use the support token?'), {})
+        );
+      }
+    },
+
+    onEnteringStateUseSupportToken(args) {
+      let btns = {
+        0: _('Gain +1 Energy'),
+        1: _('Gain +2 rested Elephants'),
+        2: _('Rotate next card'),
+        3: _('Place 1 rested Elephant (ignore rough)'),
+      };
+
+      Object.entries(btns).forEach(([option, txt]) => {
+        this.addPrimaryActionButton(`btnToken${option}`, txt, () => this.takeAtomicAction('actUseSupportToken', [option]));
+      });
     },
 
     onEnteringStateUseCardChooseOption(args) {

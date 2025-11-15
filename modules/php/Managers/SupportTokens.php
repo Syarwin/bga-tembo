@@ -22,14 +22,16 @@ class SupportTokens
     return Globals::getSupportTokens();
   }
 
-  public static function spend(Player $player, int $option): void
+  public static function spend(Player $player, int $option): ?array
   {
     if (static::get() === 0) {
       throw new \BgaVisibleSystemException("spend SupportToken: 0 support tokens left");
     }
+    Globals::incSupportTokens(-1);
+
     switch ($option) {
       case SUPPORT_ENERGY:
-        $msg = clienttranslate('${player_name} spends a support token to gain 2 elephants');
+        $msg = clienttranslate('${player_name} spends a support token to gain 1 energy');
         Energy::increase(1, $msg, ['player' => $player]);
         break;
       case SUPPORT_ELEPHANTS:
@@ -37,16 +39,16 @@ class SupportTokens
         $player->gainElephants(2, $msg);
         break;
       case SUPPORT_ROTATE:
-        // TODO: Requires some additional frontend work
+        $msg = clienttranslate('${player_name} spends a support token to rotate next card');
+        Notifications::message($msg, ['player' => $player]);
         break;
       case SUPPORT_PLACE_ELEPHANT_IGNORE_TERRAIN:
-        Engine::insertAsChild(['action' => PLACE_SINGLE_ELEPHANT, 'args' => ['ignoreRough' => true]]);
         $msg = clienttranslate('${player_name} spends a support token to place a single elephant');
         Notifications::message($msg, ['player' => $player]);
+        return ['action' => PLACE_SINGLE_ELEPHANT, 'args' => ['ignoreRough' => true]];
         break;
       default:
         throw new \BgaVisibleSystemException("spend SupportToken: Unknown option $option. Should not happen");
     }
-    Globals::incSupportTokens(-1);
   }
 }

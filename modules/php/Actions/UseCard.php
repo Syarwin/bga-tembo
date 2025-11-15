@@ -36,6 +36,7 @@ class UseCard extends Action
       'squares' => $board->getEmptySquares(),
       'rotation' => $player->getRotation(),
       'singleSpaces' => $board->getAllPossibleCoordsSingle(),
+      'supportTokens' => SupportTokens::get(),
     ];
   }
 
@@ -109,9 +110,17 @@ class UseCard extends Action
 
   public function actUseSupportToken(int $option): void
   {
-    // TODO : add sanity check
-    SupportTokens::spend(Players::getActive(), $option);
-    $this->duplicateAction([]);
+    $flow = SupportTokens::spend(Players::getActive(), $option);
+    if (!is_null($flow)) {
+      $this->insertAsChild($flow);
+    }
+
+    // Duplicate the action
+    $args = [];
+    if ($option == SUPPORT_ROTATE) {
+      $args['supportRotate'] = true;
+    }
+    $this->duplicateAction($args);
   }
 
   public function actPlayMatriarch(int $x, int $y)

@@ -588,6 +588,12 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
       });
     },
 
+    wait(duration) {
+      return new Promise(function (resolve, reject) {
+        setTimeout(() => resolve(), duration);
+      });
+    },
+
     dojoConnect(element, func) {
       // const connection = dojo.connect($(element), 'click', (evt) => {
       //   evt.preventDefault();
