@@ -4,6 +4,7 @@ namespace Bga\Games\Tembo\Actions;
 
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
+use Bga\Games\Tembo\Game;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Energy;
 use Bga\Games\Tembo\Managers\Meeples;
@@ -65,7 +66,8 @@ class PlaceSingleElephant extends Action
     static::verifyOasis($player, $pattern);
     static::verifyTrees($player, $pattern, $board);
     static::verifyLandmarks($pattern, $board);
-    static::verifyEndGameSpaces();
+    static::verifyAndUnlockEndGameSpaces();
+    static::verifyWinGame($pattern, $board);
   }
 
   private static function verifyOasis(Player $player, array $pattern): void
@@ -126,15 +128,34 @@ class PlaceSingleElephant extends Action
     }
   }
 
-  private static function verifyEndGameSpaces()
+  private static function verifyAndUnlockEndGameSpaces()
   {
     if (!Globals::isDestinationUnlocked()) {
       /** @var Meeple $landmark */
-      $unVisitedLandmarks = array_filter(Meeples::getLandmarks(), fn($landmark) => $landmark->getState() === STATE_STANDING);
+      $unVisitedLandmarks = array_filter(Meeples::getLandmarks(), fn($landmark
+      ) => $landmark->getState() === STATE_STANDING);
       if (empty($unVisitedLandmarks)) {
         Globals::setDestinationUnlocked(true);
         $msg = clienttranslate('All landmarks have been visited, destination spaces have been unlocked!');
         Notifications::message($msg);
+      }
+    }
+  }
+
+  private static function verifyWinGame(array $pattern, Board $board)
+  {
+    if (Globals::isDestinationUnlocked()) {
+      $cellsWithDestination = array_filter($pattern, fn($cell) => $cell['type'] === SPACE_DESTINATION);
+      $winGame = count($cellsWithDestination) === 2;
+
+      if (count($cellsWithDestination) === 1) {
+        $winGame = $board->isBothDestinationHaveElephants();
+      }
+      if ($winGame) {
+        foreach (Players::getAll() as $player) {
+          $player->setScore(1);
+        }
+        Game::get()->gamestate->jumpToState(ST_PRE_END_OF_GAME);
       }
     }
   }

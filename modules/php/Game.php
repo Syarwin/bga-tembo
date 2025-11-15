@@ -28,6 +28,7 @@ use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Managers\SupportTokens;
 use Bga\Games\Tembo\Models\Board;
+use Bga\Games\Tembo\Traits\EndOfGameTrait;
 use Bga\Games\Tembo\Traits\EngineTrait;
 use Bga\Games\Tembo\Traits\SetupTrait;
 use Bga\Games\Tembo\Traits\TurnTrait;
@@ -38,6 +39,7 @@ class Game extends \Bga\GameFramework\Table
   use TurnTrait;
   use DebugTrait;
   use EngineTrait;
+  use EndOfGameTrait;
 
   public static $instance = null;
 
