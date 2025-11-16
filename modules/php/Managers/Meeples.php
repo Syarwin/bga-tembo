@@ -6,6 +6,7 @@ use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Helpers\CachedPieces;
 use Bga\Games\Tembo\Models\Meeple;
 use Bga\Games\Tembo\Models\Player;
+use Collator;
 
 require_once dirname(__FILE__) . "/../Materials/Journeys.php";
 
@@ -260,15 +261,17 @@ class Meeples extends CachedPieces
 
   public static function getTiredRestedElephants(int $pId, int $state): Collection
   {
-    return static::getElephants($pId)->filter(fn($elephant
-    ) => $elephant->getState() === $state && $elephant->getLocation() !== LOCATION_BOARD
+    return static::getElephants($pId)->filter(
+      fn(
+        $elephant
+      ) => $elephant->getState() === $state && $elephant->getLocation() !== LOCATION_BOARD
     );
   }
 
   private static function getElephants(int $pId = null): Collection
   {
     $allElephants = self::getAll()->filter(
-    /** @var Meeple $meeple */
+      /** @var Meeple $meeple */
       fn($meeple) => $meeple->isElephant()
     );
     return is_null($pId) ? $allElephants : $allElephants->filter(fn($elephant) => $elephant->getPId() === $pId);
@@ -308,7 +311,7 @@ class Meeples extends CachedPieces
     return $elephants;
   }
 
-  public static function gatherHerd(): void
+  public static function gatherHerd(): Collection
   {
     $elephants = self::getElephantsOnBoard();
     /** @var Meeple $elephant */
@@ -316,6 +319,7 @@ class Meeples extends CachedPieces
       $elephant->setLocation(LOCATION_RESERVE . '-' . $elephant->getPId());
       $elephant->setState(STATE_TIRED);
     }
+    return $elephants;
   }
 
   public static function refreshTrees()
@@ -325,6 +329,7 @@ class Meeples extends CachedPieces
     foreach ($trees as $tree) {
       $tree->setState(STATE_STANDING);
     }
+    return $trees;
   }
 
   // public static function createResourceOnHex($type, $x, $y)

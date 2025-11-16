@@ -14,6 +14,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         });
       });
 
+      if (args.matriarchId) {
+        let callback = () => this.clientState('playMatriarch', _('Where do you want to move the Matriarch?'), args);
+        this.addPrimaryActionButton('btnMatriarch', _('Play the Matriarch card'), callback);
+        this.onClick(`savanna-card-${args.matriarchId}`, callback);
+      }
+
       if (args.supportTokens > 0) {
         this.addPrimaryActionButton('btnTest', _('Use a support token'), () =>
           this.clientState('useSupportToken', _('How do you want to use the support token?'), {})
@@ -114,7 +120,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStatePlaceSingleElephant(args, isMatriarch = false) {
-      // TODO: Feel free to refactor this as well
       args.singleSpaces.forEach((cell) => {
         this.onClick(`cell-${cell.x}-${cell.y}`, () => {
           if (isMatriarch) {
@@ -130,6 +135,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStatePlayMatriarch(args) {
+      $(`savanna-card-${args.matriarchId}`).classList.add('selected');
       this.addPrimaryActionButton('btnNotMovingMatriarch', 'Do not move the Matriarch', () => {
         this.takeAtomicAction('actLeaveMatriarch');
       });

@@ -58,6 +58,7 @@ define([
           'treesEaten',
           'lionsMoved',
           'elephantsEaten',
+          'matriarchAction',
         ];
         // this.default_viewport = 'width=990';
       },
@@ -371,7 +372,7 @@ define([
             let oLion = $(`meeple-${lion.id}`);
             if (oLion.dataset.state != lion.state) {
               oLion.dataset.state = lion.state;
-              return this.wait(600);
+              return this.wait(1000);
             } else {
               this.slide(oLion, this.getMeepleContainer(lion));
             }
@@ -382,6 +383,31 @@ define([
       async notif_elephantsEaten(args) {
         await Promise.all(
           args.elephantsEaten.map((elephant, i) => this.slideAndDestroy(`meeple-${elephant.id}`, { delay: 100 * i }))
+        );
+      },
+
+      async notif_matriarchAction(args) {
+        let matriarch = args.matriarch;
+        await this.slide(`meeple-${matriarch.id}`, this.getMeepleContainer(matriarch));
+
+        await Promise.all(args.cardIds.map((cardId) => this.slideAndDestroy(`savanna-card-${cardId}`)));
+
+        await Promise.all(
+          args.elephants.map((elephant, i) =>
+            this.slide(`meeple-${elephant.id}`, this.getMeepleContainer(elephant), { delay: 100 * i })
+          )
+        );
+
+        await Promise.all(
+          args.trees.map((tree) => {
+            let oTree = $(`meeple-${tree.id}`);
+            if (oTree.dataset.state != tree.state) {
+              oTree.dataset.state = tree.state;
+              return this.wait(1000);
+            } else {
+              return true;
+            }
+          })
         );
       },
 

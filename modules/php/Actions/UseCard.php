@@ -22,8 +22,10 @@ class UseCard extends Action
 
   public function argsUseCard()
   {
-    $player = Players::getActive(); // TODO: This should be current, not active. But this leads to a table not able to start
+    $player = Players::getActive();
     $hand = $player->getHand();
+    $matriarch = $hand->filter(fn($card) => $card->isMatriarch())->first();
+    $hand = $hand->filter(fn($card) => !$card->isMatriarch());
     $board = new Board();
 
     $supportTokenRotationUsed = ($this->getCtxArg('supportRotate') ?? false);
@@ -37,6 +39,9 @@ class UseCard extends Action
       'rotation' => $player->getRotation(),
       'singleSpaces' => $board->getAllPossibleCoordsSingle(),
       'supportTokens' => SupportTokens::get(),
+
+      'matriarchId' => is_null($matriarch) ? null : $matriarch->getId(),
+      'descSuffix' => is_null($matriarch) ? '' : 'matriarch',
     ];
   }
 

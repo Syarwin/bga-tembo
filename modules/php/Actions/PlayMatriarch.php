@@ -53,13 +53,14 @@ class PlayMatriarch extends Action
       throw new \BgaVisibleSystemException("actPlayMatriarch: Amount of matriarch cards is incorrect: $matriarchCardsCount");
     }
     // 2. Gather the Herd
-    Meeples::gatherHerd();
+    $elephants = Meeples::gatherHerd();
+    // 4. Refresh Trees
+    $trees = Meeples::refreshTrees();
     // 2.5. Notify players about the matriarch action before the energy notification
-    Notifications::matriarchAction($player, $matriarchCards->toArray());
+    Notifications::matriarchAction($player, $matriarchCards, $elephants, $trees);
+
     // 3. Lose energy
     $energyToSpend = $matriarchCards->count() === 2 ? 5 : 2;
     Energy::decrease($energyToSpend);
-    // 4. Refresh Trees
-    Meeples::refreshTrees();
   }
 }

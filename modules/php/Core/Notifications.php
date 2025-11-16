@@ -269,13 +269,16 @@ class Notifications
     ]);
   }
 
-  public static function matriarchAction(Player $player, array $cards)
+  public static function matriarchAction(Player $player, Collection $cards, Collection $elephants, Collection $trees)
   {
     $msg = clienttranslate('${player_name} uses the Matriarch action. All players return their elephants from the board and all Tree standees are stood back upright');
     self::notify($player, 'cardsDiscarded', '', ['cards' => $cards]);
     self::notifyAll('matriarchAction', $msg, [
       'player' => $player,
-      // Any more args?
+      'cardIds' => $cards->getIds(),
+      'elephants' => $elephants->toArray(),
+      'trees' => $trees->toArray(),
+      'matriarch' => Meeples::getMatriarch(),
     ]);
   }
 
