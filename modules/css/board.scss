@@ -155,6 +155,7 @@ $cellSize: 50px;
       grid-column-end: span 3;
       outline: 1px solid #e6bc5db2;
       z-index: 2;
+      position: relative;
 
       &.selectable {
         background: rgba(255, 0, 0, 0.15);
@@ -164,6 +165,13 @@ $cellSize: 50px;
         &:hover {
           background: rgba(255, 0, 0, 0.4);
         }
+      }
+
+      .tembo-savanna-card {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 4;
       }
     }
 

@@ -27,10 +27,9 @@ CREATE TABLE IF NOT EXISTS `meeples`
 
 CREATE TABLE IF NOT EXISTS `cards`
 (
-    `card_id`       smallint unsigned NOT NULL AUTO_INCREMENT,
+    `card_id`       smallint unsigned NOT NULL,
     `card_location` varchar(15)       NOT NULL,
     `card_state`    tinyint           NOT NULL,
-    `internal_id`   smallint unsigned NOT NULL,
     `x`             tinyint,
     `y`             tinyint,
     `rotation`      tinyint DEFAULT NULL,

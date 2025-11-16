@@ -47,14 +47,13 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     tplSavannaCard(card, tooltip = false) {
       let uid = (tooltip ? 'tooltip-' : '') + 'savanna-card-' + card.id;
-      let typeId = card.type.split('_')[1];
 
       let rotation = '';
       if (card.rotation !== undefined) {
         rotation = ` data-rotation="${card.rotation || 0}"`;
       }
 
-      return `<div id="${uid}" class='tembo-savanna-card' data-id='${card.id}' data-type='${typeId}' ${rotation}>
+      return `<div id="${uid}" class='tembo-savanna-card' data-id='${card.id}' ${rotation}>
           <div class='tembo-savanna-card-wrapper'></div>
         </div>`;
     },
@@ -87,7 +86,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           <span id="support-counter"></span>
           <div class="tembo-icon icon-support-token"></div>
         </div>
-        
+
         <div id="help-mode-switch">
           <input type="checkbox" class="checkbox" id="help-mode-chk" />
           <label class="label" for="help-mode-chk">

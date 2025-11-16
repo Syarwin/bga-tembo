@@ -112,10 +112,53 @@
     border: 4px solid white;
   }
 
-  @for $i from 0 through 64 {
-    &[data-type="#{$i}"] .tembo-savanna-card-wrapper {
+  @for $i from 0 to 50 {
+    &[data-id="#{$i}"] .tembo-savanna-card-wrapper {
       background-position-x: ($i % 8) * 100% / 7;
       background-position-y: (($i - ($i % 8)) / 8) * 100% / 7;
+    }
+  }
+
+  // MATRIARCH I
+  @for $i from 50 through 54 {
+    &[data-id="#{$i}"] .tembo-savanna-card-wrapper {
+      background-position-x: 2 * 100% / 7;
+      background-position-y: 6 * 100% / 7;
+    }
+  }
+  // LION I
+  @for $i from 54 through 57 {
+    &[data-id="#{$i}"] .tembo-savanna-card-wrapper {
+      background-position-x: 3 * 100% / 7;
+      background-position-y: 6 * 100% / 7;
+    }
+  }
+  // MATRIARCH II
+  @for $i from 57 through 60 {
+    &[data-id="#{$i}"] .tembo-savanna-card-wrapper {
+      background-position-x: 4 * 100% / 7;
+      background-position-y: 6 * 100% / 7;
+    }
+  }
+  // LION II
+  @for $i from 60 through 63 {
+    &[data-id="#{$i}"] .tembo-savanna-card-wrapper {
+      background-position-x: 5 * 100% / 7;
+      background-position-y: 6 * 100% / 7;
+    }
+  }
+  // MATRIARCH III
+  @for $i from 63 through 67 {
+    &[data-id="#{$i}"] .tembo-savanna-card-wrapper {
+      background-position-x: 7 * 100% / 7;
+      background-position-y: 6 * 100% / 7;
+    }
+  }
+  // LION III
+  @for $i from 67 through 69 {
+    &[data-id="#{$i}"] .tembo-savanna-card-wrapper {
+      background-position-x: 6 * 100% / 7;
+      background-position-y: 6 * 100% / 7;
     }
   }
 

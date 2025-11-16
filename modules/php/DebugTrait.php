@@ -28,7 +28,7 @@ trait DebugTrait
 
   function tp()
   {
-    $card = Cards::getAll()->where('internalId', 1)->first();
+    $card = Cards::getAll()->where('id', 1)->first();
     $card->setLocation(LOCATION_BOARD);
     $card->setX(12);
     $card->setY(3);

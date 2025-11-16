@@ -497,13 +497,19 @@ body {
       grid-row-end: span 3;
       grid-column-end: span 3;
       outline: 1px solid #e6bc5db2;
-      z-index: 2; }
+      z-index: 2;
+      position: relative; }
       #tembo-board-resizable #tembo-board .board-square.selectable {
         background: rgba(255, 0, 0, 0.15);
         cursor: pointer;
         z-index: 100; }
         #tembo-board-resizable #tembo-board .board-square.selectable:hover {
           background: rgba(255, 0, 0, 0.4); }
+      #tembo-board-resizable #tembo-board .board-square .tembo-savanna-card {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 4; }
     #tembo-board-resizable #tembo-board .board-cell {
       grid-row-end: span 1;
       grid-column-end: span 1;
@@ -649,201 +655,231 @@ body {
     border-radius: 15px;
     box-shadow: 2px 2px 5px 1px black;
     border: 4px solid white; }
-  .tembo-savanna-card[data-type="0"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="0"] .tembo-savanna-card-wrapper {
     background-position-x: 0%;
     background-position-y: 0%; }
-  .tembo-savanna-card[data-type="1"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="1"] .tembo-savanna-card-wrapper {
     background-position-x: 14.2857142857%;
     background-position-y: 0%; }
-  .tembo-savanna-card[data-type="2"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="2"] .tembo-savanna-card-wrapper {
     background-position-x: 28.5714285714%;
     background-position-y: 0%; }
-  .tembo-savanna-card[data-type="3"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="3"] .tembo-savanna-card-wrapper {
     background-position-x: 42.8571428571%;
     background-position-y: 0%; }
-  .tembo-savanna-card[data-type="4"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="4"] .tembo-savanna-card-wrapper {
     background-position-x: 57.1428571429%;
     background-position-y: 0%; }
-  .tembo-savanna-card[data-type="5"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="5"] .tembo-savanna-card-wrapper {
     background-position-x: 71.4285714286%;
     background-position-y: 0%; }
-  .tembo-savanna-card[data-type="6"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="6"] .tembo-savanna-card-wrapper {
     background-position-x: 85.7142857143%;
     background-position-y: 0%; }
-  .tembo-savanna-card[data-type="7"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="7"] .tembo-savanna-card-wrapper {
     background-position-x: 100%;
     background-position-y: 0%; }
-  .tembo-savanna-card[data-type="8"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="8"] .tembo-savanna-card-wrapper {
     background-position-x: 0%;
     background-position-y: 14.2857142857%; }
-  .tembo-savanna-card[data-type="9"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="9"] .tembo-savanna-card-wrapper {
     background-position-x: 14.2857142857%;
     background-position-y: 14.2857142857%; }
-  .tembo-savanna-card[data-type="10"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="10"] .tembo-savanna-card-wrapper {
     background-position-x: 28.5714285714%;
     background-position-y: 14.2857142857%; }
-  .tembo-savanna-card[data-type="11"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="11"] .tembo-savanna-card-wrapper {
     background-position-x: 42.8571428571%;
     background-position-y: 14.2857142857%; }
-  .tembo-savanna-card[data-type="12"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="12"] .tembo-savanna-card-wrapper {
     background-position-x: 57.1428571429%;
     background-position-y: 14.2857142857%; }
-  .tembo-savanna-card[data-type="13"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="13"] .tembo-savanna-card-wrapper {
     background-position-x: 71.4285714286%;
     background-position-y: 14.2857142857%; }
-  .tembo-savanna-card[data-type="14"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="14"] .tembo-savanna-card-wrapper {
     background-position-x: 85.7142857143%;
     background-position-y: 14.2857142857%; }
-  .tembo-savanna-card[data-type="15"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="15"] .tembo-savanna-card-wrapper {
     background-position-x: 100%;
     background-position-y: 14.2857142857%; }
-  .tembo-savanna-card[data-type="16"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="16"] .tembo-savanna-card-wrapper {
     background-position-x: 0%;
     background-position-y: 28.5714285714%; }
-  .tembo-savanna-card[data-type="17"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="17"] .tembo-savanna-card-wrapper {
     background-position-x: 14.2857142857%;
     background-position-y: 28.5714285714%; }
-  .tembo-savanna-card[data-type="18"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="18"] .tembo-savanna-card-wrapper {
     background-position-x: 28.5714285714%;
     background-position-y: 28.5714285714%; }
-  .tembo-savanna-card[data-type="19"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="19"] .tembo-savanna-card-wrapper {
     background-position-x: 42.8571428571%;
     background-position-y: 28.5714285714%; }
-  .tembo-savanna-card[data-type="20"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="20"] .tembo-savanna-card-wrapper {
     background-position-x: 57.1428571429%;
     background-position-y: 28.5714285714%; }
-  .tembo-savanna-card[data-type="21"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="21"] .tembo-savanna-card-wrapper {
     background-position-x: 71.4285714286%;
     background-position-y: 28.5714285714%; }
-  .tembo-savanna-card[data-type="22"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="22"] .tembo-savanna-card-wrapper {
     background-position-x: 85.7142857143%;
     background-position-y: 28.5714285714%; }
-  .tembo-savanna-card[data-type="23"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="23"] .tembo-savanna-card-wrapper {
     background-position-x: 100%;
     background-position-y: 28.5714285714%; }
-  .tembo-savanna-card[data-type="24"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="24"] .tembo-savanna-card-wrapper {
     background-position-x: 0%;
     background-position-y: 42.8571428571%; }
-  .tembo-savanna-card[data-type="25"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="25"] .tembo-savanna-card-wrapper {
     background-position-x: 14.2857142857%;
     background-position-y: 42.8571428571%; }
-  .tembo-savanna-card[data-type="26"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="26"] .tembo-savanna-card-wrapper {
     background-position-x: 28.5714285714%;
     background-position-y: 42.8571428571%; }
-  .tembo-savanna-card[data-type="27"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="27"] .tembo-savanna-card-wrapper {
     background-position-x: 42.8571428571%;
     background-position-y: 42.8571428571%; }
-  .tembo-savanna-card[data-type="28"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="28"] .tembo-savanna-card-wrapper {
     background-position-x: 57.1428571429%;
     background-position-y: 42.8571428571%; }
-  .tembo-savanna-card[data-type="29"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="29"] .tembo-savanna-card-wrapper {
     background-position-x: 71.4285714286%;
     background-position-y: 42.8571428571%; }
-  .tembo-savanna-card[data-type="30"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="30"] .tembo-savanna-card-wrapper {
     background-position-x: 85.7142857143%;
     background-position-y: 42.8571428571%; }
-  .tembo-savanna-card[data-type="31"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="31"] .tembo-savanna-card-wrapper {
     background-position-x: 100%;
     background-position-y: 42.8571428571%; }
-  .tembo-savanna-card[data-type="32"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="32"] .tembo-savanna-card-wrapper {
     background-position-x: 0%;
     background-position-y: 57.1428571429%; }
-  .tembo-savanna-card[data-type="33"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="33"] .tembo-savanna-card-wrapper {
     background-position-x: 14.2857142857%;
     background-position-y: 57.1428571429%; }
-  .tembo-savanna-card[data-type="34"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="34"] .tembo-savanna-card-wrapper {
     background-position-x: 28.5714285714%;
     background-position-y: 57.1428571429%; }
-  .tembo-savanna-card[data-type="35"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="35"] .tembo-savanna-card-wrapper {
     background-position-x: 42.8571428571%;
     background-position-y: 57.1428571429%; }
-  .tembo-savanna-card[data-type="36"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="36"] .tembo-savanna-card-wrapper {
     background-position-x: 57.1428571429%;
     background-position-y: 57.1428571429%; }
-  .tembo-savanna-card[data-type="37"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="37"] .tembo-savanna-card-wrapper {
     background-position-x: 71.4285714286%;
     background-position-y: 57.1428571429%; }
-  .tembo-savanna-card[data-type="38"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="38"] .tembo-savanna-card-wrapper {
     background-position-x: 85.7142857143%;
     background-position-y: 57.1428571429%; }
-  .tembo-savanna-card[data-type="39"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="39"] .tembo-savanna-card-wrapper {
     background-position-x: 100%;
     background-position-y: 57.1428571429%; }
-  .tembo-savanna-card[data-type="40"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="40"] .tembo-savanna-card-wrapper {
     background-position-x: 0%;
     background-position-y: 71.4285714286%; }
-  .tembo-savanna-card[data-type="41"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="41"] .tembo-savanna-card-wrapper {
     background-position-x: 14.2857142857%;
     background-position-y: 71.4285714286%; }
-  .tembo-savanna-card[data-type="42"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="42"] .tembo-savanna-card-wrapper {
     background-position-x: 28.5714285714%;
     background-position-y: 71.4285714286%; }
-  .tembo-savanna-card[data-type="43"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="43"] .tembo-savanna-card-wrapper {
     background-position-x: 42.8571428571%;
     background-position-y: 71.4285714286%; }
-  .tembo-savanna-card[data-type="44"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="44"] .tembo-savanna-card-wrapper {
     background-position-x: 57.1428571429%;
     background-position-y: 71.4285714286%; }
-  .tembo-savanna-card[data-type="45"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="45"] .tembo-savanna-card-wrapper {
     background-position-x: 71.4285714286%;
     background-position-y: 71.4285714286%; }
-  .tembo-savanna-card[data-type="46"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="46"] .tembo-savanna-card-wrapper {
     background-position-x: 85.7142857143%;
     background-position-y: 71.4285714286%; }
-  .tembo-savanna-card[data-type="47"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="47"] .tembo-savanna-card-wrapper {
     background-position-x: 100%;
     background-position-y: 71.4285714286%; }
-  .tembo-savanna-card[data-type="48"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="48"] .tembo-savanna-card-wrapper {
     background-position-x: 0%;
     background-position-y: 85.7142857143%; }
-  .tembo-savanna-card[data-type="49"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="49"] .tembo-savanna-card-wrapper {
     background-position-x: 14.2857142857%;
     background-position-y: 85.7142857143%; }
-  .tembo-savanna-card[data-type="50"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="50"] .tembo-savanna-card-wrapper {
     background-position-x: 28.5714285714%;
     background-position-y: 85.7142857143%; }
-  .tembo-savanna-card[data-type="51"] .tembo-savanna-card-wrapper {
-    background-position-x: 42.8571428571%;
-    background-position-y: 85.7142857143%; }
-  .tembo-savanna-card[data-type="52"] .tembo-savanna-card-wrapper {
-    background-position-x: 57.1428571429%;
-    background-position-y: 85.7142857143%; }
-  .tembo-savanna-card[data-type="53"] .tembo-savanna-card-wrapper {
-    background-position-x: 71.4285714286%;
-    background-position-y: 85.7142857143%; }
-  .tembo-savanna-card[data-type="54"] .tembo-savanna-card-wrapper {
-    background-position-x: 85.7142857143%;
-    background-position-y: 85.7142857143%; }
-  .tembo-savanna-card[data-type="55"] .tembo-savanna-card-wrapper {
-    background-position-x: 100%;
-    background-position-y: 85.7142857143%; }
-  .tembo-savanna-card[data-type="56"] .tembo-savanna-card-wrapper {
-    background-position-x: 0%;
-    background-position-y: 100%; }
-  .tembo-savanna-card[data-type="57"] .tembo-savanna-card-wrapper {
-    background-position-x: 14.2857142857%;
-    background-position-y: 100%; }
-  .tembo-savanna-card[data-type="58"] .tembo-savanna-card-wrapper {
+  .tembo-savanna-card[data-id="51"] .tembo-savanna-card-wrapper {
     background-position-x: 28.5714285714%;
-    background-position-y: 100%; }
-  .tembo-savanna-card[data-type="59"] .tembo-savanna-card-wrapper {
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="52"] .tembo-savanna-card-wrapper {
+    background-position-x: 28.5714285714%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="53"] .tembo-savanna-card-wrapper {
+    background-position-x: 28.5714285714%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="54"] .tembo-savanna-card-wrapper {
+    background-position-x: 28.5714285714%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="54"] .tembo-savanna-card-wrapper {
     background-position-x: 42.8571428571%;
-    background-position-y: 100%; }
-  .tembo-savanna-card[data-type="60"] .tembo-savanna-card-wrapper {
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="55"] .tembo-savanna-card-wrapper {
+    background-position-x: 42.8571428571%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="56"] .tembo-savanna-card-wrapper {
+    background-position-x: 42.8571428571%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="57"] .tembo-savanna-card-wrapper {
+    background-position-x: 42.8571428571%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="57"] .tembo-savanna-card-wrapper {
     background-position-x: 57.1428571429%;
-    background-position-y: 100%; }
-  .tembo-savanna-card[data-type="61"] .tembo-savanna-card-wrapper {
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="58"] .tembo-savanna-card-wrapper {
+    background-position-x: 57.1428571429%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="59"] .tembo-savanna-card-wrapper {
+    background-position-x: 57.1428571429%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="60"] .tembo-savanna-card-wrapper {
+    background-position-x: 57.1428571429%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="60"] .tembo-savanna-card-wrapper {
     background-position-x: 71.4285714286%;
-    background-position-y: 100%; }
-  .tembo-savanna-card[data-type="62"] .tembo-savanna-card-wrapper {
-    background-position-x: 85.7142857143%;
-    background-position-y: 100%; }
-  .tembo-savanna-card[data-type="63"] .tembo-savanna-card-wrapper {
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="61"] .tembo-savanna-card-wrapper {
+    background-position-x: 71.4285714286%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="62"] .tembo-savanna-card-wrapper {
+    background-position-x: 71.4285714286%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="63"] .tembo-savanna-card-wrapper {
+    background-position-x: 71.4285714286%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="63"] .tembo-savanna-card-wrapper {
     background-position-x: 100%;
-    background-position-y: 100%; }
-  .tembo-savanna-card[data-type="64"] .tembo-savanna-card-wrapper {
-    background-position-x: 0%;
-    background-position-y: 114.2857142857%; }
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="64"] .tembo-savanna-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="65"] .tembo-savanna-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="66"] .tembo-savanna-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="67"] .tembo-savanna-card-wrapper {
+    background-position-x: 100%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="67"] .tembo-savanna-card-wrapper {
+    background-position-x: 85.7142857143%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="68"] .tembo-savanna-card-wrapper {
+    background-position-x: 85.7142857143%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="69"] .tembo-savanna-card-wrapper {
+    background-position-x: 85.7142857143%;
+    background-position-y: 85.7142857143%; }
   .tembo-savanna-card.selectable {
     cursor: pointer; }
     .tembo-savanna-card.selectable .tembo-savanna-card-wrapper {

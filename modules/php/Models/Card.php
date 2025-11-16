@@ -17,7 +17,6 @@ class Card extends DB_Model
     'x' => ['x', 'int'],
     'y' => ['y', 'int'],
     'rotation' => ['rotation', 'int'],
-    'internal_id' => ['internal_id', 'int'],
   ];
   protected int $id;
   protected string $location;
@@ -25,7 +24,6 @@ class Card extends DB_Model
   protected ?int $x;
   protected ?int $y;
   protected ?int $rotation;
-  protected int $internal_id;
 
   protected ?array $pattern;
   protected ?Spaces $spaces;
@@ -39,12 +37,12 @@ class Card extends DB_Model
   public function __construct($row)
   {
     parent::__construct($row);
-    $cardInfo = CARDS[$this->internal_id];
+    $cardInfo = CARDS[$this->id];
     $this->pattern = $cardInfo['pattern'] ?? null;
     $this->spaces = empty($cardInfo['spaces']) ? null : new Spaces($cardInfo['spaces']);
     $this->type = $cardInfo['type'] ?? CARD_TYPE_SAVANNA;
     $this->typeUi = isset($cardInfo['type']) ? "{$cardInfo['type']}_{$cardInfo['deck']}" :
-      CARD_TYPE_SAVANNA . "_" . $this->internal_id;;
+      CARD_TYPE_SAVANNA . "_" . $this->id;;
   }
 
   public function getId()
@@ -55,11 +53,6 @@ class Card extends DB_Model
   public function getSpaces(): ?Spaces
   {
     return $this->spaces;
-  }
-
-  public function getInternalId(): int
-  {
-    return $this->internal_id;
   }
 
   public function isMatriarch(): bool

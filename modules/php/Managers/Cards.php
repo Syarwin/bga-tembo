@@ -13,10 +13,10 @@ class Cards extends CachedPieces
 {
   protected static string $table = 'cards';
   protected static string $prefix = 'card_';
-  protected static array $customFields = ['x', 'y', 'rotation', 'internal_id'];
+  protected static array $customFields = ['x', 'y', 'rotation'];
   protected static null|Collection $datas = null;
   protected static bool $autoremovePrefix = false;
-  protected static bool $autoIncrement = true;
+  protected static bool $autoIncrement = false;
 
   private static array $allCards = CARDS;
 
@@ -38,7 +38,7 @@ class Cards extends CachedPieces
       shuffle($cards);
       foreach ($cards as $card) {
         $values[] = [
-          'internal_id' => $card['id'],
+          'id' => $card['id'],
         ];
       }
     }
@@ -49,7 +49,7 @@ class Cards extends CachedPieces
     for ($i = 0; $i < $supportCardsAmount; $i++) {
       $card = array_shift($cards);
       $values[] = [
-        'internal_id' => $card['id'],
+        'id' => $card['id'],
       ];
     }
     static::create($values, LOCATION_DECK);
@@ -64,7 +64,7 @@ class Cards extends CachedPieces
       for ($k = 0; $k < 3; $k++) {
         $card = array_pop($startingCards);
         $values[] = [
-          'internal_id' => $card['id'],
+          'id' => $card['id'],
           'state' => 0,
           'rotation' => $player->getRotation(),
         ];
@@ -90,7 +90,7 @@ class Cards extends CachedPieces
     $allFromMaterials = self::getAllFromMaterialsWithIds();
     /** @var Card $card */
     foreach ($all as $card) {
-      $cardDeck = $allFromMaterials[$card->getInternalId()]['deck'];
+      $cardDeck = $allFromMaterials[$card->getId()]['deck'];
       if ($cardDeck !== CARD_DECK_STARTING) {
         $remaining[$cardDeck] += 1;
       }
