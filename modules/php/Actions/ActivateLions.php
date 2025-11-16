@@ -2,6 +2,7 @@
 
 namespace Bga\Games\Tembo\Actions;
 
+use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Meeples;
@@ -91,6 +92,10 @@ class ActivateLions extends Action
         $playersElephants[$player->getId()]['tired'] = $player->getTiredElephantsAmount();
       }
       Notifications::matriarchInjured($playersElephants);
+      $lionsCoords = array_map(fn($lion) => ['x' => $lion->getX(), 'y' => $lion->getY()], $lions);
+      if ($lionsCoords[0]['x'] === $lionsCoords[1]['x'] && $lionsCoords[0]['y'] === $lionsCoords[1]['y']) {
+        Globals::setEndGame(true);
+      }
     }
 
     return true;
