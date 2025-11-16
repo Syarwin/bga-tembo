@@ -35,7 +35,7 @@ class Meeples extends CachedPieces
   public static function getOnCell($hex): Collection
   {
     return self::getAll()
-      ->where('location', 'board')
+      ->where('location', LOCATION_BOARD)
       ->where('x', $hex['x'])
       ->where('y', $hex['y']);
   }
@@ -260,13 +260,15 @@ class Meeples extends CachedPieces
 
   public static function getTiredRestedElephants(int $pId, int $state): Collection
   {
-    return static::getElephants($pId)->filter(fn($elephant) => $elephant->getState() === $state && $elephant->getLocation() !== LOCATION_BOARD);
+    return static::getElephants($pId)->filter(fn($elephant
+    ) => $elephant->getState() === $state && $elephant->getLocation() !== LOCATION_BOARD
+    );
   }
 
   private static function getElephants(int $pId = null): Collection
   {
     $allElephants = self::getAll()->filter(
-      /** @var Meeple $meeple */
+    /** @var Meeple $meeple */
       fn($meeple) => $meeple->isElephant()
     );
     return is_null($pId) ? $allElephants : $allElephants->filter(fn($elephant) => $elephant->getPId() === $pId);

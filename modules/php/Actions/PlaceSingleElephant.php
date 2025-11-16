@@ -156,6 +156,7 @@ class PlaceSingleElephant extends Action
         $winGame = $board->isBothDestinationHaveElephants();
       }
       if ($winGame) {
+        Globals::setEndGame(true);
         foreach (Players::getAll() as $player) {
           $player->setScore(1);
         }

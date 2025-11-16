@@ -3,8 +3,9 @@
 namespace Bga\Games\Tembo\Traits;
 
 use Bga\Games\Tembo\Core\Engine;
+use Bga\Games\Tembo\Core\Globals;
+use Bga\Games\Tembo\Game;
 use Bga\Games\Tembo\Managers\Players;
-use Bga\Games\Tembo\Models\Player;
 
 trait TurnTrait
 {
@@ -52,7 +53,15 @@ trait TurnTrait
    */
   function stEndOfTurn()
   {
-    [$mustPlayMatriarch, $mustPlayLion] = Players::getActive()->replenishCardsFromDeck();
+    if (Globals::isEndGame()) {
+      Game::get()->gamestate->jumpToState(ST_PRE_END_OF_GAME);
+      return;
+    }
+    [$mustPlayMatriarch, $mustPlayLion, $endGame] = Players::getActive()->replenishCardsFromDeck();
+    if ($endGame) {
+      Game::get()->gamestate->jumpToState(ST_PRE_END_OF_GAME);
+      return;
+    }
     if ($mustPlayMatriarch) {
       Engine::setup(['action' => PLAY_MATRIARCH], ['method' => 'stEndOfTurn']);
       Engine::proceed();

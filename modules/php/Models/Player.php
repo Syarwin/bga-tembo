@@ -3,6 +3,7 @@
 namespace Bga\Games\Tembo\Models;
 
 use Bga\Games\Tembo\Core\Engine\AbstractNode;
+use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Helpers\DB_Model;
@@ -55,11 +56,6 @@ class Player extends DB_Model
     return $this->name;
   }
 
-  public function getScore(): int
-  {
-    return $this->score;
-  }
-
   public function getRotation(): int
   {
     return $this->rotation;
@@ -91,13 +87,13 @@ class Player extends DB_Model
     $handAmount = $this->getHand()->count();
     $nToDraw = 3 - $handAmount;
     $cards = Cards::pickForLocation($nToDraw, LOCATION_DECK, [LOCATION_HAND, $this->id]);
+    $endGame = false;
     if ($cards->count() < $nToDraw) {
-      // TODO: This is the end of deck thus end of game
-      die("TODO: end of deck");
+      $endGame = true;
     }
     $cards->update('rotation', $this->rotation);
     Notifications::cardsDrawn($this, $cards);
-    return [$this->getMatriarchCards()->count() >= 2, $this->getLionCards()->count() > 0];
+    return [$this->getMatriarchCards()->count() >= 2, $this->getLionCards()->count() > 0, $endGame];
   }
 
   public function getUiData(): array
@@ -146,10 +142,20 @@ class Player extends DB_Model
   public function eliminateRestedElephant(): void
   {
     Meeples::eliminateElephant($this->id, STATE_RESTED);
+    $this->checkIfAllElephantsAreDead();
   }
 
   public function eliminateTiredElephant(): void
   {
     Meeples::eliminateElephant($this->id, STATE_TIRED);
+    $this->checkIfAllElephantsAreDead();
+  }
+
+  private function checkIfAllElephantsAreDead()
+  {
+    $elephantsOnBoardCount = Meeples::getOfPlayer($this->id)->where('location', LOCATION_BOARD)->count();
+    if ($this->getRestedElephantsAmount() === 0 && $this->getTiredElephantsAmount() === 0 && $elephantsOnBoardCount === 0) {
+      Globals::setEndGame(true);
+    }
   }
 }
