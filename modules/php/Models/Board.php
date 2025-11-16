@@ -263,6 +263,7 @@ class Board
       if (is_null($patternInfo)) {
         continue; // This is a Matriarch or a Lion card
       }
+      $ignoreRough = $patternInfo['ignoreRough'];
       $rotations = [$playerRotation];
       if ($patternInfo['canBeRotated'] || $supportTokenRotationUsed) {
         $rotations = [0, 1, 2, 3];
@@ -272,16 +273,16 @@ class Board
       for ($x = 0; $x < 30; $x++) {
         for ($y = 0; $y < 30; $y++) {
           foreach ($rotations as $rotation) {
-            if ($this->canFitShape($patternInfo['shape'], $x, $y, $rotation, $nElephantsAvailable, $patternInfo['ignoreRough'])) {
+            if ($this->canFitShape($patternInfo['shape'], $x, $y, $rotation, $nElephantsAvailable, $ignoreRough)) {
               $cellsForThisShape = $this->getCellsForShape($patternInfo['shape'], $x, $y, $rotation);
               if (Utils::someCellsIntersect($cellsForThisShape, $adjacentSpaces)) {
                 if (!isset($patterns[$card->getId()])) {
                   $patterns[$card->getId()] = [];
                 }
                 // Inject amount of elephants needed for each cell
-                $cellsForThisShape = array_map(function ($cell) {
+                $cellsForThisShape = array_map(function ($cell) use ($ignoreRough) {
                   $cellType = $this->cells[$cell['x']][$cell['y']];
-                  return [...$cell, 'amount' => $cellType === SPACE_ROUGH ? 2 : 1];
+                  return [...$cell, 'amount' => ($cellType === SPACE_ROUGH && !$ignoreRough) ? 2 : 1];
                 }, $cellsForThisShape);
                 $patterns[$card->getId()] = array_merge($patterns[$card->getId()], [$cellsForThisShape]);
               }
