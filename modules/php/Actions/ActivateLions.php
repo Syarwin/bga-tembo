@@ -28,9 +28,8 @@ class ActivateLions extends Action
   public function stActivateLions()
   {
     $player = Players::getActive();
-    foreach ($player->getLionCards() as $card) {
-      Cards::move($card->getId(), LOCATION_DISCARD);
-    }
+    $cards = $player->getLionCards();
+    Cards::move($cards->getIds(), LOCATION_DISCARD);
     $lions = Meeples::getLions();
     $elephantsEaten = [];
     $isMatriarchInjured = false;
@@ -81,7 +80,7 @@ class ActivateLions extends Action
         }
       };
     }
-    Notifications::lionsMoved($player, $lions);
+    Notifications::lionsMoved($player, $lions, $cards);
     if (!empty($elephantsEaten)) {
       Notifications::elephantsEaten($elephantsEaten);
     }
@@ -93,6 +92,8 @@ class ActivateLions extends Action
       }
       Notifications::matriarchInjured($playersElephants);
     }
+
+    return true;
   }
 
   private function findAvailableDirections(array $lionCoords, Board $board)

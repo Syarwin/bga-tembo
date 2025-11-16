@@ -56,6 +56,8 @@ define([
           'cardsDrawn',
           'energyChanged',
           'treesEaten',
+          'lionsMoved',
+          'elephantsEaten',
         ];
         // this.default_viewport = 'width=990';
       },
@@ -359,6 +361,28 @@ define([
           this._energyCounter.toValue(args.energy);
         }
         await this.wait(800);
+      },
+
+      async notif_lionsMoved(args) {
+        await Promise.all(args.cardIds.map((cardId) => this.slideAndDestroy(`savanna-card-${cardId}`)));
+
+        await Promise.all(
+          args.lions.map((lion) => {
+            let oLion = $(`meeple-${lion.id}`);
+            if (oLion.dataset.state != lion.state) {
+              oLion.dataset.state = lion.state;
+              return this.wait(600);
+            } else {
+              this.slide(oLion, this.getMeepleContainer(lion));
+            }
+          })
+        );
+      },
+
+      async notif_elephantsEaten(args) {
+        await Promise.all(
+          args.elephantsEaten.map((elephant, i) => this.slideAndDestroy(`meeple-${elephant.id}`, { delay: 100 * i }))
+        );
       },
 
       //////////////////////////////////////////////////////

@@ -273,6 +273,11 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
       }
     },
 
+    slideAndDestroy(elt, args = {}) {
+      if (!$(elt)) return true;
+      return this.slide(elt, this.getVisibleTitleContainer(), Object.assign(args, { destroy: true }));
+    },
+
     /*
      * Add a blue/grey button if it doesn't already exists
      */

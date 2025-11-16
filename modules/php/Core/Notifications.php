@@ -279,12 +279,13 @@ class Notifications
     ]);
   }
 
-  public static function lionsMoved(Player $player, array $lions)
+  public static function lionsMoved(Player $player, array $lions, Collection $cards)
   {
     $msg = clienttranslate('${player_name} gets a Lion card. All lions have been activated');
     self::notifyAll('lionsMoved', $msg, [
       'player' => $player,
       'lions' => $lions,
+      'cardIds' => $cards->getIds(),
     ]);
   }
 
