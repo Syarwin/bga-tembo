@@ -77,42 +77,8 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
               'beforeend',
               `<div class='board-cell' id="cell-${square.x + i}-${square.y + j}" style="grid-column-start:${square.x + i + 1}; grid-row-start:${square.y + j + 1}"></div>`
             );
-
-            // // DEBUG
-            // $(`cell-${square.x + i}-${square.y + j}`).addEventListener('click', () =>
-            //   this.bgaPerformAction('actTestFitShape', { x: square.x + i, y: square.y + j }, { lock: false, checkAction: false })
-            // );
           }
         }
-      });
-
-      // DEBUGGING : BLOCKS
-      const MAP = {
-        0: 'SNOW',
-        1: 'MEADOW',
-        2: 'RIVER',
-        3: 'ROCKS',
-        4: 'CANYON',
-        5: 'WATERFALL',
-
-        10: 'ALL GAIN 2',
-        11: 'ANOTHER GAINS 4',
-        12: 'YOU 5 ANOTHER -2',
-        13: 'GAIN 3 IGNORE ROUGH',
-      };
-
-      this.gamedatas.board.squares.forEach((square) => {
-        $('tembo-board').insertAdjacentHTML(
-          'beforeend',
-          `<div class='board-square board-square' style="grid-column-start:${square.x + 1}; grid-row-start:${square.y + 1}">${MAP[square.type]}</div>`
-        );
-      });
-
-      // DEBUGGING : CELLS
-      Object.entries(this.gamedatas.board.cells).forEach(([x, column]) => {
-        Object.entries(column).forEach(([y, type]) => {
-          $(`cell-${x}-${y}`).dataset.type = type;
-        });
       });
     },
 

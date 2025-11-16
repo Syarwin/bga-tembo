@@ -220,6 +220,12 @@ $cellSize: 50px;
       // &[data-type="13"] {
       //   background: rgba(0, 128, 128, 0.3);
       // }
+
+      .tembo-meeple ~ .tembo-meeple {
+        margin-left: -96%;
+        margin-top: -42%;
+        height: 42px;
+      }
     }
   }
 

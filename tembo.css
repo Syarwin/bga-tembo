@@ -517,6 +517,10 @@ body {
         cursor: pointer; }
         #tembo-board-resizable #tembo-board .board-cell.selectable:hover {
           background: rgba(255, 0, 0, 0.6); }
+      #tembo-board-resizable #tembo-board .board-cell .tembo-meeple ~ .tembo-meeple {
+        margin-left: -96%;
+        margin-top: -42%;
+        height: 42px; }
   #tembo-board-resizable[data-x="15"] {
     width: calc(var(--temboBoardScale) * 754px); }
     #tembo-board-resizable[data-x="15"] #tembo-board {
@@ -925,7 +929,7 @@ body {
     display: flex;
     font-family: "BerlinSans"; }
     #info-panel #support-counter-holder .icon-support-token {
-      margin-left: 2px; }
+      margin-left: 3px; }
   #info-panel #trees-holder {
     padding-bottom: 2px; }
   #info-panel #landmarks-reserve {

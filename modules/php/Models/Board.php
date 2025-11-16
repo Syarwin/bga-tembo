@@ -154,10 +154,6 @@ class Board
   {
     return [
       'tiles' => $this->board,
-
-      // Used for debugging
-      'squares' => $this->squares,
-      'cells' => $this->cells,
     ];
   }
 
@@ -349,7 +345,8 @@ class Board
     $x = $cell['x'];
     $y = $cell['y'];
     $squareCoords = ['x' => $x - $x % 3, 'y' => $y - $y % 3];
-    $square = array_filter($this->squares, fn($square
+    $square = array_filter($this->squares, fn(
+      $square
     ) => $square['x'] === $squareCoords['x'] && $square['y'] === $squareCoords['y']);
     return array_values($square)[0]['type'];
   }
