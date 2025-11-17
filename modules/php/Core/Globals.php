@@ -2,9 +2,8 @@
 
 namespace Bga\Games\Tembo\Core;
 
-use Bga\Games\Tembo\Game;
 use Bga\Games\Tembo\Helpers\DB_Manager;
-use Bga\Games\Tembo\Helpers\Utils;
+use Bga\Games\Tembo\Managers\Players;
 
 /*
  * Globals
@@ -28,12 +27,6 @@ class Globals extends DB_Manager
     'destinationUnlocked' => 'bool',
     'endGame' => 'bool',
   ];
-
-
-  public static function getJourney(): int
-  {
-    return 1; // return 1 for now, to be changed later
-  }
 
   /*
    * Setup new game
@@ -166,5 +159,15 @@ class Globals extends DB_Manager
     }
     throw new \feException(print_r(debug_print_backtrace()));
     return null;
+  }
+
+  public static function getJourney(): int
+  {
+    return 1; // return 1 for now, to be changed later
+  }
+
+  public static function getCardsHandLimit(): int
+  {
+    return Players::isSolo() ? 4 : 3;
   }
 }

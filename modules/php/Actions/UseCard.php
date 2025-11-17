@@ -86,6 +86,12 @@ class UseCard extends Action
         $activePlayer->gainElephants(3);
         Engine::insertAsChild(['action' => PLACE_SINGLE_ELEPHANT, 'args' => ['ignoreRough' => true]]);
         break;
+      case BONUS_YOU_GAIN_4: // This must be a solo game
+        /** @var Player $pla */
+        foreach ($allPlayers as $pla) {
+          $pla->gainElephants(4);
+        }
+        break;
       default:
         throw new \BgaVisibleSystemException("actPlaceCard: Unknown bonus type $bonus. Should not happen");
     }

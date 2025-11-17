@@ -85,7 +85,7 @@ class Player extends DB_Model
   public function replenishCardsFromDeck(): array
   {
     $handAmount = $this->getHand()->count();
-    $nToDraw = 3 - $handAmount;
+    $nToDraw = Globals::getCardsHandLimit() - $handAmount;
     $cards = Cards::pickForLocation($nToDraw, LOCATION_DECK, [LOCATION_HAND, $this->id]);
     $endGame = false;
     if ($cards->count() < $nToDraw) {

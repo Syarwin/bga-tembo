@@ -59,7 +59,6 @@ const ACTIVATE_LIONS = 'ActivateLions';
  * Board tiles
  */
 // Names are for readability. A name reflects a landmark purple spaces shape
-// Numbers reflect tiles from the rulebook, p.3, top to bottom, left to right
 const BOARD_TILE_SINGLE_SNOW = 0;
 const BOARD_TILE_DIAGONAL_MEADOW = 1;
 const BOARD_TILE_L_SHAPED_RIVER = 2;
@@ -100,6 +99,7 @@ const BONUS_ALL_GAIN_2 = 10;
 const BONUS_ANOTHER_GAINS_4 = 11;
 const BONUS_YOU_5_ANOTHER_MINUS_2 = 12;
 const BONUS_GAIN_3_PLACE_1_IGNORE_ROUGH = 13;
+const BONUS_YOU_GAIN_4 = 14;
 
 /*
  * Cards

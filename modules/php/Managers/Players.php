@@ -133,4 +133,9 @@ class Players extends CachedDB_Manager
     } while ($p != $firstPlayer);
     return $order;
   }
+
+  public static function isSolo(): bool
+  {
+    return self::count() == 1;
+  }
 }

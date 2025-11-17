@@ -2,6 +2,7 @@
 
 namespace Bga\Games\Tembo\Managers;
 
+use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Helpers\CachedPieces;
 use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Models\Card;
@@ -61,7 +62,7 @@ class Cards extends CachedPieces
     shuffle($startingCards);
     foreach (Players::getAll() as $player) {
       $values = [];
-      for ($k = 0; $k < 3; $k++) {
+      for ($k = 0; $k < Globals::getCardsHandLimit(); $k++) {
         $card = array_pop($startingCards);
         $values[] = [
           'id' => $card['id'],

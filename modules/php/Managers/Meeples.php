@@ -98,31 +98,6 @@ class Meeples extends CachedPieces
     return $elephant;
   }
 
-  // public static function getUnitsOnCell($hex)
-  // {
-  //   return self::getOnCell($hex)->where('type', [WORKER, MECH, CHARACTER]);
-  // }
-
-  // public static function getBuildingsOnCell($hex)
-  // {
-  //   return self::getOnCell($hex)->where('type', BUILDINGS);
-  // }
-
-  // public static function getResourcesOnCell($hex, $includeWorkers = false)
-  // {
-  //   return self::getOnCell($hex)->where('type', $includeWorkers ? PRODUCABLE_RESOURCES : RESOURCES);
-  // }
-
-  // public static function getResourcesOnCellByTypes($hex, $includeWorkers = false, $onlyIds = false)
-  // {
-  //   $resources = [];
-  //   foreach (self::getResourcesOnCell($hex, $includeWorkers) as $mId => $meeple) {
-  //     $resources[$meeple->getType()][] = $onlyIds ? $mId : $meeple;
-  //   }
-  //   return $resources;
-  // }
-
-
   ////////////////////////////////////
   //  ____       _
   // / ___|  ___| |_ _   _ _ __
@@ -164,8 +139,8 @@ class Meeples extends CachedPieces
       ];
     }
 
-    $elephantsMap = [3, 3, 2, 2, 3];
     $allPlayers = Players::getAll();
+    $elephantsMap = count($allPlayers) === 1 ? [6, 6, 4, 4, 6] : [3, 3, 2, 2, 3];
     /** @var Player $player */
     foreach ($allPlayers as $player) {
       foreach ($elephantsMap as $elephantType => $elephantAmount) {

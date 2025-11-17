@@ -7,6 +7,7 @@ use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Helpers\Utils;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Meeples;
+use Bga\Games\Tembo\Managers\Players;
 
 require_once dirname(__FILE__) . "/../Materials/Journeys.php";
 require_once dirname(__FILE__) . "/../Materials/BoardTiles.php";
@@ -89,7 +90,7 @@ class Board
           $spaces = null;
           $rotation = null;
           $square = [
-            'type' => $b[$j][$i],
+            'type' => Players::isSolo() ? BONUS_YOU_GAIN_4 : $b[$j][$i],
             'x' => $x,
             'y' => $y,
           ];
