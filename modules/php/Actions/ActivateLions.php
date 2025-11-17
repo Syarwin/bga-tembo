@@ -47,7 +47,7 @@ class ActivateLions extends Action
           'y' => $elephant->getY()
         ], $allElephants);
         $board = new Board();
-        $lionCoords = ['x' => $lion->getX(), 'y' => $lion->getY()];
+        $lionCoords = static::convertToSquareCoords(['x' => $lion->getX(), 'y' => $lion->getY()], false);
         $availableDirections = $this->findAvailableDirections($lionCoords, $board);
         $closestElephantCoords = $this->findClosest($lionCoords, $elephantsCoords);
         $potentialDirections = $this->findDirectionsMakingLionCloser($availableDirections, $lionCoords, $closestElephantCoords);
@@ -55,12 +55,13 @@ class ActivateLions extends Action
           throw new \BgaVisibleSystemException("No directions found for lion at {$lionCoords['x']}, {$lionCoords['y']}");
         }
         // If PHP doesn't shuffle elements during array_values(), first direction should be a priority on the lion compass
-        $direction = $potentialDirections[0];
-        $newX = $lionCoords['x'] + $direction['x'];
-        $newY = $lionCoords['y'] + $direction['y'];
+        $dir = $potentialDirections[0];
+        $squareX = $lionCoords['x'] + $dir['x'];
+        $squareY = $lionCoords['y'] + $dir['y'];
+        [$newX, $newY] = $board->getRandomSpaceNoneInSquare($squareX, $squareY);
         $lion->setX($newX);
         $lion->setY($newY);
-        $elephantsEatenByThisLion = $board->getElephantsOfSquare($newX, $newY);
+        $elephantsEatenByThisLion = $board->getElephantsOfSquare($squareX, $squareY);
         $elephantsEaten = [...$elephantsEaten, ...$elephantsEatenByThisLion];
         $regularElephantsEatenNumber += count($elephantsEatenByThisLion);
         foreach ($elephantsEaten as $elephant) {
@@ -70,7 +71,7 @@ class ActivateLions extends Action
           $lion->setState(STATE_LAYING);
           $isElephantsEaten = true;
         }
-        if ($board->isMatriarchInSquare($newX, $newY)) {
+        if ($board->isMatriarchInSquare($squareX, $squareY)) {
           if (!$isMatriarchInjured) {
             $isMatriarchInjured = true;
           }
@@ -120,10 +121,10 @@ class ActivateLions extends Action
     $closest = null;
     $minDistance = PHP_FLOAT_MAX;
     // Convert real coords to "square" coords (top-left corner of each square)
-    $target = $this->convertToSquareCoords($target);
+    $target = static::convertToSquareCoords($target);
 
     foreach ($points as $point) {
-      $point = $this->convertToSquareCoords($point);
+      $point = static::convertToSquareCoords($point);
       if ($point === $target) {
         return $point;
       }
@@ -146,10 +147,11 @@ class ActivateLions extends Action
     return ['x' => $closest['x'] * 3, 'y' => $closest['y'] * 3];
   }
 
-  private function convertToSquareCoords($cell)
+  private static function convertToSquareCoords($cell, $divideBy3 = true)
   {
-    $cell['x'] = ($cell['x'] - ($cell['x'] % 3)) / 3;
-    $cell['y'] = ($cell['y'] - ($cell['y'] % 3)) / 3;
+    $divider = $divideBy3 ? 3 : 1;
+    $cell['x'] = ($cell['x'] - ($cell['x'] % 3)) / $divider;
+    $cell['y'] = ($cell['y'] - ($cell['y'] % 3)) / $divider;
     return $cell;
   }
 
@@ -166,5 +168,20 @@ class ActivateLions extends Action
       return $this->getDistance($potentialLionCoords, $elephantCoords) < $currentDistance;
     });
     return array_values($filtered);
+  }
+
+  public static function checkIfLionIsHereAndMove(int $x, int $y): void
+  {
+    $board = new Board();
+    foreach (Meeples::getLions() as $lion) {
+      $lionSquare = static::convertToSquareCoords(['x' => $lion->getX(), 'y' => $lion->getY()], false);
+      if ($lionSquare['x'] === $x && $lionSquare['y'] === $y) {
+        [$newX, $newY] = $board->getRandomSpaceNoneInSquare($lionSquare['x'], $lionSquare['y']);
+        $lion->setX($newX);
+        $lion->setY($newY);
+        Notifications::lionMoved($lion);
+        break;
+      }
+    }
   }
 }

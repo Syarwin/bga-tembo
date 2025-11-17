@@ -360,11 +360,7 @@ class Board
 
   public function getElephantsOfSquare(int $x, int $y, bool $isMatriarch = false): array
   {
-    $squares = array_filter($this->squares, fn($square) => $square['x'] === $x && $square['y'] === $y);
-    if (empty($squares)) {
-      throw new \BgaVisibleSystemException("getElephantsOfSquare: Cannot find a square by coords {$x}, {$y}. Should not happen");
-    }
-    $square = array_values($squares)[0];
+    $square = $this->getSquareByTopLeft($x, $y);
     $allElephants = [];
     if (!$this->isSquareHasLandmark($square) && is_null($this->getSquareCard($square))) {
       return [];
@@ -392,5 +388,33 @@ class Board
   {
     $cellsArray = array_map(fn($cell) => !Meeples::getOnCell($cell)->empty(), $this->destinationSpaces);
     return !in_array(false, $cellsArray);
+  }
+
+  public function getRandomSpaceNoneInSquare(int $x, int $y)
+  {
+    $square = $this->getSquareByTopLeft($x, $y);
+    $spacesNone = [];
+    if (!$this->isSquareHasLandmark($square) && is_null($this->getSquareCard($square))) {
+      return [$x, $y];
+    }
+    for ($x = $square['x']; $x < $square['x'] + 3; $x++) {
+      for ($y = $square['y']; $y < $square['y'] + 3; $y++) {
+        if ($this->cells[$x][$y] === SPACE_NONE) {
+          $spacesNone[] = ['x' => $x, 'y' => $y];
+        }
+      }
+    }
+    $cell = $spacesNone[array_rand($spacesNone)];
+    return [$cell['x'], $cell['y']];
+  }
+
+  private function getSquareByTopLeft(int $x, int $y): array
+  {
+    $squares = array_filter($this->squares, fn($square) => $square['x'] === $x && $square['y'] === $y);
+    if (empty($squares)) {
+      debug_print_backtrace();
+      throw new \BgaVisibleSystemException("getElephantsOfSquare: Cannot find a square by coords {$x}, {$y}. Should not happen");
+    }
+    return array_values($squares)[0];
   }
 }

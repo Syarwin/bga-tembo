@@ -63,6 +63,7 @@ class UseCard extends Action
     // Place the card
     Cards::placeOnBoard($cardId, $x, $y, $rotation);
     Notifications::cardPlacedOnBoard($activePlayer, Cards::get($cardId));
+    ActivateLions::checkIfLionIsHereAndMove($x, $y);
 
     // Any bonus ?
     $bonus = $squaresWithCoords[0]['type'];

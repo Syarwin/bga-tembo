@@ -292,6 +292,14 @@ class Notifications
     ]);
   }
 
+  public static function lionMoved(Meeple $lion)
+  {
+    self::notifyAll('lionsMoved', '', [
+      'lions' => [$lion],
+      'cardIds' => [],
+    ]);
+  }
+
   public static function elephantsEaten(array $elephantsEaten)
   {
     self::notifyAll('elephantsEaten', '', [
