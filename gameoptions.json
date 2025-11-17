@@ -7,20 +7,10 @@
         "name": "First Game",
         "firstgameonly": true,
         "tmdisplay": "[First Game]",
-        "description": "Play with the recommended board layout for your first game"
+        "description": "Play with a recommended journey A or B"
       },
       "1": {
-        "name": "Base"
-      },
-      "2": {
-        "name": "Advanced",
-        "tmdisplay": "[Ecosystem]",
-        "description": "Play with 5 Ecosystem cards",
-        "nobeginner": true
-      },
-      "3": {
-        "name": "Scenarios",
-        "description": "Play a pre-built layout"
+        "name": "Journey manual selection"
       }
     }
   },
@@ -30,74 +20,86 @@
       {
         "type": "otheroption",
         "id": 110,
-        "value": [
-          3
-        ]
+        "value": [1]
       }
     ],
-    "default": 0,
+    "default": 1,
     "values": {
-      "0": {
-        "name": "Scenario A",
-        "tmdisplay": "[Scenario A]"
-      },
       "1": {
-        "name": "Scenario B",
-        "tmdisplay": "[Scenario B]"
+        "name": "Journey 1",
+        "tmdisplay": "[Journey 1]"
       },
       "2": {
-        "name": "Scenario C",
-        "tmdisplay": "[Scenario C]"
+        "name": "Journey 2",
+        "tmdisplay": "[Journey 2]"
       },
       "3": {
-        "name": "Scenario D",
-        "tmdisplay": "[Scenario D]"
+        "name": "Journey 3",
+        "tmdisplay": "[Journey 3]"
       },
       "4": {
-        "name": "Scenario E",
-        "tmdisplay": "[Scenario E]"
+        "name": "Journey 4",
+        "tmdisplay": "[Journey 4]"
       },
       "5": {
-        "name": "Scenario F",
-        "tmdisplay": "[Scenario F]"
+        "name": "Journey 5",
+        "tmdisplay": "[Journey 5]"
       },
       "6": {
-        "name": "Scenario G",
-        "tmdisplay": "[Scenario G]"
+        "name": "Journey 6",
+        "tmdisplay": "[Journey 6]"
       },
       "7": {
-        "name": "Scenario H",
-        "tmdisplay": "[Scenario H]"
+        "name": "Journey 7",
+        "tmdisplay": "[Journey 7]"
       },
       "8": {
-        "name": "Scenario I",
-        "tmdisplay": "[Scenario I]"
+        "name": "Journey 8",
+        "tmdisplay": "[Journey 8]"
       },
       "9": {
-        "name": "Scenario J",
-        "tmdisplay": "[Scenario J]"
+        "name": "Journey 9",
+        "tmdisplay": "[Journey 9]"
       },
       "10": {
-        "name": "Scenario K",
-        "tmdisplay": "[Scenario K]"
+        "name": "Journey 10",
+        "tmdisplay": "[Journey 10]"
       },
       "11": {
-        "name": "Scenario L",
-        "tmdisplay": "[Scenario L]"
+        "name": "Journey 11",
+        "tmdisplay": "[Journey 11]"
       },
       "12": {
-        "name": "Scenario M",
-        "tmdisplay": "[Scenario M]"
+        "name": "Journey 12",
+        "tmdisplay": "[Journey 12]"
       },
       "13": {
-        "name": "Scenario N",
-        "tmdisplay": "[Scenario N]"
+        "name": "Journey A",
+        "tmdisplay": "[Journey A]",
+        "firstgameonly": true
+      },
+      "14": {
+        "name": "Journey B",
+        "tmdisplay": "[Journey B]",
+        "firstgameonly": true
       }
     }
   },
   "112": {
     "name": "Difficulty",
     "default": 0,
+    "displaycondition": [
+      {
+        "type": "otheroption",
+        "id": 110,
+        "value": [1]
+      },
+      {
+        "type": "otheroption",
+        "id": 111,
+        "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      }
+    ],
     "values": {
       "0": {
         "name": "0 (Easiest)",
@@ -122,7 +124,33 @@
       },
       "5": {
         "name": "5 (Hardest)",
-        "description": "Play with no Support cards"
+        "description": "Play without Support cards"
+      }
+    }
+  },
+  "113": {
+    "name": "Events module",
+    "default": 0,
+    "displaycondition": [
+      {
+        "type": "otheroption",
+        "id": 110,
+        "value": [1]
+      },
+      {
+        "type": "otheroption",
+        "id": 111,
+        "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      }
+    ],
+    "values": {
+      "0": {
+        "name": "Without events",
+        "description": "Events are not used in the game"
+      },
+      "1": {
+        "name": "With events",
+        "description": "Play with 20 Event tiles"
       }
     }
   }
