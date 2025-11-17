@@ -90,11 +90,12 @@ class Meeples extends CachedPieces
     }
   }
 
-  public static function eliminateElephant(int $pId, int $state)
+  public static function eliminateElephant(int $pId, int $state): Meeple
   {
     /** @var Meeple $elephant */
     $elephant = self::getTiredRestedElephants($pId, $state)->rand();
     $elephant->setLocation(LOCATION_DISCARD);
+    return $elephant;
   }
 
   // public static function getUnitsOnCell($hex)
@@ -271,7 +272,7 @@ class Meeples extends CachedPieces
   private static function getElephants(int $pId = null): Collection
   {
     $allElephants = self::getAll()->filter(
-      /** @var Meeple $meeple */
+    /** @var Meeple $meeple */
       fn($meeple) => $meeple->isElephant()
     );
     return is_null($pId) ? $allElephants : $allElephants->filter(fn($elephant) => $elephant->getPId() === $pId);

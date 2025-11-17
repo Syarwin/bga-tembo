@@ -33,6 +33,7 @@ class ActivateLions extends Action
     Cards::move($cards->getIds(), LOCATION_DISCARD);
     $lions = Meeples::getLions();
     $elephantsEaten = [];
+    $isElephantsEaten = false;
     $isMatriarchInjured = false;
     /** @var Meeple $lion */
     foreach ($lions as $lion) {
@@ -65,6 +66,7 @@ class ActivateLions extends Action
         }
         if (!empty($elephantsEatenByThisLion)) {
           $lion->setState(STATE_LAYING);
+          $isElephantsEaten = true;
         }
         if ($board->isMatriarchInSquare($newX, $newY)) {
           if (!$isMatriarchInjured) {
@@ -73,29 +75,30 @@ class ActivateLions extends Action
           /** @var Player $player */
           foreach (Players::getAll() as $player) {
             if ($player->getRestedElephantsAmount() > 0) {
-              $player->eliminateRestedElephant();
+              $elephant = $player->eliminateRestedElephant();
             } else {
-              $player->eliminateTiredElephant();
+              $elephant = $player->eliminateTiredElephant();
             }
+            $elephantsEaten[] = $elephant;
           }
         }
       };
     }
     Notifications::lionsMoved($player, $lions, $cards);
-    if (!empty($elephantsEaten)) {
-      Notifications::elephantsEaten($elephantsEaten);
+    if ($isElephantsEaten) {
+      $msg = clienttranslate('All Elephants in an area with standing lions have been removed from the game');
+      Notifications::message($msg);
     }
     if ($isMatriarchInjured) {
-      $playersElephants = [];
-      foreach (Players::getAll() as $player) {
-        $playersElephants[$player->getId()]['rested'] = $player->getRestedElephantsAmount();
-        $playersElephants[$player->getId()]['tired'] = $player->getTiredElephantsAmount();
-      }
-      Notifications::matriarchInjured($playersElephants);
+      $msg = clienttranslate('A lion is chasing the Matriarch. Each player removes 1 elephant from the game');
+      Notifications::message($msg);
       $lionsCoords = array_map(fn($lion) => ['x' => $lion->getX(), 'y' => $lion->getY()], $lions);
       if ($lionsCoords[0]['x'] === $lionsCoords[1]['x'] && $lionsCoords[0]['y'] === $lionsCoords[1]['y']) {
         Globals::setEndGame(true);
       }
+    }
+    if (!empty($elephantsEaten)) {
+      Notifications::elephantsEaten($elephantsEaten);
     }
 
     return true;

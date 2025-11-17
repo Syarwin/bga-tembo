@@ -139,16 +139,18 @@ class Player extends DB_Model
     return Meeples::getTiredRestedElephants($this->id, STATE_TIRED)->count();
   }
 
-  public function eliminateRestedElephant(): void
+  public function eliminateRestedElephant(): Meeple
   {
-    Meeples::eliminateElephant($this->id, STATE_RESTED);
+    $elephant = Meeples::eliminateElephant($this->id, STATE_RESTED);
     $this->checkIfAllElephantsAreDead();
+    return $elephant;
   }
 
-  public function eliminateTiredElephant(): void
+  public function eliminateTiredElephant(): Meeple
   {
-    Meeples::eliminateElephant($this->id, STATE_TIRED);
+    $elephant = Meeples::eliminateElephant($this->id, STATE_TIRED);
     $this->checkIfAllElephantsAreDead();
+    return $elephant;
   }
 
   private function checkIfAllElephantsAreDead()
