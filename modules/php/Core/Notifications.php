@@ -191,7 +191,7 @@ class Notifications
   public static function elephantsLost(Player $player, array $lost, ?string $msg = null)
   {
     if (is_null($msg)) {
-      $msg = clienttranslate('${player_name} loses ${lostAmount} elephants');
+      $msg = clienttranslate('${player_name} loses ${lostAmount} elephant(s)');
     }
     self::notifyAll('elephantsLost', $msg, [
       'player' => $player,
