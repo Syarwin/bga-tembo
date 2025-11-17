@@ -33,6 +33,7 @@ class ActivateLions extends Action
     Cards::move($cards->getIds(), LOCATION_DISCARD);
     $lions = Meeples::getLions();
     $elephantsEaten = [];
+    $regularElephantsEatenNumber = 0;
     $isElephantsEaten = false;
     $isMatriarchInjured = false;
     /** @var Meeple $lion */
@@ -61,6 +62,7 @@ class ActivateLions extends Action
         $lion->setY($newY);
         $elephantsEatenByThisLion = $board->getElephantsOfSquare($newX, $newY);
         $elephantsEaten = [...$elephantsEaten, ...$elephantsEatenByThisLion];
+        $regularElephantsEatenNumber += count($elephantsEatenByThisLion);
         foreach ($elephantsEaten as $elephant) {
           $elephant->setLocation(LOCATION_DISCARD);
         }
@@ -86,8 +88,8 @@ class ActivateLions extends Action
     }
     Notifications::lionsMoved($player, $lions, $cards);
     if ($isElephantsEaten) {
-      $msg = clienttranslate('All Elephants in an area with standing lions have been removed from the game');
-      Notifications::message($msg);
+      $msg = clienttranslate('${amount} Elephant(s) in an area with standing lions have been removed from the game');
+      Notifications::message($msg, ['amount' => $regularElephantsEatenNumber]);
     }
     if ($isMatriarchInjured) {
       $msg = clienttranslate('A lion is chasing the Matriarch. Each player removes 1 elephant from the game');
