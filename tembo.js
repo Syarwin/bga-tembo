@@ -59,6 +59,7 @@ define([
           'lionsMoved',
           'elephantsEaten',
           'matriarchAction',
+          'matriarchCardDiscarded',
         ];
         // this.default_viewport = 'width=990';
       },
@@ -409,6 +410,10 @@ define([
             }
           })
         );
+      },
+
+      async notif_matriarchCardDiscarded(args){
+        await this.slideAndDestroy(`savanna-card-${args.cardId}`);
       },
 
       //////////////////////////////////////////////////////

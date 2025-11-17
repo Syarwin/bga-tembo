@@ -36,5 +36,16 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         });
       }
     },
+
+    onEnteringStateDiscardSecondMatriarch() {
+      if (this.isCurrentPlayerActive()) {
+        this.addPrimaryActionButton('btnDiscard', _('Discard'), () => {
+          this.takeAtomicAction('actDiscardSecondMatriarch');
+        });
+        this.addPrimaryActionButton('btnNothing', _('Play Matriarch'), () => {
+          this.takeAtomicAction('actDoNotDiscardSecondMatriarch');
+        });
+      }
+    }
   });
 });

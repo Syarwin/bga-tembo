@@ -17,7 +17,8 @@ class Actions
     PLAYER_GAIN_LOSE_ELEPHANTS,
     PLACE_SINGLE_ELEPHANT,
     PLAY_MATRIARCH,
-    ACTIVATE_LIONS
+    ACTIVATE_LIONS,
+    SOLO_DISCARD_SECOND_MATRIARCH,
   ];
 
   public static function get(string $actionId, null|AbstractNode|array &$ctx = null): Action
@@ -65,8 +66,7 @@ class Actions
     array $args,
     AbstractNode &$ctx,
     bool $automatic = false
-  ): void
-  {
+  ): void {
     $player = Players::getActive();
     if (!self::isDoable($actionId, $ctx, $player)) {
       throw new \BgaUserException(self::getErrorMessage($actionId));

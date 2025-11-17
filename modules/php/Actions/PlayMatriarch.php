@@ -23,7 +23,7 @@ class PlayMatriarch extends Action
     $player = Players::getActive();
     $board = new Board();
     return [
-      'cards' => $player->getMatriarchCards(),
+      'matriarchIds' => $player->getMatriarchCards()->getIds(),
       'singleSpaces' => $board->getAllPossibleCoordsSingle(),
     ];
   }

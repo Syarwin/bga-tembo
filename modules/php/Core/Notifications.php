@@ -272,7 +272,6 @@ class Notifications
   public static function matriarchAction(Player $player, Collection $cards, Collection $elephants, Collection $trees)
   {
     $msg = clienttranslate('${player_name} uses the Matriarch action. All players return their elephants from the board and all Tree standees are stood back upright');
-    self::notify($player, 'cardsDiscarded', '', ['cards' => $cards]);
     self::notifyAll('matriarchAction', $msg, [
       'player' => $player,
       'cardIds' => $cards->getIds(),
@@ -289,6 +288,15 @@ class Notifications
       'player' => $player,
       'lions' => $lions,
       'cardIds' => $cards->getIds(),
+    ]);
+  }
+
+  public static function matriarchCardDiscarded(Player $player, int $cardId)
+  {
+    $msg = clienttranslate('${player_name} discards a Matriarch card to avoid Double Matriarch action');
+    self::notifyAll('matriarchCardDiscarded', $msg, [
+      'player' => $player,
+      'cardId' => $cardId,
     ]);
   }
 

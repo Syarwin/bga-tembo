@@ -24,7 +24,7 @@ class UseCard extends Action
   {
     $player = Players::getActive();
     $hand = $player->getHand();
-    $matriarch = $hand->filter(fn($card) => $card->isMatriarch())->first();
+    $matriarch = $hand->filter(fn($card) => $card->isMatriarch());
     $hand = $hand->filter(fn($card) => !$card->isMatriarch());
     $board = new Board();
 
@@ -40,7 +40,7 @@ class UseCard extends Action
       'singleSpaces' => $board->getAllPossibleCoordsSingle(),
       'supportTokens' => SupportTokens::get(),
 
-      'matriarchId' => is_null($matriarch) ? null : $matriarch->getId(),
+      'matriarchIds' => $matriarch->empty() ? null : $matriarch->getIds(),
       'descSuffix' => is_null($matriarch) ? '' : 'matriarch',
     ];
   }

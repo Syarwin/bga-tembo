@@ -63,7 +63,8 @@ trait TurnTrait
       return;
     }
     if ($mustPlayMatriarch) {
-      Engine::setup(['action' => PLAY_MATRIARCH], ['method' => 'stEndOfTurn']);
+      $action = Players::isSolo() && !Globals::isSoloDiscardedSecondMatriarch() ? SOLO_DISCARD_SECOND_MATRIARCH : PLAY_MATRIARCH;
+      Engine::setup(['action' => $action], ['method' => 'stEndOfTurn']);
       Engine::proceed();
     } else if ($mustPlayLion) {
       Engine::setup(['action' => ACTIVATE_LIONS], ['method' => 'stEndOfTurn']);

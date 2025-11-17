@@ -26,6 +26,7 @@ class Globals extends DB_Manager
     'supportTokens' => 'int',
     'destinationUnlocked' => 'bool',
     'endGame' => 'bool',
+    'soloDiscardedSecondMatriarch' => 'bool',
   ];
 
   /*
@@ -33,10 +34,14 @@ class Globals extends DB_Manager
    */
   public static function setupNewGame(array $players): void
   {
+    $playersCount = count($players);
     $energy = [1 => 9, 2 => 9, 3 => 7, 4 => 6][count($players)];
     static::setEnergy($energy);
     static::setDestinationUnlocked(false);
     static::setEndGame(false);
+    if ($playersCount === 1) {
+      static::setSoloDiscardedSecondMatriarch(false);
+    }
 
     static::setFirstPlayer(array_keys($players)[0]);
   }

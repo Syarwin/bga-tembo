@@ -14,10 +14,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         });
       });
 
-      if (args.matriarchId) {
+      if (args.matriarchIds) {
         let callback = () => this.clientState('playMatriarch', _('Where do you want to move the Matriarch?'), args);
-        this.addPrimaryActionButton('btnMatriarch', _('Play the Matriarch card'), callback);
-        this.onClick(`savanna-card-${args.matriarchId}`, callback);
+        this.addPrimaryActionButton('btnMatriarch', _('Play a Matriarch card'), callback);
+        args.matriarchIds.forEach((cardId) => this.onClick(`savanna-card-${cardId}`, callback));
       }
 
       if (args.supportTokens > 0) {
@@ -135,7 +135,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStatePlayMatriarch(args) {
-      $(`savanna-card-${args.matriarchId}`).classList.add('selected');
+      if (args.matriarchIds) {
+        args.matriarchIds.forEach((cardId) => $(`savanna-card-${cardId}`).classList.add('selected'));
+      }
+
       this.addPrimaryActionButton('btnNotMovingMatriarch', 'Do not move the Matriarch', () => {
         this.takeAtomicAction('actLeaveMatriarch');
       });

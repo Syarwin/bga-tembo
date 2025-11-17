@@ -91,7 +91,12 @@ class Player extends DB_Model
     if ($cards->count() < $nToDraw) {
       $endGame = true;
     }
-    $cards->update('rotation', $this->rotation);
+    /** @var Card $card */
+    foreach ($cards as $card) {
+      if (!$card->isMatriarch() && !$card->isLion()) {
+        $card->setRotation($this->rotation);
+      }
+    }
     Notifications::cardsDrawn($this, $cards);
     return [$this->getMatriarchCards()->count() >= 2, $this->getLionCards()->count() > 0, $endGame];
   }

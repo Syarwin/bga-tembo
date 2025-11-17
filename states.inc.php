@@ -257,6 +257,15 @@ $machinestates = [
     'possibleactions' => ['actRestart', 'actPlayMatriarch', 'actLeaveMatriarch'],
   ],
 
+  ST_DISCARD_SECOND_MATRIARCH => [
+    'name' => 'discardSecondMatriarch',
+    'description' => clienttranslate('${actplayer} may discard one Matriarch to avoid triggering a Double Matriarch (once per game)'),
+    'descriptionmyturn' => clienttranslate('${you} may discard one Matriarch to avoid triggering a Double Matriarch (once per game)'),
+    'type' => 'activeplayer',
+    'action' => 'stAtomicAction',
+    'possibleactions' => ['actDiscardSecondMatriarch', 'actDoNotDiscardSecondMatriarch'],
+  ],
+
   //////////////////////////////////////////////////////////////////
   //  _____           _    ___   __    ____
   // | ____|_ __   __| |  / _ \ / _|  / ___| __ _ _ __ ___   ___

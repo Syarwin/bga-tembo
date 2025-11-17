@@ -18,6 +18,7 @@ const ST_USE_CARD = 20;
 const ST_PLAYER_GAIN_LOSE_ELEPHANTS = 21;
 const ST_PLACE_SINGLE_ELEPHANT = 22;
 const ST_MATRIARCH = 23;
+const ST_DISCARD_SECOND_MATRIARCH = 24;
 
 const ST_RESOLVE_STACK = 90;
 const ST_RESOLVE_CHOICE = 91;
@@ -54,6 +55,7 @@ const PLAYER_GAIN_LOSE_ELEPHANTS = 'PlayerGainLoseElephants';
 const PLACE_SINGLE_ELEPHANT = 'PlaceSingleElephant';
 const PLAY_MATRIARCH = 'PlayMatriarch';
 const ACTIVATE_LIONS = 'ActivateLions';
+const SOLO_DISCARD_SECOND_MATRIARCH = 'DiscardSecondMatriarch';
 
 /*
  * Board tiles
