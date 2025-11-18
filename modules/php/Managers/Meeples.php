@@ -51,12 +51,6 @@ class Meeples extends CachedPieces
     ][$spaceType];
   }
 
-  public static function layTree(int $spaceType): bool
-  {
-    $treeType = static::getTreeType($spaceType);
-    return static::layMeeple($treeType);
-  }
-
   public static function layLandmark(int $caredRefType): string
   {
     $landmarkType = [

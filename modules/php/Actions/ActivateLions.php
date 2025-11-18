@@ -28,10 +28,96 @@ class ActivateLions extends Action
 
   public function stActivateLions()
   {
-    $player = Players::getActive();
-    $cards = $player->getLionCards();
+    $activePlayer = Players::getActive();
+    $cards = $activePlayer->getLionCards();
     Cards::move($cards->getIds(), LOCATION_DISCARD);
-    $lions = Meeples::getLions();
+    static::activate(Meeples::getLions(), $cards, $activePlayer);
+    return true;
+  }
+
+  private static function findAvailableDirections(array $lionCoords, Board $board)
+  {
+    $availableDirections = array_filter(self::DIRECTIONS, function ($direction) use ($lionCoords, $board) {
+      $coords = ['x' => $lionCoords['x'] + $direction['x'], 'y' => $lionCoords['y'] + $direction['y']];
+      return $board->isSquareExist($coords);
+    });
+    return array_values($availableDirections);
+  }
+
+  private static function findClosest($target, $points): array
+  {
+    $closest = null;
+    $minDistance = PHP_FLOAT_MAX;
+    // Convert real coords to "square" coords (top-left corner of each square)
+    $target = static::convertToSquareCoords($target);
+
+    foreach ($points as $point) {
+      $point = static::convertToSquareCoords($point);
+      if ($point === $target) {
+        return $point;
+      }
+
+      $distance = static::getDistance($target, $point);
+
+      if ($distance < $minDistance) {
+        $minDistance = $distance;
+        $closest = $point;
+      } elseif ($distance === $minDistance) {
+        // Lion compass says the priorities are top, then right, down and left. If two squares are equally close, the compass starts working
+        if ($point['y'] < $closest['y']) {
+          $closest = $point;
+        } elseif ($point['y'] === $closest['y'] && $point['x'] > $closest['x']) {
+          $closest = $point;
+        } // Otherwise $closest is the priority
+      }
+    }
+
+    return ['x' => $closest['x'] * 3, 'y' => $closest['y'] * 3];
+  }
+
+  private static function convertToSquareCoords($cell, $divideBy3 = true)
+  {
+    $divider = $divideBy3 ? 3 : 1;
+    $cell['x'] = ($cell['x'] - ($cell['x'] % 3)) / $divider;
+    $cell['y'] = ($cell['y'] - ($cell['y'] % 3)) / $divider;
+    return $cell;
+  }
+
+  private static function getDistance($target, $point): int
+  {
+    return abs($point['x'] - $target['x']) + abs($point['y'] - $target['y']);
+  }
+
+  private static function findDirectionsMakingLionCloser(
+    array $directions,
+    array $lionCoords,
+    array $elephantCoords
+  ): array {
+    $currentDistance = static::getDistance($lionCoords, $elephantCoords);
+    $filtered = array_filter($directions, function ($direction) use ($elephantCoords, $currentDistance, $lionCoords) {
+      $potentialLionCoords = ['x' => $lionCoords['x'] + $direction['x'], 'y' => $lionCoords['y'] + $direction['y']];
+      return $this->getDistance($potentialLionCoords, $elephantCoords) < $currentDistance;
+    });
+    return array_values($filtered);
+  }
+
+  public static function checkIfLionIsHereAndMove(int $x, int $y): void
+  {
+    $board = new Board();
+    foreach (Meeples::getLions() as $lion) {
+      $lionSquare = static::convertToSquareCoords(['x' => $lion->getX(), 'y' => $lion->getY()], false);
+      if ($lionSquare['x'] === $x && $lionSquare['y'] === $y) {
+        [$newX, $newY] = $board->getRandomSpaceNoneInSquare($lionSquare['x'], $lionSquare['y']);
+        $lion->setX($newX);
+        $lion->setY($newY);
+        Notifications::lionMoved($lion);
+        break;
+      }
+    }
+  }
+
+  public static function activate(array $lions, $cards = [], Player $activePlayer = null)
+  {
     $elephantsEaten = [];
     $regularElephantsEatenNumber = 0;
     $isElephantsEaten = false;
@@ -48,9 +134,9 @@ class ActivateLions extends Action
         ], $allElephants);
         $board = new Board();
         $lionCoords = static::convertToSquareCoords(['x' => $lion->getX(), 'y' => $lion->getY()], false);
-        $availableDirections = $this->findAvailableDirections($lionCoords, $board);
-        $closestElephantCoords = $this->findClosest($lionCoords, $elephantsCoords);
-        $potentialDirections = $this->findDirectionsMakingLionCloser($availableDirections, $lionCoords, $closestElephantCoords);
+        $availableDirections = static::findAvailableDirections($lionCoords, $board);
+        $closestElephantCoords = static::findClosest($lionCoords, $elephantsCoords);
+        $potentialDirections = static::findDirectionsMakingLionCloser($availableDirections, $lionCoords, $closestElephantCoords);
         if (empty($potentialDirections)) {
           throw new \BgaVisibleSystemException("No directions found for lion at {$lionCoords['x']}, {$lionCoords['y']}");
         }
@@ -77,17 +163,17 @@ class ActivateLions extends Action
           }
           /** @var Player $player */
           foreach (Players::getAll() as $player) {
-            if ($player->getRestedElephantsAmount() > 0) {
-              $elephant = $player->eliminateRestedElephant();
-            } else {
-              $elephant = $player->eliminateTiredElephant();
+            $elephant = $player->eliminateRestedOrTiredElephant();
+            if (!is_null($elephant)) {
+              $elephantsEaten[] = $elephant;
             }
-            $elephantsEaten[] = $elephant;
           }
         }
       };
     }
-    Notifications::lionsMoved($player, $lions, $cards);
+    if (!is_null($activePlayer)) {
+      Notifications::lionsMoved($activePlayer, $lions, $cards);
+    }
     if ($isElephantsEaten) {
       $msg = clienttranslate('${amount} Elephant(s) in an area with standing lions have been removed from the game');
       Notifications::message($msg, ['amount' => $regularElephantsEatenNumber]);
@@ -105,83 +191,5 @@ class ActivateLions extends Action
     }
 
     return true;
-  }
-
-  private function findAvailableDirections(array $lionCoords, Board $board)
-  {
-    $availableDirections = array_filter(self::DIRECTIONS, function ($direction) use ($lionCoords, $board) {
-      $coords = ['x' => $lionCoords['x'] + $direction['x'], 'y' => $lionCoords['y'] + $direction['y']];
-      return $board->isSquareExist($coords);
-    });
-    return array_values($availableDirections);
-  }
-
-  private function findClosest($target, $points): array
-  {
-    $closest = null;
-    $minDistance = PHP_FLOAT_MAX;
-    // Convert real coords to "square" coords (top-left corner of each square)
-    $target = static::convertToSquareCoords($target);
-
-    foreach ($points as $point) {
-      $point = static::convertToSquareCoords($point);
-      if ($point === $target) {
-        return $point;
-      }
-
-      $distance = $this->getDistance($target, $point);
-
-      if ($distance < $minDistance) {
-        $minDistance = $distance;
-        $closest = $point;
-      } elseif ($distance === $minDistance) {
-        // Lion compass says the priorities are top, then right, down and left. If two squares are equally close, the compass starts working
-        if ($point['y'] < $closest['y']) {
-          $closest = $point;
-        } elseif ($point['y'] === $closest['y'] && $point['x'] > $closest['x']) {
-          $closest = $point;
-        } // Otherwise $closest is the priority
-      }
-    }
-
-    return ['x' => $closest['x'] * 3, 'y' => $closest['y'] * 3];
-  }
-
-  private static function convertToSquareCoords($cell, $divideBy3 = true)
-  {
-    $divider = $divideBy3 ? 3 : 1;
-    $cell['x'] = ($cell['x'] - ($cell['x'] % 3)) / $divider;
-    $cell['y'] = ($cell['y'] - ($cell['y'] % 3)) / $divider;
-    return $cell;
-  }
-
-  private function getDistance($target, $point): int
-  {
-    return abs($point['x'] - $target['x']) + abs($point['y'] - $target['y']);
-  }
-
-  private function findDirectionsMakingLionCloser(array $directions, array $lionCoords, array $elephantCoords): array
-  {
-    $currentDistance = $this->getDistance($lionCoords, $elephantCoords);
-    $filtered = array_filter($directions, function ($direction) use ($elephantCoords, $currentDistance, $lionCoords) {
-      $potentialLionCoords = ['x' => $lionCoords['x'] + $direction['x'], 'y' => $lionCoords['y'] + $direction['y']];
-      return $this->getDistance($potentialLionCoords, $elephantCoords) < $currentDistance;
-    });
-    return array_values($filtered);
-  }
-
-  public static function checkIfLionIsHereAndMove(int $x, int $y): void
-  {
-    $board = new Board();
-    foreach (Meeples::getLions() as $lion) {
-      $lionSquare = static::convertToSquareCoords(['x' => $lion->getX(), 'y' => $lion->getY()], false);
-      if ($lionSquare['x'] === $x && $lionSquare['y'] === $y) {
-        [$newX, $newY] = $board->getRandomSpaceNoneInSquare($lionSquare['x'], $lionSquare['y']);
-        $lion->setX($newX);
-        $lion->setY($newY);
-        Notifications::lionMoved($lion);
-        break;
-      }
-    }
   }
 }

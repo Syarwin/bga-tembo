@@ -2,7 +2,6 @@
 
 namespace Bga\Games\Tembo\Managers;
 
-use Bga\Games\Tembo\Core\Engine;
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Models\Player;
@@ -32,7 +31,8 @@ class SupportTokens
     switch ($option) {
       case SUPPORT_ENERGY:
         $msg = clienttranslate('${player_name} spends a support token to gain 1 energy');
-        Energy::increase(1, $msg, ['player' => $player]);
+        Energy::increase();
+        Notifications::energyIncreased(Energy::get(), 1, $msg);
         break;
       case SUPPORT_ELEPHANTS:
         $msg = clienttranslate('${player_name} spends a support token to gain 2 elephants');
@@ -46,9 +46,18 @@ class SupportTokens
         $msg = clienttranslate('${player_name} spends a support token to place a single elephant');
         Notifications::message($msg, ['player' => $player]);
         return ['action' => PLACE_SINGLE_ELEPHANT, 'args' => ['ignoreRough' => true]];
-        break;
       default:
         throw new \BgaVisibleSystemException("spend SupportToken: Unknown option $option. Should not happen");
     }
+    return null;
+  }
+
+  public static function lose(): bool
+  {
+    if (static::get() === 0) {
+      return false;
+    }
+    Globals::incSupportTokens(-1);
+    return true;
   }
 }

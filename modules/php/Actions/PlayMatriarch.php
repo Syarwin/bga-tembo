@@ -65,9 +65,6 @@ class PlayMatriarch extends Action
     Energy::decrease($energyToSpend);
 
     // 5. Play a new event if possible
-    $activeEvents = EventTiles::revealNext();
-    if (!empty($activeEvents)) {
-      Notifications::newEvent($activeEvents);
-    }
+    EventTiles::revealNext();
   }
 }

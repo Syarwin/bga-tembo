@@ -94,11 +94,20 @@ class PlaceSingleElephant extends Action
 
           if ($successful) {
             $energyAmount = $cell['type'] === SPACE_TREE_GREEN ? 2 : 1;
-            Notifications::treesEaten($player, $cell['type'], $energyAmount, $tree);
+            Notifications::treesEaten($energyAmount, $tree);
+            Notifications::treesEatenMessage($player, $cell['type'], $energyAmount);
             Energy::increase($energyAmount, '');
+            Notifications::energyIncreased(Energy::get(), $energyAmount, '');
           } else {
-            Notifications::treesEaten($player, $cell['type'], 0, $tree);
+            Notifications::treesEaten(0, $tree);
+            Notifications::treesEatenMessage($player, $cell['type'], 0);
           }
+          if ($successful) {
+            $msg = clienttranslate('Elephants placed by ${player_name} eat ${color} trees but the matching color standee is already laying on its side, nothing happened');
+          } else {
+            $msg = clienttranslate('Elephants placed by ${player_name} eat ${color} trees and gain ${amount} energy');
+          }
+          Notifications::message($msg);
         }
         $processedCells[] = ['x' => $cell['x'], 'y' => $cell['y']];
       }

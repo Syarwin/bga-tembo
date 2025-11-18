@@ -228,7 +228,16 @@ class Notifications
     ]);
   }
 
-  public static function treesEaten(Player $player, int $color, int $energyAmount, Meeple $tree)
+  public static function treesEaten(int $energyAmount, Meeple $tree)
+  {
+    self::notifyAll('treesEaten', '', [
+      'energy' => Globals::getEnergy(),
+      'meeple' => $tree,
+      'amount' => $energyAmount,
+    ]);
+  }
+
+  public static function treesEatenMessage(Player $player, int $color, int $energyAmount)
   {
     $colorName = [
       SPACE_TREE_GREEN => clienttranslate('green'),
@@ -241,12 +250,10 @@ class Notifications
     } else {
       $msg = clienttranslate('Elephants placed by ${player_name} eat ${color} trees and gain ${amount} energy');
     }
-    self::notifyAll('treesEaten', $msg, [
+    self::notifyAll('message', $msg, [
       'player' => $player,
       'color' => $colorName,
       'amount' => $energyAmount,
-      'energy' => Globals::getEnergy(),
-      'meeple' => $tree,
       'i18n' => ['color'],
     ]);
   }
@@ -281,9 +288,13 @@ class Notifications
     ]);
   }
 
-  public static function lionsMoved(Player $player, array $lions, Collection $cards)
+  public static function lionsMoved(?Player $player, array $lions, Collection $cards)
   {
-    $msg = clienttranslate('${player_name} gets a Lion card. All lions have been activated');
+    if (is_null($player)) {
+      $msg = ''; // This should be an event activation, no need to send a misleading message about getting a card
+    } else {
+      $msg = clienttranslate('${player_name} gets a Lion card. All lions have been activated');
+    }
     self::notifyAll('lionsMoved', $msg, [
       'player' => $player,
       'lions' => $lions,
@@ -315,12 +326,37 @@ class Notifications
     ]);
   }
 
-  public static function newEvent(array $events)
+  public static function newEvent(array $events, int $effectType, string $effect)
   {
-    $msg = clienttranslate('A new event has been revealed!');
+    $effectTypeString = $effectType === EVENT_TYPE_IMMEDIATE ? 'an immediate effect' : 'a persistent effect';
+    $msg = clienttranslate('A new event has been revealed. It is ${effectType}: ${effect}');
     self::notifyAll('newEvent', $msg, [
       'events' => $events,
+      'effectType' => $effectTypeString,
+      'effect' => $effect,
     ]);
+  }
+
+  public static function immediateEvent(string $msgEffect)
+  {
+    $msg = clienttranslate('An immediate event effect has been triggered: ${effect}');
+    self::notifyAll('message', $msg, [
+      'effect' => $msgEffect,
+      'i18n' => ['effect'],
+    ]);
+  }
+
+  public static function immediateEventNoEffect(string $msgEffect)
+  {
+    $msg = clienttranslate('An immediate event had NO effect: ${effect}');
+    self::notifyAll('message', $msg, [
+      'effect' => $msgEffect,
+      'i18n' => ['effect'],
+    ]);
+  }
+
+  public static function energyChanged()
+  {
   }
 
   ///////////////////////////////////////////////////////////////

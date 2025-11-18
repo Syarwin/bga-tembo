@@ -12,14 +12,17 @@ class Energy
     return Globals::getEnergy();
   }
 
-  public static function increase(int $amount, ?string $msg = null, array $args = []): void
+  public static function increase(int $amount = 1): bool
   {
     $current = self::get();
     if ($current + $amount > MAX_ENERGY) {
       $amount = MAX_ENERGY - $current;
     }
-    Globals::incEnergy($amount);
-    Notifications::energyIncreased($current + $amount, $amount, $msg, $args);
+    if ($amount > 0) {
+      Globals::incEnergy($amount);
+      return true;
+    }
+    return false;
   }
 
   public static function decrease(int $amount): void

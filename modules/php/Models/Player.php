@@ -165,4 +165,14 @@ class Player extends DB_Model
       Globals::setEndGame(true);
     }
   }
+
+  public function eliminateRestedOrTiredElephant(): ?Meeple
+  {
+    if ($this->getRestedElephantsAmount() > 0) {
+      return $this->eliminateRestedElephant();
+    } else if ($this->getTiredElephantsAmount() > 0) {
+      return $this->eliminateTiredElephant();
+    }
+    return null;
+  }
 }
