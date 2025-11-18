@@ -19,9 +19,20 @@ class EventTile extends DB_Model
     'location' => 'card_location',
     'state' => ['card_state', 'int'],
   ];
-  protected ?string $id;
+  protected int $id;
   protected ?string $location;
   protected ?int $state;
+  protected int $type;
+  protected int $effect;
+  protected mixed $arg;
+
+  public function __construct($row, array $staticData)
+  {
+    parent::__construct([...$row, $row['card_id'] => (int) $row['card_id']]);
+    $this->type = $staticData['type'];
+    $this->effect = $staticData['effect'];
+    $this->arg = $staticData['arg'] ?? null;
+  }
 
   public function getId(): string
   {
@@ -36,6 +47,21 @@ class EventTile extends DB_Model
   public function getState(): int
   {
     return $this->state;
+  }
+
+  public function getType(): int
+  {
+    return $this->type;
+  }
+
+  public function getEffect(): int
+  {
+    return $this->effect;
+  }
+
+  public function getArg(): mixed
+  {
+    return $this->arg;
   }
 
   // Static UI attributes

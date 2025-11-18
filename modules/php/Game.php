@@ -24,6 +24,7 @@ use Bga\Games\Tembo\Core\Engine;
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Managers\Cards;
+use Bga\Games\Tembo\Managers\EventTiles;
 use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Managers\SupportTokens;
@@ -71,6 +72,7 @@ class Game extends \Bga\GameFramework\Table
       'energy' => Globals::getEnergy(),
       'deckRemaining' => Cards::getRemaining(),
       'supportTokens' => SupportTokens::get(),
+      'events' => EventTiles::getUiData(),
     ];
 
     return $data;
@@ -189,7 +191,7 @@ class Game extends \Bga\GameFramework\Table
   public function zombieTurn($state, $active_player): void
   {
     switch ($state['name']) {
-        // TODO
+      // TODO
     }
   }
 

@@ -7,10 +7,13 @@ use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Energy;
+use Bga\Games\Tembo\Managers\EventTiles;
 use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Managers\SupportTokens;
 use Bga\Games\Tembo\Models\Board;
+use const Bga\Games\Tembo\OPTION_ENABLED;
+use const Bga\Games\Tembo\OPTION_EVENTS;
 
 trait SetupTrait
 {
@@ -26,6 +29,9 @@ trait SetupTrait
     Meeples::setupNewGame($journey, $board);
     Cards::setupNewGame($options);
     SupportTokens::setupNewGame($options);
+    if ((int) $options[OPTION_EVENTS] === OPTION_ENABLED) {
+      EventTiles::setupNewGame();
+    }
     // Stats::checkExistence();
 
     $this->activeNextPlayer();

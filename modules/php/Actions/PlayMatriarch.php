@@ -5,6 +5,7 @@ namespace Bga\Games\Tembo\Actions;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Energy;
+use Bga\Games\Tembo\Managers\EventTiles;
 use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Action;
@@ -62,5 +63,11 @@ class PlayMatriarch extends Action
     // 3. Lose energy
     $energyToSpend = $matriarchCards->count() === 2 ? 5 : 2;
     Energy::decrease($energyToSpend);
+
+    // 5. Play a new event if possible
+    $activeEvents = EventTiles::revealNext();
+    if (!empty($activeEvents)) {
+      Notifications::newEvent($activeEvents);
+    }
   }
 }

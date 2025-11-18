@@ -315,6 +315,14 @@ class Notifications
     ]);
   }
 
+  public static function newEvent(array $events)
+  {
+    $msg = clienttranslate('A new event has been revealed!');
+    self::notifyAll('newEvent', $msg, [
+      'events' => $events,
+    ]);
+  }
+
   ///////////////////////////////////////////////////////////////
   //  _   _           _       _            _
   // | | | |_ __   __| | __ _| |_ ___     / \   _ __ __ _ ___

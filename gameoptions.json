@@ -15,7 +15,7 @@
     }
   },
   "111": {
-    "name": "Scenario",
+    "name": "Journey",
     "displaycondition": [
       {
         "type": "otheroption",
@@ -103,7 +103,6 @@
     "values": {
       "0": {
         "name": "0 (Easiest)",
-        "firstgameonly": true,
         "description": "Play with 5 Support cards"
       },
       "1": {
