@@ -79,7 +79,7 @@ class Player extends DB_Model
     } else {
       $elephants = Meeples::loseElephants($this->id, abs($amount));
     }
-    $isGain ? Notifications::elephantsGained($this, $elephants, $msg) : Notifications::elephantsLost($this, $elephants, $msg);
+    $isGain ? Notifications::elephantsGained($this, $elephants, $msg, ['amount' => $amount]) : Notifications::elephantsLost($this, $elephants, $msg);
   }
 
   public function replenishCardsFromDeck(): array

@@ -6,6 +6,7 @@ use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Helpers\Utils;
 use Bga\Games\Tembo\Managers\Cards;
+use Bga\Games\Tembo\Managers\EventTiles;
 use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 
@@ -165,6 +166,9 @@ class Board
       if (is_null($cellType) || $cellType == SPACE_NONE) {
         return INFINITY;
       }
+      if ($ignoreRough && EventTiles::isIgnoreIgnoreRough()) {
+        $ignoreRough = false;
+      }
       $elephantsNeeded += ($cellType == SPACE_ROUGH && !$ignoreRough) ? 2 : 1;
     }
 
@@ -265,6 +269,9 @@ class Board
         continue; // This is a Matriarch or a Lion card
       }
       $ignoreRough = $patternInfo['ignoreRough'];
+      if ($ignoreRough && EventTiles::isIgnoreIgnoreRough()) {
+        $ignoreRough = false;
+      }
       $rotations = [$playerRotation];
       if ($patternInfo['canBeRotated'] || $supportTokenRotationUsed) {
         $rotations = [0, 1, 2, 3];
@@ -283,7 +290,11 @@ class Board
                 // Inject amount of elephants needed for each cell
                 $cellsForThisShape = array_map(function ($cell) use ($ignoreRough) {
                   $cellType = $this->cells[$cell['x']][$cell['y']];
-                  return [...$cell, 'amount' => ($cellType === SPACE_ROUGH && !$ignoreRough) ? 2 : 1];
+                  $roughSpaceElepnahtsNumber = EventTiles::getRoughSpaceElephantsNumber();
+                  return [
+                    ...$cell,
+                    'amount' => ($cellType === SPACE_ROUGH && !$ignoreRough) ? $roughSpaceElepnahtsNumber : 1
+                  ];
                 }, $cellsForThisShape);
                 $patterns[$card->getId()] = array_merge($patterns[$card->getId()], [$cellsForThisShape]);
               }

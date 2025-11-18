@@ -262,10 +262,10 @@ class Meeples extends CachedPieces
     $elephants = [];
     if (!$isMatriarch) {
       $elephantsOfPlayer = static::getTiredRestedElephants($pId, STATE_RESTED)->toArray();
-      $coordsCount = count($coords);
+      $elephantsNeeded = array_sum(array_map(fn($coord) => $coord['amount'], $coords));
       $elephantsCount = count($elephantsOfPlayer);
-      if ($elephantsCount < $coordsCount) {
-        throw new \BgaVisibleSystemException("placeElephantOnBoard: player with id {$pId} does not have enough elephants ({$coordsCount}, needed $elephantsCount)");
+      if ($elephantsCount < $elephantsNeeded) {
+        throw new \BgaVisibleSystemException("placeElephantOnBoard: player with id {$pId} does not have enough elephants ({$elephantsNeeded}, needed $elephantsCount)");
       }
       shuffle($elephantsOfPlayer);
     }

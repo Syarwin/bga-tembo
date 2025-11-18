@@ -5,7 +5,7 @@ namespace Bga\Games\Tembo\Actions;
 use Bga\Games\Tembo\Core\Engine;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Managers\Cards;
-use Bga\Games\Tembo\Managers\Energy;
+use Bga\Games\Tembo\Managers\EventTiles;
 use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Managers\SupportTokens;
@@ -33,7 +33,7 @@ class UseCard extends Action
 
     return [
       'cardIds' => $hand->getIds(),
-      'rotatableCardIds' => $rotatableCards->getIds(),
+      'rotatableCardIds' => EventTiles::isRotatableCardsAllowed() ? $rotatableCards->getIds() : [],
       'patterns' => $board->getAllPossiblePatterns($hand, $player->getRotation(), $player->getRestedElephantsAmount(), $supportTokenRotationUsed),
       'squares' => $board->getEmptySquares(),
       'rotation' => $player->getRotation(),

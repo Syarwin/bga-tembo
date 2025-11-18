@@ -7,6 +7,7 @@ use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Game;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Energy;
+use Bga\Games\Tembo\Managers\EventTiles;
 use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Action;
@@ -74,8 +75,8 @@ class PlaceSingleElephant extends Action
   {
     $cellsWithOasis = array_filter($pattern, fn($cell) => $cell['type'] === SPACE_OASIS);
     if (!empty($cellsWithOasis)) {
-      $msg = clienttranslate('${player_name} covers a water spaces and gains 3 elephants');
-      $player->gainElephants(3, $msg);
+      $msg = clienttranslate('${player_name} covers a water spaces and gains ${amount} elephants');
+      $player->gainElephants(EventTiles::getBonusForOasis(), $msg);
     }
   }
 
@@ -93,7 +94,7 @@ class PlaceSingleElephant extends Action
           $tree = Meeples::getSingleOfType($treeType);
 
           if ($successful) {
-            $energyAmount = $cell['type'] === SPACE_TREE_GREEN ? 2 : 1;
+            $energyAmount = $cell['type'] === SPACE_TREE_GREEN ? 2 : EventTiles::getEnergyForTree($treeType);
             Notifications::treesEaten($energyAmount, $tree);
             Notifications::treesEatenMessage($player, $cell['type'], $energyAmount);
             Energy::increase($energyAmount, '');

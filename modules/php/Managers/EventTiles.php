@@ -151,4 +151,61 @@ class EventTiles extends CachedPieces
         throw new \BgaVisibleSystemException("Unknown event effect: " . $event->getEffect());
     }
   }
+
+  public static function getEnergyForTree(string $treeType): int
+  {
+    $events = static::getInLocationOrdered(LOCATION_BOARD)->filter(function (EventTile $event) use ($treeType) {
+      return $event->getType() === EVENT_TYPE_PERSISTENT
+        && $event->getEffect() === EVENT_EFFECT_TREE_2_ENERGY
+        && $event->getArg() === $treeType;
+    });
+    if ($events->empty()) {
+      return 1;
+    } else if ($events->count() > 1) {
+      throw new \BgaVisibleSystemException("Multiple events for tree $treeType. Should not happen");
+    }
+    return 2;
+  }
+
+  public static function getBonusForOasis()
+  {
+    $events = static::getInLocationOrdered(LOCATION_BOARD)->filter(function (EventTile $event) {
+      return $event->getType() === EVENT_TYPE_PERSISTENT && $event->getEffect() === EVENT_EFFECT_OASIS;
+    });
+    if ($events->empty()) {
+      return 3;
+    } else {
+      // In case of having multiple oasis events, we take the left (first) one as per rulebook
+      return $events->first()->getArg();
+    }
+  }
+
+  public static function isIgnoreIgnoreRough()
+  {
+    $events = static::getInLocationOrdered(LOCATION_BOARD)->filter(function (EventTile $event) {
+      return $event->getType() === EVENT_TYPE_PERSISTENT && $event->getEffect() === EVENT_EFFECT_DO_NOT_IGNORE_ROUGH_TERRAIN;
+    });
+    return !$events->empty();
+  }
+
+  public static function getRoughSpaceElephantsNumber()
+  {
+    $events = static::getInLocationOrdered(LOCATION_BOARD)->filter(function (EventTile $event) {
+      return $event->getType() === EVENT_TYPE_PERSISTENT && $event->getEffect() === EVENT_EFFECT_ROUGH_TERRAIN;
+    });
+    if ($events->empty()) {
+      return 2;
+    } else {
+      // In case of having multiple oasis events, we take the left (first) one as per rulebook
+      return $events->first()->getArg();
+    }
+  }
+
+  public static function isRotatableCardsAllowed(): bool
+  {
+    $events = static::getInLocationOrdered(LOCATION_BOARD)->filter(function (EventTile $event) {
+      return $event->getType() === EVENT_TYPE_PERSISTENT && $event->getEffect() === EVENT_EFFECT_NO_CARD_ROTATION;
+    });
+    return $events->empty();
+  }
 }

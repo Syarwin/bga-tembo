@@ -97,8 +97,7 @@ class CachedPieces extends DB_Manager
     null|int|string $id = null,
     ?string $location = null,
     ?int $state = null
-  ): Collection
-  {
+  ): Collection {
     return self::where('id', $id)
       ->where('location', $location)
       ->where('state', $state);
@@ -283,7 +282,7 @@ class CachedPieces extends DB_Manager
 
   public static function getInLocationOrdered(string $location, ?int $state = null): Collection
   {
-    return self::getInLocation($location, $state)->orderBy('state', 'ASC');
+    return self::getInLocation($location, $state)->orderBy('state');
   }
 
   /**
@@ -348,8 +347,7 @@ class CachedPieces extends DB_Manager
     string $toLocation,
     ?int $fromState = null,
     ?int $toState = 0
-  ): Collection
-  {
+  ): Collection {
     if (!is_null($fromLocation)) {
       self::checkLocation($fromLocation);
     }
@@ -380,8 +378,7 @@ class CachedPieces extends DB_Manager
     string|array $toLocation,
     int $state = 0,
     bool $deckReform = true
-  ): Collection
-  {
+  ): Collection {
     self::checkLocation($fromLocation);
     self::checkLocation($toLocation);
     $pieces = self::getTopOf($fromLocation, $nbr);
@@ -412,8 +409,7 @@ class CachedPieces extends DB_Manager
     string $toLocation,
     int $state = 0,
     bool $deckReform = true
-  ): mixed
-  {
+  ): mixed {
     return self::pickForLocation(1, $fromLocation, $toLocation, $state, $deckReform)->first();
   }
 
@@ -488,8 +484,7 @@ class CachedPieces extends DB_Manager
     ?string $globalLocation = null,
     ?int $globalState = null,
     ?int $globalId = null
-  ): Collection
-  {
+  ): Collection {
     $pos = is_null($globalLocation) ? 0 : self::getExtremePosition(true, $globalLocation) + 1;
 
     $values = [];
