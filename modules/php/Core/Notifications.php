@@ -211,7 +211,7 @@ class Notifications
 
   public static function cardsDrawn(Player $player, Collection $cards)
   {
-    self::notifyAll('cardsDrawn', clienttranslate('${player_name} draws ${n} card(s)'), [
+    self::notifyAll('cardsDrawn', '', [
       'player' => $player,
       'cards' => $cards->ui(),
       'n' => $cards->count(),
