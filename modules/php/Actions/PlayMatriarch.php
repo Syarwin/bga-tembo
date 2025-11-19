@@ -25,7 +25,7 @@ class PlayMatriarch extends Action
     $board = new Board();
     return [
       'matriarchIds' => $player->getMatriarchCards()->getIds(),
-      'singleSpaces' => $board->getAllPossibleCoordsSingle(),
+      'singleSpacesIgnoreRough' => $board->getAllPossibleCoordsSingle(true),
     ];
   }
 

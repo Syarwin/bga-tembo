@@ -38,6 +38,7 @@ class UseCard extends Action
       'squares' => $board->getEmptySquares(),
       'rotation' => $player->getRotation(),
       'singleSpaces' => $board->getAllPossibleCoordsSingle(),
+      'singleSpacesIgnoreRough' => $board->getAllPossibleCoordsSingle(true),
       'supportTokens' => SupportTokens::get(),
 
       'matriarchIds' => $matriarch->empty() ? null : $matriarch->getIds(),

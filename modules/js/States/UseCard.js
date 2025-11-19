@@ -120,7 +120,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStatePlaceSingleElephant(args, isMatriarch = false) {
-      args.singleSpaces.forEach((cell) => {
+      const spaces = isMatriarch ? args.singleSpacesIgnoreRough : args.singleSpaces;
+      spaces.forEach((cell) => {
         this.onClick(`cell-${cell.x}-${cell.y}`, () => {
           if (isMatriarch) {
             this.takeAtomicAction('actPlayMatriarch', { x: cell.x, y: cell.y });

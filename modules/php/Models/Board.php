@@ -231,7 +231,7 @@ class Board
     foreach (Meeples::getElephantsOnBoard() as $elephant) {
       foreach ($this->getAdjacentCoordsSingle($elephant->getX(), $elephant->getY(), $ignoreRough) as $coords) {
         if (!in_array($coords, $allCoords)) {
-          $allCoords[] = [...$coords, 'amount' => 1];
+          $allCoords[] = $coords;
         }
       }
     }
@@ -248,9 +248,9 @@ class Board
 
       $meeplesAtSpace = Meeples::getOnCell(['x' => $dx, 'y' => $dy]);
       if (!is_null($cellType) && $cellType !== SPACE_NONE && $meeplesAtSpace->empty()) {
-        if ($ignoreRough || $cellType !== SPACE_ROUGH) {
-          $results[] = ['x' => $dx, 'y' => $dy];
-        }
+        $roughSpaceElepnahtsNumber = EventTiles::getRoughSpaceElephantsNumber();
+        $amount = $cellType === SPACE_ROUGH && !$ignoreRough ? $roughSpaceElepnahtsNumber : 1;
+        $results[] = ['x' => $dx, 'y' => $dy, 'amount' => $amount];
       }
     }
     return $results;
@@ -263,7 +263,7 @@ class Board
     bool $supportTokenRotationUsed
   ): array {
     $patterns = [];
-    $adjacentSpaces = $this->getAllPossibleCoordsSingle(true);
+    $adjacentSpaces = $this->getAllPossibleCoordsSingle();
 
     /** @var Card $card */
     foreach ($hand as $card) {
