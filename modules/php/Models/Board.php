@@ -223,15 +223,18 @@ class Board
     return $nElephantAvailable >= $elephantsNeeded && $noNoneSpaces && $noMeeplesOnCellsMap;
   }
 
-  public function getAllPossibleCoordsSingle(bool $ignoreRough = false): array
+  // $player is null means we don't care if they have enough elephants. Used when checking a Matriarch placement
+  public function getAllPossibleCoordsSingle(?Player $player = null, bool $ignoreRough = false): array
   {
-    $matriarch = Meeples::getMatriarch();
-    [$x, $y] = [$matriarch->getX(), $matriarch->getY()];
-    $allCoords = $this->getAdjacentCoordsSingle($x, $y, $ignoreRough);
-    foreach (Meeples::getElephantsOnBoard() as $elephant) {
-      foreach ($this->getAdjacentCoordsSingle($elephant->getX(), $elephant->getY(), $ignoreRough) as $coords) {
-        if (!in_array($coords, $allCoords)) {
-          $allCoords[] = $coords;
+    $allCoords = [];
+    foreach ([...Meeples::getElephantsOnBoard(), Meeples::getMatriarch()] as $elephant) {
+      foreach ($this->getAdjacentCoordsSingle($elephant->getX(), $elephant->getY(), $ignoreRough || is_null($player)) as $coords) {
+        $amountIsEnough = true;
+        if (!is_null($player)) {
+          $amountIsEnough = $player->getRestedElephantsAmount() >= $coords['amount'];
+        }
+        if (!in_array(['x' => $coords['x'], 'y' => $coords['y']], $allCoords) && $amountIsEnough) {
+          $allCoords[] = ['x' => $coords['x'], 'y' => $coords['y']];
         }
       }
     }
@@ -248,8 +251,7 @@ class Board
 
       $meeplesAtSpace = Meeples::getOnCell(['x' => $dx, 'y' => $dy]);
       if (!is_null($cellType) && $cellType !== SPACE_NONE && $meeplesAtSpace->empty()) {
-        $roughSpaceElepnahtsNumber = EventTiles::getRoughSpaceElephantsNumber();
-        $amount = $cellType === SPACE_ROUGH && !$ignoreRough ? $roughSpaceElepnahtsNumber : 1;
+        $amount = $this->getAmountOfElephantsNeeded($dx, $dy, $ignoreRough);
         $results[] = ['x' => $dx, 'y' => $dy, 'amount' => $amount];
       }
     }
@@ -431,5 +433,12 @@ class Board
       throw new \BgaVisibleSystemException("getElephantsOfSquare: Cannot find a square by coords {$x}, {$y}. Should not happen");
     }
     return array_values($squares)[0];
+  }
+
+  public function getAmountOfElephantsNeeded(int $x, int $y, bool $ignoreRough = false): int
+  {
+    $roughSpaceElepnahtsNumber = EventTiles::getRoughSpaceElephantsNumber();
+    $cellType = $this->cells[$x][$y];
+    return $cellType === SPACE_ROUGH && !$ignoreRough ? $roughSpaceElepnahtsNumber : 1;
   }
 }

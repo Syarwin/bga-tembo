@@ -239,8 +239,8 @@ $machinestates = [
 
   ST_PLACE_SINGLE_ELEPHANT => [
     'name' => 'placeSingleElephant',
-    'description' => clienttranslate('${actplayer} must place a single elephant'),
-    'descriptionmyturn' => clienttranslate('${you} must place a single elephant'),
+    'description' => clienttranslate('${actplayer} must place a single elephant ignoring rough terrain'),
+    'descriptionmyturn' => clienttranslate('${you} must place a single elephant ignoring rough terrain'),
     'type' => 'activeplayer',
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',

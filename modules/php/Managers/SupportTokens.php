@@ -45,7 +45,7 @@ class SupportTokens
       case SUPPORT_PLACE_ELEPHANT_IGNORE_TERRAIN:
         $msg = clienttranslate('${player_name} spends a support token to place a single elephant');
         Notifications::message($msg, ['player' => $player]);
-        return ['action' => PLACE_SINGLE_ELEPHANT, 'args' => ['ignoreRough' => true]];
+        return ['action' => PLACE_SINGLE_ELEPHANT];
       default:
         throw new \BgaVisibleSystemException("spend SupportToken: Unknown option $option. Should not happen");
     }

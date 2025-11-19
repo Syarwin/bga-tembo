@@ -25,13 +25,12 @@ class PlaceSingleElephant extends Action
   public function argsPlaceSingleElephant()
   {
     $board = new Board();
-    $ignoreRough = $this->getCtxArg('ignoreRough') ?? false;
-    return ['singleSpaces' => $board->getAllPossibleCoordsSingle($ignoreRough)];
+    return ['singleSpacesIgnoreRough' => $board->getAllPossibleCoordsSingle(Players::getActive(), true)];
   }
 
   public function isDoable(Player $player): bool
   {
-    if (empty($this->getArgs()['singleSpaces'])) {
+    if (empty($this->getArgs()['singleSpacesIgnoreRough'])) {
       $msg = clienttranslate('No space for a single elephant to place, ${player_name} cannot use this bonus');
       Notifications::message($msg, ['player' => $player]);
       return false;
@@ -41,14 +40,20 @@ class PlaceSingleElephant extends Action
 
   public function actPlaceSingleElephant(int $x, int $y)
   {
-    static::checkCoords($x, $y, $this->getArgs()['singleSpaces']);
-    static::placeSingleElephant($x, $y);
+    static::checkCoords($x, $y, $this->getArgs()['singleSpacesIgnoreRough']);
+    static::placeSingleElephant($x, $y, null, false, true);
   }
 
-  public static function placeSingleElephant(int $x, int $y, ?int $cardId = null, bool $isMatriarch = false): void
-  {
+  public static function placeSingleElephant(
+    int $x,
+    int $y,
+    ?int $cardId = null,
+    bool $isMatriarch = false,
+    bool $ignoreRough = false
+  ): void {
     $player = Players::getActive();
-    $coords = ['x' => $x, 'y' => $y, 'amount' => 1];
+    $board = new Board();
+    $coords = ['x' => $x, 'y' => $y, 'amount' => $board->getAmountOfElephantsNeeded($x, $y, $ignoreRough)];
     $elephants = Meeples::placeElephantsOnBoard($player->getId(), [$coords], $isMatriarch);
     $card = is_null($cardId) ? null : Cards::getSingle($cardId);
     if (!is_null($card)) {
@@ -75,7 +80,7 @@ class PlaceSingleElephant extends Action
   {
     $cellsWithOasis = array_filter($pattern, fn($cell) => $cell['type'] === SPACE_OASIS);
     foreach ($cellsWithOasis as $cellWithOasis) {
-      $msg = clienttranslate('${player_name} covers a water spaces and gains ${amount} elephants');
+      $msg = clienttranslate('${player_name} covers a water space and gains ${amount} elephants');
       $player->gainElephants(EventTiles::getBonusForOasis(), $msg);
     }
   }

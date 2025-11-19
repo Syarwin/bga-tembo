@@ -75,6 +75,11 @@ class Card extends DB_Model
     return $this->pattern['canBeRotated'] ?? false;
   }
 
+  public function isIgnoreRough(): bool
+  {
+    return $this->pattern['ignoreRough'] ?? false;
+  }
+
   public function getUiData()
   {
     return [...parent::getUiData(), 'type' => $this->typeUi];

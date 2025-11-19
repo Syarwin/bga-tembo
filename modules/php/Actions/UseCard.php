@@ -11,6 +11,7 @@ use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Managers\SupportTokens;
 use Bga\Games\Tembo\Models\Action;
 use Bga\Games\Tembo\Models\Board;
+use Bga\Games\Tembo\Models\Card;
 use Bga\Games\Tembo\Models\Player;
 
 class UseCard extends Action
@@ -29,16 +30,20 @@ class UseCard extends Action
     $board = new Board();
 
     $supportTokenRotationUsed = ($this->getCtxArg('supportRotate') ?? false);
-    $rotatableCards = $supportTokenRotationUsed ? $hand : $hand->filter(fn($card) => $card->canBeRotated());
+    /** @var  $rotatableCards */
+    $rotatableCards = $supportTokenRotationUsed ? $hand : $hand->filter(fn(Card $card) => $card->canBeRotated());
+    $ignoreRoughCardIds = $hand->filter(fn(Card $card) => $card->isIgnoreRough());
 
     return [
       'cardIds' => $hand->getIds(),
       'rotatableCardIds' => EventTiles::isRotatableCardsAllowed() ? $rotatableCards->getIds() : [],
+      'ignoreRoughCardIds' => $ignoreRoughCardIds->getIds(),
       'patterns' => $board->getAllPossiblePatterns($hand, $player->getRotation(), $player->getRestedElephantsAmount(), $supportTokenRotationUsed),
       'squares' => $board->getEmptySquares(),
       'rotation' => $player->getRotation(),
-      'singleSpaces' => $board->getAllPossibleCoordsSingle(),
-      'singleSpacesIgnoreRough' => $board->getAllPossibleCoordsSingle(true),
+      'singleSpaces' => $board->getAllPossibleCoordsSingle($player),
+      'singleSpacesIgnoreRough' => $board->getAllPossibleCoordsSingle($player, true),
+      'singleSpacesMatriarch' => $board->getAllPossibleCoordsSingle(),
       'supportTokens' => SupportTokens::get(),
 
       'matriarchIds' => $matriarch->empty() ? null : $matriarch->getIds(),
@@ -85,7 +90,7 @@ class UseCard extends Action
         break;
       case BONUS_GAIN_3_PLACE_1_IGNORE_ROUGH:
         $activePlayer->gainElephants(3);
-        Engine::insertAsChild(['action' => PLACE_SINGLE_ELEPHANT, 'args' => ['ignoreRough' => true]]);
+        Engine::insertAsChild(['action' => PLACE_SINGLE_ELEPHANT]);
         break;
       case BONUS_YOU_GAIN_4: // This must be a solo game
         /** @var Player $pla */
@@ -117,8 +122,11 @@ class UseCard extends Action
 
   public function actPlaceSingleElephant(int $x, int $y, ?int $cardId = null): void
   {
-    PlaceSingleElephant::checkCoords($x, $y, $this->getArgs()['singleSpaces']);
-    PlaceSingleElephant::placeSingleElephant($x, $y, $cardId);
+    $args = $this->getArgs();
+    $ignoreRough = !$cardId || in_array($cardId, $args['ignoreRoughCardIds']);
+    $spaces = $ignoreRough ? $args['singleSpacesIgnoreRough'] : $args['singleSpaces'];
+    PlaceSingleElephant::checkCoords($x, $y, $spaces);
+    PlaceSingleElephant::placeSingleElephant($x, $y, $cardId, false, $ignoreRough);
   }
 
   public function actUseSupportToken(int $option): void

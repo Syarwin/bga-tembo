@@ -233,7 +233,7 @@ class Game extends \Bga\GameFramework\Table
   // Exposing protected method translation
   public static function translate($text)
   {
-    return self::_($text);
+    return Game::get()->_($text);
   }
 
   public static function a()

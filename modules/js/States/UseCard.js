@@ -50,7 +50,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           this.clientState('placeElephants', _('Select where to place elephants on the board'), args);
         });
       }
-      if (args.singleSpaces.length > 0) {
+      const spaces = args.ignoreRoughCardIds.includes(args.cardId) ? args.singleSpacesIgnoreRough : args.singleSpaces;
+      if (spaces.length > 0) {
         this.addPrimaryActionButton('btnPlaceSingleElephant', 'Place a single elephant', () => {
           this.clientState('placeSingleElephant', _('Select where to place an elephant on the board'), args);
         });
@@ -120,7 +121,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStatePlaceSingleElephant(args, isMatriarch = false) {
-      const spaces = isMatriarch ? args.singleSpacesIgnoreRough : args.singleSpaces;
+      let spaces = args.singleSpaces;
+      if (isMatriarch) {
+        spaces = args.singleSpacesMatriarch;
+      } else if (args.ignoreRoughCardIds === undefined || args.ignoreRoughCardIds.includes(args.cardId)) {
+        spaces = args.singleSpacesIgnoreRough;
+      }
       spaces.forEach((cell) => {
         this.onClick(`cell-${cell.x}-${cell.y}`, () => {
           if (isMatriarch) {

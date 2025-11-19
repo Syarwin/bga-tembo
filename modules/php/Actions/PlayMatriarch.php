@@ -25,13 +25,13 @@ class PlayMatriarch extends Action
     $board = new Board();
     return [
       'matriarchIds' => $player->getMatriarchCards()->getIds(),
-      'singleSpacesIgnoreRough' => $board->getAllPossibleCoordsSingle(true),
+      'singleSpacesMatriarch' => $board->getAllPossibleCoordsSingle(),
     ];
   }
 
   public function actPlayMatriarch(int $x, int $y)
   {
-    PlaceSingleElephant::checkCoords($x, $y, $this->getArgs()['singleSpaces']);
+    PlaceSingleElephant::checkCoords($x, $y, $this->getArgs()['singleSpacesMatriarch']);
     static::play($x, $y, Players::getActive());
   }
 
