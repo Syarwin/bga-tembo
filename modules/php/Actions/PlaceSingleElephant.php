@@ -103,12 +103,6 @@ class PlaceSingleElephant extends Action
             Notifications::treesEaten(0, $tree);
             Notifications::treesEatenMessage($player, $cell['type'], 0);
           }
-          if ($successful) {
-            $msg = clienttranslate('Elephants placed by ${player_name} eat ${color} trees but the matching color standee is already laying on its side, nothing happened');
-          } else {
-            $msg = clienttranslate('Elephants placed by ${player_name} eat ${color} trees and gain ${amount} energy');
-          }
-          Notifications::message($msg);
         }
         $processedCells[] = ['x' => $cell['x'], 'y' => $cell['y']];
       }

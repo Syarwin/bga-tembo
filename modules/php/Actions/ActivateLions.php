@@ -96,7 +96,7 @@ class ActivateLions extends Action
     $currentDistance = static::getDistance($lionCoords, $elephantCoords);
     $filtered = array_filter($directions, function ($direction) use ($elephantCoords, $currentDistance, $lionCoords) {
       $potentialLionCoords = ['x' => $lionCoords['x'] + $direction['x'], 'y' => $lionCoords['y'] + $direction['y']];
-      return $this->getDistance($potentialLionCoords, $elephantCoords) < $currentDistance;
+      return static::getDistance($potentialLionCoords, $elephantCoords) < $currentDistance;
     });
     return array_values($filtered);
   }
