@@ -90,8 +90,11 @@ class Board
 
           $spaces = null;
           $rotation = null;
+          if (Players::isSolo() && !in_array($type, ALL_CARD_REFS)) {
+            $type = BONUS_YOU_GAIN_4;
+          }
           $square = [
-            'type' => Players::isSolo() ? BONUS_YOU_GAIN_4 : $b[$j][$i],
+            'type' => $type,
             'x' => $x,
             'y' => $y,
           ];
