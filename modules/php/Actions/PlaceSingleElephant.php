@@ -74,7 +74,7 @@ class PlaceSingleElephant extends Action
   private static function verifyOasis(Player $player, array $pattern): void
   {
     $cellsWithOasis = array_filter($pattern, fn($cell) => $cell['type'] === SPACE_OASIS);
-    if (!empty($cellsWithOasis)) {
+    foreach ($cellsWithOasis as $cellWithOasis) {
       $msg = clienttranslate('${player_name} covers a water spaces and gains ${amount} elephants');
       $player->gainElephants(EventTiles::getBonusForOasis(), $msg);
     }
