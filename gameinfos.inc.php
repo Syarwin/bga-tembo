@@ -13,7 +13,7 @@
 $gameinfos = array(
 
   // Name of the game in English (will serve as the basis for translation) 
-  'game_name' => 'HUTAN: Life in the Rainforest',
+  'game_name' => 'TEMBO: Survival on the Savanna',
 
   // Game publisher (use empty string if there is no publisher)
   'publisher' => 'Sidekick Games',
@@ -25,7 +25,7 @@ $gameinfos = array(
   'publisher_bgg_id' => 42834,
 
   // Board game geek ID of the game
-  'bgg_id' => 419130,
+  'bgg_id' => 442655,
 
   // Players configuration that can be played (ex: 2 to 4 players)
   'players' => [1, 2, 3, 4],
