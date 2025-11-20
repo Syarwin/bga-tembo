@@ -223,7 +223,7 @@ class Board
     return $nElephantAvailable >= $elephantsNeeded && $noNoneSpaces && $noMeeplesOnCellsMap;
   }
 
-  // $player is null means we don't care if they have enough elephants. Used when checking a Matriarch placement
+  // $player is null means we don't care if they have enough elephants. Used when checking a Matriarch placement or all possible patterns
   public function getAllPossibleCoordsSingle(?Player $player = null, bool $ignoreRough = false): array
   {
     $allCoords = [];
@@ -282,9 +282,9 @@ class Board
         $rotations = [0, 1, 2, 3];
       }
 
-      // TODO: Find max width and height
-      for ($x = 0; $x < 30; $x++) {
-        for ($y = 0; $y < 30; $y++) {
+      [$maxX, $maxY] = $this->findMaxXY();
+      for ($x = 0; $x < $maxX; $x++) {
+        for ($y = 0; $y < $maxY; $y++) {
           foreach ($rotations as $rotation) {
             if ($this->canFitShape($patternInfo['shape'], $x, $y, $rotation, $nElephantsAvailable, $ignoreRough)) {
               $cellsForThisShape = $this->getCellsForShape($patternInfo['shape'], $x, $y, $rotation);
@@ -444,5 +444,16 @@ class Board
     $roughSpaceElepnahtsNumber = EventTiles::getRoughSpaceElephantsNumber();
     $cellType = $this->cells[$x][$y];
     return $cellType === SPACE_ROUGH && !$ignoreRough ? $roughSpaceElepnahtsNumber : 1;
+  }
+
+  private function findMaxXY(): array
+  {
+    $maxX = 0;
+    $maxY = 0;
+    foreach ($this->squares as $square) {
+      $maxX = max($maxX, $square['x'] + 2);
+      $maxY = max($maxY, $square['y'] + 2);
+    }
+    return [$maxX, $maxY];
   }
 }
