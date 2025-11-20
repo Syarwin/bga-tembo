@@ -19,15 +19,6 @@ trait TurnTrait
    */
   function stTurnAction()
   {
-    // TODO
-    // if (Globals::isEndOfGameTriggered()) {
-    //   $this->gamestate->jumpToState(ST_PRE_END_OF_GAME);
-    //   return;
-    // }
-
-
-    // Clear globals
-
     // Give extra time
     $player = Players::getActive();
     self::giveExtraTime($player->getId());

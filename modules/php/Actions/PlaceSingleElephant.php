@@ -169,7 +169,6 @@ class PlaceSingleElephant extends Action
         foreach (Players::getAll() as $player) {
           $player->setScore(1);
         }
-        Game::get()->gamestate->jumpToState(ST_PRE_END_OF_GAME);
       }
     }
   }
