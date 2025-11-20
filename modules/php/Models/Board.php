@@ -283,8 +283,8 @@ class Board
       }
 
       [$maxX, $maxY] = $this->findMaxXY();
-      for ($x = 0; $x < $maxX; $x++) {
-        for ($y = 0; $y < $maxY; $y++) {
+      for ($x = 0; $x <= $maxX; $x++) {
+        for ($y = 0; $y <= $maxY; $y++) {
           foreach ($rotations as $rotation) {
             if ($this->canFitShape($patternInfo['shape'], $x, $y, $rotation, $nElephantsAvailable, $ignoreRough)) {
               $cellsForThisShape = $this->getCellsForShape($patternInfo['shape'], $x, $y, $rotation);
