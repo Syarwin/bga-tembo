@@ -54,7 +54,7 @@ class ActivateLions extends Action
     foreach ($points as $point) {
       $point = static::convertToSquareCoords($point);
       if ($point === $target) {
-        return $point;
+        return ['x' => $point['x'] * 3, 'y' => $point['y'] * 3];
       }
 
       $distance = static::getDistance($target, $point);
@@ -138,10 +138,11 @@ class ActivateLions extends Action
         $closestElephantCoords = static::findClosest($lionCoords, $elephantsCoords);
         $potentialDirections = static::findDirectionsMakingLionCloser($availableDirections, $lionCoords, $closestElephantCoords);
         if (empty($potentialDirections)) {
-          throw new \BgaVisibleSystemException("No directions found for lion at {$lionCoords['x']}, {$lionCoords['y']}");
+          $dir = ['x' => 0, 'y' => 0]; // Lion is already at the closest lion square
+        } else {
+          // If PHP doesn't shuffle elements during array_values(), first direction should be a priority on the lion compass
+          $dir = $potentialDirections[0];
         }
-        // If PHP doesn't shuffle elements during array_values(), first direction should be a priority on the lion compass
-        $dir = $potentialDirections[0];
         $squareX = $lionCoords['x'] + $dir['x'];
         $squareY = $lionCoords['y'] + $dir['y'];
         [$newX, $newY] = $board->getRandomSpaceNoneInSquare($squareX, $squareY);
