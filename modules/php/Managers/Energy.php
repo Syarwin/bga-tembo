@@ -28,7 +28,7 @@ class Energy
   public static function decrease(int $amount): void
   {
     $current = self::get();
-    if ($current - $amount < 0) {
+    if ($current - $amount <= 0) {
       $amount = $current;
       Globals::setEndGame(true);
     }
