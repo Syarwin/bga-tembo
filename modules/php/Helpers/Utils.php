@@ -106,9 +106,16 @@ abstract class Utils
     );
   }
 
-
   public static function someCellsIntersect(array $cells1, array $cells2): bool
   {
     return count(self::intersectZones($cells1, $cells2)) > 0;
+  }
+
+  public static function convertToSquareCoords($cell, $divideBy3 = true)
+  {
+    $divider = $divideBy3 ? 3 : 1;
+    $cell['x'] = ($cell['x'] - ($cell['x'] % 3)) / $divider;
+    $cell['y'] = ($cell['y'] - ($cell['y'] % 3)) / $divider;
+    return $cell;
   }
 }

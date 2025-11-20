@@ -4,6 +4,7 @@ namespace Bga\Games\Tembo\Actions;
 
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
+use Bga\Games\Tembo\Helpers\Utils;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
@@ -49,10 +50,10 @@ class ActivateLions extends Action
     $closest = null;
     $minDistance = PHP_FLOAT_MAX;
     // Convert real coords to "square" coords (top-left corner of each square)
-    $target = static::convertToSquareCoords($target);
+    $target = Utils::convertToSquareCoords($target);
 
     foreach ($points as $point) {
-      $point = static::convertToSquareCoords($point);
+      $point = Utils::convertToSquareCoords($point);
       if ($point === $target) {
         return ['x' => $point['x'] * 3, 'y' => $point['y'] * 3];
       }
@@ -73,14 +74,6 @@ class ActivateLions extends Action
     }
 
     return ['x' => $closest['x'] * 3, 'y' => $closest['y'] * 3];
-  }
-
-  private static function convertToSquareCoords($cell, $divideBy3 = true)
-  {
-    $divider = $divideBy3 ? 3 : 1;
-    $cell['x'] = ($cell['x'] - ($cell['x'] % 3)) / $divider;
-    $cell['y'] = ($cell['y'] - ($cell['y'] % 3)) / $divider;
-    return $cell;
   }
 
   private static function getDistance($target, $point): int
@@ -105,7 +98,7 @@ class ActivateLions extends Action
   {
     $board = new Board();
     foreach (Meeples::getLions() as $lion) {
-      $lionSquare = static::convertToSquareCoords(['x' => $lion->getX(), 'y' => $lion->getY()], false);
+      $lionSquare = Utils::convertToSquareCoords(['x' => $lion->getX(), 'y' => $lion->getY()], false);
       if ($lionSquare['x'] === $x && $lionSquare['y'] === $y) {
         [$newX, $newY] = $board->getRandomSpaceNoneInSquare($lionSquare['x'], $lionSquare['y']);
         $lion->setX($newX);
@@ -133,7 +126,7 @@ class ActivateLions extends Action
           'y' => $elephant->getY()
         ], $allElephants);
         $board = new Board();
-        $lionCoords = static::convertToSquareCoords(['x' => $lion->getX(), 'y' => $lion->getY()], false);
+        $lionCoords = Utils::convertToSquareCoords(['x' => $lion->getX(), 'y' => $lion->getY()], false);
         $availableDirections = static::findAvailableDirections($lionCoords, $board);
         $closestElephantCoords = static::findClosest($lionCoords, $elephantsCoords);
         $potentialDirections = static::findDirectionsMakingLionCloser($availableDirections, $lionCoords, $closestElephantCoords);
@@ -182,7 +175,11 @@ class ActivateLions extends Action
     if ($isMatriarchInjured) {
       $msg = clienttranslate('A lion is chasing the Matriarch. Each player removes 1 elephant from the game');
       Notifications::message($msg);
-      $lionsCoords = array_map(fn($lion) => ['x' => $lion->getX(), 'y' => $lion->getY()], $lions);
+      $lionsCoords = array_map(fn($lion) => Utils::convertToSquareCoords([
+        'x' => $lion->getX(),
+        'y' => $lion->getY()
+      ]), $lions);
+
       if ($lionsCoords[0]['x'] === $lionsCoords[1]['x'] && $lionsCoords[0]['y'] === $lionsCoords[1]['y']) {
         Globals::setEndGame(true);
       }
