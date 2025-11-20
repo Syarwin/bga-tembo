@@ -232,9 +232,11 @@ class Meeples extends CachedPieces
   public static function getTiredRestedElephants(int $pId, int $state): Collection
   {
     return static::getElephants($pId)->filter(
-      fn(
-        $elephant
-      ) => $elephant->getState() === $state && $elephant->getLocation() !== LOCATION_BOARD
+      function ($elephant) use ($state) {
+        return $elephant->getState() === $state
+          && $elephant->getLocation() !== LOCATION_BOARD
+          && $elephant->getLocation() !== LOCATION_DISCARD;
+      }
     );
   }
 

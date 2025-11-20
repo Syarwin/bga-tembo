@@ -222,6 +222,7 @@ $machinestates = [
       'actPlaceSingleElephant',
       'actUseSupportToken',
       'actPlayMatriarch',
+      'actLeaveMatriarch',
     ],
   ],
 

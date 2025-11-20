@@ -12,6 +12,7 @@ use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Managers\SupportTokens;
 use Bga\Games\Tembo\Models\Board;
+use Bga\Games\Tembo\Models\Player;
 use const Bga\Games\Tembo\OPTION_ENABLED;
 use const Bga\Games\Tembo\OPTION_EVENTS;
 

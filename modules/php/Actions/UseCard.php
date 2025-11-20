@@ -152,4 +152,9 @@ class UseCard extends Action
     PlaceSingleElephant::checkCoords($x, $y, $this->getArgs()['singleSpacesMatriarch']);
     PlayMatriarch::play($x, $y, $player);
   }
+
+  public function actLeaveMatriarch()
+  {
+    PlayMatriarch::play(null, null, Players::getActive());
+  }
 }
