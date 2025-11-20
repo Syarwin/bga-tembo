@@ -133,6 +133,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStatePlayMatriarch(args) {
+      this.addCancelStateBtn();
+
       if (args.matriarchIds) {
         args.matriarchIds.forEach((cardId) => $(`savanna-card-${cardId}`).classList.add('selected'));
       }
