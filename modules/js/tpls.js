@@ -162,10 +162,27 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       return `<div class="tembo-icon ${type}${buttonClass} status-bar-icon"></div>`;
     },
 
-    tplPattern(shape, id = '') {
+    tplPattern(shape, id = '', rotation = 0) {
       let uid = id == '' ? '' : `id='${id}'`;
 
       const cells = SHAPES_CELLS[shape];
+      cells.forEach((cell) => {
+        if (rotation == 1) {
+          let t = cell[0];
+          cell[0] = -cell[1];
+          cell[1] = t;
+        }
+        if (rotation == 2) {
+          cell[0] = -cell[0];
+          cell[1] = -cell[1];
+        }
+        if (rotation == 3) {
+          let t = cell[0];
+          cell[0] = cell[1];
+          cell[1] = -t;
+        }
+      });
+
       let minX = 0,
         maxX = 0,
         minY = 0,

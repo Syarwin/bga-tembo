@@ -170,7 +170,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         $(patternId).style.gridRowStart = row;
       };
 
-      let rotation = 0;
+      let rotation = args.rotation;
       let hoveredCell = null;
       let pos = null;
       let oBoard = $('tembo-board');
@@ -197,10 +197,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       oBoard.insertAdjacentHTML('beforeend', this.tplPattern(shape, 'pattern-hover'));
       placePattern('pattern-hover', 2, 2);
       placePattern('pattern-controls', 2, 2);
+      $('pattern-hover').style.transform = `rotate(${rotation * 90}deg)`;
 
       // Add pattern selectors in pagetitle
       $('pagesubtitle').insertAdjacentHTML('beforeend', '<div id="pattern-selector"></div>');
-      $('pattern-selector').insertAdjacentHTML('beforeend', this.tplPattern(shape));
+      $('pattern-selector').insertAdjacentHTML('beforeend', this.tplPattern(shape, '', args.rotation));
 
       // Compute new size of circle control
       let w = $('pattern-hover').offsetWidth;

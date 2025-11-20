@@ -31,12 +31,33 @@
   }
   &[data-rotation="1"] {
     rotate: 90deg;
+
+    .tembo-savanna-card-wrapper {
+      box-shadow: 2px -2px 5px 1px black;
+    }
+    &.selectable .tembo-savanna-card-wrapper {
+      box-shadow: 1px -1px 5px 2px red;
+    }
   }
   &[data-rotation="2"] {
     rotate: 180deg;
+
+    .tembo-savanna-card-wrapper {
+      box-shadow: -2px -2px 5px 1px black;
+    }
+    &.selectable .tembo-savanna-card-wrapper {
+      box-shadow: -1px -1px 5px 2px red;
+    }
   }
   &[data-rotation="3"] {
     rotate: 270deg;
+
+    .tembo-savanna-card-wrapper {
+      box-shadow: -2px 2px 5px 1px black;
+    }
+    &.selectable .tembo-savanna-card-wrapper {
+      box-shadow: -1px 1px 5px 2px red;
+    }
   }
 
   &#tmpCard {

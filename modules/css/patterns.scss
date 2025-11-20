@@ -65,10 +65,10 @@
     transform-origin: 25% 75%;
   }
   &[data-shape="2"] {
-    transform-origin: 25% 50%;
+    transform-origin: 50% 25%;
   }
   &[data-shape="3"] {
-    transform-origin: 50% 25%;
+    transform-origin: 25% 50%;
   }
   &[data-shape="6"] {
     transform-origin: 75% 75%;
