@@ -883,28 +883,28 @@ body {
     background-position-x: 71.4285714286%;
     background-position-y: 85.7142857143%; }
   .tembo-savanna-card[data-id="63"] .tembo-savanna-card-wrapper {
-    background-position-x: 100%;
+    background-position-x: 85.7142857143%;
     background-position-y: 85.7142857143%; }
   .tembo-savanna-card[data-id="64"] .tembo-savanna-card-wrapper {
-    background-position-x: 100%;
+    background-position-x: 85.7142857143%;
     background-position-y: 85.7142857143%; }
   .tembo-savanna-card[data-id="65"] .tembo-savanna-card-wrapper {
-    background-position-x: 100%;
+    background-position-x: 85.7142857143%;
     background-position-y: 85.7142857143%; }
   .tembo-savanna-card[data-id="66"] .tembo-savanna-card-wrapper {
-    background-position-x: 100%;
-    background-position-y: 85.7142857143%; }
-  .tembo-savanna-card[data-id="67"] .tembo-savanna-card-wrapper {
-    background-position-x: 100%;
+    background-position-x: 85.7142857143%;
     background-position-y: 85.7142857143%; }
   .tembo-savanna-card[data-id="67"] .tembo-savanna-card-wrapper {
     background-position-x: 85.7142857143%;
+    background-position-y: 85.7142857143%; }
+  .tembo-savanna-card[data-id="67"] .tembo-savanna-card-wrapper {
+    background-position-x: 100%;
     background-position-y: 85.7142857143%; }
   .tembo-savanna-card[data-id="68"] .tembo-savanna-card-wrapper {
-    background-position-x: 85.7142857143%;
+    background-position-x: 100%;
     background-position-y: 85.7142857143%; }
   .tembo-savanna-card[data-id="69"] .tembo-savanna-card-wrapper {
-    background-position-x: 85.7142857143%;
+    background-position-x: 100%;
     background-position-y: 85.7142857143%; }
   .tembo-savanna-card.selectable {
     cursor: pointer; }
@@ -1250,6 +1250,8 @@ body {
   visibility: hidden; }
 
 #page-title .tembo-savanna-card {
+  position: absolute; }
+#page-title .tembo-meeple {
   position: absolute; }
 
 #ebd-body.help-mode .tooltipable {

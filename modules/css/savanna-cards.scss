@@ -168,17 +168,17 @@
       background-position-y: 6 * 100% / 7;
     }
   }
-  // MATRIARCH III
+  // LION III
   @for $i from 63 through 67 {
     &[data-id="#{$i}"] .tembo-savanna-card-wrapper {
-      background-position-x: 7 * 100% / 7;
+      background-position-x: 6 * 100% / 7;
       background-position-y: 6 * 100% / 7;
     }
   }
-  // LION III
+  // MATRIARCH III
   @for $i from 67 through 69 {
     &[data-id="#{$i}"] .tembo-savanna-card-wrapper {
-      background-position-x: 6 * 100% / 7;
+      background-position-x: 7 * 100% / 7;
       background-position-y: 6 * 100% / 7;
     }
   }
