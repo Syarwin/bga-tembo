@@ -8,7 +8,7 @@ from PIL import Image
 # - script is placed in misc/
 # - output image should be placed in ../img/ folder
 # - output sass should be placed in ../modules/css/ folder
-CLASS_PREFIX = 'meeple'
+CLASS_PREFIX = 'icon'
 FILENAME_BASIS = f"{CLASS_PREFIX}s" # default is = plural of class prefix
 DEFAULT_MARGIN = 4
 INPUT_DIR = f'{FILENAME_BASIS}/'

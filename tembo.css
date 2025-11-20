@@ -44,64 +44,78 @@
 
 .icon-tree-green {
   background-image: url("img/icons.png");
-  background-size: 362.000000% auto;
+  background-size: 412.000000% auto;
   background-position: 0.000000% 0.000000%;
   background-repeat: no-repeat;
   aspect-ratio: 100/132; }
 
 .icon-tree-brown {
   background-image: url("img/icons.png");
-  background-size: 362.000000% auto;
-  background-position: 39.694656% 0.000000%;
+  background-size: 412.000000% auto;
+  background-position: 33.333333% 0.000000%;
   background-repeat: no-repeat;
   aspect-ratio: 100/129; }
 
-.icon-tree-blue {
+.icon-tree-teal {
   background-image: url("img/icons.png");
-  background-size: 362.000000% auto;
-  background-position: 79.389313% 0.000000%;
+  background-size: 412.000000% auto;
+  background-position: 66.666667% 0.000000%;
   background-repeat: no-repeat;
   aspect-ratio: 100/113; }
 
 .icon-tree-red {
   background-image: url("img/icons.png");
-  background-size: 362.000000% auto;
-  background-position: 0.000000% 56.666667%;
+  background-size: 412.000000% auto;
+  background-position: 100.000000% 0.000000%;
   background-repeat: no-repeat;
   aspect-ratio: 100/113; }
 
+.icon-paw-ignore {
+  background-image: url("img/icons.png");
+  background-size: 374.545455% auto;
+  background-position: 0.000000% 55.060729%;
+  background-repeat: no-repeat;
+  aspect-ratio: 110/110; }
+
+.icon-paw {
+  background-image: url("img/icons.png");
+  background-size: 374.545455% auto;
+  background-position: 37.748344% 55.060729%;
+  background-repeat: no-repeat;
+  aspect-ratio: 110/110; }
+
 .icon-lioness {
   background-image: url("img/icons.png");
-  background-size: 362.000000% auto;
-  background-position: 39.694656% 55.510204%;
+  background-size: 412.000000% auto;
+  background-position: 73.076923% 54.618474%;
   background-repeat: no-repeat;
   aspect-ratio: 100/108; }
 
 .icon-lion {
   background-image: url("img/icons.png");
-  background-size: 362.000000% auto;
-  background-position: 79.389313% 55.284553%;
+  background-size: 412.000000% auto;
+  background-position: 0.000000% 100.000000%;
   background-repeat: no-repeat;
   aspect-ratio: 100/107; }
 
 .icon-energy {
   background-image: url("img/icons.png");
-  background-size: 362.000000% auto;
-  background-position: 0.000000% 100.000000%;
+  background-size: 412.000000% auto;
+  background-position: 33.333333% 97.276265%;
   background-repeat: no-repeat;
   aspect-ratio: 100/100; }
 
 .icon-rotate {
   background-image: url("img/icons.png");
-  background-size: 362.000000% auto;
-  background-position: 39.694656% 99.606299%;
+  background-size: 412.000000% auto;
+  background-position: 66.666667% 96.899225%;
   background-repeat: no-repeat;
   aspect-ratio: 100/99; }
 
 .icon-matriarch {
   background-image: url("img/icons.png");
-  background-size: 724.000000% auto;
-  background-position: 100.000000% 0.000000%;
+  background-size: 824.000000% auto;
+  background-position: 91.712707% 45.484950%;
   background-repeat: no-repeat;
   aspect-ratio: 50/58; }
 
@@ -131,8 +145,8 @@
   width: 36px;
   height: 36px;
   background-image: url("img/icons.png");
-  background-size: 362.000000% auto;
-  background-position: 0.000000% 100.000000%;
+  background-size: 412.000000% auto;
+  background-position: 33.333333% 97.276265%;
   background-repeat: no-repeat;
   aspect-ratio: 100/100;
   background-color: white;
@@ -889,6 +903,177 @@ body {
   .tembo-savanna-card.selected .tembo-savanna-card-wrapper {
     border-color: #fffb00;
     box-shadow: 0px 0px 5px 3px yellow; }
+
+#pattern-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  #pattern-selector .tembo-pattern .pattern-cell {
+    background-image: url("img/icons.png");
+    background-size: 374.545455% auto;
+    background-position: 37.748344% 55.060729%;
+    background-repeat: no-repeat;
+    aspect-ratio: 110/110;
+    background-color: rgba(9, 255, 0, 0.2); }
+  #pattern-selector .tembo-pattern[data-shape="2"] .pattern-cell, #pattern-selector .tembo-pattern[data-shape="3"] .pattern-cell {
+    background-image: url("img/icons.png");
+    background-size: 374.545455% auto;
+    background-position: 0.000000% 55.060729%;
+    background-repeat: no-repeat;
+    aspect-ratio: 110/110; }
+
+.tembo-pattern {
+  display: grid; }
+  .tembo-pattern[data-w="1"] {
+    grid-template-columns: repeat(1, 50px);
+    width: 50px; }
+  .tembo-pattern[data-h="1"] {
+    grid-template-rows: repeat(1, 50px);
+    height: 50px; }
+  .tembo-pattern[data-w="2"] {
+    grid-template-columns: repeat(2, 50px);
+    width: 100px; }
+  .tembo-pattern[data-h="2"] {
+    grid-template-rows: repeat(2, 50px);
+    height: 100px; }
+  .tembo-pattern[data-w="3"] {
+    grid-template-columns: repeat(3, 50px);
+    width: 150px; }
+  .tembo-pattern[data-h="3"] {
+    grid-template-rows: repeat(3, 50px);
+    height: 150px; }
+  .tembo-pattern .pattern-cell {
+    background: rgba(9, 255, 0, 0.5); }
+    .tembo-pattern .pattern-cell[data-col="1"] {
+      grid-column-start: 1; }
+    .tembo-pattern .pattern-cell[data-row="1"] {
+      grid-row-start: 1; }
+    .tembo-pattern .pattern-cell[data-col="2"] {
+      grid-column-start: 2; }
+    .tembo-pattern .pattern-cell[data-row="2"] {
+      grid-row-start: 2; }
+    .tembo-pattern .pattern-cell[data-col="3"] {
+      grid-column-start: 3; }
+    .tembo-pattern .pattern-cell[data-row="3"] {
+      grid-row-start: 3; }
+    .tembo-pattern .pattern-cell .pattern-crosshairs {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      .tembo-pattern .pattern-cell .pattern-crosshairs svg {
+        margin-top: 4px;
+        width: 20px;
+        height: 20px;
+        fill: yellow; }
+  .tembo-pattern[data-shape="0"] {
+    transform-origin: 25% 25%; }
+  .tembo-pattern[data-shape="1"] {
+    transform-origin: 25% 75%; }
+  .tembo-pattern[data-shape="2"] {
+    transform-origin: 25% 50%; }
+  .tembo-pattern[data-shape="3"] {
+    transform-origin: 50% 25%; }
+  .tembo-pattern[data-shape="5"] {
+    transform-origin: 50% 50%; }
+  .tembo-pattern[data-shape="6"] {
+    transform-origin: 75% 75%; }
+
+#tembo-board .tembo-pattern[data-offsetX="-1"] {
+  margin-left: -50px; }
+#tembo-board .tembo-pattern[data-offsetY="-1"] {
+  margin-top: -50px; }
+
+.tembo-pattern#pattern-hover {
+  z-index: 100;
+  transition: transform 0.4s;
+  transform: rotate(0deg);
+  pointer-events: none; }
+  .tembo-pattern#pattern-hover .pattern-crosshairs {
+    visibility: visible; }
+  .tembo-pattern#pattern-hover.hovering .pattern-cell {
+    background: rgba(0, 0, 0, 0.3); }
+    .tembo-pattern#pattern-hover.hovering .pattern-cell .pattern-crosshairs svg {
+      fill: green; }
+  .tembo-pattern#pattern-hover.invalid .pattern-cell {
+    background: rgba(255, 0, 0, 0.4); }
+    .tembo-pattern#pattern-hover.invalid .pattern-cell .pattern-crosshairs svg {
+      fill: red; }
+
+#pattern-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: 200; }
+  #pattern-controls.inactive:not(.hovering) {
+    display: none; }
+  #pattern-controls #pattern-controls-circle {
+    width: 0px;
+    height: 0px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 4px dotted black;
+    pointer-events: none;
+    background: #7d7d7d1f;
+    position: relative; }
+    #pattern-controls #pattern-controls-circle #pattern-rotate-clockwise,
+    #pattern-controls #pattern-controls-circle #pattern-rotate-cclockwise,
+    #pattern-controls #pattern-controls-circle #pattern-move-up,
+    #pattern-controls #pattern-controls-circle #pattern-move-down,
+    #pattern-controls #pattern-controls-circle #pattern-move-right,
+    #pattern-controls #pattern-controls-circle #pattern-move-left,
+    #pattern-controls #pattern-controls-circle #pattern-confirm-btn {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: white;
+      border: 1px solid black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: all;
+      cursor: pointer;
+      font-size: 25px; }
+    #pattern-controls #pattern-controls-circle #pattern-rotate-clockwise {
+      top: calc(15% - 16px);
+      left: calc(87% - 15px); }
+      #pattern-controls #pattern-controls-circle #pattern-rotate-clockwise svg {
+        width: 20px; }
+    #pattern-controls #pattern-controls-circle #pattern-rotate-cclockwise {
+      top: calc(15% - 16px);
+      right: calc(87% - 16px); }
+      #pattern-controls #pattern-controls-circle #pattern-rotate-cclockwise svg {
+        width: 20px; }
+    #pattern-controls #pattern-controls-circle #pattern-move-up {
+      top: -21px;
+      left: calc(50% - 16px); }
+    #pattern-controls #pattern-controls-circle #pattern-move-down {
+      bottom: -21px;
+      left: calc(50% - 16px); }
+    #pattern-controls #pattern-controls-circle #pattern-move-right {
+      top: calc(50% - 16px);
+      right: -21px; }
+    #pattern-controls #pattern-controls-circle #pattern-move-left {
+      top: calc(50% - 16px);
+      left: -21px; }
+    #pattern-controls #pattern-controls-circle #pattern-confirm-btn {
+      top: calc(85% - 15px);
+      left: calc(85% - 15px);
+      color: white;
+      background: #4871b6;
+      padding: 0px;
+      margin: 0px;
+      font-size: 25px; }
+      #pattern-controls #pattern-controls-circle #pattern-confirm-btn.disabled {
+        opacity: 1;
+        background: linear-gradient(rgba(189, 189, 189, 0.8), rgba(166, 165, 165, 0.9));
+        cursor: not-allowed;
+        pointer-events: all; }
+  #pattern-controls.hovering #pattern-controls-circle #pattern-confirm-btn {
+    display: none; }
 
 .player-board {
   order: 2; }

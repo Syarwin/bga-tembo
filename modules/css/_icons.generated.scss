@@ -1,10 +1,10 @@
 // Auto-generated sprite mixins
-$icon-sprite-width: 362px;
-$icon-sprite-height: 353px;
+$icon-sprite-width: 412px;
+$icon-sprite-height: 357px;
 
 @mixin icon-tree-green {
   background-image: url('img/icons.png');
-  background-size: 362.000000% auto;
+  background-size: 412.000000% auto;
   background-position: 0.000000% 0.000000%;
   background-repeat: no-repeat;
   aspect-ratio: 100/132;
@@ -12,64 +12,80 @@ $icon-sprite-height: 353px;
 
 @mixin icon-tree-brown {
   background-image: url('img/icons.png');
-  background-size: 362.000000% auto;
-  background-position: 39.694656% 0.000000%;
+  background-size: 412.000000% auto;
+  background-position: 33.333333% 0.000000%;
   background-repeat: no-repeat;
   aspect-ratio: 100/129;
 }
 
-@mixin icon-tree-blue {
+@mixin icon-tree-teal {
   background-image: url('img/icons.png');
-  background-size: 362.000000% auto;
-  background-position: 79.389313% 0.000000%;
+  background-size: 412.000000% auto;
+  background-position: 66.666667% 0.000000%;
   background-repeat: no-repeat;
   aspect-ratio: 100/113;
 }
 
 @mixin icon-tree-red {
   background-image: url('img/icons.png');
-  background-size: 362.000000% auto;
-  background-position: 0.000000% 56.666667%;
+  background-size: 412.000000% auto;
+  background-position: 100.000000% 0.000000%;
   background-repeat: no-repeat;
   aspect-ratio: 100/113;
 }
 
+@mixin icon-paw-ignore {
+  background-image: url('img/icons.png');
+  background-size: 374.545455% auto;
+  background-position: 0.000000% 55.060729%;
+  background-repeat: no-repeat;
+  aspect-ratio: 110/110;
+}
+
+@mixin icon-paw {
+  background-image: url('img/icons.png');
+  background-size: 374.545455% auto;
+  background-position: 37.748344% 55.060729%;
+  background-repeat: no-repeat;
+  aspect-ratio: 110/110;
+}
+
 @mixin icon-lioness {
   background-image: url('img/icons.png');
-  background-size: 362.000000% auto;
-  background-position: 39.694656% 55.510204%;
+  background-size: 412.000000% auto;
+  background-position: 73.076923% 54.618474%;
   background-repeat: no-repeat;
   aspect-ratio: 100/108;
 }
 
 @mixin icon-lion {
   background-image: url('img/icons.png');
-  background-size: 362.000000% auto;
-  background-position: 79.389313% 55.284553%;
+  background-size: 412.000000% auto;
+  background-position: 0.000000% 100.000000%;
   background-repeat: no-repeat;
   aspect-ratio: 100/107;
 }
 
 @mixin icon-energy {
   background-image: url('img/icons.png');
-  background-size: 362.000000% auto;
-  background-position: 0.000000% 100.000000%;
+  background-size: 412.000000% auto;
+  background-position: 33.333333% 97.276265%;
   background-repeat: no-repeat;
   aspect-ratio: 100/100;
 }
 
 @mixin icon-rotate {
   background-image: url('img/icons.png');
-  background-size: 362.000000% auto;
-  background-position: 39.694656% 99.606299%;
+  background-size: 412.000000% auto;
+  background-position: 66.666667% 96.899225%;
   background-repeat: no-repeat;
   aspect-ratio: 100/99;
 }
 
 @mixin icon-matriarch {
   background-image: url('img/icons.png');
-  background-size: 724.000000% auto;
-  background-position: 100.000000% 0.000000%;
+  background-size: 824.000000% auto;
+  background-position: 91.712707% 45.484950%;
   background-repeat: no-repeat;
   aspect-ratio: 50/58;
 }
@@ -81,12 +97,20 @@ $icon-sprite-height: 353px;
   @include icon-tree-brown;
 }
 
-.icon-tree-blue {
-  @include icon-tree-blue;
+.icon-tree-teal {
+  @include icon-tree-teal;
 }
 
 .icon-tree-red {
   @include icon-tree-red;
+}
+
+.icon-paw-ignore {
+  @include icon-paw-ignore;
+}
+
+.icon-paw {
+  @include icon-paw;
 }
 
 .icon-lioness {

@@ -301,7 +301,11 @@ class Board
                     'amount' => ($cellType === SPACE_ROUGH && !$ignoreRough) ? $roughSpaceElepnahtsNumber : 1
                   ];
                 }, $cellsForThisShape);
-                $patterns[$card->getId()] = array_merge($patterns[$card->getId()], [$cellsForThisShape]);
+                $patterns[$card->getId()][] = [
+                  'pos' => ['x' => $x, 'y' => $y],
+                  'r' => $rotation,
+                  'cells' => $cellsForThisShape
+                ];
               }
             }
           }

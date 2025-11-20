@@ -66,6 +66,7 @@ define([
 
       setup(gamedatas) {
         debug('SETUP', gamedatas);
+
         this.setupCentralArea();
         this.setupBoard();
         this.setupPlayers();
@@ -412,7 +413,7 @@ define([
         );
       },
 
-      async notif_matriarchCardDiscarded(args){
+      async notif_matriarchCardDiscarded(args) {
         await this.slideAndDestroy(`savanna-card-${args.cardId}`);
       },
 

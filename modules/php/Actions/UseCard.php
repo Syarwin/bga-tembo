@@ -30,7 +30,7 @@ class UseCard extends Action
     $board = new Board();
 
     $supportTokenRotationUsed = ($this->getCtxArg('supportRotate') ?? false);
-    /** @var  $rotatableCards */
+    /** Collection @var  $rotatableCards */
     $rotatableCards = $supportTokenRotationUsed ? $hand : $hand->filter(fn(Card $card) => $card->canBeRotated());
     $ignoreRoughCardIds = $hand->filter(fn(Card $card) => $card->isIgnoreRough());
 
@@ -39,6 +39,7 @@ class UseCard extends Action
       'rotatableCardIds' => EventTiles::isRotatableCardsAllowed() ? $rotatableCards->getIds() : [],
       'ignoreRoughCardIds' => $ignoreRoughCardIds->getIds(),
       'patterns' => $board->getAllPossiblePatterns($hand, $player->getRotation(), $player->getRestedElephantsAmount(), $supportTokenRotationUsed),
+      'patternsShapes' => $hand->map(fn($card) => $card->getPattern()['shape']),
       'squares' => $board->getEmptySquares(),
       'rotation' => $player->getRotation(),
       'singleSpaces' => $board->getAllPossibleCoordsSingle($player),
@@ -103,21 +104,22 @@ class UseCard extends Action
     }
   }
 
-  public function actPlaceElephants(int $cardId, int $patternIndex)
+  public function actPlaceElephants(int $cardId, array $pos, int $rotation)
   {
-    $patterns = $this->getArgs()['patterns'];
-    if (!isset($patterns[$cardId])) {
+    $patterns = $this->getArgs()['patterns'][$cardId];
+    if (is_null($patterns)) {
       throw new \BgaVisibleSystemException("actPlaceElephants: Cannot find patterns for card $cardId");
     }
-    if (!isset($patterns[$cardId][$patternIndex])) {
-      throw new \BgaVisibleSystemException("actPlaceElephants: Incorrect pattern index $patternIndex");
+    $pattern = array_find($patterns, fn($p) => $p['pos'] == $pos && $p['r'] == $rotation);
+    if (is_null($pattern)) {
+      throw new \BgaVisibleSystemException("actPlaceElephants: Incorrect pattern position/rotation");
     }
-    $pattern = $patterns[$cardId][$patternIndex];
+    $cells = $pattern['cells'];
     $activePlayer = Players::getActive();
-    $elephants = Meeples::placeElephantsOnBoard($activePlayer->getId(), $pattern);
+    $elephants = Meeples::placeElephantsOnBoard($activePlayer->getId(), $cells);
     Cards::move($cardId, LOCATION_DISCARD);
     Notifications::elephantsPlaced($activePlayer, $elephants, Cards::getSingle($cardId));
-    PlaceSingleElephant::verifySpacesBonuses($activePlayer, $pattern);
+    PlaceSingleElephant::verifySpacesBonuses($activePlayer, $cells);
   }
 
   public function actPlaceSingleElephant(int $x, int $y, ?int $cardId = null): void

@@ -99,7 +99,7 @@ const CARDS = [
   5 => [
     'deck' => CARD_DECK_STARTING,
     'pattern' => [
-      'shape' => SHAPE_DASH_VERT,
+      'shape' => SHAPE_DASH_HOR,
       'canBeRotated' => false,
       'ignoreRough' => true,
     ],

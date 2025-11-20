@@ -1,0 +1,209 @@
+#pattern-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .tembo-pattern {
+    .pattern-cell {
+      @include icon-paw;
+      background-color: rgba(9, 255, 0, 0.2);
+    }
+
+    &[data-shape="2"],
+    &[data-shape="3"] {
+      .pattern-cell {
+        @include icon-paw-ignore;
+      }
+    }
+  }
+}
+
+.tembo-pattern {
+  display: grid;
+
+  @for $i from 1 through 3 {
+    &[data-w="#{$i}"] {
+      grid-template-columns: repeat($i, 50px);
+      width: $i * 50px;
+    }
+    &[data-h="#{$i}"] {
+      grid-template-rows: repeat($i, 50px);
+      height: $i * 50px;
+    }
+  }
+
+  .pattern-cell {
+    background: rgba(9, 255, 0, 0.5);
+    @for $i from 1 through 3 {
+      &[data-col="#{$i}"] {
+        grid-column-start: $i;
+      }
+      &[data-row="#{$i}"] {
+        grid-row-start: $i;
+      }
+    }
+
+    .pattern-crosshairs {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      svg {
+        margin-top: 4px;
+        width: 20px;
+        height: 20px;
+        fill: yellow;
+      }
+    }
+  }
+
+  &[data-shape="0"] {
+    transform-origin: 25% 25%;
+  }
+  &[data-shape="1"] {
+    transform-origin: 25% 75%;
+  }
+  &[data-shape="2"] {
+    transform-origin: 25% 50%;
+  }
+  &[data-shape="3"] {
+    transform-origin: 50% 25%;
+  }
+  &[data-shape="6"] {
+    transform-origin: 75% 75%;
+  }
+}
+
+#tembo-board {
+  .tembo-pattern {
+    &[data-offsetX="-1"] {
+      margin-left: -50px;
+    }
+    &[data-offsetY="-1"] {
+      margin-top: -50px;
+    }
+  }
+}
+
+.tembo-pattern#pattern-hover {
+  z-index: 100;
+  transition: transform 0.4s;
+  transform: rotate(0deg);
+  pointer-events: none;
+
+  .pattern-crosshairs {
+    visibility: visible;
+  }
+
+  &.hovering {
+    .pattern-cell {
+      background: rgba(0, 0, 0, 0.3);
+      .pattern-crosshairs svg {
+        fill: green;
+      }
+    }
+  }
+  &.invalid {
+    .pattern-cell {
+      background: rgba(255, 0, 0, 0.4);
+      .pattern-crosshairs svg {
+        fill: red;
+      }
+    }
+  }
+}
+
+#pattern-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: 200;
+  &.inactive:not(.hovering) {
+    display: none;
+  }
+
+  #pattern-controls-circle {
+    width: 0px;
+    height: 0px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 4px dotted black;
+    pointer-events: none;
+    background: #7d7d7d1f;
+    position: relative;
+
+    #pattern-rotate-clockwise,
+    #pattern-rotate-cclockwise,
+    #pattern-move-up,
+    #pattern-move-down,
+    #pattern-move-right,
+    #pattern-move-left,
+    #pattern-confirm-btn {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: white;
+      border: 1px solid black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: all;
+      cursor: pointer;
+      font-size: 25px;
+    }
+    #pattern-rotate-clockwise {
+      top: calc(15% - 16px);
+      left: calc(87% - 15px);
+      svg {
+        width: 20px;
+      }
+    }
+    #pattern-rotate-cclockwise {
+      top: calc(15% - 16px);
+      right: calc(87% - 16px);
+      svg {
+        width: 20px;
+      }
+    }
+    #pattern-move-up {
+      top: -21px;
+      left: calc(50% - 16px);
+    }
+    #pattern-move-down {
+      bottom: -21px;
+      left: calc(50% - 16px);
+    }
+    #pattern-move-right {
+      top: calc(50% - 16px);
+      right: -21px;
+    }
+    #pattern-move-left {
+      top: calc(50% - 16px);
+      left: -21px;
+    }
+
+    #pattern-confirm-btn {
+      top: calc(85% - 15px);
+      left: calc(85% - 15px);
+      color: white;
+      background: #4871b6;
+      padding: 0px;
+      margin: 0px;
+      font-size: 25px;
+
+      &.disabled {
+        opacity: 1;
+        background: linear-gradient(rgba(189, 189, 189, 0.8), rgba(166, 165, 165, 0.9));
+        cursor: not-allowed;
+        pointer-events: all;
+      }
+    }
+  }
+
+  &.hovering #pattern-controls-circle #pattern-confirm-btn {
+    display: none;
+  }
+}

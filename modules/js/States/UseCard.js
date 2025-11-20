@@ -42,17 +42,17 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     onEnteringStateUseCardChooseOption(args) {
       $(`savanna-card-${args.cardId}`).classList.add('selected');
-      this.addPrimaryActionButton('btnPlaceCard', 'Build the savanna', () => {
+      this.addPrimaryActionButton('btnPlaceCard', _('Build the savanna'), () => {
         this.moveToPlaceCardState(args);
       });
       if (args.patterns[args.cardId] !== undefined) {
-        this.addPrimaryActionButton('btnPlaceElephants', 'Place elephants', () => {
+        this.addPrimaryActionButton('btnPlaceElephants', _('Place elephants'), () => {
           this.clientState('placeElephants', _('Select where to place elephants on the board'), args);
         });
       }
       const spaces = args.ignoreRoughCardIds.includes(args.cardId) ? args.singleSpacesIgnoreRough : args.singleSpaces;
       if (spaces.length > 0) {
-        this.addPrimaryActionButton('btnPlaceSingleElephant', 'Place a single elephant', () => {
+        this.addPrimaryActionButton('btnPlaceSingleElephant', _('Place a single elephant'), () => {
           this.clientState('placeSingleElephant', _('Select where to place an elephant on the board'), args);
         });
       }
@@ -111,15 +111,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       );
     },
 
-    onEnteringStatePlaceElephants(args) {
-      // TODO: Delete everything and change to clicking on the board
-      $(`savanna-card-${args.cardId}`).classList.add('selected');
-      this.addPrimaryActionButton('btnPlaceElephants', 'Use first available option', () => {
-        this.takeAtomicAction('actPlaceElephants', { cardId: args.cardId, patternIndex: 0 });
-      });
-      this.addCancelStateBtn();
-    },
-
     onEnteringStatePlaceSingleElephant(args, isMatriarch = false) {
       let spaces = args.singleSpaces;
       if (isMatriarch) {
@@ -150,6 +141,177 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.takeAtomicAction('actLeaveMatriarch');
       });
       this.onEnteringStatePlaceSingleElephant(args, true);
+    },
+
+    onLeavingStatePlaceElephants() {
+      this._onClickCell = null;
+      this._onHoverCell = null;
+
+      [...$(`tembo-board`).querySelectorAll('.board-cell')].forEach((elt) => {
+        delete elt.style.removeProperty('cursor');
+      });
+
+      this.destroy('pattern-controls');
+      this.destroy('pattern-hover');
+    },
+
+    onEnteringStatePlaceElephants(args) {
+      $(`savanna-card-${args.cardId}`).classList.add('selected');
+      this.addCancelStateBtn();
+      const shape = args.patternsShapes[args.cardId];
+      const patterns = args.patterns[args.cardId];
+      const canBeRotated = args.rotatableCardIds.includes(args.cardId);
+
+      // Place a pattern at the correct grid position to make at pos (x,y)
+      let placePattern = (patternId, x, y) => {
+        let col = parseInt(x) + 1;
+        let row = parseInt(y) + 1;
+        $(patternId).style.gridColumnStart = col;
+        $(patternId).style.gridRowStart = row;
+      };
+
+      let rotation = 0;
+      let hoveredCell = null;
+      let pos = null;
+      let oBoard = $('tembo-board');
+
+      // Add a visual representation on hover
+      oBoard.insertAdjacentHTML(
+        'beforeend',
+        `<div id='pattern-controls' class='inactive'>
+        <div id='pattern-controls-circle'>
+          ${
+            canBeRotated
+              ? `<div id="pattern-rotate-clockwise"><svg><use href="#rotate-clockwise-svg" /></svg></div>
+                 <div id="pattern-rotate-cclockwise"><svg><use href="#rotate-cclockwise-svg" /></svg></div>`
+              : ''
+          }
+          <div id="pattern-move-up"><i class="fa fa-long-arrow-up"></i></div>
+          <div id="pattern-move-right"><i class="fa fa-long-arrow-right"></i></div>
+          <div id="pattern-move-down"><i class="fa fa-long-arrow-down"></i></div>
+          <div id="pattern-move-left"><i class="fa fa-long-arrow-left"></i></div>
+          <div id="pattern-confirm-btn" class="action-button bgabutton bgabutton_blue">✓</div>
+        </div>
+      </div>`
+      );
+      oBoard.insertAdjacentHTML('beforeend', this.tplPattern(shape, 'pattern-hover'));
+      placePattern('pattern-hover', 2, 2);
+      placePattern('pattern-controls', 2, 2);
+
+      // Add pattern selectors in pagetitle
+      $('pagesubtitle').insertAdjacentHTML('beforeend', '<div id="pattern-selector"></div>');
+      $('pattern-selector').insertAdjacentHTML('beforeend', this.tplPattern(shape));
+
+      // Compute new size of circle control
+      let w = $('pattern-hover').offsetWidth;
+      let h = $('pattern-hover').offsetHeight;
+      let cross = $('pattern-hover').querySelector('.pattern-crosshairs');
+      let offsetW = cross.offsetLeft + cross.offsetWidth / 2;
+      let offsetH = cross.offsetTop + cross.offsetHeight / 2;
+      let dx = Math.max(offsetW, w - offsetW);
+      let dy = Math.max(offsetH, h - offsetH);
+      let radius = Math.sqrt(dx * dx + dy * dy) + 10;
+      $('pattern-controls-circle').style.width = 2 * radius + 'px';
+      $('pattern-controls-circle').style.height = 2 * radius + 'px';
+
+      // Move selection to a given position
+      let moveSelection = (x, y, cell = null) => {
+        placePattern('pattern-hover', x, y);
+        placePattern('pattern-controls', x, y);
+
+        let r = ((rotation % 4) + 4) % 4;
+        let pos = patterns.find((p) => p.pos.x == x && p.pos.y == y && p.r == r);
+        let valid = pos !== undefined;
+        $('pattern-hover').classList.toggle('invalid', !valid);
+        $('pattern-hover').style.transform = `rotate(${rotation * 90}deg)`;
+        $('pattern-hover').querySelector('.pattern-crosshairs').style.transform = `rotate(${-rotation * 90}deg)`;
+
+        $('pattern-controls').classList.toggle('invalid', !valid);
+        $('pattern-controls').classList.remove('inactive');
+
+        if (cell === null) {
+          cell = oBoard.querySelector(`[data-x='${x}'][data-y='${y}']`);
+        }
+        if (cell) {
+          cell.style.cursor = valid ? 'pointer' : 'not-allowed';
+        }
+
+        // Update button status
+        if ($('btnConfirmBuild')) {
+          $('btnConfirmBuild').classList.toggle('disabled', !valid);
+          $('pattern-confirm-btn').classList.toggle('disabled', !valid);
+        }
+      };
+      let updateSelection = () => {
+        if (hoveredCell) {
+          moveSelection(hoveredCell.dataset.x, hoveredCell.dataset.y, hoveredCell);
+        } else if (pos.x == 0 && pos.y == 0) {
+          moveSelection(0, 0);
+        }
+      };
+
+      // Listen on hovering on map cells
+      this._onHoverCell = (cell) => {
+        cell.style.cursor = 'default';
+        if (pos == null || (pos.x == 0 && pos.y == 0)) {
+          let x = parseInt(cell.dataset.x);
+          let y = parseInt(cell.dataset.y);
+          hoveredCell = cell;
+          moveSelection(x, y, cell);
+          $('pattern-hover').classList.add('hovering');
+          $('pattern-controls').classList.add('hovering');
+        }
+      };
+
+      this._onClickCell = (cell) => {
+        cell.style.cursor = 'default';
+        let x = parseInt(cell.dataset.x);
+        let y = parseInt(cell.dataset.y);
+        pos = { x, y };
+        hoveredCell = cell;
+        $('pattern-hover').classList.remove('hovering');
+        $('pattern-controls').classList.remove('hovering');
+
+        // Add confirm button
+        this.addPrimaryActionButton('btnConfirmBuild', _('Confirm'), () => {
+          if (!$('btnConfirmBuild').classList.contains('disabled')) {
+            this.takeAtomicAction('actPlaceElephants', [args.cardId, pos, ((rotation % 4) + 4) % 4]);
+          }
+        });
+        moveSelection(x, y, cell);
+      };
+
+      if (canBeRotated) {
+        // Click on arrow to rotate
+        let incRotation = (c) => {
+          rotation += c;
+          updateSelection();
+        };
+        this.onClick('pattern-rotate-clockwise', () => incRotation(1));
+        this.onClick('pattern-rotate-cclockwise', () => incRotation(-1));
+        this.addPrimaryActionButton('btnRotateCClockwise', '<i class="fa fa-undo"></i>', () => incRotation(-1));
+        this.addPrimaryActionButton('btnRotateClockwise', '<i class="fa fa-repeat"></i>', () => incRotation(1));
+      }
+
+      // Click on arrow to move
+      let shiftPattern = (dx, dy) => {
+        let x = pos.x + dx,
+          y = pos.y + dy;
+        hoveredCell = oBoard.querySelector(`[data-x='${x}'][data-y='${y}']`);
+        pos = { x, y };
+        moveSelection(x, y);
+      };
+      this.onClick('pattern-move-up', () => shiftPattern(0, -1));
+      this.onClick('pattern-move-down', () => shiftPattern(0, 1));
+      this.onClick('pattern-move-left', () => shiftPattern(-1, 0));
+      this.onClick('pattern-move-right', () => shiftPattern(1, 0));
+
+      // Confirm
+      this.onClick('pattern-confirm-btn', () => {
+        if (!$('pattern-confirm-btn').classList.contains('disabled')) {
+          this.takeAtomicAction('actPlaceElephants', [args.cardId, pos, ((rotation % 4) + 4) % 4]);
+        }
+      });
     },
   });
 });

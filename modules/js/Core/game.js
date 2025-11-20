@@ -53,6 +53,9 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
       dojo.place("<div id='customActions' style='display:inline-block'></div>", $('generalactions'), 'after');
       dojo.place("<div id='restartAction' style='display:inline-block'></div>", $('customActions'), 'after');
 
+      // Create a new div for "subtitle"
+      dojo.place("<div id='pagesubtitle'></div>", 'maintitlebar_content');
+
       this.setupNotifications();
       dojo.connect(this.notifqueue, 'addToLog', () => {
         this.checkLogCancel(this._last_notif == null ? null : this._last_notif.msg.uid);
@@ -229,6 +232,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
       this._selectableNodes = [];
       dojo.query('.unselectable').removeClass('unselectable');
       dojo.query('.selected').removeClass('selected');
+      $('pagesubtitle').innerHTML = '';
     },
 
     /*
@@ -846,6 +850,8 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
     },
 
     clientState(name, descriptionmyturn, args) {
+      delete args.descSuffix;
+
       this.setClientState(name, {
         descriptionmyturn,
         description: descriptionmyturn,
@@ -862,6 +868,9 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
     },
 
     destroy(elem) {
+      elem = $(elem);
+      if (!elem) return;
+
       if (this.tooltips[elem.id]) {
         this.tooltips[elem.id].destroy();
         delete this.tooltips[elem.id];

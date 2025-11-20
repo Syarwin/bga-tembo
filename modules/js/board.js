@@ -14,6 +14,8 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
   return declare('tembo.board', null, {
     constructor() {
       this._notifications.push('boardTileRotated');
+      this._onClickCell = null;
+      this._onHoverCell = null;
     },
 
     setupBoard() {
@@ -73,10 +75,20 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
 
         for (let i = 0; i < 3; i++) {
           for (let j = 0; j < 3; j++) {
+            const x = square.x + i,
+              y = square.y + j;
             $('tembo-board').insertAdjacentHTML(
               'beforeend',
-              `<div class='board-cell' id="cell-${square.x + i}-${square.y + j}" style="grid-column-start:${square.x + i + 1}; grid-row-start:${square.y + j + 1}"></div>`
+              `<div class='board-cell' id="cell-${x}-${y}" data-x="${x}" data-y="${y}" style="grid-column-start:${x + 1}; grid-row-start:${y + 1}"></div>`
             );
+
+            let oCell = $(`cell-${x}-${y}`);
+            oCell.addEventListener('click', () => {
+              if (this._onClickCell !== null) this._onClickCell(oCell);
+            });
+            oCell.addEventListener('mouseenter', () => {
+              if (this._onHoverCell !== null) this._onHoverCell(oCell);
+            });
           }
         }
       });
