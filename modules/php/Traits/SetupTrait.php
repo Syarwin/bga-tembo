@@ -55,7 +55,7 @@ trait SetupTrait
     /** @var Player $player */
     foreach (Players::getAll() as $player) {
       if ($player->getRotation() === -1) {
-        $player->setRotation(bga_rand(0, 3));
+        $player->setRotation(0);
       }
     }
 
