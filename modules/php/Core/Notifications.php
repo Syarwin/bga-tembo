@@ -289,7 +289,7 @@ class Notifications
     ]);
   }
 
-  public static function lionsMoved(?Player $player, array $lions, Collection $cards)
+  public static function lionsMoved(?Player $player, array $lions, ?Collection $cards)
   {
     if (is_null($player)) {
       $msg = ''; // This should be an event activation, no need to send a misleading message about getting a card
@@ -299,7 +299,7 @@ class Notifications
     self::notifyAll('lionsMoved', $msg, [
       'player' => $player,
       'lions' => $lions,
-      'cardIds' => $cards->getIds(),
+      'cardIds' => is_null($cards) ? [] : $cards->getIds(),
     ]);
   }
 
@@ -356,9 +356,7 @@ class Notifications
     ]);
   }
 
-  public static function energyChanged()
-  {
-  }
+  public static function energyChanged() {}
 
   ///////////////////////////////////////////////////////////////
   //  _   _           _       _            _

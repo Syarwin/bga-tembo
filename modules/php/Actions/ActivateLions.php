@@ -4,6 +4,7 @@ namespace Bga\Games\Tembo\Actions;
 
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
+use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Helpers\Utils;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Meeples;
@@ -109,7 +110,7 @@ class ActivateLions extends Action
     }
   }
 
-  public static function activate(array $lions, $cards = [], Player $activePlayer = null)
+  public static function activate(array $lions, ?object $cards, ?Player $activePlayer = null)
   {
     $elephantsEaten = [];
     $regularElephantsEatenNumber = 0;

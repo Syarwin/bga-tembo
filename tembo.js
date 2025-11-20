@@ -372,11 +372,12 @@ define([
         await Promise.all(
           args.lions.map((lion) => {
             let oLion = $(`meeple-${lion.id}`);
-            if (oLion.dataset.state != lion.state) {
-              oLion.dataset.state = lion.state;
+            let container = this.getMeepleContainer(lion);
+
+            if (container == oLion.parentNode) {
               return this.wait(1000);
             } else {
-              this.slide(oLion, this.getMeepleContainer(lion));
+              return this.slide(oLion, container).then(() => (oLion.dataset.state = lion.state));
             }
           })
         );
