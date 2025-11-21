@@ -1,7 +1,7 @@
 <?php
 
 const JOURNEYS = [
-  "A" => [ // TODO : handle one less tile
+  13 => [ // TODO : handle one less tile
     'destination' => ['x' => 9, 'y' => 0, 'rotation' => 1],
     'start' => ['x' => 0, 'y' => 18, 'rotation' => 1], // TODO : handle rotate + flip
     'tiles' => [
@@ -13,7 +13,7 @@ const JOURNEYS = [
     ],
     'lioness' => ['x' => 6, 'y' => 9],
   ],
-  "B" => [
+  14 => [
     'destination' => ['x' => 0, 'y' => 0, 'rotation' => 3],
     'start' => ['x' => 3, 'y' => 24, 'rotation' => 0],
     'tiles' => [

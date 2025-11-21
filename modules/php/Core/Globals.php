@@ -5,6 +5,12 @@ namespace Bga\Games\Tembo\Core;
 use Bga\Games\Tembo\Helpers\DB_Manager;
 use Bga\Games\Tembo\Managers\Players;
 
+use const Bga\Games\Tembo\OPTION_DIFFICULTY;
+use const Bga\Games\Tembo\OPTION_DISABLED;
+use const Bga\Games\Tembo\OPTION_EVENTS;
+use const Bga\Games\Tembo\OPTION_FIRST_GAME;
+use const Bga\Games\Tembo\OPTION_JOURNEY;
+
 /*
  * Globals
  */
@@ -32,8 +38,15 @@ class Globals extends DB_Manager
   /*
    * Setup new game
    */
-  public static function setupNewGame(array $players): void
+  public static function setupNewGame(array $players, array &$options): void
   {
+    if ($options[OPTION_FIRST_GAME] == 0) {
+      $options[OPTION_JOURNEY] = 13;    // 13 = journy A
+      $options[OPTION_DIFFICULTY] = 0;
+      $options[OPTION_EVENTS] = OPTION_DISABLED;
+    }
+
+    static::setJourney($options[OPTION_JOURNEY]);
     $playersCount = count($players);
     $energy = [1 => 9, 2 => 9, 3 => 7, 4 => 6][count($players)];
     static::setEnergy($energy);
@@ -164,11 +177,6 @@ class Globals extends DB_Manager
     }
     throw new \feException(print_r(debug_print_backtrace()));
     return null;
-  }
-
-  public static function getJourney(): int
-  {
-    return 1; // return 1 for now, to be changed later
   }
 
   public static function getCardsHandLimit(): int

@@ -23,8 +23,8 @@ trait SetupTrait
    */
   protected function setupNewGame($players, $options = [])
   {
+    Globals::setupNewGame($players, $options);
     $journey = Globals::getJourney();
-    Globals::setupNewGame($players);
     Players::setupNewGame($players, $options);
     $board = Board::setupNewGame($journey);
     Meeples::setupNewGame($journey, $board);
@@ -55,7 +55,7 @@ trait SetupTrait
     /** @var Player $player */
     foreach (Players::getAll() as $player) {
       if ($player->getRotation() === -1) {
-        $player->setRotation(0);
+        $player->setRotation(bga_rand(0, 3));
       }
     }
 
