@@ -244,7 +244,7 @@ class Notifications
       SPACE_TREE_GREEN => clienttranslate('green'),
       SPACE_TREE_RED => clienttranslate('red'),
       SPACE_TREE_BROWN => clienttranslate('brown'),
-      SPACE_TREE_TEAL => clienttranslate('teal'),
+      SPACE_TREE_TEAL => clienttranslate('blue'),
     ][$color];
     if ($energyAmount === 0) {
       $msg = clienttranslate('Elephants placed by ${player_name} eat ${color} trees but the matching color standee is already laying on its side, nothing happened');
@@ -356,7 +356,9 @@ class Notifications
     ]);
   }
 
-  public static function energyChanged() {}
+  public static function energyChanged()
+  {
+  }
 
   ///////////////////////////////////////////////////////////////
   //  _   _           _       _            _
