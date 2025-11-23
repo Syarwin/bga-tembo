@@ -110,7 +110,7 @@ class ActivateLions extends Action
     }
   }
 
-  public static function activate(array $lions, ?object $cards, ?Player $activePlayer = null)
+  public static function activate(array $lions, ?object $cards = null, ?Player $activePlayer = null)
   {
     $elephantsEaten = [];
     $regularElephantsEatenNumber = 0;
