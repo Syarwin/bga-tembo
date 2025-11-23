@@ -118,7 +118,8 @@ class EventTiles extends CachedPieces
         $lionType = $event->getArg();
         $msg = $lionType === LIONESS ? clienttranslate('Lioness activates') : clienttranslate('Lion activates');
         Notifications::immediateEvent($msg);
-        ActivateLions::activate([$lionType]);
+        $lionArray = array_values(array_filter(Meeples::getLions(), fn($meeple) => $meeple->getType() === $lionType));
+        ActivateLions::activate($lionArray);
         break;
       case EVENT_EFFECT_ELEPHANT_DIES:
         $msg = clienttranslate('All players should remove 1 rested Elephant from the game (1 tired if no rested left)');
