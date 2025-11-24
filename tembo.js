@@ -376,6 +376,7 @@ define([
             let container = this.getMeepleContainer(lion);
 
             if (container == oLion.parentNode) {
+              oLion.dataset.state = lion.state;
               return this.wait(1000);
             } else {
               return this.slide(oLion, container).then(() => (oLion.dataset.state = lion.state));
