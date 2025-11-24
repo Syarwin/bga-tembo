@@ -259,7 +259,7 @@ class Notifications
     ]);
   }
 
-  public static function landmarkVisited(string $landMark)
+  public static function landmarkVisited(string $landMarkType, Meeple $landMarkMeeple)
   {
     $landMarkName = [
       LANDMARK_SNOW => clienttranslate('Snow'),
@@ -268,11 +268,12 @@ class Notifications
       LANDMARK_ROCKS => clienttranslate('Rocks'),
       LANDMARK_CANYON => clienttranslate('Canyon'),
       LANDMARK_WATERFALL => clienttranslate('Waterfall'),
-    ][$landMark];
+    ][$landMarkType];
     $msg = clienttranslate('Elephants have just visited the ${landmarkName} landmark!');
     self::notifyAll('landmarkVisited', $msg, [
-      'landmark' => $landMark,
+      'landmark' => $landMarkType,
       'landmarkName' => $landMarkName,
+      'meeple' => $landMarkMeeple,
       'i18n' => ['landmarkName'],
     ]);
   }

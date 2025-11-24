@@ -4,7 +4,7 @@ namespace Bga\Games\Tembo\Actions;
 
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
-use Bga\Games\Tembo\Game;
+use Bga\Games\Tembo\Helpers\Utils;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Energy;
 use Bga\Games\Tembo\Managers\EventTiles;
@@ -131,8 +131,10 @@ class PlaceSingleElephant extends Action
             }
           }
           if ($landmarkFilled) {
-            $landmarkType = Meeples::layLandmark($landmark);
-            Notifications::landmarkVisited($landmarkType);
+            $square = Utils::convertToSquareCoords($cell, false);
+            [$x, $y] = $board->getRandomSpaceNoneInSquare($square['x'], $square['y']);
+            [$landmarkType, $landmarkMeeple] = Meeples::moveLandmarkToBoard($landmark, $x, $y);
+            Notifications::landmarkVisited($landmarkType, $landmarkMeeple);
           }
           $processedLandmarks[] = $landmark;
         }
