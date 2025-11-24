@@ -165,8 +165,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     tplPattern(shape, id = '', rotation = 0) {
       let uid = id == '' ? '' : `id='${id}'`;
 
-      const cells = SHAPES_CELLS[shape];
-      cells.forEach((cell) => {
+      const cells = SHAPES_CELLS[shape].map((oCell) => {
+        let cell = [oCell[0], oCell[1]];
+
         if (rotation == 1) {
           let t = cell[0];
           cell[0] = -cell[1];
@@ -181,6 +182,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           cell[0] = cell[1];
           cell[1] = -t;
         }
+
+        return cell;
       });
 
       let minX = 0,
