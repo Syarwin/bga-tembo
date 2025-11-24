@@ -60,6 +60,7 @@ define([
           'elephantsEaten',
           'matriarchAction',
           'matriarchCardDiscarded',
+          'landmarkVisited',
         ];
         // this.default_viewport = 'width=990';
       },
@@ -412,6 +413,11 @@ define([
             }
           })
         );
+      },
+
+      async notif_landmarkVisited(args) {
+        this.slide(`meeple-${args.meeple.id}`, this.getMeepleContainer(args.meeple));
+        await this.wait(800);
       },
 
       async notif_matriarchCardDiscarded(args) {

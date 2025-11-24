@@ -32,7 +32,7 @@ class SupportTokens
       case SUPPORT_ENERGY:
         $msg = clienttranslate('${player_name} spends a support token to gain 1 energy');
         Energy::increase();
-        Notifications::energyIncreased(Energy::get(), 1, $msg);
+        Notifications::energyIncreased(Energy::get(), 1, $msg, ['player' => $player]);
         break;
       case SUPPORT_ELEPHANTS:
         $msg = clienttranslate('${player_name} spends a support token to gain 2 elephants');
