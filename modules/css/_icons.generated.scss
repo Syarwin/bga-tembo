@@ -1,10 +1,10 @@
 // Auto-generated sprite mixins
-$icon-sprite-width: 412px;
-$icon-sprite-height: 357px;
+$icon-sprite-width: 436px;
+$icon-sprite-height: 361px;
 
 @mixin icon-tree-green {
   background-image: url('img/icons.png');
-  background-size: 412.000000% auto;
+  background-size: 436.000000% auto;
   background-position: 0.000000% 0.000000%;
   background-repeat: no-repeat;
   aspect-ratio: 100/132;
@@ -12,80 +12,88 @@ $icon-sprite-height: 357px;
 
 @mixin icon-tree-brown {
   background-image: url('img/icons.png');
-  background-size: 412.000000% auto;
-  background-position: 33.333333% 0.000000%;
+  background-size: 436.000000% auto;
+  background-position: 30.952381% 0.000000%;
   background-repeat: no-repeat;
   aspect-ratio: 100/129;
 }
 
+@mixin icon-event {
+  background-image: url('img/icons.png');
+  background-size: 351.612903% auto;
+  background-position: 66.666667% 0.000000%;
+  background-repeat: no-repeat;
+  aspect-ratio: 124/100;
+}
+
 @mixin icon-tree-teal {
   background-image: url('img/icons.png');
-  background-size: 412.000000% auto;
-  background-position: 66.666667% 0.000000%;
+  background-size: 436.000000% auto;
+  background-position: 0.000000% 54.838710%;
   background-repeat: no-repeat;
   aspect-ratio: 100/113;
 }
 
 @mixin icon-tree-red {
   background-image: url('img/icons.png');
-  background-size: 412.000000% auto;
-  background-position: 100.000000% 0.000000%;
+  background-size: 436.000000% auto;
+  background-position: 30.952381% 54.838710%;
   background-repeat: no-repeat;
   aspect-ratio: 100/113;
 }
 
 @mixin icon-paw-ignore {
   background-image: url('img/icons.png');
-  background-size: 374.545455% auto;
-  background-position: 0.000000% 55.060729%;
+  background-size: 396.363636% auto;
+  background-position: 63.803681% 54.183267%;
   background-repeat: no-repeat;
   aspect-ratio: 110/110;
 }
 
 @mixin icon-paw {
   background-image: url('img/icons.png');
-  background-size: 374.545455% auto;
-  background-position: 37.748344% 55.060729%;
+  background-size: 396.363636% auto;
+  background-position: 98.773006% 54.183267%;
   background-repeat: no-repeat;
   aspect-ratio: 110/110;
 }
 
 @mixin icon-lioness {
   background-image: url('img/icons.png');
-  background-size: 412.000000% auto;
-  background-position: 73.076923% 54.618474%;
+  background-size: 436.000000% auto;
+  background-position: 0.000000% 100.000000%;
   background-repeat: no-repeat;
   aspect-ratio: 100/108;
 }
 
 @mixin icon-lion {
   background-image: url('img/icons.png');
-  background-size: 412.000000% auto;
-  background-position: 0.000000% 100.000000%;
+  background-size: 436.000000% auto;
+  background-position: 30.952381% 99.606299%;
   background-repeat: no-repeat;
   aspect-ratio: 100/107;
 }
 
 @mixin icon-energy {
   background-image: url('img/icons.png');
-  background-size: 412.000000% auto;
-  background-position: 33.333333% 97.276265%;
+  background-size: 436.000000% auto;
+  background-position: 100.000000% 0.000000%;
   background-repeat: no-repeat;
   aspect-ratio: 100/100;
 }
 
 @mixin icon-rotate {
   background-image: url('img/icons.png');
-  background-size: 412.000000% auto;
-  background-position: 66.666667% 96.899225%;
+  background-size: 436.000000% auto;
+  background-position: 61.904762% 96.564885%;
   background-repeat: no-repeat;
   aspect-ratio: 100/99;
 }
 
 @mixin icon-matriarch {
   background-image: url('img/icons.png');
-  background-size: 824.000000% auto;
-  background-position: 91.712707% 45.484950%;
+  background-size: 872.000000% auto;
+  background-position: 80.829016% 83.498350%;
   background-repeat: no-repeat;
   aspect-ratio: 50/58;
 }
@@ -95,6 +103,10 @@ $icon-sprite-height: 357px;
 
 .icon-tree-brown {
   @include icon-tree-brown;
+}
+
+.icon-event {
+  @include icon-event;
 }
 
 .icon-tree-teal {

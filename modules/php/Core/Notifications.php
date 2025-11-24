@@ -7,6 +7,7 @@ use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Managers\Meeples;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Models\Card;
+use Bga\Games\Tembo\Models\EventTile;
 use Bga\Games\Tembo\Models\Meeple;
 use Bga\Games\Tembo\Models\Player;
 
@@ -328,14 +329,18 @@ class Notifications
     ]);
   }
 
-  public static function newEvent(array $events, int $effectType, string $effect)
+  public static function newEvent(EventTile $event)
   {
-    $effectTypeString = $effectType === EVENT_TYPE_IMMEDIATE ? 'an immediate effect' : 'a persistent effect';
-    $msg = clienttranslate('A new event has been revealed. It is ${effectType}: ${effect}');
+    $effectType = $event->getType();
+
+    $effectTypeString = $effectType === EVENT_TYPE_IMMEDIATE ? clienttranslate('an immediate effect') : clienttranslate('a persistent effect');
+    $msg = clienttranslate('A new event has been revealed. It is ${effectType}: ${eventId}');
     self::notifyAll('newEvent', $msg, [
-      'events' => $events,
+      'event' => $event->getUiData(),
       'effectType' => $effectTypeString,
-      'effect' => $effect,
+      'eventId' => $event->getId(),
+      'i18n' => ['eventId', 'effectType'],
+      'preserve' => ['eventId'],
     ]);
   }
 
@@ -357,9 +362,7 @@ class Notifications
     ]);
   }
 
-  public static function energyChanged()
-  {
-  }
+  public static function energyChanged() {}
 
   ///////////////////////////////////////////////////////////////
   //  _   _           _       _            _

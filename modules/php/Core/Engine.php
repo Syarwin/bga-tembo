@@ -285,9 +285,6 @@ class Engine
 
     self::save();
 
-    if (!$automatic && (!isset($args['automatic']) || $args['automatic'] === false)) {
-      Globals::incEngineChoices();
-    }
     if ($checkpoint) {
       self::checkpoint();
     }

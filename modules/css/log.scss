@@ -1,3 +1,15 @@
+.log.notif_newEvent {
+  border: 1px solid black;
+  .roundedbox {
+    background: #c8c8c8;
+
+    --temboEventScale: 0.5;
+    .tembo-event {
+      margin: auto;
+    }
+  }
+}
+
 #logs .log.notif_newUndoableStep {
   margin-top: 0px;
 

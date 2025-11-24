@@ -1,0 +1,36 @@
+@import "variable";
+
+.tembo-event {
+  width: calc(var(--temboEventScale) * 232px);
+  height: calc(var(--temboEventScale) * 185px);
+  position: relative;
+
+  .tembo-event-wrapper {
+    scale: var(--temboEventScale);
+    transform-origin: top left;
+    width: 216px;
+    height: 169px;
+    background-image: url("img/event-cards.jpg");
+    background-size: 400% 500%;
+    border-radius: 15px;
+    box-shadow: 2px 2px 5px 1px black;
+    border: 8px solid white;
+  }
+
+  @for $i from 0 to 20 {
+    &[data-id="#{$i}"] .tembo-event-wrapper {
+      background-position-x: ($i % 4) * 100% / 3;
+      background-position-y: (($i - ($i % 4)) / 4) * 100% / 4;
+    }
+  }
+}
+
+.event-tooltip {
+  display: flex;
+  --temboEventScale: 1;
+
+  .event-desc {
+    margin-left: 15px;
+    font-size: 16px;
+  }
+}

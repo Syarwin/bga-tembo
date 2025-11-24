@@ -104,17 +104,14 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         </div>`;
     },
 
-    tplEcosystemCard(card, tooltip = false) {
-      let uid = (tooltip ? 'tooltip-' : '') + 'ecosystem-card-' + card.id;
-
-      return `<div id="${uid}" class='tembo-ecosystem-card' data-id='${card.id}'>
-          <div class='tembo-ecosystem-card-wrapper'></div>
-        </div>`;
-    },
-
     tplMeeple(meeple) {
       let type = meeple.type;
       return `<div class="tembo-meeple meeple-${type}" id="meeple-${meeple.id}" data-id="${meeple.id}" data-type="${type}"></div>`;
+    },
+
+    tplEvent(event, prefix = '') {
+      let uid = prefix + event.id;
+      return `<div class="tembo-event" id="event-${uid}" data-id="${event.id}"><div class="tembo-event-wrapper"></div></div>`;
     },
 
     tplInfoPanel() {
@@ -149,6 +146,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           </svg>
         </div>
      </div>
+
+      <div class="info-panel-row" id="events-holder"></div>
 
       <div class="info-panel-row" id="trees-holder"></div>
 
@@ -221,31 +220,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           <div id='tired-elephant-reserve-${player.id}' class='elephant-reserve tembo-meeple meeple-elephant-1'></div>
         </div>
       </div>`;
-    },
-
-    tplScoreModal() {
-      let content = `<table id='scoresheet'>
-        <tr id="score-row-name"><th>${this.formatIcon('player')}</th></tr>
-        <tr id="score-row-trees"><th>${this.formatIcon('tree')}</th></tr>
-        <tr id="score-row-animals"><th>${this.formatIcon('paw')}</th></tr>
-        <tr id="score-row-completedAreas"><th>${this.formatIcon('ok')}</th></tr>
-        <tr id="score-row-unfinishedAndMixed"><th>${this.formatIcon('nok')}</th></tr>`;
-
-      if (this.gamedatas.ecosystemsTexts) {
-        Object.keys(this.gamedatas.ecosystemsTexts).forEach((id) => {
-          content += `<tr id='score-row-ecosystem-${id}' class='score-row-ecosystem'>
-            <th>
-              <div class='tembo-ecosystem-card' data-id='${id}'>
-                <div class='tembo-ecosystem-card-wrapper'></div>
-              </div>
-            </th>
-          </tr>`;
-        });
-      }
-
-      content += `<tr id="score-row-overall"><th></th></tr>
-      </table>`;
-      return content;
     },
   });
 });

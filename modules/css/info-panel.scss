@@ -116,4 +116,32 @@
   #landmarks-reserve {
     padding-top: 2px;
   }
+
+  #events-holder {
+    padding-bottom: 5px;
+
+    #events-deck-counter {
+      @include icon-event;
+      height: 53px;
+      display: flex;
+      justify-content: center;
+      font-family: "BerlinSans";
+      border-radius: 6px;
+      border: 1px solid black;
+      box-shadow: 1px 1px 0px black;
+      font-size: 20px;
+    }
+
+    .event-slot {
+      width: 70px;
+      height: 55px;
+      position: relative;
+
+      .tembo-event {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+  }
 }

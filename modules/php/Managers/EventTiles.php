@@ -6,6 +6,7 @@ use Bga\Games\Tembo\Actions\ActivateLions;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Helpers\CachedPieces;
 use Bga\Games\Tembo\Helpers\Collection;
+use Bga\Games\Tembo\Helpers\Log;
 use Bga\Games\Tembo\Models\EventTile;
 use Bga\Games\Tembo\Models\Meeple;
 use Bga\Games\Tembo\Models\Player;
@@ -61,25 +62,32 @@ class EventTiles extends CachedPieces
     return $result;
   }
 
-  public static function revealNext(bool $discardPrevious = true): array
+  public static function revealNext(bool $discardPrevious = true): void
   {
     /** @var EventTile $next */
     $next = static::getTopOf(LOCATION_DECK)->first();
     if (!is_null($next)) {
+      Log::checkpoint();
+
       if ($discardPrevious) {
         $rightEvent = static::getTopOf(LOCATION_BOARD)->first();
         static::move($rightEvent->getId(), LOCATION_DISCARD);
       }
       $leftEvent = static::getTopOf(LOCATION_BOARD)->first();
+      if ($leftEvent) {
+        $leftEvent->setState(1);
+      }
+      static::move($next->getId(), LOCATION_BOARD, 0);
+      Notifications::newEvent($next);
+
+      // Apply immediate effects
       if ($leftEvent && $leftEvent->getType() === EVENT_TYPE_IMMEDIATE) {
         static::applyImmediateEffect($leftEvent);
       }
-      static::move($next->getId(), LOCATION_BOARD, $next->getState());
       if ($next->getType() === EVENT_TYPE_IMMEDIATE) {
         static::applyImmediateEffect($next);
       }
     }
-    return static::getUiData();
   }
 
   private static function applyImmediateEffect(EventTile $event): void

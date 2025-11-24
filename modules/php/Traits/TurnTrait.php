@@ -5,6 +5,7 @@ namespace Bga\Games\Tembo\Traits;
 use Bga\Games\Tembo\Core\Engine;
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Game;
+use Bga\Games\Tembo\Helpers\Log;
 use Bga\Games\Tembo\Managers\Players;
 
 trait TurnTrait
@@ -49,6 +50,7 @@ trait TurnTrait
       return;
     }
     [$mustPlayMatriarch, $mustPlayLion, $endGame] = Players::getActive()->replenishCardsFromDeck();
+    Log::checkpoint();
     if ($endGame) {
       Game::get()->gamestate->jumpToState(ST_PRE_END_OF_GAME);
       return;

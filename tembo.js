@@ -61,6 +61,7 @@ define([
           'matriarchAction',
           'matriarchCardDiscarded',
           'landmarkVisited',
+          'newEvent',
         ];
         // this.default_viewport = 'width=990';
       },
@@ -425,6 +426,82 @@ define([
         await this.slideAndDestroy(`savanna-card-${args.cardId}`);
       },
 
+      /////////////////////////////////////
+      //  _____                 _
+      // | ____|_   _____ _ __ | |_ ___
+      // |  _| \ \ / / _ \ '_ \| __/ __|
+      // | |___ \ V /  __/ | | | |_\__ \
+      // |_____| \_/ \___|_| |_|\__|___/
+      /////////////////////////////////////
+      setupEvents() {
+        $('events-holder').insertAdjacentHTML(
+          'beforeend',
+          `<div id='events-deck-counter'></div>
+            <div class='event-slot' id='event-slot-0'></div>
+            <div class='event-slot' id='event-slot-1'></div>`
+        );
+
+        this._eventsDeckCounter = this.createCounter('events-deck-counter', this.gamedatas.events.deckCount);
+
+        this.gamedatas.events.active.forEach((event) => this.addEvent(event));
+      },
+
+      addEvent(event) {
+        $(`event-slot-${event.state}`).insertAdjacentHTML('beforeend', this.tplEvent(event));
+
+        const descs = [
+          _('Gain +2 energy for the blue Tree instead of the standard +1.'),
+          _('Gain +2 energy for the brown Tree instead of the standard +1.'),
+          _('Lay the blue tree on its side.'),
+          _('Lay the green tree on its side.'),
+
+          _('Lay the brown tree on its side.'),
+          _('When you Place Elephants on a water space, gain +5 rested Elephants instead of the standard +3.'),
+          _('All players lose -2 rested Elephants.'),
+          _('When you Place Elephants on a rough terrain space, place 1 rested Elephant instead of the standard 2.'),
+
+          _('When you Place Elephants on a water space, gain +0 rested Elephants instead of the standard +3.'),
+          _('When you Place Elephants: cards with this symbol no longer ignore rough terrain.'),
+          _('Remove 1 Support token from the game.'),
+          _('Lioness activates.'),
+
+          _('Lion activates.'),
+          _('Lay the red tree on its side.'),
+          _(
+            'All players remove 1 rested Elephant from the game (if no rested Elephants available, remove a tired Elephant instead).'
+          ),
+          _('Lay both Lions down on their side.'),
+
+          _('When you Place Elephants on a rough terrain space, place 3 rested Elephant instead of the standard 2.'),
+          _('Gain +1 Energy.'),
+          _('Gain +2 energy for the red Tree instead of the standard +1.'),
+          _('When you Place Elephants or Build Savanna: cards with this symbol may not be rotated.'),
+        ];
+        const desc = descs[event.id];
+        this.addCustomTooltip(
+          `event-${event.id}`,
+          `<div class='event-tooltip'>${this.tplEvent(event, 'tooltip-')}
+            <div class="event-desc">${desc}</div>
+          </div>`
+        );
+      },
+
+      async notif_newEvent(args) {
+        let oldEvent = $('event-slot-1').querySelector('.tembo-event');
+        if (oldEvent) {
+          await this.slideAndDestroy(oldEvent);
+        }
+
+        let prevEvent = $('event-slot-0').querySelector('.tembo-event');
+        if (prevEvent) {
+          await this.slide(prevEvent, `event-slot-1`);
+        }
+
+        this.addEvent(args.event);
+        await this.slide(`event-${args.event.id}`, 'event-slot-0', { from: 'events-deck-counter' });
+        this._eventsDeckCounter.incValue(-1);
+      },
+
       //////////////////////////////////////////////////////
       //  ___        __         ____                  _
       // |_ _|_ __  / _| ___   |  _ \ __ _ _ __   ___| |
@@ -440,6 +517,10 @@ define([
 
         this._energyCounter = this.createCounter('energy-counter', this.gamedatas.energy);
         this._supportCounter = this.createCounter('support-counter', this.gamedatas.supportTokens);
+
+        if (this.gamedatas.events.deckCount) {
+          this.setupEvents();
+        }
       },
 
       onEnteringStateGameEnd(args) {
@@ -497,9 +578,8 @@ define([
 
             log = this.formatString(_(log));
 
-            if (args.color_icon !== undefined) {
-              args.color_icon = this.formatIcon(args.color_type);
-              args.color_name = '';
+            if (args.eventId !== undefined) {
+              args.eventId = this.tplEvent({ id: args.eventId }, 'log-');
             }
           }
         } catch (e) {
