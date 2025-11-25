@@ -88,7 +88,7 @@ class Cards extends CachedPieces
       CARD_DECK_THIRD => 0,
       CARD_DECK_SUPPORT => 0,
     ];
-    $all = self::getAll();
+    $all = self::getAll()->filter(fn($card) => $card->getLocation() === LOCATION_DECK);
     $allFromMaterials = Utils::populateWithIds(static::$allCards);
     /** @var Card $card */
     foreach ($all as $card) {
