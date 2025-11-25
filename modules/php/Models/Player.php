@@ -73,7 +73,7 @@ class Player extends DB_Model
 
   public function gainElephants(int $amount = 1, ?string $msg = null): void
   {
-    $isGain = $amount > 0;
+    $isGain = $amount >= 0;
     if ($isGain) {
       $elephants = Meeples::gainElephants($this->id, $amount);
     } else {

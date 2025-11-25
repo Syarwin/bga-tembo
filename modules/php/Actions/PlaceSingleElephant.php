@@ -80,8 +80,11 @@ class PlaceSingleElephant extends Action
   {
     $cellsWithOasis = array_filter($pattern, fn($cell) => $cell['type'] === SPACE_OASIS);
     foreach ($cellsWithOasis as $cellWithOasis) {
-      $msg = clienttranslate('${player_name} covers a water space and gains ${amount} elephants');
-      $player->gainElephants(EventTiles::getBonusForOasis(), $msg);
+      $amount = EventTiles::getBonusForOasis();
+      $msg = $amount === 0 ?
+        clienttranslate('${player_name} covers a water space but gains 0 elephants due to an active persistent event tile') :
+        clienttranslate('${player_name} covers a water space and gains ${amount} elephants');
+      $player->gainElephants($amount, $msg);
     }
   }
 
