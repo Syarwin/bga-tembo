@@ -45,7 +45,7 @@ class Cards extends CachedPieces
     }
     $cards = static::getFromDeck(CARD_DECK_SUPPORT);
     shuffle($cards);
-    $difficulty = (int) $options[OPTION_DIFFICULTY];
+    $difficulty = isset($options[OPTION_DIFFICULTY]) ? (int) $options[OPTION_DIFFICULTY] : 0;
     $supportCardsAmount = [0 => 5, 1 => 4, 2 => 3, 3 => 2, 4 => 1, 5 => 0][$difficulty];
     for ($i = 0; $i < $supportCardsAmount; $i++) {
       $card = array_shift($cards);

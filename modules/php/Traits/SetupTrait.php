@@ -30,7 +30,7 @@ trait SetupTrait
     Meeples::setupNewGame($journey, $board);
     Cards::setupNewGame($options);
     SupportTokens::setupNewGame($options);
-    if ((int) $options[OPTION_EVENTS] === OPTION_ENABLED) {
+    if (isset($options[OPTION_EVENTS]) && (int) $options[OPTION_EVENTS] === OPTION_ENABLED) {
       EventTiles::setupNewGame();
     }
     // Stats::checkExistence();
