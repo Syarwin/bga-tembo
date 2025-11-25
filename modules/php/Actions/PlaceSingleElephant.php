@@ -148,7 +148,7 @@ class PlaceSingleElephant extends Action
       /** @var Meeple $landmark */
       $unVisitedLandmarks = array_filter(Meeples::getLandmarks(), fn(
         $landmark
-      ) => $landmark->getState() === STATE_STANDING);
+      ) => $landmark->getLocation() !== LOCATION_BOARD);
       if (empty($unVisitedLandmarks)) {
         Globals::setDestinationUnlocked(true);
         $msg = clienttranslate('All landmarks have been visited, destination spaces have been unlocked!');

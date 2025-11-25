@@ -118,4 +118,17 @@ abstract class Utils
     $cell['y'] = ($cell['y'] - ($cell['y'] % 3)) / $divider;
     return $cell;
   }
+
+  public static function populateWithIds(array $elements): array
+  {
+    $result = [];
+    foreach ($elements as $id => $element) {
+      if (is_array($element)) {
+        $result[] = [...$element, 'id' => $id];
+      } else {
+        $result[] = [$element, 'id' => $id];
+      }
+    }
+    return $result;
+  }
 }

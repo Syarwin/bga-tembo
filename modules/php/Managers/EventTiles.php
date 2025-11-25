@@ -7,6 +7,7 @@ use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Helpers\CachedPieces;
 use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Helpers\Log;
+use Bga\Games\Tembo\Helpers\Utils;
 use Bga\Games\Tembo\Models\EventTile;
 use Bga\Games\Tembo\Models\Meeple;
 use Bga\Games\Tembo\Models\Player;
@@ -41,7 +42,7 @@ class EventTiles extends CachedPieces
   public static function setupNewGame(): void
   {
     $values = [];
-    $events = static::getAllFromMaterialsWithIds();
+    $events = Utils::populateWithIds(static::$allCards);
     shuffle($events);
     foreach ($events as $event) {
       $values[] = [
@@ -51,15 +52,6 @@ class EventTiles extends CachedPieces
     static::create($values, LOCATION_DECK);
     static::revealNext(false);
     static::revealNext(false);
-  }
-
-  private static function getAllFromMaterialsWithIds(): array
-  {
-    $result = [];
-    foreach (static::$allCards as $id => $card) {
-      $result[] = [...$card, 'id' => $id];
-    }
-    return $result;
   }
 
   public static function revealNext(bool $discardPrevious = true): void

@@ -5,6 +5,7 @@ namespace Bga\Games\Tembo\Managers;
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Helpers\CachedPieces;
 use Bga\Games\Tembo\Helpers\Collection;
+use Bga\Games\Tembo\Helpers\Utils;
 use Bga\Games\Tembo\Models\Card;
 use const Bga\Games\Tembo\OPTION_DIFFICULTY;
 
@@ -76,7 +77,7 @@ class Cards extends CachedPieces
 
   private static function getFromDeck(int $deck): array
   {
-    return array_filter(static::getAllFromMaterialsWithIds(), fn($card) => $card['deck'] === $deck);
+    return array_filter(Utils::populateWithIds(static::$allCards), fn($card) => $card['deck'] === $deck);
   }
 
   public static function getRemaining(): array
@@ -88,7 +89,7 @@ class Cards extends CachedPieces
       CARD_DECK_SUPPORT => 0,
     ];
     $all = self::getAll();
-    $allFromMaterials = self::getAllFromMaterialsWithIds();
+    $allFromMaterials = Utils::populateWithIds(static::$allCards);
     /** @var Card $card */
     foreach ($all as $card) {
       $cardDeck = $allFromMaterials[$card->getId()]['deck'];
@@ -102,15 +103,6 @@ class Cards extends CachedPieces
   public static function get(int $id, bool $raiseExceptionIfNotEnough = true): Card
   {
     return parent::get($id, $raiseExceptionIfNotEnough);
-  }
-
-  private static function getAllFromMaterialsWithIds(): array
-  {
-    $result = [];
-    foreach (static::$allCards as $id => $card) {
-      $result[] = [...$card, 'id' => $id];
-    }
-    return $result;
   }
 
   public static function getAtSquare(int $x, int $y): ?Card

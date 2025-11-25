@@ -181,7 +181,7 @@ class ActivateLions extends Action
         'y' => $lion->getY()
       ]), $lions);
 
-      if ($lionsCoords[0]['x'] === $lionsCoords[1]['x'] && $lionsCoords[0]['y'] === $lionsCoords[1]['y']) {
+      if (count($lionsCoords) > 1 && $lionsCoords[0]['x'] === $lionsCoords[1]['x'] && $lionsCoords[0]['y'] === $lionsCoords[1]['y']) {
         Globals::setEndGame(true);
       }
     }

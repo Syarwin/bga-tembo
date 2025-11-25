@@ -111,9 +111,16 @@ class Meeples extends CachedPieces
     foreach ([TREE_GREEN, TREE_RED, TREE_BROWN, TREE_TEAL] as $type) {
       $meeples[] = ['type' => $type, 'state' => STATE_STANDING];
     }
-
-    foreach (ALL_LANDMARKS as $landmark) {
-      $meeples[] = ['type' => $landmark, 'state' => STATE_STANDING, 'location' => LOCATION_RESERVE];
+    $landmarksMap = [
+      BOARD_TILE_SINGLE_SNOW => LANDMARK_SNOW,
+      BOARD_TILE_DIAGONAL_MEADOW => LANDMARK_MEADOW,
+      BOARD_TILE_L_SHAPED_RIVER => LANDMARK_RIVER,
+      BOARD_TILE_V_ROCKS => LANDMARK_ROCKS,
+      BOARD_TILE_DIAGONAL_CANYON => LANDMARK_CANYON,
+      BOARD_TILE_CORNER_WATERFALL => LANDMARK_WATERFALL,
+    ];
+    foreach ($board as $boardTile) {
+      $meeples[] = ['type' => $landmarksMap[$boardTile['id']], 'state' => STATE_STANDING, 'location' => LOCATION_RESERVE];
     }
 
     $journey = JOURNEYS[$journeyId];
@@ -194,10 +201,10 @@ class Meeples extends CachedPieces
 
   public static function getLions(): array
   {
-    return array_map(
+    return array_filter(array_map(
       fn($lionType) => self::getAll()->filter(fn($meeple) => $meeple->getType() === $lionType)->first(),
       [LIONESS, LION]
-    );
+    ));
   }
 
   public static function getTrees(): Collection
