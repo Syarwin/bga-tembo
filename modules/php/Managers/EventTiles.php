@@ -50,31 +50,32 @@ class EventTiles extends CachedPieces
       ];
     }
     static::create($values, LOCATION_DECK);
-    static::revealNext(false);
+    static::revealNext();
     static::revealNext(false);
   }
 
-  public static function revealNext(bool $discardPrevious = true): void
+  public static function revealNext(bool $applyEffect = true): void
   {
     /** @var EventTile $next */
     $next = static::getTopOf(LOCATION_DECK)->first();
     if (!is_null($next)) {
       Log::checkpoint();
 
+      $discardPrevious = static::getInLocation(LOCATION_BOARD)->count() > 1;
       if ($discardPrevious) {
-        $rightEvent = static::getTopOf(LOCATION_BOARD)->first();
-        static::move($rightEvent->getId(), LOCATION_DISCARD);
+        $previousEvent = static::getTopOf(LOCATION_BOARD)->first();
+        static::move($previousEvent->getId(), LOCATION_DISCARD);
       }
-      $leftEvent = static::getTopOf(LOCATION_BOARD)->first();
-      if ($leftEvent) {
-        $leftEvent->setState(1);
+      $rightEvent = static::getTopOf(LOCATION_BOARD)->first();
+      if ($rightEvent) {
+        $rightEvent->setState(1);
       }
-      static::move($next->getId(), LOCATION_BOARD, 0);
+      static::move($next->getId(), LOCATION_BOARD);
       Notifications::newEvent($next);
 
       // Apply immediate effects
-      if ($leftEvent && $leftEvent->getType() === EVENT_TYPE_IMMEDIATE) {
-        static::applyImmediateEffect($leftEvent);
+      if ($rightEvent && $applyEffect && $rightEvent->getType() === EVENT_TYPE_IMMEDIATE) {
+        static::applyImmediateEffect($rightEvent);
       }
       if ($next->getType() === EVENT_TYPE_IMMEDIATE) {
         static::applyImmediateEffect($next);
