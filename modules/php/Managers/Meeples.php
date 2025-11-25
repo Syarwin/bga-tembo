@@ -151,12 +151,18 @@ class Meeples extends CachedPieces
         }
       }
     }
+    $xDelta = $journey['start']['rotation'] === 1 ? 2 : 1;
+    if ($journey['start']['flipped'] ?? false) {
+      // If we ever have flipped AND rotation 1, we will need to change this. For now flipped implies rotation 0
+      $xDelta = 4;
+    }
+    $yDelta = $journey['start']['rotation'] === 1 ? 1 : 0;
 
     $meeples[] = [
       'type' => MATRIARCH,
       'location' => LOCATION_BOARD,
-      'x' => $journey['start']['x'] + 1,
-      'y' => $journey['start']['y'],
+      'x' => $journey['start']['x'] + $xDelta,
+      'y' => $journey['start']['y'] + $yDelta,
     ];
 
     $meeples = self::create($meeples, LOCATION_TABLE);

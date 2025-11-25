@@ -123,14 +123,25 @@ class Board
     }
     if (Globals::isDestinationUnlocked()) {
       $destinationBoard = $journey['destination'];
-      // TODO: Support destination rotation
-      [$x, $y] = [$destinationBoard['x'] + 1, $destinationBoard['y'] + 2];
+      [$x, $y] = [
+        0 => [$destinationBoard['x'] + 1, $destinationBoard['y'] + 2],
+        1 => [$destinationBoard['x'], $destinationBoard['y'] + 1],
+        3 => [$destinationBoard['x'] + 2, $destinationBoard['y'] + 1],
+      ][$destinationBoard['rotation']];
       $this->cells[$x][$y] = SPACE_NORMAL;
-      $this->cells[$x + 3][$y] = SPACE_NORMAL;
-      $this->cells[$x + 1][$y] = SPACE_DESTINATION;
-      $this->cells[$x + 2][$y] = SPACE_DESTINATION;
-      $this->destinationSpaces[] = ['x' => $x + 1, 'y' => $y];
-      $this->destinationSpaces[] = ['x' => $x + 2, 'y' => $y];
+      if ($destinationBoard['rotation'] % 2 === 0) {
+        $this->cells[$x + 3][$y] = SPACE_NORMAL;
+        $this->cells[$x + 1][$y] = SPACE_DESTINATION;
+        $this->cells[$x + 2][$y] = SPACE_DESTINATION;
+        $this->destinationSpaces[] = ['x' => $x + 1, 'y' => $y];
+        $this->destinationSpaces[] = ['x' => $x + 2, 'y' => $y];
+      } else {
+        $this->cells[$x][$y + 3] = SPACE_NORMAL;
+        $this->cells[$x][$y + 1] = SPACE_DESTINATION;
+        $this->cells[$x][$y + 2] = SPACE_DESTINATION;
+        $this->destinationSpaces[] = ['x' => $x, 'y' => $y + 1];
+        $this->destinationSpaces[] = ['x' => $x, 'y' => $y + 2];
+      }
     }
   }
 
