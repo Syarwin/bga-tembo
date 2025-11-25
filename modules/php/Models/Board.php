@@ -183,7 +183,7 @@ class Board
       if ($ignoreRough && EventTiles::isIgnoreIgnoreRough()) {
         $ignoreRough = false;
       }
-      $elephantsNeeded += ($cellType == SPACE_ROUGH && !$ignoreRough) ? 2 : 1;
+      $elephantsNeeded += ($cellType === SPACE_ROUGH && !$ignoreRough) ? EventTiles::getRoughSpaceElephantsNumber() : 1;
     }
 
     return $elephantsNeeded;
