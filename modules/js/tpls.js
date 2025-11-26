@@ -98,7 +98,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     tplMeeple(meeple) {
       let type = meeple.type;
-      return `<div class="tembo-meeple meeple-${type}" id="meeple-${meeple.id}" data-id="${meeple.id}" data-type="${type}"></div>`;
+      let color = '';
+      if (meeple.type.substr(0, 8) == 'elephant') {
+        color = `data-color="${this.gamedatas.players[meeple.pId].color}"`;
+      }
+      return `<div class="tembo-meeple meeple-${type}" id="meeple-${meeple.id}" data-id="${meeple.id}" data-type="${type}" ${color}></div>`;
     },
 
     tplEvent(event, prefix = '') {

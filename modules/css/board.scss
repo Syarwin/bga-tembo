@@ -258,11 +258,10 @@ $cellSize: 50px;
   }
 }
 
-// TODO: Can be deleted after all elephants moved to their respective boards
 #game_play_area {
   @for $i from 1 through 5 {
     .meeple-elephant-#{$i} {
-      height: 46px;
+      height: 42px;
     }
   }
 

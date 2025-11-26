@@ -1,3 +1,5 @@
+@import "_meeples.generated";
+
 .tembo-meeple {
   &.meeple-tree-teal,
   &.meeple-tree-red,
@@ -58,4 +60,88 @@
   }
 }
 
-@import "_meeples.generated";
+.tembo-meeple {
+  &.meeple-elephant-1 {
+    &[data-color="f07f16"] {
+      @include meeple-elephant-1-orange;
+    }
+    &[data-color="ffa500"] {
+      @include meeple-elephant-1-yellow;
+    }
+    &[data-color="982fff"] {
+      @include meeple-elephant-1-purple;
+    }
+    &[data-color="000000"] {
+      @include meeple-elephant-1-black;
+    }
+  }
+  &.meeple-elephant-2 {
+    &[data-color="f07f16"] {
+      @include meeple-elephant-2-orange;
+    }
+    &[data-color="ffa500"] {
+      @include meeple-elephant-2-yellow;
+    }
+    &[data-color="982fff"] {
+      @include meeple-elephant-2-purple;
+    }
+    &[data-color="000000"] {
+      @include meeple-elephant-2-black;
+    }
+  }
+  &.meeple-elephant-3 {
+    &[data-color="f07f16"] {
+      @include meeple-elephant-3-orange;
+    }
+    &[data-color="ffa500"] {
+      @include meeple-elephant-3-yellow;
+    }
+    &[data-color="982fff"] {
+      @include meeple-elephant-3-purple;
+    }
+    &[data-color="000000"] {
+      @include meeple-elephant-3-black;
+    }
+  }
+  &.meeple-elephant-4 {
+    &[data-color="f07f16"] {
+      @include meeple-elephant-4-orange;
+    }
+    &[data-color="ffa500"] {
+      @include meeple-elephant-4-yellow;
+    }
+    &[data-color="982fff"] {
+      @include meeple-elephant-4-purple;
+    }
+    &[data-color="000000"] {
+      @include meeple-elephant-4-black;
+    }
+  }
+  &.meeple-elephant-5 {
+    &[data-color="f07f16"] {
+      @include meeple-elephant-5-orange;
+    }
+    &[data-color="ffa500"] {
+      @include meeple-elephant-5-yellow;
+    }
+    &[data-color="982fff"] {
+      @include meeple-elephant-5-purple;
+    }
+    &[data-color="000000"] {
+      @include meeple-elephant-5-black;
+    }
+  }
+}
+
+#player_board_inner_f07f16 .meeple-elephant-1 {
+  @include meeple-elephant-1-orange;
+}
+#player_board_inner_ffa500 .meeple-elephant-1 {
+  @include meeple-elephant-1-yellow;
+}
+#player_board_inner_982fff .meeple-elephant-1 {
+  @include meeple-elephant-1-purple;
+}
+#player_board_inner_000000 .meeple-elephant-1 {
+  @include meeple-elephant-1-black;
+}
