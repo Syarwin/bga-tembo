@@ -561,10 +561,40 @@ define([
         this._scoresModal.show();
       },
 
-      // updatePlayerOrdering() {
-      //   this.inherited(arguments);
-      //   dojo.place('player_board_config', 'player_boards', 'first');
-      // },
+      onScreenWidthChange() {
+        this.updateLayout();
+      },
+
+      updateLayout() {
+        if (!$('tembo-board')) return;
+        $('info-panel').style.zoom = 1;
+        $('savanna-cards-container-resizable').style.zoom = 1;
+
+        const ROOT = document.documentElement;
+
+        const WIDTH = $('tembo-main-container').getBoundingClientRect()['width'] - 5;
+        const LEFT_COLUMN = 500;
+        const RIGHT_COLUMN = $('tembo-board').offsetWidth;
+
+        // VERTICAL
+        if (WIDTH < 1053) {
+          let scale = (WIDTH - 10) / RIGHT_COLUMN;
+          ROOT.style.setProperty('--temboBoardScale', scale);
+        }
+        // HORIZONTAL
+        else {
+          let leftZoom = 1;
+          let scale = (WIDTH - LEFT_COLUMN - 10) / RIGHT_COLUMN;
+          if (scale < 0.9) {
+            let leftWidth = (3 / 10) * WIDTH;
+            scale = (WIDTH - leftWidth - 10) / RIGHT_COLUMN;
+            leftZoom = leftWidth / LEFT_COLUMN;
+          }
+          ROOT.style.setProperty('--temboBoardScale', scale);
+          $('info-panel').style.zoom = leftZoom;
+          $('savanna-cards-container-resizable').style.zoom = leftZoom;
+        }
+      },
 
       ////////////////////////////////////////////////////////////
       // _____                          _   _   _

@@ -620,7 +620,7 @@ body {
 /******************
 * VERTICAL LAYOUT *
 ******************/
-@media (max-width: 1160px) {
+@media (max-width: 1300px) {
   #overall-content {
     overflow: hidden !important; }
 
@@ -1442,7 +1442,7 @@ body {
   border: 1px solid #424242;
   width: 500px;
   box-sizing: border-box;
-  margin-bottom: 5px; }
+  margin: 0px auto 5px; }
   #info-panel .info-panel-row {
     display: flex;
     justify-content: space-around;
