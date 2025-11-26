@@ -19,7 +19,6 @@ body {
   #savanna-cards-container {
     position: relative;
     margin-right: 10px;
-    width: 270px;
     flex-shrink: 0;
 
     background: #f0f0f0cc;
@@ -34,6 +33,7 @@ body {
         transform-origin: top left;
 
         #savanna-cards-holder {
+          width: 500px;
           display: flex;
           flex-wrap: wrap;
           justify-content: space-evenly;

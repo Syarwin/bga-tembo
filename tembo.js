@@ -120,6 +120,12 @@ define([
             this._matriarchCounters[pId].toValue(v);
           });
         }
+
+        if (infos.deckRemaining) {
+          for (let i = 1; i <= 4; i++) {
+            this._deckCounters[i].toValue(infos.deckRemaining[i]);
+          }
+        }
       },
 
       //////////////////////////////////////////
@@ -451,11 +457,13 @@ define([
       // |_____| \_/ \___|_| |_|\__|___/
       /////////////////////////////////////
       setupEvents() {
-        $('events-holder').insertAdjacentHTML(
+        $('info-panel').insertAdjacentHTML(
           'beforeend',
-          `<div id='events-deck-counter'></div>
+          `<div class="info-panel-row" id="events-holder">
+            <div id='events-deck-counter'></div>
             <div class='event-slot' id='event-slot-0'></div>
-            <div class='event-slot' id='event-slot-1'></div>`
+            <div class='event-slot' id='event-slot-1'></div>
+          </div>`
         );
 
         this._eventsDeckCounter = this.createCounter('events-deck-counter', this.gamedatas.events.deckCount);
@@ -534,6 +542,11 @@ define([
 
         this._energyCounter = this.createCounter('energy-counter', this.gamedatas.energy);
         this._supportCounter = this.createCounter('support-counter', this.gamedatas.supportTokens);
+
+        this._deckCounters = {};
+        for (let i = 1; i <= 4; i++) {
+          this._deckCounters[i] = this.createCounter(`deck-info-${i}`, this.gamedatas.deckRemaining[i], { dataset: true });
+        }
 
         if (this.gamedatas.events.deckCount) {
           this.setupEvents();

@@ -875,7 +875,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
     /**
      * Own counter implementation that works with replay
      */
-    createCounter(id, defaultValue = 0, linked = null) {
+    createCounter(id, defaultValue = 0, config = {}) {
       if (!$(id)) {
         console.error('Counter : element does not exist', id);
         return null;
@@ -884,7 +884,8 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
       let game = this;
       let o = {
         span: $(id),
-        linked: linked ? $(linked) : null,
+        linked: config.linked ? $(config.linked) : null,
+        dataset: config.dataset || false,
         targetValue: 0,
         currentValue: 0,
         speed: 100,
@@ -895,6 +896,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
           this.currentValue = +n;
           this.targetValue = +n;
           this.span.innerHTML = +n;
+          if (this.dataset) this.span.dataset.counter = +n;
           if (this.linked) this.linked.innerHTML = +n;
         },
         toValue(n) {
@@ -904,6 +906,8 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
           }
 
           this.targetValue = +n;
+          if (this.dataset) this.span.dataset.counter = +n;
+
           if (this.currentValue != n) {
             this.span.classList.add('counter_in_progress');
             setTimeout(() => this.makeCounterProgress(), this.speed);

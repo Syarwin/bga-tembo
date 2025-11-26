@@ -7,6 +7,9 @@
   border-radius: 4px;
   box-shadow: 1px 1px 1px #404040;
   border: 1px solid #424242;
+  width: 500px;
+  box-sizing: border-box;
+  margin-bottom: 5px;
 
   .info-panel-row {
     display: flex;
@@ -18,16 +21,14 @@
       border-bottom: none;
       padding-bottom: 0px;
     }
-  }
 
-  #turn-counter-wrapper {
-    // border-bottom: 1px solid #6a4b2f;
-    margin: 0px 3px;
-    text-align: center;
-    font-size: 25px;
-    font-family: "BerlinSans";
-    display: block;
-    position: relative;
+    .panel-separator {
+      width: 1px;
+      background: #80502e;
+      height: 57px;
+      margin-top: -8px;
+      margin-bottom: -8px;
+    }
   }
 
   #player_config {
@@ -79,6 +80,7 @@
   #energy-counter-holder {
     display: flex;
     font-family: "BerlinSans";
+    font-size: 18px;
 
     .icon-energy {
       background-color: white;
@@ -89,6 +91,10 @@
       margin-left: 4px;
     }
 
+    #energy-counter {
+      position: relative;
+      top: -2px;
+    }
     .counter-separator {
       position: relative;
       top: 3px;
@@ -96,7 +102,7 @@
     }
     .counter-max {
       position: relative;
-      top: 6px;
+      top: 8px;
     }
   }
 
@@ -109,20 +115,35 @@
     }
   }
 
-  #trees-holder {
-    padding-bottom: 2px;
-  }
+  #row-meeples {
+    #trees-holder {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 2px;
+      width: 200px;
+    }
 
-  #landmarks-reserve {
-    padding-top: 2px;
+    #landmarks-reserve {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 220px;
+    }
+
+    .panel-separator {
+      height: 56px;
+      margin-top: -13px;
+    }
   }
 
   #events-holder {
+    padding-top: 4px;
     padding-bottom: 5px;
 
     #events-deck-counter {
       @include icon-event;
-      height: 53px;
+      height: 74px;
       display: flex;
       justify-content: center;
       font-family: "BerlinSans";
@@ -133,8 +154,8 @@
     }
 
     .event-slot {
-      width: 70px;
-      height: 55px;
+      width: 93px;
+      height: 74px;
       position: relative;
 
       .tembo-event {
@@ -142,6 +163,40 @@
         top: 0;
         left: 0;
       }
+    }
+  }
+
+  .deck-info {
+    width: 40px;
+    height: 40px;
+    background-image: url("img/cards.jpg");
+    background-size: 800% 800%;
+    border: 1px solid black;
+    border-radius: 4px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "BerlinSans";
+    text-shadow:
+      0px 0px 6px white,
+      0px 0px 6px white;
+    font-size: 24px;
+    &[data-counter="0"] {
+      opacity: 0.4;
+    }
+
+    &#deck-info-1 {
+      background-position: 4 * 100%/7 100%;
+    }
+    &#deck-info-2 {
+      background-position: 5 * 100%/7 100%;
+    }
+    &#deck-info-3 {
+      background-position: 6 * 100%/7 100%;
+    }
+    &#deck-info-4 {
+      background-position: 3 * 100%/7 100%;
     }
   }
 }

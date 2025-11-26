@@ -19,12 +19,15 @@ class Notifications
       'method' => 'Bga\Games\Tembo\Managers\SupportTokens::get'
     ],
     [
+      'name' => 'deckRemaining',
+      'method' => 'Bga\Games\Tembo\Managers\Cards::getRemaining'
+    ],
+    [
       'name' => 'matriarchCount',
       'player' => true,
       'method' => 'getMatriarchCardsCount',
-    ]
+    ],
   ];
-
   protected static $cachedValues = [];
 
   public static function resetCache()
