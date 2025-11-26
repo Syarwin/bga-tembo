@@ -551,6 +551,11 @@ define([
         if (this.gamedatas.events.deckCount) {
           this.setupEvents();
         }
+
+        this.addCustomTooltip('deck-info-4', _('Support cards left in the deck (first part of the draw deck)'));
+        this.addCustomTooltip('deck-info-1', _('Cards left in the I deck (second part of the draw deck)'));
+        this.addCustomTooltip('deck-info-2', _('Cards left in the II deck (third part of the draw deck)'));
+        this.addCustomTooltip('deck-info-3', _('Cards left in the III deck (fourth and final part of the draw deck)'));
       },
 
       onEnteringStateGameEnd(args) {
@@ -590,6 +595,7 @@ define([
             scale = (WIDTH - leftWidth - 10) / RIGHT_COLUMN;
             leftZoom = leftWidth / LEFT_COLUMN;
           }
+          if (scale > 1.2) scale = 1.2;
           ROOT.style.setProperty('--temboBoardScale', scale);
           $('info-panel').style.zoom = leftZoom;
           $('savanna-cards-container-resizable').style.zoom = leftZoom;
