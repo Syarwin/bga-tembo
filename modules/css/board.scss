@@ -78,11 +78,17 @@ $cellSize: 50px;
       }
       &[data-rotation="3"] {
         rotate: 270deg;
+        transform-origin: 50% 100%;
       }
 
       &.flipped {
         transform-origin: 50% 50%;
         transform: scaleX(-1);
+      }
+      // JOURNEY 8 AND 12
+      &.flipped[data-rotation="1"] {
+        transform: rotate(90deg) translate(25%, 50%) scaleX(-1);
+        rotate: 0deg;
       }
     }
     .board-start {

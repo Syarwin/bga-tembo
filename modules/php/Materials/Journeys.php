@@ -126,7 +126,7 @@ const JOURNEYS = [
   ],
   8 => [
     'destination' => ['x' => 18, 'y' => 6, 'rotation' => 1],
-    'start' => ['x' => 0, 'y' => 18, 'rotation' => 1],
+    'start' => ['x' => 0, 'y' => 18, 'rotation' => 1, 'flipped' => true],
     'tiles' => [
       ['x' => 6, 'y' => 0],
       ['x' => 0, 'y' => 6],
@@ -182,7 +182,7 @@ const JOURNEYS = [
   ],
   12 => [
     'destination' => ['x' => 3, 'y' => 0, 'rotation' => 0],
-    'start' => ['x' => 0, 'y' => 15, 'rotation' => 1],
+    'start' => ['x' => 0, 'y' => 15, 'rotation' => 1, "flipped" => true],
     'tiles' => [
       ['x' => 3, 'y' => 3],
       ['x' => 9, 'y' => 6],
