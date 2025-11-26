@@ -20,8 +20,7 @@ trait EngineTrait
   function addCommonArgs(array &$args): void
   {
     $player = Players::getActive();
-    $args['previousEngineChoices'] = Globals::getEngineChoices();
-    $args['previousSteps'] = Log::getUndoableSteps($player->getId());
+    $args['previousSteps'] = Log::getUndoableSteps();
   }
 
   /**
@@ -84,9 +83,7 @@ trait EngineTrait
     }
 
     $flow = $args['anytimeActions'][$choiceId]['flow'];
-    if (!$auto) {
-      Globals::incEngineChoices();
-    }
+    Log::step();
     Engine::insertAtRoot($flow, false);
     Engine::proceed();
   }
@@ -180,7 +177,6 @@ trait EngineTrait
   {
     $player = Players::getActive();
     $data = [
-      'previousEngineChoices' => Globals::getEngineChoices(),
       'previousSteps' => Log::getUndoableSteps($player->getId()),
       'automaticAction' => false,
     ];
@@ -193,7 +189,7 @@ trait EngineTrait
     // Check user preference to bypass if DISABLED is picked
 
     $pref = $this->userPreferences->get(Players::getActiveId(), OPTION_CONFIRM);
-    if ($pref == OPTION_CONFIRM_DISABLED || Globals::getEngineChoices() == 0) {
+    if ($pref == OPTION_CONFIRM_DISABLED || empty(Log::getUndoableSteps())) {
       $this->actConfirmTurn(true);
     }
   }
@@ -208,7 +204,7 @@ trait EngineTrait
 
   public function stConfirmPartialTurn(): void
   {
-    if (Globals::getEngineChoices() == 0) {
+    if (empty(Log::getUndoableSteps())) {
       $this->actConfirmPartialTurn(true);
     }
   }
@@ -224,7 +220,7 @@ trait EngineTrait
   public function actRestart(): void
   {
     self::checkAction('actRestart');
-    if (Globals::getEngineChoices() < 1) {
+    if (empty(Log::getUndoableSteps())) {
       throw new \BgaVisibleSystemException('No choice to undo');
     }
 

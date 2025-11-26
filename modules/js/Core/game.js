@@ -122,17 +122,10 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
         }
 
         // Restart turn button
-        if (args.args && args.args.previousEngineChoices && args.args.previousEngineChoices >= 1 && !args.args.automaticAction) {
-          if (args.args && args.args.previousSteps) {
-            let lastStep = Math.max(...args.args.previousSteps);
-            if (lastStep > 0)
-              this.addDangerActionButton(
-                'btnUndoLastStep',
-                _('Undo last step'),
-                () => this.undoToStep(lastStep),
-                'restartAction'
-              );
-          }
+        if (args.args && !args.args.automaticAction && args.args.previousSteps) {
+          let lastStep = Math.max(...args.args.previousSteps);
+          if (lastStep > 0)
+            this.addDangerActionButton('btnUndoLastStep', _('Undo last step'), () => this.undoToStep(lastStep), 'restartAction');
 
           // Restart whole turn
           this.addDangerActionButton(
@@ -1043,7 +1036,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
       });
 
       const OPTION_CONFIRM = 103;
-      let n = args.previousEngineChoices;
+      let n = args.previousSteps.length;
       let timer = Math.min(10 + 2 * n, 20);
       this.startActionTimer('btnConfirmTurn', timer, this.prefs[OPTION_CONFIRM].value);
     },

@@ -58,7 +58,6 @@ class Engine
     self::$tree = self::buildTree($t);
     self::save();
     Globals::setCallbackEngineResolved($callback);
-    Globals::setEngineChoices(0);
     Log::startEngine();
   }
 
@@ -106,8 +105,8 @@ class Engine
 
     // Are we done ?
     if ($node == null) {
-      if (Globals::getEngineChoices() == 0) {
-        self::confirm(); // No choices were made => auto confirm
+      if (empty(Log::getUndoableSteps())) {
+        self::confirm(); // No choices to undo => auto confirm
       } else {
         // Confirm/restart
         Game::get()->gamestate->jumpToState(ST_CONFIRM_TURN);
@@ -141,7 +140,6 @@ class Engine
 
       // Ensure no undo
       Log::checkpoint();
-      Globals::setEngineChoices(0);
 
       // Proceed to do the action
       self::proceedToState($node, $isUndo);
@@ -152,7 +150,7 @@ class Engine
       $pId != null &&
       $oldPId != $pId &&
       !$node->isIndependent(Players::get($pId)) &&
-      Globals::getEngineChoices() > 0 &&
+      !empty(Log::getUndoableSteps()) &&
       !$confirmedPartial
     ) {
       Game::get()->gamestate->jumpToState(ST_CONFIRM_PARTIAL_TURN);
@@ -169,7 +167,6 @@ class Engine
 
     if ($confirmedPartial) {
       Log::checkpoint();
-      Globals::setEngineChoices(0);
     }
 
     // If node with choice, switch to choice state
@@ -239,7 +236,6 @@ class Engine
     }
 
     if (!$auto) {
-      Globals::incEngineChoices();
       Log::step();
     }
 
@@ -302,7 +298,6 @@ class Engine
       );
     }
 
-    Globals::setEngineChoices(0);
     Log::checkpoint();
   }
 
