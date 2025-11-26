@@ -98,7 +98,7 @@ class Player extends DB_Model
       }
     }
     Notifications::cardsDrawn($this, $cards);
-    return [$this->getMatriarchCards()->count() >= 2, $this->getLionCards()->count() > 0, $endGame];
+    return [$this->getMatriarchCardsCount() >= 2, $this->getLionCards()->count() > 0, $endGame];
   }
 
   public function getUiData(): array
@@ -109,7 +109,7 @@ class Player extends DB_Model
     $hand = $this->getHand();
     $data['hand'] = ($this->id == $currentId) ? $hand->ui() : [];
     $data['handCount'] = $hand->count();
-    $data['matriarchCount'] = $this->getMatriarchCards()->count();
+    $data['matriarchCount'] = $this->getMatriarchCardsCount();
 
     return $data;
   }
@@ -117,6 +117,10 @@ class Player extends DB_Model
   public function getMatriarchCards(): Collection
   {
     return $this->getHand()->filter(fn(Card $card) => $card->isMatriarch());
+  }
+  public function getMatriarchCardsCount(): int
+  {
+    return $this->getMatriarchCards()->count();
   }
 
   public function getLionCards(): Collection

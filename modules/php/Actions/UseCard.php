@@ -48,7 +48,7 @@ class UseCard extends Action
       'supportTokens' => SupportTokens::get(),
 
       'matriarchIds' => $matriarch->empty() ? null : $matriarch->getIds(),
-      'descSuffix' => is_null($matriarch) ? '' : 'matriarch',
+      'descSuffix' => $matriarch->empty() ? '' : 'matriarch',
     ];
   }
 

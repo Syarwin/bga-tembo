@@ -302,7 +302,8 @@ body {
 #tembo-main-container {
   display: flex;
   flex-flow: row;
-  align-items: stretch; }
+  align-items: stretch;
+  justify-content: center; }
   #tembo-main-container #savanna-cards-container {
     position: relative;
     margin-right: 10px;
@@ -326,26 +327,6 @@ body {
       display: flex;
       flex-wrap: wrap;
       justify-content: center; }
-  #tembo-main-container #ecosystem-cards-container {
-    display: none; }
-    [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container {
-      display: block;
-      margin-left: 10px;
-      position: relative;
-      width: 270px;
-      flex-shrink: 0;
-      background: #f0f0f0cc;
-      border-radius: 5px;
-      border: 1px solid #737373; }
-      [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container #ecosystem-cards-container-sticky {
-        position: sticky;
-        top: 60px; }
-        [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container #ecosystem-cards-container-sticky #ecosystem-cards-container-resizable {
-          transform-origin: top left; }
-          [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container #ecosystem-cards-container-sticky #ecosystem-cards-container-resizable #ecosystem-cards-holder {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-evenly; }
 
 /******************
 * VERTICAL LAYOUT *
@@ -367,41 +348,6 @@ body {
           display: flex;
           flex-flow: row; }
           #tembo-main-container #savanna-cards-container #savanna-cards-container-sticky #savanna-cards-container-resizable #savanna-cards-holder {
-            justify-content: center;
-            width: 100%; } }
-@media (max-width: 1438px) {
-  [data-ecosystems="1"] #overall-content {
-    overflow: hidden !important; }
-  [data-ecosystems="1"] #tembo-main-container {
-    flex-flow: column;
-    order: 1; }
-    [data-ecosystems="1"] #tembo-main-container #savanna-cards-container {
-      flex-basis: 100%;
-      width: auto;
-      margin-right: 0px; }
-      [data-ecosystems="1"] #tembo-main-container #savanna-cards-container #savanna-cards-container-sticky {
-        position: initial; }
-        [data-ecosystems="1"] #tembo-main-container #savanna-cards-container #savanna-cards-container-sticky #savanna-cards-container-resizable {
-          transform-origin: top left;
-          display: flex;
-          flex-flow: row; }
-          [data-ecosystems="1"] #tembo-main-container #savanna-cards-container #savanna-cards-container-sticky #savanna-cards-container-resizable #savanna-cards-holder {
-            justify-content: center;
-            width: 100%; }
-    [data-ecosystems="1"] #tembo-main-container #player-boards-container {
-      order: 3; }
-    [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container {
-      margin-left: 0px;
-      flex-basis: 100%;
-      width: auto;
-      order: 2; }
-      [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container #ecosystem-cards-container-sticky {
-        position: initial; }
-        [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container #ecosystem-cards-container-sticky #ecosystem-cards-container-resizable {
-          transform-origin: top left;
-          display: flex;
-          flex-flow: row; }
-          [data-ecosystems="1"] #tembo-main-container #ecosystem-cards-container #ecosystem-cards-container-sticky #ecosystem-cards-container-resizable #ecosystem-cards-holder {
             justify-content: center;
             width: 100%; } }
 #tembo-board-resizable {
@@ -1301,7 +1247,8 @@ body {
   display: flex;
   justify-content: space-around; }
   .player-board-game-specific-content .player-info .elephant-reserve-holder,
-  .player-board-game-specific-content .player-info .tired-elephant-reserve-holder {
+  .player-board-game-specific-content .player-info .tired-elephant-reserve-holder,
+  .player-board-game-specific-content .player-info .matriarch-cards-counter-holder {
     font-family: "BerlinSans";
     display: flex;
     border-radius: 5px;
@@ -1309,15 +1256,18 @@ body {
     align-items: center;
     font-size: 17px; }
     .player-board-game-specific-content .player-info .elephant-reserve-holder span,
-    .player-board-game-specific-content .player-info .tired-elephant-reserve-holder span {
+    .player-board-game-specific-content .player-info .tired-elephant-reserve-holder span,
+    .player-board-game-specific-content .player-info .matriarch-cards-counter-holder span {
       margin-right: 1px; }
     .player-board-game-specific-content .player-info .elephant-reserve-holder .elephant-reserve,
-    .player-board-game-specific-content .player-info .tired-elephant-reserve-holder .elephant-reserve {
+    .player-board-game-specific-content .player-info .tired-elephant-reserve-holder .elephant-reserve,
+    .player-board-game-specific-content .player-info .matriarch-cards-counter-holder .elephant-reserve {
       height: 2em;
       position: relative;
       margin-right: -5px; }
       .player-board-game-specific-content .player-info .elephant-reserve-holder .elephant-reserve .tembo-meeple,
-      .player-board-game-specific-content .player-info .tired-elephant-reserve-holder .elephant-reserve .tembo-meeple {
+      .player-board-game-specific-content .player-info .tired-elephant-reserve-holder .elephant-reserve .tembo-meeple,
+      .player-board-game-specific-content .player-info .matriarch-cards-counter-holder .elephant-reserve .tembo-meeple {
         position: absolute;
         top: 0;
         left: 0;
@@ -1328,6 +1278,18 @@ body {
     opacity: 0.8; }
     .player-board-game-specific-content .player-info .tired-elephant-reserve-holder i {
       margin-right: 4px; }
+  .player-board-game-specific-content .player-info .matriarch-cards-counter-holder .matriarch-card {
+    border: 1px solid black;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    background: #f7d06b;
+    width: 30px;
+    margin-left: 2px; }
+    .player-board-game-specific-content .player-info .matriarch-cards-counter-holder .matriarch-card .meeple-matriarch {
+      width: 22px; }
 
 .log.notif_newEvent {
   border: 1px solid black; }

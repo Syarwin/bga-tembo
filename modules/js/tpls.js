@@ -58,14 +58,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
             <div id="tembo-board"></div>
           </div>
         </div>
-      
-        <div id="ecosystem-cards-container">
-          <div id="ecosystem-cards-container-sticky">
-            <div id="ecosystem-cards-container-resizable">
-              <div id="ecosystem-cards-holder"></div>
-            </div>
-          </div>
-        </div>
       </div>
 
 
@@ -218,6 +210,13 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           <i class="fa fa-hourglass"></i>
           <span id='tired-elephant-reserve-${player.id}-counter' class='elephant-reserve-counter'>0</span>x
           <div id='tired-elephant-reserve-${player.id}' class='elephant-reserve tembo-meeple meeple-elephant-1'></div>
+        </div>
+
+        <div class='matriarch-cards-counter-holder'>
+          <span id='matriarch-cards-${player.id}-counter' class='matriarch-cards-counter'>0</span>x
+          <div class="matriarch-card">
+            <div class='tembo-meeple meeple-matriarch'></div>
+          </div>
         </div>
       </div>`;
     },

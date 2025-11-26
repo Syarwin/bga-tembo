@@ -92,7 +92,7 @@ define([
 
         this.setupMeeples();
         this.setupCards();
-        // this.refreshPlayers();
+        this.refreshPlayers();
       },
 
       notif_refreshHand(args) {
@@ -114,6 +114,12 @@ define([
         if (infos.supportTokens !== undefined) {
           this._supportCounter.toValue(infos.supportTokens);
         }
+
+        if (infos.matriarchCount !== undefined) {
+          Object.entries(infos.matriarchCount).forEach(([pId, v]) => {
+            this._matriarchCounters[pId].toValue(v);
+          });
+        }
       },
 
       //////////////////////////////////////////
@@ -130,6 +136,8 @@ define([
       },
 
       setupPlayers() {
+        this._matriarchCounters = {};
+
         this.getPlayers().forEach((player, i) => {
           if (player.hand && player.id === this.player_id) {
             this.setupHand(player.hand);
@@ -148,6 +156,15 @@ define([
             });
             observer.observe(reserve, { childList: true });
           });
+
+          // Matriarch counter
+          this._matriarchCounters[player.id] = this.createCounter(`matriarch-cards-${player.id}-counter`, player.matriarchCount);
+        });
+      },
+
+      refreshPlayers() {
+        this.getPlayers().forEach((player, i) => {
+          this._matriarchCounters[player.id].toValue(player.matriarchCount);
         });
       },
 

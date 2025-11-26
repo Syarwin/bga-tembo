@@ -14,6 +14,7 @@ body {
   display: flex;
   flex-flow: row;
   align-items: stretch;
+  justify-content: center;
 
   #savanna-cards-container {
     position: relative;
@@ -55,38 +56,6 @@ body {
       }
     }
   }
-
-  #ecosystem-cards-container {
-    display: none;
-
-    [data-ecosystems="1"] & {
-      display: block;
-      margin-left: 10px;
-      position: relative;
-
-      width: 270px;
-      flex-shrink: 0;
-
-      background: #f0f0f0cc;
-      border-radius: 5px;
-      border: 1px solid #737373;
-
-      #ecosystem-cards-container-sticky {
-        position: sticky;
-        top: 60px;
-
-        #ecosystem-cards-container-resizable {
-          transform-origin: top left;
-
-          #ecosystem-cards-holder {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-evenly;
-          }
-        }
-      }
-    }
-  }
 }
 
 /******************
@@ -117,67 +86,6 @@ body {
           #savanna-cards-holder {
             justify-content: center;
             width: 100%;
-          }
-        }
-      }
-    }
-  }
-}
-
-// With ECOSYSTEM cards
-@media (max-width: 1438px) {
-  [data-ecosystems="1"] {
-    #overall-content {
-      overflow: hidden !important;
-    }
-
-    #tembo-main-container {
-      flex-flow: column;
-      order: 1;
-
-      #savanna-cards-container {
-        flex-basis: 100%;
-        width: auto;
-        margin-right: 0px;
-
-        #savanna-cards-container-sticky {
-          position: initial;
-
-          #savanna-cards-container-resizable {
-            transform-origin: top left;
-            display: flex;
-            flex-flow: row;
-
-            #savanna-cards-holder {
-              justify-content: center;
-              width: 100%;
-            }
-          }
-        }
-      }
-
-      #player-boards-container {
-        order: 3;
-      }
-
-      #ecosystem-cards-container {
-        margin-left: 0px;
-        flex-basis: 100%;
-        width: auto;
-        order: 2;
-
-        #ecosystem-cards-container-sticky {
-          position: initial;
-
-          #ecosystem-cards-container-resizable {
-            transform-origin: top left;
-            display: flex;
-            flex-flow: row;
-
-            #ecosystem-cards-holder {
-              justify-content: center;
-              width: 100%;
-            }
           }
         }
       }

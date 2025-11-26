@@ -4,7 +4,8 @@
     justify-content: space-around;
 
     .elephant-reserve-holder,
-    .tired-elephant-reserve-holder {
+    .tired-elephant-reserve-holder,
+    .matriarch-cards-counter-holder {
       font-family: "BerlinSans";
       display: flex;
       border-radius: 5px;
@@ -37,6 +38,24 @@
 
       i {
         margin-right: 4px;
+      }
+    }
+
+    .matriarch-cards-counter-holder {
+      .matriarch-card {
+        border: 1px solid black;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        background: #f7d06b;
+        width: 30px;
+        margin-left: 2px;
+
+        .meeple-matriarch {
+          width: 22px;
+        }
       }
     }
   }

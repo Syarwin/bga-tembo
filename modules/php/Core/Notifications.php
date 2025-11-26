@@ -17,6 +17,11 @@ class Notifications
     [
       'name' => 'supportTokens',
       'method' => 'Bga\Games\Tembo\Managers\SupportTokens::get'
+    ],
+    [
+      'name' => 'matriarchCount',
+      'player' => true,
+      'method' => 'getMatriarchCardsCount',
     ]
   ];
 

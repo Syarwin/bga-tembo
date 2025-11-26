@@ -122,7 +122,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
         }
 
         // Restart turn button
-        if (args.args && !args.args.automaticAction && args.args.previousSteps) {
+        if (args.args && !args.args.automaticAction && args.args.previousSteps && args.args.previousSteps.length) {
           let lastStep = Math.max(...args.args.previousSteps);
           if (lastStep > 0)
             this.addDangerActionButton('btnUndoLastStep', _('Undo last step'), () => this.undoToStep(lastStep), 'restartAction');
