@@ -158,12 +158,18 @@ class Meeples extends CachedPieces
         }
       }
     }
-    $xDelta = $journey['start']['rotation'] === 1 ? 2 : 1;
-    if ($journey['start']['flipped'] ?? false) {
-      // If we ever have flipped AND rotation 1, we will need to change this. For now flipped implies rotation 0
-      $xDelta = 4;
-    }
-    $yDelta = $journey['start']['rotation'] === 1 ? 1 : 0;
+    $rotation = $journey['start']['rotation'];
+    $isFlipped = $journey['start']['flipped'] ?? false;
+    [$xDelta, $yDelta] = [
+      0 => [
+        false => [1, 0],
+        true => [4, 0],
+      ],
+      1 => [
+        false => [2, 1],
+        true => [2, 4],
+      ],
+    ][$rotation][$isFlipped];
 
     $meeples[] = [
       'type' => MATRIARCH,
