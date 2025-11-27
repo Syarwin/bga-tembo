@@ -3,7 +3,7 @@
 namespace Bga\Games\Tembo;
 
 use \Bga\GameFramework\Actions\CheckAction;
-
+use Bga\Games\Tembo\Actions\ActivateLions;
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Managers\Players;
 use Bga\Games\Tembo\Core\Engine;
@@ -28,11 +28,7 @@ trait DebugTrait
 
   function tp()
   {
-    $card = Cards::getAll()->where('id', 1)->first();
-    $card->setLocation(LOCATION_BOARD);
-    $card->setX(12);
-    $card->setY(3);
-    $card->setRotation(1);
+    var_dump(ActivateLions::getDistance(['x' => 4, 'y' => 16], ['x' => 6, 'y' => 5]));
   }
 
 

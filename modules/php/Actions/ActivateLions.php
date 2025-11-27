@@ -14,6 +14,8 @@ use Bga\Games\Tembo\Models\Board;
 use Bga\Games\Tembo\Models\Meeple;
 use Bga\Games\Tembo\Models\Player;
 
+use const Bga\Games\Tembo\Models\DIRECTIONS;
+
 class ActivateLions extends Action
 {
   const DIRECTIONS = [ // Sorted following the lion compass image
@@ -77,9 +79,39 @@ class ActivateLions extends Action
     return ['x' => $closest['x'] * 3, 'y' => $closest['y'] * 3];
   }
 
-  private static function getDistance($target, $point): int
+  public static function getSquareCorner($t)
   {
-    return abs($point['x'] - $target['x']) + abs($point['y'] - $target['y']);
+    return ['x' => $t['x'] - ($t['x'] % 3), 'y' => $t['y'] - ($t['y'] % 3)];
+  }
+
+  public static function getDistance($target, $point): int
+  {
+    $targetSquare = static::getSquareCorner($target);
+    $sourceSquare = static::getSquareCorner($point);
+    $board = new Board();
+
+    $queue = [['square' => $sourceSquare, 'd' => 0]];
+    $visited = [];
+    while (!empty($queue)) {
+      list('square' => $square, 'd' => $distance) = array_shift($queue);
+      if (in_array($square, $visited)) continue;
+
+      // Reached target
+      if ($square == $targetSquare) return $distance;
+
+      $visited[] = $square;
+      // Check neighbours
+      foreach (self::DIRECTIONS as $delta) {
+        $newSquare = ['x' => $square['x'] + $delta['x'], 'y' => $square['y'] + $delta['y']];
+        if ($board->isSquareExist($newSquare) && !in_array($newSquare, $visited)) {
+          $queue[] = ['square' => $newSquare, 'd' => $distance + 1];
+        }
+      }
+    }
+
+    $pointStr = implode(",", $point);
+    $targetStr = implode(",", $target);
+    throw new \BgaVisibleSystemException("Cant find any path from $pointStr to $targetStr");
   }
 
   private static function findDirectionsMakingLionCloser(
