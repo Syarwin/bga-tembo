@@ -64,10 +64,14 @@ class Meeples extends CachedPieces
       CARD_REF_CORNER_WATERFALL => LANDMARK_WATERFALL,
     ][$cardRefType];
     $landmarkMeeple = static::getSingleOfType($landmarkType);
-    $landmarkMeeple->setLocation(LOCATION_BOARD);
-    $landmarkMeeple->setX($x);
-    $landmarkMeeple->setY($y);
-    return [$landmarkType, $landmarkMeeple];
+    if ($landmarkMeeple->getLocation() === LOCATION_BOARD) {
+      return [null, null];
+    } else {
+      $landmarkMeeple->setLocation(LOCATION_BOARD);
+      $landmarkMeeple->setX($x);
+      $landmarkMeeple->setY($y);
+      return [$landmarkType, $landmarkMeeple];
+    }
   }
 
   public static function getSingleOfType(string $type): ?Meeple

@@ -137,7 +137,9 @@ class PlaceSingleElephant extends Action
             $square = Utils::convertToSquareCoords($cell, false);
             [$x, $y] = $board->getRandomSpaceNoneInSquare($square['x'], $square['y']);
             [$landmarkType, $landmarkMeeple] = Meeples::moveLandmarkToBoard($landmark, $x, $y);
-            Notifications::landmarkVisited($landmarkType, $landmarkMeeple);
+            if ($landmarkType !== null && $landmarkMeeple !== null) {
+              Notifications::landmarkVisited($landmarkType, $landmarkMeeple);
+            }
           }
           $processedLandmarks[] = $landmark;
         }
