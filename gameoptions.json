@@ -14,6 +14,29 @@
       }
     }
   },
+  "114": {
+    "name": "Journey",
+    "displaycondition": [
+      {
+        "type": "otheroption",
+        "id": 110,
+        "value": [0]
+      }
+    ],
+    "default": 13,
+    "values": {
+      "13": {
+        "name": "Journey A",
+        "tmdisplay": "[Journey A]",
+        "firstgameonly": true
+      },
+      "14": {
+        "name": "Journey B",
+        "tmdisplay": "[Journey B]",
+        "firstgameonly": true
+      }
+    }
+  },
   "111": {
     "name": "Journey",
     "displaycondition": [
@@ -72,21 +95,11 @@
       "12": {
         "name": "Journey 12",
         "tmdisplay": "[Journey 12]"
-      },
-      "13": {
-        "name": "Journey A",
-        "tmdisplay": "[Journey A]",
-        "firstgameonly": true
-      },
-      "14": {
-        "name": "Journey B",
-        "tmdisplay": "[Journey B]",
-        "firstgameonly": true
       }
     }
   },
   "112": {
-    "name": "Difficulty",
+    "name": "Easiness",
     "default": 0,
     "displaycondition": [
       {
@@ -102,27 +115,27 @@
     ],
     "values": {
       "0": {
-        "name": "0 (Easiest)",
+        "name": "5 (Easiest)",
         "description": "Play with 5 Support cards"
       },
       "1": {
-        "name": "1",
+        "name": "4",
         "description": "Play with 4 Support cards"
       },
       "2": {
-        "name": "2",
+        "name": "3",
         "description": "Play with 3 Support cards"
       },
       "3": {
-        "name": "3",
+        "name": "2",
         "description": "Play with 2 Support cards"
       },
       "4": {
-        "name": "4",
+        "name": "1",
         "description": "Play with 1 Support cards"
       },
       "5": {
-        "name": "5 (Hardest)",
+        "name": "0 (Hardest)",
         "description": "Play without Support cards"
       }
     }

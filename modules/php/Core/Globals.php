@@ -10,6 +10,7 @@ use const Bga\Games\Tembo\OPTION_DISABLED;
 use const Bga\Games\Tembo\OPTION_EVENTS;
 use const Bga\Games\Tembo\OPTION_FIRST_GAME;
 use const Bga\Games\Tembo\OPTION_JOURNEY;
+use const Bga\Games\Tembo\OPTION_JOURNEY_FIRST_GAME;
 
 /*
  * Globals
@@ -41,7 +42,7 @@ class Globals extends DB_Manager
   public static function setupNewGame(array $players, array &$options): void
   {
     if ($options[OPTION_FIRST_GAME] == 0) {
-      $options[OPTION_JOURNEY] = 13;    // 13 = journy A
+      $options[OPTION_JOURNEY] = $option[OPTION_JOURNEY_FIRST_GAME] ?? 13;    // 13 = journy A
       $options[OPTION_DIFFICULTY] = 0;
       $options[OPTION_EVENTS] = OPTION_DISABLED;
     }
