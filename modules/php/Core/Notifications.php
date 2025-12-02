@@ -27,6 +27,10 @@ class Notifications
       'player' => true,
       'method' => 'getMatriarchCardsCount',
     ],
+    [
+      'name' => 'destinationUnlocked',
+      'method' => 'Bga\Games\Tembo\Core\Globals::isDestinationUnlocked',
+    ]
   ];
   protected static $cachedValues = [];
 
@@ -364,9 +368,7 @@ class Notifications
     ]);
   }
 
-  public static function energyChanged()
-  {
-  }
+  public static function energyChanged() {}
 
   ///////////////////////////////////////////////////////////////
   //  _   _           _       _            _

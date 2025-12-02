@@ -63,7 +63,7 @@ $cellSize: 50px;
       // grid-row-end: span 3;
       // grid-column-end: span 6;
       background-image: url("img/board-ends.jpg");
-      background-size: 100% 200%;
+      background-size: 100% 300%;
       outline: 1px solid #c49323;
 
       transform-origin: 25% 50%;
@@ -93,6 +93,10 @@ $cellSize: 50px;
     }
     .board-destination {
       position: relative;
+      &[data-state="unlocked"] {
+        background-position: 0% 50%;
+      }
+
       #landmarks-reserve {
         position: absolute;
         left: 5%;

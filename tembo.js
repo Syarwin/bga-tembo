@@ -75,6 +75,7 @@ define([
         this.setupMeeples();
         this.setupCards();
         this.setupInfoPanel();
+        this.updateDestinationLockedStatus();
 
         this.inherited(arguments);
       },
@@ -126,6 +127,15 @@ define([
             this._deckCounters[i].toValue(infos.deckRemaining[i]);
           }
         }
+
+        if (infos.destinationUnlocked) {
+          this.gamedatas.destinationUnlocked = infos.destinationUnlocked;
+          this.updateDestinationLockedStatus();
+        }
+      },
+
+      updateDestinationLockedStatus() {
+        $('tembo-board').querySelector('.board-destination').dataset.state = this.gamedatas.destinationUnlocked ? 'unlocked' : '';
       },
 
       //////////////////////////////////////////

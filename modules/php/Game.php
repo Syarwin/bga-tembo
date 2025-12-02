@@ -73,6 +73,7 @@ class Game extends \Bga\GameFramework\Table
       'deckRemaining' => Cards::getRemaining(),
       'supportTokens' => SupportTokens::get(),
       'events' => EventTiles::getUiData(),
+      'destinationUnlocked' => Globals::isDestinationUnlocked(),
     ];
 
     return $data;
@@ -191,7 +192,7 @@ class Game extends \Bga\GameFramework\Table
   public function zombieTurn($state, $active_player): void
   {
     switch ($state['name']) {
-      // TODO
+        // TODO
     }
   }
 
