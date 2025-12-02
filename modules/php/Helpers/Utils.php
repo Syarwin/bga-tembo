@@ -131,4 +131,16 @@ abstract class Utils
     }
     return $result;
   }
+
+  public static function getCellsIntersect(array $array1, array $array2): array
+  {
+    $json1 = array_map('json_encode', $array1);
+    $json2 = array_map('json_encode', $array2);
+
+    $intersection = array_intersect($json1, $json2);
+
+    return array_values(array_map(function ($item) {
+      return json_decode($item, true);
+    }, $intersection));
+  }
 }

@@ -121,27 +121,25 @@ class Board
         }
       }
     }
-    if (Globals::isDestinationUnlocked()) {
-      $destinationBoard = $journey['destination'];
-      [$x, $y] = [
-        0 => [$destinationBoard['x'] + 1, $destinationBoard['y'] + 2],
-        1 => [$destinationBoard['x'], $destinationBoard['y'] + 1],
-        3 => [$destinationBoard['x'] + 2, $destinationBoard['y'] + 1],
-      ][$destinationBoard['rotation']];
-      $this->cells[$x][$y] = SPACE_NORMAL;
-      if ($destinationBoard['rotation'] % 2 === 0) {
-        $this->cells[$x + 3][$y] = SPACE_NORMAL;
-        $this->cells[$x + 1][$y] = SPACE_DESTINATION;
-        $this->cells[$x + 2][$y] = SPACE_DESTINATION;
-        $this->destinationSpaces[] = ['x' => $x + 1, 'y' => $y];
-        $this->destinationSpaces[] = ['x' => $x + 2, 'y' => $y];
-      } else {
-        $this->cells[$x][$y + 3] = SPACE_NORMAL;
-        $this->cells[$x][$y + 1] = SPACE_DESTINATION;
-        $this->cells[$x][$y + 2] = SPACE_DESTINATION;
-        $this->destinationSpaces[] = ['x' => $x, 'y' => $y + 1];
-        $this->destinationSpaces[] = ['x' => $x, 'y' => $y + 2];
-      }
+    $destinationBoard = $journey['destination'];
+    [$x, $y] = [
+      0 => [$destinationBoard['x'] + 1, $destinationBoard['y'] + 2],
+      1 => [$destinationBoard['x'], $destinationBoard['y'] + 1],
+      3 => [$destinationBoard['x'] + 2, $destinationBoard['y'] + 1],
+    ][$destinationBoard['rotation']];
+    $this->cells[$x][$y] = SPACE_DESTINATION_NORMAL;
+    if ($destinationBoard['rotation'] % 2 === 0) {
+      $this->cells[$x + 3][$y] = SPACE_DESTINATION_NORMAL;
+      $this->cells[$x + 1][$y] = SPACE_DESTINATION;
+      $this->cells[$x + 2][$y] = SPACE_DESTINATION;
+      $this->destinationSpaces[] = ['x' => $x + 1, 'y' => $y];
+      $this->destinationSpaces[] = ['x' => $x + 2, 'y' => $y];
+    } else {
+      $this->cells[$x][$y + 3] = SPACE_DESTINATION_NORMAL;
+      $this->cells[$x][$y + 1] = SPACE_DESTINATION;
+      $this->cells[$x][$y + 2] = SPACE_DESTINATION;
+      $this->destinationSpaces[] = ['x' => $x, 'y' => $y + 1];
+      $this->destinationSpaces[] = ['x' => $x, 'y' => $y + 2];
     }
   }
 
@@ -231,7 +229,36 @@ class Board
     $meeplesOnCellsMap = array_map(fn($cell) => Meeples::getOnCell($cell)->empty(), $cellsOfShape);
     $noMeeplesOnCellsMap = !in_array(false, array_unique($meeplesOnCellsMap));
 
-    return $nElephantAvailable >= $elephantsNeeded && $noNoneSpaces && $noMeeplesOnCellsMap;
+    $someSpacesAreDestination = array_intersect([
+      SPACE_DESTINATION,
+      SPACE_DESTINATION_NORMAL
+    ], $this->getCellTypesForShape($shape, $x, $y, $rotation));
+
+    $containsBothDestinationAndLastLandmark = false;
+    if ($someSpacesAreDestination) {
+      $unfinishedUnfilledLandmarkSpaces = $this->getUnfinishedUnfilledLandmarkSpaces();
+      $containsBothDestinationAndLastLandmark = Utils::getCellsIntersect($cellsOfShape, $unfinishedUnfilledLandmarkSpaces) === $unfinishedUnfilledLandmarkSpaces;
+    }
+    $destinationCheck = !$someSpacesAreDestination || $containsBothDestinationAndLastLandmark;
+
+    return $nElephantAvailable >= $elephantsNeeded && $noNoneSpaces && $noMeeplesOnCellsMap && $destinationCheck;
+  }
+
+  private function getUnfinishedUnfilledLandmarkSpaces(): array
+  {
+    $landmarkSpaces = [];
+    foreach ($this->cells as $x => $row) {
+      foreach ($row as $y => $cellType) {
+        if ($cellType === SPACE_LANDMARK && Meeples::getOnCell(['x' => $x, 'y' => $y])->empty()) {
+          $landmark = $this->getLandmarkByCell(['x' => $x, 'y' => $y]);
+          $landmarkMeeple = Meeples::getSingleOfType(Meeples::getLandmarkOfType($landmark));
+          if ($landmarkMeeple->getLocation() !== LOCATION_BOARD) {
+            $landmarkSpaces[] = ['x' => $x, 'y' => $y];
+          }
+        }
+      }
+    }
+    return $landmarkSpaces;
   }
 
   // $player is null means we don't care if they have enough elephants. Used when checking a Matriarch placement or all possible patterns

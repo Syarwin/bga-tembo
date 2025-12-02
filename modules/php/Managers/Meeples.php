@@ -55,14 +55,7 @@ class Meeples extends CachedPieces
 
   public static function moveLandmarkToBoard(int $cardRefType, int $x, int $y): array
   {
-    $landmarkType = [
-      CARD_REF_SINGLE_SNOW => LANDMARK_SNOW,
-      CARD_REF_DIAGONAL_MEADOW => LANDMARK_MEADOW,
-      CARD_REF_L_SHAPED_RIVER => LANDMARK_RIVER,
-      CARD_REF_V_ROCKS => LANDMARK_ROCKS,
-      CARD_REF_DIAGONAL_CANYON => LANDMARK_CANYON,
-      CARD_REF_CORNER_WATERFALL => LANDMARK_WATERFALL,
-    ][$cardRefType];
+    $landmarkType = static::getLandmarkOfType($cardRefType);
     $landmarkMeeple = static::getSingleOfType($landmarkType);
     if ($landmarkMeeple->getLocation() === LOCATION_BOARD) {
       return [null, null];
@@ -72,6 +65,18 @@ class Meeples extends CachedPieces
       $landmarkMeeple->setY($y);
       return [$landmarkType, $landmarkMeeple];
     }
+  }
+
+  public static function getLandmarkOfType(string $cardRefType): string
+  {
+    return [
+      CARD_REF_SINGLE_SNOW => LANDMARK_SNOW,
+      CARD_REF_DIAGONAL_MEADOW => LANDMARK_MEADOW,
+      CARD_REF_L_SHAPED_RIVER => LANDMARK_RIVER,
+      CARD_REF_V_ROCKS => LANDMARK_ROCKS,
+      CARD_REF_DIAGONAL_CANYON => LANDMARK_CANYON,
+      CARD_REF_CORNER_WATERFALL => LANDMARK_WATERFALL,
+    ][$cardRefType];
   }
 
   public static function getSingleOfType(string $type): ?Meeple
