@@ -49,6 +49,9 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
               additionalContent += `<div class='energy-slot' id='energy-${i}'></div>`;
             }
           }
+          if (tile.id == DESTINATION) {
+            additionalContent += `<div id="landmarks-reserve"></div>`;
+          }
 
           maxX = Math.max(maxX, tile.x + w);
           maxY = Math.max(maxY, tile.y + h);

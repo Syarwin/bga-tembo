@@ -153,7 +153,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       <div id="row-meeples" class="info-panel-row">
         <div id="trees-holder"></div>
         <div class="panel-separator"></div>
-        <div id="landmarks-reserve"></div>
       </div>
     </div>
    `;

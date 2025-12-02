@@ -91,6 +91,24 @@ $cellSize: 50px;
         rotate: 0deg;
       }
     }
+    .board-destination {
+      position: relative;
+      #landmarks-reserve {
+        position: absolute;
+        left: 5%;
+        right: 5%;
+        top: 15%;
+        display: flex;
+        padding: 5px;
+        border-radius: 7px;
+        justify-content: space-evenly;
+
+        &:not(:empty) {
+          background: #ffffffc2;
+          border: 1px solid black;
+        }
+      }
+    }
     .board-start {
       background-position: 0% 100%;
       position: relative;

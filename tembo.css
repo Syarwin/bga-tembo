@@ -708,6 +708,20 @@ body {
       #tembo-board-resizable #tembo-board .board-destination.flipped[data-rotation="1"] {
         transform: rotate(90deg) translate(25%, 50%) scaleX(-1);
         rotate: 0deg; }
+    #tembo-board-resizable #tembo-board .board-destination {
+      position: relative; }
+      #tembo-board-resizable #tembo-board .board-destination #landmarks-reserve {
+        position: absolute;
+        left: 5%;
+        right: 5%;
+        top: 15%;
+        display: flex;
+        padding: 5px;
+        border-radius: 7px;
+        justify-content: space-evenly; }
+        #tembo-board-resizable #tembo-board .board-destination #landmarks-reserve:not(:empty) {
+          background: #ffffffc2;
+          border: 1px solid black; }
     #tembo-board-resizable #tembo-board .board-start {
       background-position: 0% 100%;
       position: relative; }
