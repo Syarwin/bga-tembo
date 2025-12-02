@@ -4,6 +4,8 @@ namespace Bga\Games\Tembo\Managers;
 
 use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Helpers\CachedPieces;
+use Bga\Games\Tembo\Helpers\Utils;
+use Bga\Games\Tembo\Models\Board;
 use Bga\Games\Tembo\Models\Meeple;
 use Bga\Games\Tembo\Models\Player;
 use Collator;
@@ -122,24 +124,26 @@ class Meeples extends CachedPieces
     foreach ($board as $boardTile) {
       $meeples[] = ['type' => $landmarksMap[$boardTile['id']], 'state' => STATE_STANDING, 'location' => LOCATION_RESERVE];
     }
-
+    $board = new Board();
     $journey = JOURNEYS[$journeyId];
     if (isset($journey['lion'])) {
+      [$x, $y] = $board->getRandomSpaceNoneInSquare($journey['lion']['x'], $journey['lion']['y']);
       $meeples[] = [
         'type' => LION,
         'state' => STATE_LAYING,
         'location' => LOCATION_BOARD,
-        'x' => $journey['lion']['x'],
-        'y' => $journey['lion']['y']
+        'x' => $x,
+        'y' => $y
       ];
     }
     if (isset($journey['lioness'])) {
+      [$x, $y] = $board->getRandomSpaceNoneInSquare($journey['lioness']['x'], $journey['lioness']['y']);
       $meeples[] = [
         'type' => LIONESS,
         'state' => STATE_LAYING,
         'location' => LOCATION_BOARD,
-        'x' => $journey['lioness']['x'],
-        'y' => $journey['lioness']['y']
+        'x' => $x,
+        'y' => $y
       ];
     }
 

@@ -425,19 +425,30 @@ class Board
   public function getRandomSpaceNoneInSquare(int $x, int $y)
   {
     $square = $this->getSquareByTopLeft($x, $y);
-    $spacesNone = [];
     if (!$this->isSquareHasLandmark($square) && is_null($this->getSquareCard($square))) {
       return [$x, $y];
     }
+    $emptySpaces = $this->getEmptySpaces($square);
+    if (empty($emptySpaces)) {
+      $emptySpaces = $this->getEmptySpaces($square, true);
+    }
+    $cell = $emptySpaces[array_rand($emptySpaces)];
+    return [$cell['x'], $cell['y']];
+  }
+
+  private function getEmptySpaces(array $square, bool $ignoreMeeples = false): array
+  {
+    $spacesNone = [];
     for ($x = $square['x']; $x < $square['x'] + 3; $x++) {
       for ($y = $square['y']; $y < $square['y'] + 3; $y++) {
         if ($this->cells[$x][$y] === SPACE_NONE) {
-          $spacesNone[] = ['x' => $x, 'y' => $y];
+          if ($ignoreMeeples || Meeples::getOnCell(['x' => $x, 'y' => $y])->empty()) {
+            $spacesNone[] = ['x' => $x, 'y' => $y];
+          }
         }
       }
     }
-    $cell = $spacesNone[array_rand($spacesNone)];
-    return [$cell['x'], $cell['y']];
+    return $spacesNone;
   }
 
   private function getSquareByTopLeft(int $x, int $y): array
