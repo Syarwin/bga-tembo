@@ -3,7 +3,7 @@
 const JOURNEYS = [
   13 => [
     'destination' => ['x' => 9, 'y' => 0, 'rotation' => 1],
-    'start' => ['x' => 0, 'y' => 18, 'rotation' => 1],
+    'start' => ['x' => 0, 'y' => 18, 'rotation' => 1, 'flipped' => true],
     'tiles' => [
       ['x' => 3, 'y' => 0],
       ['x' => 0, 'y' => 6],
