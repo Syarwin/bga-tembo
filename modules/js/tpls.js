@@ -114,10 +114,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       return `
    <div class='player-board' id="info-panel">
      <div class="info-panel-row" id="player_config">
-        <div class="deck-info" id="deck-info-4"></div>
-        <div class="deck-info" id="deck-info-1"></div>
-        <div class="deck-info" id="deck-info-2"></div>
-        <div class="deck-info" id="deck-info-3"></div>
+        <div id="trees-holder"></div>
 
         <div class="panel-separator"></div>
 
@@ -151,8 +148,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
      </div>
 
       <div id="row-meeples" class="info-panel-row">
-        <div id="trees-holder"></div>
-        <div class="panel-separator"></div>
+        <div class="deck-info" id="deck-info-4"></div>
+        <div class="deck-info" id="deck-info-1"></div>
+        <div class="deck-info" id="deck-info-2"></div>
+        <div class="deck-info" id="deck-info-3"></div>
       </div>
     </div>
    `;

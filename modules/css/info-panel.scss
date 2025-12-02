@@ -115,25 +115,17 @@
     }
   }
 
-  #row-meeples {
-    #trees-holder {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding-bottom: 2px;
-      width: 200px;
-    }
+  #trees-holder {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 2px;
+    width: 200px;
 
-    #landmarks-reserve {
+    .tembo-meeple {
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
       align-items: center;
-      width: 220px;
-    }
-
-    .panel-separator {
-      height: 56px;
-      margin-top: -13px;
     }
   }
 

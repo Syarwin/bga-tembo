@@ -399,9 +399,13 @@
   transition: transform 0.5s, opacity 0.5s;
   opacity: 1;
   transform: scaleY(1) skewX(0deg); }
-  .tembo-meeple.meeple-tree-teal[data-state="0"], .tembo-meeple.meeple-tree-red[data-state="0"], .tembo-meeple.meeple-tree-brown[data-state="0"], .tembo-meeple.meeple-tree-green[data-state="0"] {
-    opacity: 0.7;
-    transform: scaleY(0.7) skewX(-25deg); }
+  .tembo-meeple.meeple-tree-teal[data-state="0"]::before, .tembo-meeple.meeple-tree-red[data-state="0"]::before, .tembo-meeple.meeple-tree-brown[data-state="0"]::before, .tembo-meeple.meeple-tree-green[data-state="0"]::before {
+    content: "X";
+    color: red;
+    font-family: "BerlinSans";
+    font-size: 1.2em;
+    text-shadow: 0px 0px 6px black, 0px 0px 6px black, 0px 0px 6px black;
+    text-shadow: black 3px 0px 0px, black 2.83487px 0.981584px 0px, black 2.35766px 1.85511px 0px, black 1.62091px 2.52441px 0px, black 0.705713px 2.91581px 0px, black -0.287171px 2.98622px 0px, black -1.24844px 2.72789px 0px, black -2.07227px 2.16926px 0px, black -2.66798px 1.37182px 0px, black -2.96998px 0.42336px 0px, black -2.94502px -0.571704px 0px, black -2.59586px -1.50383px 0px, black -1.96093px -2.27041px 0px, black -1.11013px -2.78704px 0px, black -0.137119px -2.99686px 0px, black 0.850987px -2.87677px 0px, black 1.74541px -2.43999px 0px, black 2.44769px -1.73459px 0px, black 2.88051px -0.838247px 0px; }
 .tembo-meeple.meeple-landmark-meadow, .tembo-meeple.meeple-landmark-rocks, .tembo-meeple.meeple-landmark-waterfall, .tembo-meeple.meeple-landmark-canyon, .tembo-meeple.meeple-landmark-river, .tembo-meeple.meeple-landmark-snow {
   height: 2em; }
 .tembo-meeple.meeple-lion, .tembo-meeple.meeple-lioness {
@@ -1528,20 +1532,16 @@ body {
     font-family: "BerlinSans"; }
     #info-panel #support-counter-holder .icon-support-token {
       margin-left: 3px; }
-  #info-panel #row-meeples #trees-holder {
+  #info-panel #trees-holder {
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding-bottom: 2px;
     width: 200px; }
-  #info-panel #row-meeples #landmarks-reserve {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 220px; }
-  #info-panel #row-meeples .panel-separator {
-    height: 56px;
-    margin-top: -13px; }
+    #info-panel #trees-holder .tembo-meeple {
+      display: flex;
+      justify-content: center;
+      align-items: center; }
   #info-panel #events-holder {
     padding-top: 4px;
     padding-bottom: 5px; }
