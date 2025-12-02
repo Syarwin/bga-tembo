@@ -213,6 +213,11 @@ class Meeples extends CachedPieces
     ));
   }
 
+  public static function getLion(string $type): Meeple
+  {
+    return self::getAll()->filter(fn($meeple) => $meeple->getType() === $type)->first();
+  }
+
   public static function getTrees(): Collection
   {
     return self::getAll()->filter(fn($meeple) => in_array($meeple->getType(), ALL_TREES));

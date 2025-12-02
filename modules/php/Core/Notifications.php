@@ -299,16 +299,10 @@ class Notifications
     ]);
   }
 
-  public static function lionsMoved(?Player $player, array $lions, ?Collection $cards)
+  public static function lionsMoved(Meeple $lion, ?Collection $cards = null)
   {
-    if (is_null($player)) {
-      $msg = ''; // This should be an event activation, no need to send a misleading message about getting a card
-    } else {
-      $msg = clienttranslate('${player_name} gets a Lion card. All lions have been activated');
-    }
-    self::notifyAll('lionsMoved', $msg, [
-      'player' => $player,
-      'lions' => $lions,
+    self::notifyAll('lionsMoved', '', [
+      'lions' => [$lion],
       'cardIds' => is_null($cards) ? [] : $cards->getIds(),
     ]);
   }
@@ -370,7 +364,9 @@ class Notifications
     ]);
   }
 
-  public static function energyChanged() {}
+  public static function energyChanged()
+  {
+  }
 
   ///////////////////////////////////////////////////////////////
   //  _   _           _       _            _

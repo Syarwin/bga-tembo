@@ -8,6 +8,7 @@ use Bga\Games\Tembo\Helpers\CachedPieces;
 use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Helpers\Log;
 use Bga\Games\Tembo\Helpers\Utils;
+use Bga\Games\Tembo\Models\Board;
 use Bga\Games\Tembo\Models\EventTile;
 use Bga\Games\Tembo\Models\Meeple;
 use Bga\Games\Tembo\Models\Player;
@@ -119,8 +120,9 @@ class EventTiles extends CachedPieces
         $lionType = $event->getArg();
         $msg = $lionType === LIONESS ? clienttranslate('Lioness activates') : clienttranslate('Lion activates');
         Notifications::immediateEvent($msg);
-        $lionArray = array_values(array_filter(Meeples::getLions(), fn($meeple) => $meeple->getType() === $lionType));
-        ActivateLions::activate($lionArray);
+        $board = new Board();
+        ActivateLions::moveLion($lionType, $board);
+        ActivateLions::chaseElephants($lionType, $board);
         break;
       case EVENT_EFFECT_ELEPHANT_DIES:
         $msg = clienttranslate('All players should remove 1 rested Elephant from the game (1 tired if no rested left)');
