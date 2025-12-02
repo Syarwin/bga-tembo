@@ -2,7 +2,7 @@
 
 namespace Bga\Games\Tembo\Helpers;
 
-abstract class DB_Model extends \APP_DbObject implements \JsonSerializable
+abstract class DB_Model implements \JsonSerializable
 {
   protected string $table = "";
   protected string $primary = "";
@@ -206,7 +206,7 @@ abstract class DB_Model extends \APP_DbObject implements \JsonSerializable
     $log = null;
 
     if (static::$log ?? true) {
-      $log = new Log($this->table, $this->primary);
+      $log = new Log();
     }
 
     return new QueryBuilder(

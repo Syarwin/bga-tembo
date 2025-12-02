@@ -2,7 +2,9 @@
 
 namespace Bga\Games\Tembo\Helpers;
 
-class QueryBuilder extends \APP_DbObject
+use Bga\Games\Tembo\Game;
+
+class QueryBuilder
 {
   private $table,
     $cast,
@@ -46,7 +48,7 @@ class QueryBuilder extends \APP_DbObject
   public function insert($fields = [], $overwriteIfExists = false)
   {
     $this->multipleInsert(array_keys($fields), $overwriteIfExists)->values([array_values($fields)]);
-    return self::DbGetLastId();
+    return Game::get()->DbGetLastId();
   }
 
   /*
@@ -66,7 +68,7 @@ class QueryBuilder extends \APP_DbObject
     // Fetch starting index if not provided
     $startingId = null;
     if ($this->insertPrimaryIndex === false) {
-      $startingId = (int) self::getUniqueValueFromDB(
+      $startingId = (int) Game::get()->getUniqueValueFromDB(
         "SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '{$this->table}';"
       );
     }
@@ -83,7 +85,7 @@ class QueryBuilder extends \APP_DbObject
     }
 
     $this->sql .= implode(',', $vals);
-    self::DbQuery($this->sql);
+    Game::get()->DbQuery($this->sql);
     if ($this->log) {
       Log::addEntry([
         'table' => $this->table,
@@ -165,7 +167,7 @@ class QueryBuilder extends \APP_DbObject
       }
 
       $this->assembleQueryClauses();
-      $objList = self::getObjectListFromDB($this->sql);
+      $objList = Game::get()->getObjectListFromDB($this->sql);
       Log::addEntry([
         'table' => $this->table,
         'primary' => $this->primary,
@@ -176,8 +178,8 @@ class QueryBuilder extends \APP_DbObject
     }
 
     $this->assembleQueryClauses();
-    self::DbQuery($this->sql);
-    return self::DbAffectedRow();
+    Game::get()->DbQuery($this->sql);
+    return Game::get()->DbAffectedRow();
   }
 
   /*********************************
@@ -216,7 +218,7 @@ class QueryBuilder extends \APP_DbObject
     if ($debug) {
       throw new \feException($this->sql);
     }
-    $res = self::getObjectListFromDB($this->sql);
+    $res = Game::get()->getObjectListFromDB($this->sql);
     $oRes = [];
     foreach ($res as $row) {
       $id = $row['result_associative_index'];
@@ -256,7 +258,7 @@ class QueryBuilder extends \APP_DbObject
     $field = is_null($field) ? '*' : "`$field`";
     $this->sql = "SELECT $func($field) FROM `$this->table`";
     $this->assembleQueryClauses();
-    return (int) self::getUniqueValueFromDB($this->sql);
+    return (int) Game::get()->getUniqueValueFromDB($this->sql);
   }
 
   public function count($field = null)
@@ -305,12 +307,10 @@ class QueryBuilder extends \APP_DbObject
     // Only one param => use primary field
     if ($n == 1) {
       $this->where .= " `{$this->primary}` = " . $this->protect($param[0]);
-    }
-    // Three params : WHERE $1 OP2 $3
+    } // Three params : WHERE $1 OP2 $3
     elseif ($n == 3) {
       $this->where .= '`' . trim($param[0]) . '` ' . $param[1] . ' ' . $this->protect($param[2]);
-    }
-    // Two params : $1 = $2
+    } // Two params : $1 = $2
     elseif ($n == 2) {
       $this->where .= '`' . trim($param[0]) . '` = ' . $this->protect($param[1]);
     }

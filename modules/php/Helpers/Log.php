@@ -20,7 +20,7 @@ use Bga\Games\Tembo\Managers\Players;
  *  `type` varchar(32) NOT NULL,
  *  `affected` JSON,
  */
-class Log extends \APP_DbObject
+class Log
 {
   public static function clearCache()
   {
@@ -50,7 +50,7 @@ class Log extends \APP_DbObject
     }
 
     if (is_null(static::$moveId)) {
-      static::$moveId = static::getUniqueValueFromDB('SELECT global_value FROM global WHERE global_id = 3') ?? 0;
+      static::$moveId = Game::get()->getUniqueValueFromDB('SELECT global_value FROM global WHERE global_id = 3') ?? 0;
     }
     $entry['move_id'] = static::$moveId;
     $query = new QueryBuilder('log', null, 'id');

@@ -27,7 +27,7 @@ class DB_Manager
 
     $log = null;
     if (static::$log ?? true) {
-      $log = new Log(static::$table, static::$primary);
+      $log = new Log();
     }
     return new QueryBuilder(
       $table,
