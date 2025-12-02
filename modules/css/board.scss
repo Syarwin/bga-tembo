@@ -256,7 +256,7 @@ $cellSize: 50px;
       .tembo-meeple ~ .tembo-meeple {
         margin-left: -96%;
         margin-top: -42%;
-        height: 42px;
+        zoom: 0.9;
       }
     }
   }
@@ -283,10 +283,20 @@ $cellSize: 50px;
 }
 
 #game_play_area {
-  @for $i from 1 through 5 {
-    .meeple-elephant-#{$i} {
-      height: 42px;
-    }
+  .meeple-elephant-1 {
+    height: 33px;
+  }
+  .meeple-elephant-2 {
+    height: 33px;
+  }
+  .meeple-elephant-3 {
+    height: 33px;
+  }
+  .meeple-elephant-4 {
+    height: 35px;
+  }
+  .meeple-elephant-5 {
+    height: 40px;
   }
 
   .meeple-matriarch {
