@@ -217,9 +217,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         </div>
 
         <div class='tired-elephant-reserve-holder' data-n="0">
-          <i class="fa fa-hourglass"></i>
           <span id='tired-elephant-reserve-${player.id}-counter' class='elephant-reserve-counter'>0</span>x
           <div id='tired-elephant-reserve-${player.id}' class='elephant-reserve tembo-meeple meeple-elephant-1'></div>
+          <i class="tired-icon"><span>z</span><span>z</span><span>z</span></i>
         </div>
 
         <div class='matriarch-cards-counter-holder'>

@@ -412,9 +412,9 @@
   transform: scaleY(1) skewX(0deg);
   filter: grayscale(0); }
   .tembo-meeple.meeple-lion[data-state="0"], .tembo-meeple.meeple-lioness[data-state="0"] {
-    opacity: 0.7;
+    opacity: 0.8;
     transform: scaleY(0.8) skewX(-20deg);
-    filter: grayscale(0.8); }
+    filter: grayscale(0.3); }
 .tembo-meeple.meeple-energy {
   width: 36px;
   height: 36px;
@@ -1625,8 +1625,6 @@ body {
     border: 1px solid #555555;
     background: rgba(0, 0, 0, 0.1);
     opacity: 0.8; }
-    .player-board-game-specific-content .player-info .tired-elephant-reserve-holder i {
-      margin-right: 4px; }
   .player-board-game-specific-content .player-info .matriarch-cards-counter-holder .matriarch-card {
     border: 1px solid black;
     border-radius: 4px;
@@ -1639,6 +1637,29 @@ body {
     margin-left: 2px; }
     .player-board-game-specific-content .player-info .matriarch-cards-counter-holder .matriarch-card .meeple-matriarch {
       width: 22px; }
+
+i.tired-icon {
+  display: inline-flex;
+  font-weight: bold;
+  margin-top: -1rem;
+  margin-left: -0.1rem; }
+  i.tired-icon span {
+    position: relative;
+    display: block;
+    transform-origin: center center; }
+  i.tired-icon span:first-child {
+    top: -1px;
+    rotate: -32deg;
+    font-size: 0.8rem; }
+  i.tired-icon span:nth-child(2) {
+    top: -6px;
+    rotate: -23deg;
+    font-size: 1rem;
+    left: -1px; }
+  i.tired-icon span:nth-child(3) {
+    top: -10px;
+    rotate: -10deg;
+    font-size: 1.1rem; }
 
 .log.notif_newEvent {
   border: 1px solid black; }
@@ -1707,6 +1728,16 @@ body {
   position: absolute;
   display: inline-block;
   visibility: hidden; }
+#page-title .elephants-counter {
+  font-family: "BerlinSans";
+  margin-left: 5px; }
+  #page-title .elephants-counter .tembo-meeple {
+    height: 1.5rem;
+    display: inline-block;
+    position: initial;
+    vertical-align: middle; }
+    #page-title .elephants-counter .tembo-meeple.tired {
+      filter: grayscale(0.5); }
 
 #ebd-body.help-mode .tooltipable {
   cursor: help; }

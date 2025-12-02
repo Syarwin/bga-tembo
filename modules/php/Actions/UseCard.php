@@ -47,6 +47,9 @@ class UseCard extends Action
       'singleSpacesMatriarch' => $board->getAllPossibleCoordsSingle(),
       'supportTokens' => SupportTokens::get(),
 
+      'restedElephants' => $player->getRestedElephantsAmount(),
+      'tiredElephants' => $player->getTiredElephantsAmount(),
+
       'matriarchIds' => $matriarch->empty() ? null : $matriarch->getIds(),
       'descSuffix' => $matriarch->empty() ? '' : 'matriarch',
     ];

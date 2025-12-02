@@ -53,6 +53,23 @@
     display: inline-block;
     visibility: hidden;
   }
+
+  .elephants-counter {
+    font-family: "BerlinSans";
+    margin-left: 5px;
+
+    .tembo-meeple {
+      height: 1.5rem;
+      display: inline-block;
+      position: initial;
+      vertical-align: middle;
+
+      &.tired {
+        filter: grayscale(0.5);
+        opacity: 0.8;
+      }
+    }
+  }
 }
 
 ///////////////////////////////////

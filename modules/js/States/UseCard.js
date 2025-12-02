@@ -2,7 +2,23 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
   return declare('tembo.useCard', null, {
     constructor() {},
 
+    addElephantsCountersToTitleBar(args) {
+      if ($('pagemaintitletext').querySelector('.elephants-counters')) return;
+
+      let rested = args.restedElephants,
+        tired = args.tiredElephants;
+
+      $('pagemaintitletext').insertAdjacentHTML(
+        'beforeend',
+        ` <span class='elephants-counter'>(${rested} x<span class='tembo-meeple meeple-elephant-1'></span>, &nbsp;
+          ${tired} x<span class='tembo-meeple meeple-elephant-1 tired'></span><i class="tired-icon"><span>z</span><span>z</span><span>z</span></i>
+         )</span>`
+      );
+    },
+
     onEnteringStateUseCard(args) {
+      this.addElephantsCountersToTitleBar(args);
+
       args.cardIds.forEach((cardId) => {
         this.onClick(`savanna-card-${cardId}`, () => {
           args.cardId = cardId;
@@ -41,6 +57,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStateUseCardChooseOption(args) {
+      this.addElephantsCountersToTitleBar(args);
+
       $(`savanna-card-${args.cardId}`).classList.add('selected');
       this.addPrimaryActionButton('btnPlaceCard', _('Build the savanna'), () => {
         this.moveToPlaceCardState(args);
@@ -64,6 +82,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStatePlaceCard(args) {
+      this.addElephantsCountersToTitleBar(args);
+
       $(`savanna-card-${args.cardId}`).classList.add('selected');
       this.addCancelStateBtn();
 
@@ -83,6 +103,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStateChooseCardRotation(args) {
+      this.addElephantsCountersToTitleBar(args);
+
       let oCard = $(`savanna-card-${args.cardId}`);
       oCard.classList.add('selected');
       this.addCancelStateBtn();
@@ -112,6 +134,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStatePlaceSingleElephant(args, isMatriarch = false) {
+      this.addElephantsCountersToTitleBar(args);
+
       let spaces = args.singleSpaces;
       if (isMatriarch) {
         spaces = args.singleSpacesMatriarch;
@@ -133,6 +157,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStatePlayMatriarch(args) {
+      this.addElephantsCountersToTitleBar(args);
+
       this.addCancelStateBtn();
 
       if (args.matriarchIds) {
@@ -158,6 +184,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStatePlaceElephants(args) {
+      this.addElephantsCountersToTitleBar(args);
+
       $(`savanna-card-${args.cardId}`).classList.add('selected');
       this.addCancelStateBtn();
       const shape = args.patternsShapes[args.cardId];
