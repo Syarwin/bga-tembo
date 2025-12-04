@@ -25,7 +25,14 @@ class PlaceSingleElephant extends Action
   public function argsPlaceSingleElephant()
   {
     $board = new Board();
-    return ['singleSpacesIgnoreRough' => $board->getAllPossibleCoordsSingle(Players::getActive(), true)];
+    $player = Players::getActive();
+
+    return [
+      'singleSpacesIgnoreRough' => $board->getAllPossibleCoordsSingle(Players::getActive(), true),
+
+      'restedElephants' => $player->getRestedElephantsAmount(),
+      'tiredElephants' => $player->getTiredElephantsAmount(),
+    ];
   }
 
   public function isDoable(Player $player): bool
