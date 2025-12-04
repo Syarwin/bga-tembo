@@ -102,7 +102,14 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       if (meeple.type.substr(0, 8) == 'elephant') {
         color = `data-color="${this.gamedatas.players[meeple.pId].color}"`;
       }
-      return `<div class="tembo-meeple meeple-${type}" id="meeple-${meeple.id}" data-id="${meeple.id}" data-type="${type}" ${color}></div>`;
+
+      let content = '';
+      if (meeple.type.substr(0, 4) == 'tree') {
+        const n = meeple.type == 'tree-green' ? 2 : 1;
+        content = `+${n}${this.formatIcon('energy')}`;
+      }
+
+      return `<div class="tembo-meeple meeple-${type}" id="meeple-${meeple.id}" data-id="${meeple.id}" data-type="${type}" ${color}>${content}</div>`;
     },
 
     tplEvent(event, prefix = '') {
