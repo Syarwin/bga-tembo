@@ -425,10 +425,20 @@
   opacity: 1;
   transform: scaleY(1) skewX(0deg);
   filter: grayscale(0); }
+  .tembo-meeple.meeple-lion i, .tembo-meeple.meeple-lioness i {
+    opacity: 0;
+    transition: opacity 0.5s;
+    position: absolute;
+    top: 6px;
+    left: 11px; }
+  .tembo-meeple.meeple-lion.meeple-lion i, .tembo-meeple.meeple-lioness.meeple-lion i {
+    left: 21px; }
   .tembo-meeple.meeple-lion[data-state="0"], .tembo-meeple.meeple-lioness[data-state="0"] {
     opacity: 0.8;
     transform: scaleY(0.8) skewX(-20deg);
     filter: grayscale(0.3); }
+    .tembo-meeple.meeple-lion[data-state="0"] i, .tembo-meeple.meeple-lioness[data-state="0"] i {
+      opacity: 1; }
 .tembo-meeple.meeple-energy {
   width: 36px;
   height: 36px;

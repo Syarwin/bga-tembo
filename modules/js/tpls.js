@@ -108,6 +108,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         const n = meeple.type == 'tree-green' ? 2 : 1;
         content = `+${n}${this.formatIcon('energy')}`;
       }
+      if (['lion', 'lioness'].includes(type)) {
+        content += `<i class="tired-icon"><span>z</span><span>z</span><span>z</span></i>`;
+      }
 
       return `<div class="tembo-meeple meeple-${type}" id="meeple-${meeple.id}" data-id="${meeple.id}" data-type="${type}" ${color}>${content}</div>`;
     },
