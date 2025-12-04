@@ -275,8 +275,8 @@ class Notifications
   public static function landmarkVisited(string $landMarkType, Meeple $landMarkMeeple)
   {
     $landMarkName = [
-      LANDMARK_SNOW => clienttranslate('Snow'),
-      LANDMARK_MEADOW => clienttranslate('Meadow'),
+      LANDMARK_SNOW => clienttranslate('Salt flat'),
+      LANDMARK_MEADOW => clienttranslate('Lake'),
       LANDMARK_RIVER => clienttranslate('River'),
       LANDMARK_ROCKS => clienttranslate('Rocks'),
       LANDMARK_CANYON => clienttranslate('Canyon'),
