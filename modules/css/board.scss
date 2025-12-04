@@ -63,7 +63,7 @@ $cellSize: 50px;
       // grid-row-end: span 3;
       // grid-column-end: span 6;
       background-image: url("img/board-ends.jpg");
-      background-size: 100% 300%;
+      background-size: 100% 400%;
       outline: 1px solid #c49323;
 
       transform-origin: 25% 50%;
@@ -116,6 +116,9 @@ $cellSize: 50px;
     .board-start {
       background-position: 0% 100%;
       position: relative;
+      &.flipped {
+        background-position: 0% 66.66666%;
+      }
 
       .energy-slot {
         position: absolute;

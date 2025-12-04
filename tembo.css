@@ -708,7 +708,7 @@ body {
       width: 300px;
       height: 150px;
       background-image: url("img/board-ends.jpg");
-      background-size: 100% 300%;
+      background-size: 100% 400%;
       outline: 1px solid #c49323;
       transform-origin: 25% 50%; }
       #tembo-board-resizable #tembo-board .board-start[data-rotation="0"],
@@ -751,6 +751,8 @@ body {
     #tembo-board-resizable #tembo-board .board-start {
       background-position: 0% 100%;
       position: relative; }
+      #tembo-board-resizable #tembo-board .board-start.flipped {
+        background-position: 0% 66.66666%; }
       #tembo-board-resizable #tembo-board .board-start .energy-slot {
         position: absolute;
         width: 40px;
