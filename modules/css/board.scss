@@ -186,12 +186,12 @@ $cellSize: 50px;
       position: relative;
 
       &.selectable {
-        background: rgba(255, 0, 0, 0.15);
+        background: rgba(21, 255, 0, 0.15);
         cursor: pointer;
         z-index: 100;
 
         &:hover {
-          background: rgba(255, 0, 0, 0.4);
+          background: rgba(9, 255, 0, 0.4);
         }
       }
 
@@ -213,11 +213,11 @@ $cellSize: 50px;
       align-items: center;
 
       &.selectable {
-        background: rgba(255, 0, 0, 0.4);
+        background: rgba(0, 255, 0, 0.4);
         cursor: pointer;
 
         &:hover {
-          background: rgba(255, 0, 0, 0.6);
+          background: rgba(51, 255, 0, 0.6);
         }
       }
       // &:hover {

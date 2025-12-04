@@ -48,7 +48,7 @@
       box-shadow: 2px -2px 5px 1px black;
     }
     &.selectable .tembo-savanna-card-wrapper {
-      box-shadow: 1px -1px 5px 2px red;
+      box-shadow: 1px -1px 5px 2px rgb(81, 255, 0);
     }
   }
   &[data-rotation="2"] {
@@ -58,7 +58,7 @@
       box-shadow: -2px -2px 5px 1px black;
     }
     &.selectable .tembo-savanna-card-wrapper {
-      box-shadow: -1px -1px 5px 2px red;
+      box-shadow: -1px -1px 5px 2px rgb(81, 255, 0);
     }
   }
   &[data-rotation="3"] {
@@ -68,7 +68,7 @@
       box-shadow: -2px 2px 5px 1px black;
     }
     &.selectable .tembo-savanna-card-wrapper {
-      box-shadow: -1px 1px 5px 2px red;
+      box-shadow: -1px 1px 5px 2px rgb(81, 255, 0);
     }
   }
 
@@ -198,7 +198,7 @@
   &.selectable {
     cursor: pointer;
     .tembo-savanna-card-wrapper {
-      box-shadow: 1px 1px 5px 2px red;
+      box-shadow: 1px 1px 5px 2px rgb(81, 255, 0);
     }
 
     &:hover {
