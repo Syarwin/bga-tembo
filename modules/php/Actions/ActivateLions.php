@@ -39,10 +39,17 @@ class ActivateLions extends Action
 
     $msg = clienttranslate('${player_name} gets a Lion card. All lions have been activated');
     Notifications::message($msg, ['player' => $activePlayer]);
-    static::moveLion(LIONESS, $board, $cards);
-    static::chaseElephants(LIONESS, $board);
-    static::moveLion(LION, $board, $cards);
-    static::chaseElephants(LION, $board);
+
+    $lioness = Meeples::getLion(LIONESS);
+    if (!is_null($lioness)) {
+      static::moveLion($lioness, $board, $cards);
+      static::chaseElephants($lioness, $board);
+    }
+    $lion = Meeples::getLion(LION);
+    if (!is_null($lion)) {
+      static::moveLion($lion, $board, $cards);
+      static::chaseElephants($lion, $board);
+    }
     return true;
   }
 
@@ -149,9 +156,8 @@ class ActivateLions extends Action
     }
   }
 
-  public static function moveLion(string $lionType, Board $board, ?object $cards = null)
+  public static function moveLion(Meeple $lion, Board $board, ?object $cards = null): void
   {
-    $lion = Meeples::getLion($lionType);
     if ($lion->getState() === STATE_LAYING) {
       $lion->setState(STATE_STANDING);
     } else {
@@ -177,11 +183,10 @@ class ActivateLions extends Action
       $lion->setY($newY);
     };
     Notifications::lionsMoved($lion, $cards);
-    return true;
   }
 
   public static function chaseElephants(
-    string $lionType,
+    Meeple $lion,
     Board $board,
   ): void {
     $elephantsEaten = [];
@@ -189,7 +194,6 @@ class ActivateLions extends Action
     $isElephantsEaten = false;
     $isMatriarchInjured = false;
 
-    $lion = Meeples::getLion($lionType);
     $lionSquareCoords = Utils::convertToSquareCoords(['x' => $lion->getX(), 'y' => $lion->getY()], false);
     $elephantsEatenByThisLion = $board->getElephantsOfSquare($lionSquareCoords['x'], $lionSquareCoords['y']);
     $elephantsEaten = [...$elephantsEaten, ...$elephantsEatenByThisLion];

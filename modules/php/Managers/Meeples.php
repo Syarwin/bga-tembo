@@ -226,7 +226,7 @@ class Meeples extends CachedPieces
     ));
   }
 
-  public static function getLion(string $type): Meeple
+  public static function getLion(string $type): ?Meeple
   {
     return self::getAll()->filter(fn($meeple) => $meeple->getType() === $type)->first();
   }
