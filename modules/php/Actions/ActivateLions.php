@@ -191,7 +191,6 @@ class ActivateLions extends Action
   ): void {
     $elephantsEaten = [];
     $regularElephantsEatenNumber = 0;
-    $isElephantsEaten = false;
     $isMatriarchInjured = false;
 
     $lionSquareCoords = Utils::convertToSquareCoords(['x' => $lion->getX(), 'y' => $lion->getY()], false);
@@ -200,10 +199,6 @@ class ActivateLions extends Action
     $regularElephantsEatenNumber += count($elephantsEatenByThisLion);
     foreach ($elephantsEaten as $elephant) {
       $elephant->setLocation(LOCATION_DISCARD);
-    }
-    if (!empty($elephantsEatenByThisLion)) {
-      $lion->setState(STATE_LAYING);
-      $isElephantsEaten = true;
     }
     if ($board->isMatriarchInSquare($lionSquareCoords['x'], $lionSquareCoords['y'])) {
       $isMatriarchInjured = true;
@@ -215,7 +210,10 @@ class ActivateLions extends Action
         }
       }
     }
-    if ($isElephantsEaten) {
+    if (!empty($elephantsEatenByThisLion) || $isMatriarchInjured) {
+      $lion->setState(STATE_LAYING);
+    }
+    if (!empty($elephantsEatenByThisLion)) {
       $msg = clienttranslate('${amount} Elephant(s) in an area with standing lions have been removed from the game');
       Notifications::message($msg, ['amount' => $regularElephantsEatenNumber]);
     }
