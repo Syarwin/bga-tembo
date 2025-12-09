@@ -149,7 +149,6 @@ class ActivateLions extends Action
         $lion->setX($newX);
         $lion->setY($newY);
         Notifications::lionMoved($lion);
-        break;
       }
     }
   }
