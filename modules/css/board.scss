@@ -94,7 +94,7 @@ $cellSize: 50px;
     .board-destination {
       position: relative;
       &[data-state="unlocked"] {
-        background-position: 0% 50%;
+        background-position: 0% 33.33333%;
       }
 
       #landmarks-reserve {

@@ -735,7 +735,7 @@ body {
     #tembo-board-resizable #tembo-board .board-destination {
       position: relative; }
       #tembo-board-resizable #tembo-board .board-destination[data-state="unlocked"] {
-        background-position: 0% 50%; }
+        background-position: 0% 33.33333%; }
       #tembo-board-resizable #tembo-board .board-destination #landmarks-reserve {
         position: absolute;
         left: 5%;
