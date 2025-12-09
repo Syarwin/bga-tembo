@@ -36,7 +36,7 @@ class UseCard extends Action
 
     return [
       'cardIds' => $hand->getIds(),
-      'rotatableCardIds' => EventTiles::isRotatableCardsAllowed() ? $rotatableCards->getIds() : [],
+      'rotatableCardIds' => EventTiles::isRotatableCardsAllowed() || $supportTokenRotationUsed ? $rotatableCards->getIds() : [],
       'ignoreRoughCardIds' => $ignoreRoughCardIds->getIds(),
       'patterns' => $board->getAllPossiblePatterns($hand, $player->getRotation(), $player->getRestedElephantsAmount(), $supportTokenRotationUsed),
       'patternsShapes' => $hand->map(fn($card) => $card->getPattern()['shape']),
