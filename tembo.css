@@ -418,6 +418,17 @@
     border-radius: 50%; }
 .tembo-meeple.meeple-landmark-meadow, .tembo-meeple.meeple-landmark-rocks, .tembo-meeple.meeple-landmark-waterfall, .tembo-meeple.meeple-landmark-canyon, .tembo-meeple.meeple-landmark-river, .tembo-meeple.meeple-landmark-snow {
   height: 2em; }
+  .tembo-meeple.meeple-landmark-meadow::before, .tembo-meeple.meeple-landmark-rocks::before, .tembo-meeple.meeple-landmark-waterfall::before, .tembo-meeple.meeple-landmark-canyon::before, .tembo-meeple.meeple-landmark-river::before, .tembo-meeple.meeple-landmark-snow::before {
+    content: "\f00c";
+    color: lime;
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    text-rendering: auto;
+    text-shadow: black 0px 0px 3px, black 2px 0px 0px, black 1.75517px 0.958851px 0px, black 1.0806px 1.68294px 0px, black 0.141474px 1.99499px 0px, black -0.832294px 1.81859px 0px, black -1.60229px 1.19694px 0px, black -1.97999px 0.28224px 0px, black -1.87291px -0.701566px 0px, black -1.30729px -1.51361px 0px, black -0.421592px -1.95506px 0px, black 0.567324px -1.91785px 0px, black 1.41734px -1.41108px 0px, black 1.92034px -0.558831px 0px;
+    font-size: 17px; }
+  #landmarks-reserve .tembo-meeple.meeple-landmark-meadow::before, #landmarks-reserve .tembo-meeple.meeple-landmark-rocks::before, #landmarks-reserve .tembo-meeple.meeple-landmark-waterfall::before, #landmarks-reserve .tembo-meeple.meeple-landmark-canyon::before, #landmarks-reserve .tembo-meeple.meeple-landmark-river::before, #landmarks-reserve .tembo-meeple.meeple-landmark-snow::before {
+    content: "\f00d";
+    color: red; }
 .tembo-meeple.meeple-lion, .tembo-meeple.meeple-lioness {
   height: 3.3em;
   transform-origin: bottom left;

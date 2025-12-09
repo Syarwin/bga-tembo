@@ -3,7 +3,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     constructor() {},
 
     addElephantsCountersToTitleBar(args) {
-      if ($('pagemaintitletext').querySelector('.elephants-counters')) return;
+      if ($('pagemaintitletext').querySelector('.elephants-counter')) return;
 
       let rested = args.restedElephants,
         tired = args.tiredElephants;
@@ -57,6 +57,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStateUseCardChooseOption(args) {
+      this.onEnteringStateUseCard(args);
       this.addElephantsCountersToTitleBar(args);
 
       $(`savanna-card-${args.cardId}`).classList.add('selected');
@@ -82,6 +83,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStatePlaceCard(args) {
+      this.onEnteringStateUseCard(args);
       this.addElephantsCountersToTitleBar(args);
 
       $(`savanna-card-${args.cardId}`).classList.add('selected');
@@ -103,6 +105,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStateChooseCardRotation(args) {
+      this.onEnteringStateUseCard(args);
       this.addElephantsCountersToTitleBar(args);
 
       let oCard = $(`savanna-card-${args.cardId}`);
