@@ -48,6 +48,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
             for (let i = 0; i <= 12; i++) {
               additionalContent += `<div class='energy-slot' id='energy-${i}'></div>`;
             }
+            $('lion-compass').dataset.rotation = tile.rotation;
           }
           if (tile.id == DESTINATION) {
             additionalContent += `<div id="landmarks-reserve"></div>`;

@@ -1500,9 +1500,29 @@ body {
       height: 57px;
       margin-top: -8px;
       margin-bottom: -8px; }
+  #info-panel #support-help-mode-wrapper #support-counter-holder {
+    margin-bottom: 5px; }
+  #info-panel #lion-compass-holder {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    #info-panel #lion-compass-holder #lion-compass {
+      width: 59px;
+      aspect-ratio: 179/175;
+      background-image: url("img/compass.png");
+      background-size: 100% auto; }
+      #info-panel #lion-compass-holder #lion-compass[data-rotation="1"] {
+        rotate: 90deg; }
+      #info-panel #lion-compass-holder #lion-compass[data-rotation="2"] {
+        rotate: 180deg; }
+      #info-panel #lion-compass-holder #lion-compass[data-rotation="3"] {
+        rotate: 270deg; }
   #info-panel #player_config {
     padding-bottom: 8px;
-    margin-bottom: 4px; }
+    margin-bottom: 4px;
+    justify-content: space-evenly; }
     #info-panel #player_config #help-mode-switch {
       zoom: 0.8; }
       #info-panel #player_config #help-mode-switch .checkbox {

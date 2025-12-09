@@ -31,9 +31,41 @@
     }
   }
 
+  #support-help-mode-wrapper {
+    #support-counter-holder {
+      margin-bottom: 5px;
+    }
+  }
+
+  #lion-compass-holder {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    #lion-compass {
+      width: 59px;
+      aspect-ratio: 179/175;
+      background-image: url("img/compass.png");
+      background-size: 100% auto;
+
+      &[data-rotation="1"] {
+        rotate: 90deg;
+      }
+      &[data-rotation="2"] {
+        rotate: 180deg;
+      }
+      &[data-rotation="3"] {
+        rotate: 270deg;
+      }
+    }
+  }
+
   #player_config {
     padding-bottom: 8px;
     margin-bottom: 4px;
+    justify-content: space-evenly;
 
     #help-mode-switch {
       zoom: 0.8;
