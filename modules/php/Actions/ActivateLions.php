@@ -14,11 +14,9 @@ use Bga\Games\Tembo\Models\Board;
 use Bga\Games\Tembo\Models\Meeple;
 use Bga\Games\Tembo\Models\Player;
 
-use const Bga\Games\Tembo\Models\DIRECTIONS;
-
 class ActivateLions extends Action
 {
-  const DIRECTIONS = [ // Sorted following the lion compass image
+  const array DIRECTIONS = [ // Sorted following the lion compass image
     ['x' => 0, 'y' => -3], // up
     ['x' => 3, 'y' => 0], // right
     ['x' => 0, 'y' => 3], // down
@@ -55,7 +53,7 @@ class ActivateLions extends Action
 
   private static function findAvailableDirections(array $lionCoords, Board $board)
   {
-    $availableDirections = array_filter(self::DIRECTIONS, function ($direction) use ($lionCoords, $board) {
+    $availableDirections = array_filter(static::getDirections(), function ($direction) use ($lionCoords, $board) {
       $coords = ['x' => $lionCoords['x'] + $direction['x'], 'y' => $lionCoords['y'] + $direction['y']];
       return $board->isSquareExist($coords);
     });
@@ -115,7 +113,7 @@ class ActivateLions extends Action
 
       $visited[] = $square;
       // Check neighbours
-      foreach (self::DIRECTIONS as $delta) {
+      foreach (static::getDirections() as $delta) {
         $newSquare = ['x' => $square['x'] + $delta['x'], 'y' => $square['y'] + $delta['y']];
         if ($board->isSquareExist($newSquare) && !in_array($newSquare, $visited)) {
           $queue[] = ['square' => $newSquare, 'd' => $distance + 1];
@@ -233,5 +231,16 @@ class ActivateLions extends Action
       Notifications::elephantsEaten($elephantsEaten);
       Notifications::lionsMoved($lion);
     }
+  }
+
+  private static function getDirections(): array
+  {
+    $directions = static::DIRECTIONS;
+    $startTileRotation = JOURNEYS[Globals::getJourney()]['start']['rotation'];
+    for ($i = 0; $i < $startTileRotation; $i++) {
+      $first = array_shift($directions);
+      $directions[] = $first;
+    }
+    return $directions;
   }
 }

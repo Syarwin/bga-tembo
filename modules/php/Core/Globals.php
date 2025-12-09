@@ -42,7 +42,7 @@ class Globals extends DB_Manager
   public static function setupNewGame(array $players, array &$options): void
   {
     if ($options[OPTION_FIRST_GAME] == 0) {
-      $options[OPTION_JOURNEY] = $option[OPTION_JOURNEY_FIRST_GAME] ?? 13;    // 13 = journy A
+      $options[OPTION_JOURNEY] = $option[OPTION_JOURNEY_FIRST_GAME] ?? 13;    // 13 = journey A
       $options[OPTION_DIFFICULTY] = 0;
       $options[OPTION_EVENTS] = OPTION_DISABLED;
     }
