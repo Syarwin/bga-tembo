@@ -82,19 +82,21 @@ class Cards extends CachedPieces
 
   public static function getRemaining(): array
   {
-    $remaining = [
-      CARD_DECK_FIRST => 0,
-      CARD_DECK_SECOND => 0,
-      CARD_DECK_THIRD => 0,
-      CARD_DECK_SUPPORT => 0,
-    ];
+    $remaining = [];
     $all = self::getAll()->filter(fn($card) => $card->getLocation() === LOCATION_DECK);
     $allFromMaterials = Utils::populateWithIds(static::$allCards);
     /** @var Card $card */
     foreach ($all as $card) {
       $cardDeck = $allFromMaterials[$card->getId()]['deck'];
+      $cardType = $allFromMaterials[$card->getId()]['type'] ?? CARD_TYPE_SAVANNA;
       if ($cardDeck !== CARD_DECK_STARTING) {
-        $remaining[$cardDeck] += 1;
+        if (!isset($remaining[$cardDeck])) {
+          $remaining[$cardDeck] = ['all' => 0, 'matriarch' => 0];
+        }
+        $remaining[$cardDeck]['all'] += 1;
+        if ($cardType === CARD_TYPE_MATRIARCH) {
+          $remaining[$cardDeck]['matriarch'] += 1;
+        }
       }
     }
     return $remaining;
