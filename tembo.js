@@ -555,7 +555,7 @@ define([
 
         this._deckCounters = {};
         for (let i = 1; i <= 4; i++) {
-          this._deckCounters[i] = this.createCounter(`deck-info-${i}`, this.gamedatas.deckRemaining[i].all, { dataset: true });
+          this._deckCounters[i] = this.createCounter(`deck-info-${i}`, this.gamedatas.deckRemaining[i]?.all, { dataset: true });
         }
 
         if (this.gamedatas.events.deckCount) {
