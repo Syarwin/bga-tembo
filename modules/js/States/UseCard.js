@@ -157,8 +157,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStatePlayMatriarch(args) {
-      this.addElephantsCountersToTitleBar(args);
-
       this.addCancelStateBtn();
 
       if (args.matriarchIds) {

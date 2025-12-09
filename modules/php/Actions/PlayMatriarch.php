@@ -26,6 +26,9 @@ class PlayMatriarch extends Action
     return [
       'matriarchIds' => $player->getMatriarchCards()->getIds(),
       'singleSpacesMatriarch' => $board->getAllPossibleCoordsSingle(),
+
+      'restedElephants' => $player->getRestedElephantsAmount(),
+      'tiredElephants' => $player->getTiredElephantsAmount(),
     ];
   }
 
