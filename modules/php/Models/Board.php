@@ -452,9 +452,6 @@ class Board
   public function getRandomSpaceNoneInSquare(int $x, int $y)
   {
     $square = $this->getSquareByTopLeft($x, $y);
-    if (!$this->isSquareHasLandmark($square) && is_null($this->getSquareCard($square))) {
-      return [$x, $y];
-    }
     $emptySpaces = $this->getEmptySpaces($square);
     if (empty($emptySpaces)) {
       $emptySpaces = $this->getEmptySpaces($square, true);
@@ -468,9 +465,12 @@ class Board
     $spacesNone = [];
     for ($x = $square['x']; $x < $square['x'] + 3; $x++) {
       for ($y = $square['y']; $y < $square['y'] + 3; $y++) {
-        if ($this->cells[$x][$y] === SPACE_NONE) {
+        if (!isset($this->cells[$x][$y]) || $this->cells[$x][$y] === SPACE_NONE) {
           if ($ignoreMeeples || Meeples::getOnCell(['x' => $x, 'y' => $y])->empty()) {
             $spacesNone[] = ['x' => $x, 'y' => $y];
+            if (!isset($this->cells[$x][$y])) {
+              return $spacesNone;
+            }
           }
         }
       }

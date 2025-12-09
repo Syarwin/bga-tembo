@@ -124,7 +124,7 @@ define([
 
         if (infos.deckRemaining) {
           for (let i = 1; i <= 4; i++) {
-            this._deckCounters[i].toValue(infos.deckRemaining[i].all);
+            this._deckCounters[i].toValue(infos.deckRemaining[i]?.all ?? 0);
           }
         }
 
