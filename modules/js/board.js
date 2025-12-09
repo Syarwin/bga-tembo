@@ -62,7 +62,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
 
           for (let i = 0; 3 * i < w; i++) {
             for (let j = 0; 3 * j < h; j++) {
-              squares.push({ x: tile.x + 3 * i, y: tile.y + 3 * j });
+              squares.push({ x: tile.x + 3 * i, y: tile.y + 3 * j, tileId: tile.id });
             }
           }
         });
@@ -71,10 +71,12 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
       $('tembo-board-resizable').dataset.y = maxY;
 
       squares.forEach((square) => {
-        $('tembo-board').insertAdjacentHTML(
-          'beforeend',
-          `<div class='board-square' id='square-${square.x}-${square.y}' style="grid-column-start:${square.x + 1}; grid-row-start:${square.y + 1}"></div>`
-        );
+        if (square.tileId !== DESTINATION) {
+          $('tembo-board').insertAdjacentHTML(
+            'beforeend',
+            `<div class='board-square' id='square-${square.x}-${square.y}' style="grid-column-start:${square.x + 1}; grid-row-start:${square.y + 1}"></div>`
+          );
+        }
 
         for (let i = 0; i < 3; i++) {
           for (let j = 0; j < 3; j++) {
