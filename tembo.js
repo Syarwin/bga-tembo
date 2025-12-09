@@ -124,7 +124,11 @@ define([
 
         if (infos.deckRemaining) {
           for (let i = 1; i <= 4; i++) {
-            this._deckCounters[i].toValue(infos.deckRemaining[i]?.all ?? 0);
+            ['savanna', 'matriarch', 'lion'].forEach((type) => {
+              let val = 0;
+              if (infos.deckRemaining[i] && infos.deckRemaining[i][type]) val = infos.deckRemaining[i][type];
+              this._deckCounters[i][type].toValue(val);
+            });
           }
         }
 
@@ -555,7 +559,13 @@ define([
 
         this._deckCounters = {};
         for (let i = 1; i <= 4; i++) {
-          this._deckCounters[i] = this.createCounter(`deck-info-${i}`, this.gamedatas.deckRemaining[i]?.all, { dataset: true });
+          this._deckCounters[i] = {
+            savanna: this.createCounter(`deck-info-${i}`, this.gamedatas.deckRemaining[i]?.savanna, { dataset: true }),
+            lion: this.createCounter(`deck-info-lion-${i}`, this.gamedatas.deckRemaining[i]?.lion, { dataset: true }),
+            matriarch: this.createCounter(`deck-info-matriarch-${i}`, this.gamedatas.deckRemaining[i]?.matriarch, {
+              dataset: true,
+            }),
+          };
         }
 
         if (this.gamedatas.events.deckCount) {
@@ -587,7 +597,7 @@ define([
 
         const ROOT = document.documentElement;
 
-        const WIDTH = $('tembo-main-container').getBoundingClientRect()['width'] - 5;
+        const WIDTH = this.getBoundingClientRectIgnoreZoom($('tembo-main-container'))['width'] - 5;
         const LEFT_COLUMN = 500;
         const RIGHT_COLUMN = $('tembo-board').offsetWidth;
 

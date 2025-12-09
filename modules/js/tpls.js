@@ -166,10 +166,34 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
      </div>
 
       <div id="row-meeples" class="info-panel-row">
-        <div class="deck-info" id="deck-info-4"></div>
-        <div class="deck-info" id="deck-info-1"></div>
-        <div class="deck-info" id="deck-info-2"></div>
-        <div class="deck-info" id="deck-info-3"></div>
+        <div class="deck-info-holder">
+          <div class="deck-info" id="deck-info-4"></div>
+
+          <div class="deck-info deck-matriarch" id="deck-info-matriarch-4"></div>
+          <div class="deck-info deck-lion" id="deck-info-lion-4"></div>
+        </div>
+
+        <div class="deck-info-holder">
+          <div class="deck-info" id="deck-info-1"></div>
+          +
+          <div class="deck-info deck-matriarch" id="deck-info-matriarch-1"></div>
+          +
+          <div class="deck-info deck-lion" id="deck-info-lion-1"></div>
+        </div>
+        <div class="deck-info-holder">
+          <div class="deck-info" id="deck-info-2"></div>
+          +
+          <div class="deck-info deck-matriarch" id="deck-info-matriarch-2"></div>
+          +
+          <div class="deck-info deck-lion" id="deck-info-lion-2"></div>
+        </div>
+        <div class="deck-info-holder">
+          <div class="deck-info" id="deck-info-3"></div>
+          +
+          <div class="deck-info deck-matriarch" id="deck-info-matriarch-3"></div>
+          +
+          <div class="deck-info deck-lion" id="deck-info-lion-3"></div>
+        </div>
       </div>
     </div>
    `;

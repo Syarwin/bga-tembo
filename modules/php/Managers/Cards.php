@@ -91,11 +91,14 @@ class Cards extends CachedPieces
       $cardType = $allFromMaterials[$card->getId()]['type'] ?? CARD_TYPE_SAVANNA;
       if ($cardDeck !== CARD_DECK_STARTING) {
         if (!isset($remaining[$cardDeck])) {
-          $remaining[$cardDeck] = ['all' => 0, 'matriarch' => 0];
+          $remaining[$cardDeck] = ['savanna' => 0, 'matriarch' => 0, 'lion' => 0];
         }
-        $remaining[$cardDeck]['all'] += 1;
         if ($cardType === CARD_TYPE_MATRIARCH) {
           $remaining[$cardDeck]['matriarch'] += 1;
+        } else if ($cardType === CARD_TYPE_LION) {
+          $remaining[$cardDeck]['lion'] += 1;
+        } else {
+          $remaining[$cardDeck]['savanna'] += 1;
         }
       }
     }

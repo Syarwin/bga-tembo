@@ -1623,30 +1623,56 @@ body {
         position: absolute;
         top: 0;
         left: 0; }
-  #info-panel .deck-info {
-    width: 40px;
-    height: 40px;
-    background-image: url("img/cards.jpg");
-    background-size: 800% 800%;
-    border: 1px solid black;
-    border-radius: 4px;
-    position: relative;
+  #info-panel .deck-info-holder {
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-family: "BerlinSans";
-    text-shadow: 0px 0px 6px white, 0px 0px 6px white;
-    font-size: 24px; }
-    #info-panel .deck-info[data-counter="0"] {
-      opacity: 0.4; }
-    #info-panel .deck-info#deck-info-1 {
-      background-position: 57.1428571429% 100%; }
-    #info-panel .deck-info#deck-info-2 {
-      background-position: 71.4285714286% 100%; }
-    #info-panel .deck-info#deck-info-3 {
-      background-position: 85.7142857143% 100%; }
-    #info-panel .deck-info#deck-info-4 {
-      background-position: 42.8571428571% 100%; }
+    font-family: "BerlinSans"; }
+    #info-panel .deck-info-holder .deck-info {
+      width: 40px;
+      height: 40px;
+      background-image: url("img/cards.jpg");
+      background-size: 800% 800%;
+      border: 1px solid black;
+      border-radius: 4px;
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      padding-right: 2px;
+      box-sizing: border-box;
+      font-family: "BerlinSans";
+      color: white;
+      text-shadow: black 0px 0px 6px, black 1px 0px 0px, black 0.540302px 0.841471px 0px, black -0.416147px 0.909297px 0px, black -0.989993px 0.14112px 0px, black -0.653644px -0.756803px 0px, black 0.283662px -0.958924px 0px, black 0.96017px -0.279416px 0px;
+      font-size: 24px; }
+      #info-panel .deck-info-holder .deck-info.deck-matriarch, #info-panel .deck-info-holder .deck-info.deck-lion {
+        width: 34px;
+        height: 34px;
+        font-size: 19px;
+        padding-right: 1px; }
+      #info-panel .deck-info-holder .deck-info[data-counter="0"] {
+        opacity: 0.4; }
+      #info-panel .deck-info-holder .deck-info#deck-info-matriarch-4, #info-panel .deck-info-holder .deck-info#deck-info-lion-4 {
+        display: none; }
+      #info-panel .deck-info-holder .deck-info#deck-info-1 {
+        background-position: 57.1428571429% 100%; }
+      #info-panel .deck-info-holder .deck-info#deck-info-2 {
+        background-position: 71.4285714286% 100%; }
+      #info-panel .deck-info-holder .deck-info#deck-info-3 {
+        background-position: 85.7142857143% 100%; }
+      #info-panel .deck-info-holder .deck-info#deck-info-4 {
+        background-position: 42.8571428571% 100%; }
+      #info-panel .deck-info-holder .deck-info#deck-info-matriarch-1 {
+        background-position: 28.5714285714% 85.7142857143%; }
+      #info-panel .deck-info-holder .deck-info#deck-info-lion-1 {
+        background-position: 42.8571428571% 85.7142857143%; }
+      #info-panel .deck-info-holder .deck-info#deck-info-matriarch-2 {
+        background-position: 57.1428571429% 85.7142857143%; }
+      #info-panel .deck-info-holder .deck-info#deck-info-lion-2 {
+        background-position: 71.4285714286% 85.7142857143%; }
+      #info-panel .deck-info-holder .deck-info#deck-info-lion-3 {
+        background-position: 85.7142857143% 85.7142857143%; }
+      #info-panel .deck-info-holder .deck-info#deck-info-matriarch-3 {
+        background-position: 100% 85.7142857143%; }
 
 .player-board-game-specific-content .player-info {
   display: flex;
