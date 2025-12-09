@@ -128,10 +128,8 @@ class UseCard extends Action
   public function actPlaceSingleElephant(int $x, int $y, ?int $cardId = null): void
   {
     $args = $this->getArgs();
-    $ignoreRough = !$cardId || in_array($cardId, $args['ignoreRoughCardIds']);
-    $spaces = $ignoreRough ? $args['singleSpacesIgnoreRough'] : $args['singleSpaces'];
-    PlaceSingleElephant::checkCoords($x, $y, $spaces);
-    PlaceSingleElephant::placeSingleElephant($x, $y, $cardId, false, $ignoreRough);
+    PlaceSingleElephant::checkCoords($x, $y, $args['singleSpacesIgnoreRough']);
+    PlaceSingleElephant::placeSingleElephant($x, $y, $cardId, false, true);
   }
 
   public function actUseSupportToken(int $option): void
