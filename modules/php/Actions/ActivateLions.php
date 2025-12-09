@@ -236,11 +236,15 @@ class ActivateLions extends Action
   private static function getDirections(): array
   {
     $directions = static::DIRECTIONS;
-    $startTileRotation = JOURNEYS[Globals::getJourney()]['start']['rotation'];
-    for ($i = 0; $i < $startTileRotation; $i++) {
+    for ($i = 0; $i < static::getCompassRotation(); $i++) {
       $first = array_shift($directions);
       $directions[] = $first;
     }
     return $directions;
+  }
+
+  public static function getCompassRotation(): int
+  {
+    return JOURNEYS[Globals::getJourney()]['start']['rotation'];
   }
 }
