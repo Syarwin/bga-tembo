@@ -26,13 +26,13 @@
     "default": 13,
     "values": {
       "13": {
-        "name": "Journey A",
-        "tmdisplay": "[Journey A]",
+        "name": "Grey A",
+        "tmdisplay": "[Grey A]",
         "firstgameonly": true
       },
       "14": {
-        "name": "Journey B",
-        "tmdisplay": "[Journey B]",
+        "name": "Grey B",
+        "tmdisplay": "[Grey B]",
         "firstgameonly": true
       }
     }
@@ -49,52 +49,52 @@
     "default": 1,
     "values": {
       "1": {
-        "name": "Journey 1",
-        "tmdisplay": "[Journey 1]"
+        "name": "Green 1",
+        "tmdisplay": "[Green 1]"
       },
       "2": {
-        "name": "Journey 2",
-        "tmdisplay": "[Journey 2]"
+        "name": "Green 2",
+        "tmdisplay": "[Green 2]"
       },
       "3": {
-        "name": "Journey 3",
-        "tmdisplay": "[Journey 3]"
+        "name": "Green 3",
+        "tmdisplay": "[Green 3]"
       },
       "4": {
-        "name": "Journey 4",
-        "tmdisplay": "[Journey 4]"
+        "name": "Green 4",
+        "tmdisplay": "[Green 4]"
       },
       "5": {
-        "name": "Journey 5",
-        "tmdisplay": "[Journey 5]"
+        "name": "Yellow 5",
+        "tmdisplay": "[Yellow 5]"
       },
       "6": {
-        "name": "Journey 6",
-        "tmdisplay": "[Journey 6]"
+        "name": "Yellow 6",
+        "tmdisplay": "[Yellow 6]"
       },
       "7": {
-        "name": "Journey 7",
-        "tmdisplay": "[Journey 7]"
+        "name": "Yellow 7",
+        "tmdisplay": "[Yellow 7]"
       },
       "8": {
-        "name": "Journey 8",
-        "tmdisplay": "[Journey 8]"
+        "name": "Yellow 8",
+        "tmdisplay": "[Yellow 8]"
       },
       "9": {
-        "name": "Journey 9",
-        "tmdisplay": "[Journey 9]"
+        "name": "Red 9",
+        "tmdisplay": "[Red 9]"
       },
       "10": {
-        "name": "Journey 10",
-        "tmdisplay": "[Journey 10]"
+        "name": "Red 10",
+        "tmdisplay": "[Red 10]"
       },
       "11": {
-        "name": "Journey 11",
-        "tmdisplay": "[Journey 11]"
+        "name": "Red 11",
+        "tmdisplay": "[Red 11]"
       },
       "12": {
-        "name": "Journey 12",
-        "tmdisplay": "[Journey 12]"
+        "name": "Red 12",
+        "tmdisplay": "[Red 12]"
       }
     }
   },
