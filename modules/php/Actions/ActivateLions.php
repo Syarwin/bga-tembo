@@ -79,12 +79,19 @@ class ActivateLions extends Action
         $minDistance = $distance;
         $closest = $point;
       } elseif ($distance === $minDistance) {
-        // Lion compass says the priorities are top, then right, down and left. If two squares are equally close, the compass starts working
-        if ($point['y'] < $closest['y']) {
-          $closest = $point;
-        } elseif ($point['y'] === $closest['y'] && $point['x'] > $closest['x']) {
-          $closest = $point;
-        } // Otherwise $closest is the priority
+        // Use Lion compass
+        $directions = static::getDirections();
+        foreach ($directions as $direction) {
+          $dx = $target['x'] + $direction['x'];
+          $dy = $target['y'] + $direction['y'];
+          if ($dx === $point['x'] && $dy === $point['y']) {
+            $closest = $point;
+            break;
+          }
+          if ($dx === $closest['x'] && $dy === $closest['y']) {
+            break;
+          }
+        }
       }
     }
 
