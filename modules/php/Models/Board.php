@@ -271,6 +271,7 @@ class Board
         if (!is_null($player)) {
           $amountIsEnough = $player->getRestedElephantsAmount() >= $coords['amount'];
         }
+
         if (!in_array(['x' => $coords['x'], 'y' => $coords['y']], $allCoords) && $amountIsEnough) {
           $allCoords[] = ['x' => $coords['x'], 'y' => $coords['y']];
         }
@@ -288,7 +289,11 @@ class Board
       $cellType = $this->cells[$dx][$dy] ?? null;
 
       $meeplesAtSpace = Meeples::getOnCell(['x' => $dx, 'y' => $dy]);
-      if (!is_null($cellType) && $cellType !== SPACE_NONE && $meeplesAtSpace->empty()) {
+      $unavailableDestination = !Globals::isDestinationUnlocked() && in_array($cellType, [
+          SPACE_DESTINATION_NORMAL,
+          SPACE_DESTINATION
+        ]);
+      if (!is_null($cellType) && $cellType !== SPACE_NONE && $meeplesAtSpace->empty() && !$unavailableDestination) {
         $amount = $this->getAmountOfElephantsNeeded($dx, $dy, $ignoreRough);
         $results[] = ['x' => $dx, 'y' => $dy, 'amount' => $amount];
       }
