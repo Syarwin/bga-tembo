@@ -19,6 +19,7 @@ class Actions
     PLAY_MATRIARCH,
     ACTIVATE_LIONS,
     SOLO_DISCARD_SECOND_MATRIARCH,
+    END_GAME,
   ];
 
   public static function get(string $actionId, null|AbstractNode|array &$ctx = null): Action

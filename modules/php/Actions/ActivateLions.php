@@ -4,7 +4,6 @@ namespace Bga\Games\Tembo\Actions;
 
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
-use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Helpers\Utils;
 use Bga\Games\Tembo\Managers\Cards;
 use Bga\Games\Tembo\Managers\Meeples;

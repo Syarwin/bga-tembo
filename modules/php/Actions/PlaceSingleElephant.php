@@ -2,6 +2,7 @@
 
 namespace Bga\Games\Tembo\Actions;
 
+use Bga\Games\Tembo\Core\Engine;
 use Bga\Games\Tembo\Core\Globals;
 use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Helpers\Utils;
@@ -183,6 +184,9 @@ class PlaceSingleElephant extends Action
         foreach (Players::getAll() as $player) {
           $player->setScore(1);
         }
+        Engine::setup(['action' => END_GAME], ['method' => 'stEndOfTurn']);
+        $msg = clienttranslate('Congratulation! Your elephants have successfully reached their destination!');
+        Notifications::message($msg);
       }
     }
   }

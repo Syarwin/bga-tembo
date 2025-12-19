@@ -56,6 +56,7 @@ const PLACE_SINGLE_ELEPHANT = 'PlaceSingleElephant';
 const PLAY_MATRIARCH = 'PlayMatriarch';
 const ACTIVATE_LIONS = 'ActivateLions';
 const SOLO_DISCARD_SECOND_MATRIARCH = 'DiscardSecondMatriarch';
+const END_GAME = 'EndGame';
 
 /*
  * Board tiles
