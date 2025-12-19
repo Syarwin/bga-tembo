@@ -118,6 +118,7 @@ class Player extends DB_Model
   {
     return $this->getHand()->filter(fn(Card $card) => $card->isMatriarch());
   }
+
   public function getMatriarchCardsCount(): int
   {
     return $this->getMatriarchCards()->count();
@@ -162,11 +163,11 @@ class Player extends DB_Model
     return $elephant;
   }
 
-  private function checkIfAllElephantsAreDead()
+  public function checkIfAllElephantsAreDead()
   {
     $elephantsOnBoardCount = Meeples::getOfPlayer($this->id)->where('location', LOCATION_BOARD)->count();
     if ($this->getRestedElephantsAmount() === 0 && $this->getTiredElephantsAmount() === 0 && $elephantsOnBoardCount === 0) {
-      Globals::setEndGame(true);
+      Globals::setEndGame(END_GAME_NO_ELEPHANTS);
     }
   }
 

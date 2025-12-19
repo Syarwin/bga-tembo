@@ -15,7 +15,7 @@ class EndGame extends Action
 
   public function stEndGame()
   {
-    if (Globals::isEndGame()) {
+    if (Globals::getEndGame() > 0) {
       Game::get()->gamestate->jumpToState(ST_PRE_END_OF_GAME);
     }
   }

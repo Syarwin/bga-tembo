@@ -203,6 +203,10 @@ class ActivateLions extends Action
     foreach ($elephantsEaten as $elephant) {
       $elephant->setLocation(LOCATION_DISCARD);
     }
+    /** @var Player $player */
+    foreach (Players::getAll() as $player) {
+      $player->checkIfAllElephantsAreDead();
+    }
     if ($board->isMatriarchInSquare($lionSquareCoords['x'], $lionSquareCoords['y'])) {
       $isMatriarchInjured = true;
       /** @var Player $player */
@@ -229,7 +233,7 @@ class ActivateLions extends Action
       ]), Meeples::getLions());
 
       if (count($lionsCoords) > 1 && $lionsCoords[0]['x'] === $lionsCoords[1]['x'] && $lionsCoords[0]['y'] === $lionsCoords[1]['y']) {
-        Globals::setEndGame(true);
+        Globals::setEndGame(END_GAME_MATRIARCH);
       }
     }
     if (!empty($elephantsEaten)) {

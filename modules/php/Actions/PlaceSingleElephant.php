@@ -180,7 +180,7 @@ class PlaceSingleElephant extends Action
         $winGame = $board->isBothDestinationHaveElephants();
       }
       if ($winGame) {
-        Globals::setEndGame(true);
+        Globals::setEndGame(END_GAME_WIN);
         foreach (Players::getAll() as $player) {
           $player->setScore(1);
         }

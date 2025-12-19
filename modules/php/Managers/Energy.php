@@ -30,7 +30,7 @@ class Energy
     $current = self::get();
     if ($current - $amount <= 0) {
       $amount = $current;
-      Globals::setEndGame(true);
+      Globals::setEndGame(END_GAME_NO_ENERGY);
     }
     Globals::incEnergy(-$amount);
     Notifications::energyDecreased($current - $amount, $amount);
