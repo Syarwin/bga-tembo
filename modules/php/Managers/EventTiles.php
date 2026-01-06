@@ -130,7 +130,10 @@ class EventTiles extends CachedPieces
         Notifications::immediateEvent($msg);
         /** @var Player $player */
         foreach (Players::getAll() as $player) {
-          $player->eliminateRestedOrTiredElephant();
+          $elephant = $player->eliminateRestedOrTiredElephant();
+          if (!is_null($elephant)) {
+            Notifications::removeElephant($player, $elephant);
+          }
         }
         break;
       case EVENT_EFFECT_LIONS_LAY:

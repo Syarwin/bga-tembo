@@ -52,6 +52,7 @@ define([
           'cardPlacedOnBoard',
           'elephantsGained',
           'elephantsLost',
+          'elephantsRemoved',
           'elephantsPlaced',
           'cardsDrawn',
           'energyChanged',
@@ -368,6 +369,10 @@ define([
         await Promise.all(
           args.lost.map((meeple, i) => this.slide(`meeple-${meeple.id}`, this.getMeepleContainer(meeple), { delay: 100 * i }))
         );
+      },
+
+      async notif_elephantsRemoved(args) {
+        await this.slide(`meeple-${args.lost.id}`, this.getVisibleTitleContainer(), { destroy: true });
       },
 
       async notif_elephantsGained(args) {

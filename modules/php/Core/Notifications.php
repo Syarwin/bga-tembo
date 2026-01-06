@@ -214,6 +214,14 @@ class Notifications
     ]);
   }
 
+  public static function removeElephant(Player $player, Meeple $lost)
+  {
+    self::notifyAll('elephantsRemoved', clienttranslate('${player_name} removes one of their elephant from the game'), [
+      'player' => $player,
+      'lost' => $lost,
+    ]);
+  }
+
   public static function cardPlacedOnBoard(Player $player, Card $card)
   {
     self::notifyAll('cardPlacedOnBoard', clienttranslate('${player_name} places a card'), [
