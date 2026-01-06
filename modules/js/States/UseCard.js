@@ -127,12 +127,18 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       // );
 
       let incRotation = (delta) => {
-        tmpCard.dataset.rotation = (+tmpCard.dataset.rotation + delta + 4) % 4;
+        tmpCard.dataset.rotation = +tmpCard.dataset.rotation + delta;
+        tmpCard.style.rotate = 90 * tmpCard.dataset.rotation + 'deg';
       };
       this.addPrimaryActionButton('btnRotateCClockwise', '<i class="fa fa-undo"></i>', () => incRotation(-1));
       this.addPrimaryActionButton('btnRotateClockwise', '<i class="fa fa-repeat"></i>', () => incRotation(1));
       this.addPrimaryActionButton('btnConfirm', _('Confirm'), () =>
-        this.takeAtomicAction('actPlaceCard', [args.cardId, args.square.x, args.square.y, +tmpCard.dataset.rotation])
+        this.takeAtomicAction('actPlaceCard', [
+          args.cardId,
+          args.square.x,
+          args.square.y,
+          ((+tmpCard.dataset.rotation % 4) + 4) % 4,
+        ])
       );
     },
 
