@@ -628,7 +628,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
       });
     },
 
-    dojoConnect(element, func) {
+    dojoConnect(element, func, tmp = true) {
       // const connection = dojo.connect($(element), 'click', (evt) => {
       //   evt.preventDefault();
       //   evt.stopPropagation();
@@ -641,7 +641,9 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
         evt.stopPropagation();
         this._pointerDownElt = $(element);
       });
-      this._connections.push(connectionDown);
+      if (tmp) {
+        this._connections.push(connectionDown);
+      }
 
       const connectionUp = dojo.connect($(element), 'pointerup', (evt) => {
         evt.preventDefault();
@@ -650,7 +652,9 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
           func(evt);
         }
       });
-      this._connections.push(connectionUp);
+      if (tmp) {
+        this._connections.push(connectionUp);
+      }
     },
 
     addClass(element, clazz, removeAfter = false, delay = 1000) {

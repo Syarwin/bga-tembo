@@ -1319,7 +1319,8 @@ body {
 #pattern-selector {
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  display: none; }
   #pattern-selector .tembo-pattern .pattern-cell {
     background-image: url("img/icons.png");
     background-size: 396.363636% auto;
@@ -1436,8 +1437,8 @@ body {
     #pattern-controls #pattern-controls-circle #pattern-move-left,
     #pattern-controls #pattern-controls-circle #pattern-confirm-btn {
       position: absolute;
-      width: 32px;
-      height: 32px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: white;
       border: 1px solid black;
@@ -1446,28 +1447,28 @@ body {
       align-items: center;
       pointer-events: all;
       cursor: pointer;
-      font-size: 25px; }
+      font-size: 28px; }
     #pattern-controls #pattern-controls-circle #pattern-rotate-clockwise {
-      top: calc(15% - 16px);
-      left: calc(87% - 15px); }
+      top: calc(15% - 20px);
+      left: calc(87% - 19px); }
       #pattern-controls #pattern-controls-circle #pattern-rotate-clockwise svg {
-        width: 20px; }
+        width: 25px; }
     #pattern-controls #pattern-controls-circle #pattern-rotate-cclockwise {
-      top: calc(15% - 16px);
-      right: calc(87% - 16px); }
+      top: calc(15% - 20px);
+      right: calc(87% - 20px); }
       #pattern-controls #pattern-controls-circle #pattern-rotate-cclockwise svg {
-        width: 20px; }
+        width: 25px; }
     #pattern-controls #pattern-controls-circle #pattern-move-up {
       top: -21px;
-      left: calc(50% - 16px); }
+      left: calc(50% - 20px); }
     #pattern-controls #pattern-controls-circle #pattern-move-down {
       bottom: -21px;
-      left: calc(50% - 16px); }
+      left: calc(50% - 20px); }
     #pattern-controls #pattern-controls-circle #pattern-move-right {
-      top: calc(50% - 16px);
+      top: calc(50% - 20px);
       right: -21px; }
     #pattern-controls #pattern-controls-circle #pattern-move-left {
-      top: calc(50% - 16px);
+      top: calc(50% - 20px);
       left: -21px; }
     #pattern-controls #pattern-controls-circle #pattern-confirm-btn {
       top: calc(85% - 15px);

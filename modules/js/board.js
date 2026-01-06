@@ -89,9 +89,13 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
             );
 
             let oCell = $(`cell-${x}-${y}`);
-            oCell.addEventListener('click', () => {
-              if (this._onClickCell !== null) this._onClickCell(oCell);
-            });
+            this.dojoConnect(
+              oCell,
+              () => {
+                if (this._onClickCell !== null) this._onClickCell(oCell);
+              },
+              false
+            );
             oCell.addEventListener('mouseenter', () => {
               if (this._onHoverCell !== null) this._onHoverCell(oCell);
             });

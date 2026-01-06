@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  display: none;
 
   .tembo-pattern {
     .pattern-cell {
@@ -142,8 +143,8 @@
     #pattern-move-left,
     #pattern-confirm-btn {
       position: absolute;
-      width: 32px;
-      height: 32px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: white;
       border: 1px solid black;
@@ -152,36 +153,36 @@
       align-items: center;
       pointer-events: all;
       cursor: pointer;
-      font-size: 25px;
+      font-size: 28px;
     }
     #pattern-rotate-clockwise {
-      top: calc(15% - 16px);
-      left: calc(87% - 15px);
+      top: calc(15% - 20px);
+      left: calc(87% - 19px);
       svg {
-        width: 20px;
+        width: 25px;
       }
     }
     #pattern-rotate-cclockwise {
-      top: calc(15% - 16px);
-      right: calc(87% - 16px);
+      top: calc(15% - 20px);
+      right: calc(87% - 20px);
       svg {
-        width: 20px;
+        width: 25px;
       }
     }
     #pattern-move-up {
       top: -21px;
-      left: calc(50% - 16px);
+      left: calc(50% - 20px);
     }
     #pattern-move-down {
       bottom: -21px;
-      left: calc(50% - 16px);
+      left: calc(50% - 20px);
     }
     #pattern-move-right {
-      top: calc(50% - 16px);
+      top: calc(50% - 20px);
       right: -21px;
     }
     #pattern-move-left {
-      top: calc(50% - 16px);
+      top: calc(50% - 20px);
       left: -21px;
     }
 
