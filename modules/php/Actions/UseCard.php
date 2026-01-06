@@ -21,6 +21,21 @@ class UseCard extends Action
     return ST_USE_CARD;
   }
 
+  public function isDoable(Player $player): bool
+  {
+    // At least one elephant? Can always place a single elephant
+    if ($player->getRestedElephantsAmount() > 0) return true;
+    // A matriarch card in hand? Can always play it
+    $hand = $player->getHand();
+    $matriarch = $hand->filter(fn($card) => $card->isMatriarch());
+    if (!$matriarch->empty()) return true;
+    // Some spaces left on the board to place a savanna card? Can just play a card
+    $board = new Board();
+    if (!empty($board->getEmptySquares())) return true;
+
+    return false;
+  }
+
   public function argsUseCard()
   {
     $player = Players::getActive();

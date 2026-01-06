@@ -232,6 +232,7 @@ const END_GAME_NO_CARDS = 1;
 const END_GAME_NO_ENERGY = 2;
 const END_GAME_MATRIARCH = 3;
 const END_GAME_NO_ELEPHANTS = 4;
+const END_GAME_NO_VALID_ACTION = 5;
 const END_GAME_WIN = 10;
 
 /******************

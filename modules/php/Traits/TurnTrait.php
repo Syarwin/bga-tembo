@@ -24,7 +24,14 @@ trait TurnTrait
     // Give extra time
     $player = Players::getActive();
     self::giveExtraTime($player->getId());
-    // Stats::incPlayerTurns($player);
+
+    // BLOCKED GAME WITH NO VALID ACTIONS => END OF GAME
+    if (!$player->canTakeAction(USE_CARD, [])) {
+      Globals::setEndGame(END_GAME_NO_VALID_ACTION);
+      $this->sendEndGameNotification(END_GAME_NO_VALID_ACTION);
+      Game::get()->gamestate->jumpToState(ST_PRE_END_OF_GAME);
+      return;
+    }
 
     // Inserting leaf CHOOSE_ACTION
     $node = [
@@ -80,6 +87,7 @@ trait TurnTrait
       END_GAME_NO_ENERGY => clienttranslate('You lost the game because the Energy token reached space zero'),
       END_GAME_MATRIARCH => clienttranslate('You lost the game because both Lion meeples are in the same area as the Matriarch meeple'),
       END_GAME_NO_ELEPHANTS => clienttranslate('You lost the game because ${player_name} has zero Elephants left'),
+      END_GAME_NO_VALID_ACTION => clienttranslate('You lost the game because you have no valid action to play'),
     ][$endGameReason];
     if (Players::isSolo() && $endGameReason === END_GAME_NO_ELEPHANTS) {
       $msg = clienttranslate('You lost the game because you have zero Elephants left');

@@ -28,7 +28,9 @@ trait DebugTrait
 
   function tp()
   {
-    var_dump(ActivateLions::getDistance(['x' => 4, 'y' => 16], ['x' => 6, 'y' => 5]));
+    //    var_dump(ActivateLions::getDistance(['x' => 4, 'y' => 16], ['x' => 6, 'y' => 5]));
+    $player = Players::getActive();
+    var_dump($player->canTakeAction(USE_CARD, []));
   }
 
 
