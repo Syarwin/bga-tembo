@@ -333,6 +333,18 @@ define([
 
       getMeepleTooltip(meeple) {
         let type = meeple.type;
+        if (type == 'tree-green') {
+          return [_('Green tree')];
+        }
+        if (type == 'tree-brown') {
+          return [_('Brown tree')];
+        }
+        if (type == 'tree-red') {
+          return [_('Red tree')];
+        }
+        if (type == 'tree-teal') {
+          return [_('Teal tree')];
+        }
         return null;
       },
 
