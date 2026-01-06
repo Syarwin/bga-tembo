@@ -141,9 +141,11 @@ class EventTiles extends CachedPieces
         Notifications::immediateEvent($msg);
         /** @var Meeple $lion */
         foreach (Meeples::getLions() as $lion) {
+          if ($lion->getState() == STATE_LAYING) continue;
+
           $lion->setState(STATE_LAYING);
+          Notifications::lionMoved($lion);
         }
-        Notifications::lionMoved($lion);
         break;
       case EVENT_EFFECT_ENERGY:
         $msg = clienttranslate('Gain +1 Energy');
