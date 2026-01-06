@@ -39,6 +39,11 @@
   visibility: hidden;
 }
 
+.bgabutton.selected {
+  background: #40c62d;
+  border: 1px solid #2e6a22;
+}
+
 #page-title {
   .tembo-savanna-card {
     position: absolute;

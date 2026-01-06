@@ -161,9 +161,22 @@ class Notifications
   //                      |_|
   /////////////////////////////////
 
+  public static function updateSittingAroundTable($player, $rotation)
+  {
+    self::notify($player, 'updateSittingAroundTable', '', ['rotation' => $rotation]);
+  }
+
+  public static function initialDraw(int $n)
+  {
+    self::message(clienttranslate('Everyone draws ${n} cards as a starting hand'), ['n' => $n]);
+    foreach (Players::getAll() as $player) {
+      self::refreshHand($player, $player->getHand());
+    }
+  }
+
   public static function boardTileRotated(int $id, int $rotation)
   {
-    self::notifyAll('boardTileRotated', '', [
+    self::notifyAll('boardTileRotated', clienttranslate('You rotate one tile'), [
       'id' => $id,
       'rotation' => $rotation,
     ]);

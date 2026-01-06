@@ -47,9 +47,14 @@ $machinestates = [
     'description' => clienttranslate('${actplayer} must choose the direction of play for the entire game'),
     'descriptionmyturn' => clienttranslate('${you} must choose your direction of play for the entire game'),
     'type' => 'multipleactiveplayer',
-    'action' => 'stSittingAroundTable',
     'possibleactions' => ['actSittingAroundTable', 'actChangedMind'],
-    'transitions' => ['' => ST_TURN_BOARD_TILE],
+    'transitions' => ['' => ST_PRE_TURN_BOARD_TILE],
+  ],
+
+  ST_PRE_TURN_BOARD_TILE => [
+    'name' => 'preTurnBoardTile',
+    'type' => 'game',
+    'action' => 'stPreTurnBoardTile',
   ],
 
   ST_TURN_BOARD_TILE => [
@@ -59,7 +64,6 @@ $machinestates = [
     ),
     'descriptionmyturn' => clienttranslate('${you} must decide if you want to pay 2 energy to re-orientate one Savanna board'),
     'type' => 'multipleactiveplayer',
-    'action' => 'stMakeEveryoneActive',
     'possibleactions' => ['actReorientBoardTile', 'actLeaveBoardTiles'],
     'transitions' => ['' => ST_SETUP_CARDS],
   ],

@@ -49,6 +49,8 @@ define([
           'clearTurn',
           'refreshUI',
           'refreshHand',
+          'boardTileRotated',
+          'updateSittingAroundTable',
           'cardPlacedOnBoard',
           'elephantsGained',
           'elephantsLost',

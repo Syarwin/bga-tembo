@@ -13,7 +13,6 @@ define(['dojo', 'dojo/_base/declare', 'ebg/counter'], (dojo, declare) => {
   // Everything ralted to playerboards
   return declare('tembo.board', null, {
     constructor() {
-      this._notifications.push('boardTileRotated');
       this._onClickCell = null;
       this._onHoverCell = null;
     },

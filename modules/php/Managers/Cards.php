@@ -3,6 +3,7 @@
 namespace Bga\Games\Tembo\Managers;
 
 use Bga\Games\Tembo\Core\Globals;
+use Bga\Games\Tembo\Core\Notifications;
 use Bga\Games\Tembo\Helpers\CachedPieces;
 use Bga\Games\Tembo\Helpers\Collection;
 use Bga\Games\Tembo\Helpers\Utils;
@@ -61,9 +62,10 @@ class Cards extends CachedPieces
   {
     $startingCards = static::getFromDeck(CARD_DECK_STARTING);
     shuffle($startingCards);
+    $n = Globals::getCardsHandLimit();
     foreach (Players::getAll() as $player) {
       $values = [];
-      for ($k = 0; $k < Globals::getCardsHandLimit(); $k++) {
+      for ($k = 0; $k < $n; $k++) {
         $card = array_pop($startingCards);
         $values[] = [
           'id' => $card['id'],
@@ -73,6 +75,7 @@ class Cards extends CachedPieces
       }
       static::create($values, LOCATION_HAND . '-' . $player->getId());
     }
+    Notifications::initialDraw($n);
   }
 
   private static function getFromDeck(int $deck): array

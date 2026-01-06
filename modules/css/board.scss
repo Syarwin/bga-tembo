@@ -20,6 +20,10 @@ $cellSize: 50px;
       background-image: url("img/boards.jpg");
       background-size: 300% 200%;
       outline: 1px solid #c49323;
+      position: relative;
+      &.selectable {
+        z-index: 200;
+      }
 
       &[data-id="0"] {
         background-position: 0% 0%;
@@ -53,6 +57,30 @@ $cellSize: 50px;
       }
       &[data-rotation="3"] {
         rotate: 270deg;
+      }
+
+      .rotate-tile {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid black;
+        background: white;
+        transform: translateX(-50%) translateY(-50%);
+        cursor: pointer;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 25px;
+      }
+
+      &.selected {
+        outline: 1px solid green;
+        box-shadow: 0px 0px 3px green;
+        z-index: 300;
       }
     }
 

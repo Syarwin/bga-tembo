@@ -40,6 +40,7 @@ trait SetupTrait
 
   public function stSetupBranch()
   {
+    $this->gamestate->setAllPlayersMultiactive();
     $this->gamestate->nextState('');
   }
 
@@ -49,36 +50,34 @@ trait SetupTrait
     $this->gamestate->nextState('debug');
   }
 
-  // TODO : remove
-  public function stSittingAroundTable()
-  {
-    /** @var Player $player */
-    foreach (Players::getAll() as $player) {
-      if ($player->getRotation() === -1) {
-        $player->setRotation(bga_rand(0, 3));
-      }
-    }
-
-    $this->gamestate->jumpToState(ST_SETUP_CARDS);
-  }
-
   #[CheckAction(false)]
   public function actChangedMind(): void
   {
+    $player = Players::getCurrent();
+    $player->setRotation(-1);
     $this->gamestate->checkPossibleAction('actChangedMind');
-    $this->gamestate->setPlayersMultiactive([Players::getCurrentId()], '');
+    $this->gamestate->setPlayersMultiactive([$player->getId()], '');
+    Notifications::updateSittingAroundTable($player, -1);
   }
 
+  #[CheckAction(false)]
   public function actSittingAroundTable(?int $rotation): void
   {
     $player = Players::getCurrent();
     $player->setRotation($rotation ?? 0);
+    Notifications::updateSittingAroundTable($player, $rotation);
     $this->gamestate->setPlayerNonMultiactive($player->getId(), '');
   }
 
   public function actLeaveBoardTiles(): void
   {
     $this->gamestate->setPlayerNonMultiactive(Players::getCurrentId(), '');
+  }
+
+  public function stPreTurnBoardTile()
+  {
+    $this->gamestate->setAllPlayersMultiactive();
+    $this->gamestate->jumpToState(ST_TURN_BOARD_TILE);
   }
 
   /**
