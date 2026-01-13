@@ -44,6 +44,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onEnteringStateUseSupportToken(args) {
+      this.addCancelStateBtn();
       let btns = {
         0: _('Gain +1 Energy'),
         1: _('Gain +2 rested Elephants'),
