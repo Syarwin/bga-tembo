@@ -149,7 +149,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       let spaces = args.singleSpaces;
       if (isMatriarch) {
         spaces = args.singleSpacesMatriarch;
-      } else {
+      } else if (args.ignoreRoughCardIds === undefined || args.ignoreRoughCardIds.includes(args.cardId)) {
         spaces = args.singleSpacesIgnoreRough;
       }
       spaces.forEach((cell) => {

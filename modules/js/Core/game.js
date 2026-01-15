@@ -223,6 +223,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
         if ($(node)) dojo.removeClass(node, 'selectable selected');
       });
       this._selectableNodes = [];
+      dojo.query('.selectable').removeClass('unselectable');
       dojo.query('.unselectable').removeClass('unselectable');
       dojo.query('.selected').removeClass('selected');
       $('pagesubtitle').innerHTML = '';
