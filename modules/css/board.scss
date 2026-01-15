@@ -83,6 +83,9 @@ $cellSize: 50px;
         z-index: 300;
       }
     }
+    &[data-players="1"] .board-tile {
+      background-image: url("img/boards-solo.jpg");
+    }
 
     .board-start,
     .board-destination {

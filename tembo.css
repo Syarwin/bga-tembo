@@ -736,6 +736,8 @@ body {
         outline: 1px solid green;
         box-shadow: 0px 0px 3px green;
         z-index: 300; }
+    #tembo-board-resizable #tembo-board[data-players="1"] .board-tile {
+      background-image: url("img/boards-solo.jpg"); }
     #tembo-board-resizable #tembo-board .board-start,
     #tembo-board-resizable #tembo-board .board-destination {
       width: 300px;

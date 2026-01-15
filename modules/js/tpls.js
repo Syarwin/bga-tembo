@@ -55,7 +55,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       
         <div id="board-container">
           <div id="tembo-board-resizable">
-            <div id="tembo-board"></div>
+            <div id="tembo-board" data-players="${this.getPlayers().length}"></div>
           </div>
         </div>
       </div>
