@@ -157,7 +157,7 @@ class Meeples extends CachedPieces
     }
 
     $allPlayers = Players::getAll();
-    $elephantsMap = count($allPlayers) === 1 ? [6, 6, 4, 4, 6] : [3, 3, 2, 2, 3];
+    $elephantsMap = count($allPlayers) === 1 ? [6, 6, 4, 4, 6] : (count($allPlayers) == 2 ? [3, 3, 2, 2, 3] : [3, 2, 2, 2, 2]);
     /** @var Player $player */
     foreach ($allPlayers as $player) {
       foreach ($elephantsMap as $elephantType => $elephantAmount) {
@@ -283,7 +283,7 @@ class Meeples extends CachedPieces
   private static function getElephants(int $pId = null): Collection
   {
     $allElephants = self::getAll()->filter(
-    /** @var Meeple $meeple */
+      /** @var Meeple $meeple */
       fn($meeple) => $meeple->isElephant()
     );
     return is_null($pId) ? $allElephants : $allElephants->filter(fn($elephant) => $elephant->getPId() === $pId);
