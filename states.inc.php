@@ -161,19 +161,6 @@ $machinestates = [
     'transitions' => [],
   ],
 
-  ST_IMPOSSIBLE_MANDATORY_ACTION => [
-    'name' => 'impossibleAction',
-    'description' => clienttranslate(
-      '${actplayer} can\'t take the mandatory action and must restart his turn or exchange/cook'
-    ),
-    'descriptionmyturn' => clienttranslate(
-      '${you} can\'t take the mandatory action. Restart your turn or exchange/cook to make it possible'
-    ),
-    'type' => 'activeplayer',
-    'args' => 'argsImpossibleAction',
-    'possibleactions' => ['actRestart'],
-  ],
-
   ST_CONFIRM_END_OF_TURN => [
     'name' => 'confirmEndOfTurn',
     'description' => clienttranslate('${actplayer} must confirm or restart their turn'),

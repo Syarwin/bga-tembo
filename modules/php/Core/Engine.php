@@ -292,7 +292,7 @@ class Engine
     $node = self::getUndoableMandatoryNode($player);
     if (!is_null($node) && $node->getPId() == $player->getId()) {
       throw new UserException(
-        clienttranslate(
+        (
           "You can't take an irreversible action if there is a mandatory undoable action pending"
         )
       );
