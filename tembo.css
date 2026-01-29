@@ -13,6 +13,12 @@
  * Tembo stylesheet
  *
  */
+html {
+  background: url("img/background.jpg"); }
+
+#tembo-main-container {
+  margin-bottom: 50px; }
+
 @font-face {
   font-family: "BerlinSans";
   src: url("img/fonts/BerlinSansFBDemi-Bold.woff2") format("woff2"), url("img/fonts/BerlinSansFBDemi-Bold.ttf") format("truetype");
