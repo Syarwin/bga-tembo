@@ -290,9 +290,9 @@ class Board
 
       $meeplesAtSpace = Meeples::getOnCell(['x' => $dx, 'y' => $dy]);
       $unavailableDestination = !Globals::isDestinationUnlocked() && in_array($cellType, [
-          SPACE_DESTINATION_NORMAL,
-          SPACE_DESTINATION
-        ]);
+        SPACE_DESTINATION_NORMAL,
+        SPACE_DESTINATION
+      ]);
       if (!is_null($cellType) && $cellType !== SPACE_NONE && $meeplesAtSpace->empty() && !$unavailableDestination) {
         $amount = $this->getAmountOfElephantsNeeded($dx, $dy, $ignoreRough);
         $results[] = ['x' => $dx, 'y' => $dy, 'amount' => $amount];
@@ -508,6 +508,12 @@ class Board
       $maxX = max($maxX, $square['x'] + 2);
       $maxY = max($maxY, $square['y'] + 2);
     }
+
+    foreach ($this->destinationSpaces as $cell) {
+      $maxX = max($maxX, $cell['x']);
+      $maxY = max($maxY, $cell['y']);
+    }
+
     return [$maxX, $maxY];
   }
 }
