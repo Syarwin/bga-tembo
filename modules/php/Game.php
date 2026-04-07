@@ -86,7 +86,9 @@ class Game extends \Bga\GameFramework\Table
    */
   function getGameProgression(): int
   {
-    return 0;
+    $allCardsAmount = 17 + 17 + 18 + Globals::getSupportTokens();
+    $cardsLeft = Cards::getAll()->filter(fn($card) => $card->getLocation() === LOCATION_DECK)->count();
+    return (int) ((100 / $allCardsAmount) * ($allCardsAmount - $cardsLeft));
   }
 
   ///////////////////////////////////////////////
