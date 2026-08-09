@@ -218,9 +218,12 @@ class Game extends \Bga\GameFramework\Table
    */
   public function upgradeTableDb($from_version)
   {
-    //        if ($from_version <= 2412211311) {
-    //            $this->updateDBTableCustom();
-    //        }
+    $column = $this->getObjectFromDB("SHOW COLUMNS FROM `meeples` LIKE 'meeple_location'");
+    if ($column['Type'] === 'varchar(16)') {
+      $this->DbQuery("ALTER TABLE `meeples` MODIFY `meeple_location` varchar(17) NOT NULL");
+      $this->DbQuery("ALTER TABLE `meeples` MODIFY `x` tinyint NULL");
+      $this->DbQuery("ALTER TABLE `meeples` MODIFY `y` tinyint NULL");
+    }
   }
 
   function updateDBTableCustom()
