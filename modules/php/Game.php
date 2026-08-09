@@ -223,6 +223,18 @@ class Game extends \Bga\GameFramework\Table
       $this->DbQuery("ALTER TABLE `meeples` MODIFY `meeple_location` varchar(17) NOT NULL");
       $this->DbQuery("ALTER TABLE `meeples` MODIFY `x` tinyint NULL");
       $this->DbQuery("ALTER TABLE `meeples` MODIFY `y` tinyint NULL");
+
+      // The old varchar(16) column truncated the last digit of 'reserve-<player_id>' for any
+      // player_id with 9+ digits (e.g. 100396075 -> 'reserve-10039607'), leaving elephants
+      // stranded in a reserve container that doesn't exist client-side. Re-derive the location
+      // from the (untouched) player_id column now that it fits.
+      $this->DbQuery("
+        UPDATE `meeples`
+        SET `meeple_location` = CONCAT('reserve-', `player_id`)
+        WHERE `meeple_location` LIKE 'reserve-%'
+          AND `player_id` IS NOT NULL
+          AND `meeple_location` <> CONCAT('reserve-', `player_id`)
+      ");
     }
   }
 
